@@ -1,15 +1,27 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import Projects from "./components/Projects";
-import Services from "./components/Services";
-import Blog from "./components/Blog";
-import About from "./components/About";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
+import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import NotFound from "./pages/NotFound";
+import Home from "./pages/Home";
+import BlogArticle from "./pages/BlogArticle";
+import ProjectDetail from "./pages/ProjectDetail";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+function Router() {
+  return (
+    <Switch>
+      <Route path="/" component={Home} />
+      <Route path="/blog/:id" component={BlogArticle} />
+      <Route path="/project/:id" component={ProjectDetail} />
+      <Route path="/404" component={NotFound} />
+      {/* Final fallback route */}
+      <Route component={NotFound} />
+    </Switch>
+  );
+}
 
 function App() {
   return (
@@ -17,15 +29,10 @@ function App() {
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
-          <div className="min-h-screen bg-background">
+          <div className="min-h-screen bg-background flex flex-col">
             <Header />
-            <main>
-              <Hero />
-              <Projects />
-              <Services />
-              <Blog />
-              <About />
-              <Contact />
+            <main className="flex-grow">
+              <Router />
             </main>
             <Footer />
           </div>

@@ -11,7 +11,7 @@ const blogArticles = [
     readTime: "8 min",
     category: "IA & Machine Learning",
     tags: ["Dados Sintéticos", "IA", "Treinamento de Modelos"],
-    link: "#",
+    link: "/blog/dados-sinteticos",
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ const blogArticles = [
     readTime: "10 min",
     category: "Arquitetura de Dados",
     tags: ["Semantic Layer", "Arquitetura", "dbt"],
-    link: "#",
+    link: "/blog/semantic-layers",
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ const blogArticles = [
     readTime: "9 min",
     category: "Cloud & Infraestrutura",
     tags: ["Cloud", "Híbrido", "Otimização de Custos"],
-    link: "#",
+    link: "/blog/cloud-hibrido",
   },
   {
     id: 4,
@@ -44,7 +44,7 @@ const blogArticles = [
     readTime: "7 min",
     category: "IA & Automação",
     tags: ["AI Agents", "Automação", "Qualidade de Dados"],
-    link: "#",
+    link: "/blog/ai-agents",
   },
   {
     id: 5,
@@ -55,7 +55,7 @@ const blogArticles = [
     readTime: "6 min",
     category: "Estratégia",
     tags: ["Transformação Digital", "Receita", "Estratégia"],
-    link: "#",
+    link: "/blog/dados-estrategia",
   },
   {
     id: 6,
@@ -66,7 +66,7 @@ const blogArticles = [
     readTime: "11 min",
     category: "Tendências",
     tags: ["Data Mesh", "Observabilidade", "Infraestrutura"],
-    link: "#",
+    link: "/blog/tendencias-2026",
   },
 ];
 

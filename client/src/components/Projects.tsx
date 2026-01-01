@@ -15,7 +15,7 @@ const projects = [
       "Processamento em tempo real de 1M+ transações/dia",
       "ROI de 3x em 12 meses",
     ],
-    link: "#",
+    link: "/project/fraude-bancaria",
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ const projects = [
       "Redução de 25% no tempo de resposta",
       "Insights acionáveis em <24h",
     ],
-    link: "#",
+    link: "/project/healthcare-insights",
   },
   {
     id: 3,
@@ -45,7 +45,7 @@ const projects = [
       "Eliminação de 95% de erros manuais",
       "Economia de R$ 500k+ anuais",
     ],
-    link: "#",
+    link: "/project/automacao-financeira",
   },
 ];
 
