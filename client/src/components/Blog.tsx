@@ -68,6 +68,72 @@ const blogArticles = [
     tags: ["Data Mesh", "Observabilidade", "Infraestrutura"],
     link: "/blog/tendencias-2026",
   },
+  {
+    id: 7,
+    title: "Real-Time Data Processing: O Futuro Agora",
+    excerpt:
+      "Em 2026, processamento em tempo real deixou de ser opcional. Descubra como engenheiros de dados estão construindo arquiteturas que tomam decisões em milissegundos.",
+    date: "15 de Janeiro de 2026",
+    readTime: "9 min",
+    category: "Arquitetura em Tempo Real",
+    tags: ["Streaming", "Kafka", "Flink"],
+    link: "/blog/real-time-processing",
+  },
+  {
+    id: 8,
+    title: "Edge AI: Quando a Inteligência Sai da Nuvem",
+    excerpt:
+      "Edge AI está transformando como implementamos IA. Saiba como executar modelos localmente para melhor latência, privacidade e custo.",
+    date: "12 de Janeiro de 2026",
+    readTime: "8 min",
+    category: "IA Distribuída",
+    tags: ["Edge Computing", "IoT", "TensorFlow Lite"],
+    link: "/blog/edge-ai",
+  },
+  {
+    id: 9,
+    title: "Vector Databases: A Revolução da Busca Semântica",
+    excerpt:
+      "Vector databases são a infraestrutura crítica para IA generativa. Entenda como implementar busca semântica em seus dados.",
+    date: "10 de Janeiro de 2026",
+    readTime: "10 min",
+    category: "Bancos de Dados",
+    tags: ["Vector DB", "Embeddings", "Busca Semântica"],
+    link: "/blog/vector-databases",
+  },
+  {
+    id: 10,
+    title: "Data Observability: Monitorando a Saúde dos Seus Dados",
+    excerpt:
+      "Dados ruins passam despercebidos até causar problemas. Descubra como implementar observabilidade de dados para confiabilidade.",
+    date: "8 de Janeiro de 2026",
+    readTime: "9 min",
+    category: "Confiabilidade",
+    tags: ["Qualidade de Dados", "Monitoramento", "Anomalias"],
+    link: "/blog/data-observability",
+  },
+  {
+    id: 11,
+    title: "Data Fabric: Arquitetura Unificada para Dados Distribuídos",
+    excerpt:
+      "Data fabric conecta e unifica todas as fontes de dados. Saiba como implementar uma arquitetura que escala com seu negócio.",
+    date: "5 de Janeiro de 2026",
+    readTime: "11 min",
+    category: "Arquitetura de Dados",
+    tags: ["Data Fabric", "Integração", "Governança"],
+    link: "/blog/data-fabric",
+  },
+  {
+    id: 12,
+    title: "Data Privacy by Design: LGPD, GDPR e Compliance em 2026",
+    excerpt:
+      "Privacidade não é um add-on. Descubra como implementar privacy by design desde o início para evitar riscos regulatórios.",
+    date: "2 de Janeiro de 2026",
+    readTime: "10 min",
+    category: "Compliance",
+    tags: ["LGPD", "GDPR", "Privacidade"],
+    link: "/blog/privacy-by-design",
+  },
 ];
 
 export default function Blog() {
