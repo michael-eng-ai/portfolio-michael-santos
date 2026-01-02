@@ -1,8 +1,10 @@
 import { Mail, Download } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 export default function Newsletter() {
+  const { trackNewsletterSignup } = useAnalytics();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -18,6 +20,7 @@ export default function Newsletter() {
 
     // Simulate API call
     setTimeout(() => {
+      trackNewsletterSignup(email);
       toast.success("✓ Email registrado! Verifique sua caixa de entrada.");
       setEmail("");
       setLoading(false);

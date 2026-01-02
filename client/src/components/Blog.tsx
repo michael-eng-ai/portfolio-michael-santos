@@ -1,5 +1,6 @@
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
@@ -137,6 +138,11 @@ const blogArticles = [
 ];
 
 export default function Blog() {
+  const { trackArticleClick } = useAnalytics();
+
+  const handleArticleClick = (id: number, title: string) => {
+    trackArticleClick(`article-${id}`, title);
+  };
   return (
     <section id="blog" className="py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -196,6 +202,7 @@ export default function Blog() {
                   </p>
                   <a
                     href={blogArticles[0].link}
+                    onClick={() => handleArticleClick(blogArticles[0].id, blogArticles[0].title)}
                     className="inline-flex items-center text-primary font-accent text-sm hover:gap-2 transition-all group"
                   >
                     Ler Artigo
@@ -257,6 +264,7 @@ export default function Blog() {
                   </p>
                   <a
                     href={article.link}
+                    onClick={() => handleArticleClick(article.id, article.title)}
                     className="inline-flex items-center text-primary font-accent text-sm hover:gap-2 transition-all group"
                   >
                     Ler

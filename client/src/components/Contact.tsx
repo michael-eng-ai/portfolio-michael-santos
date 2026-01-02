@@ -3,8 +3,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useAnalytics } from "@/hooks/useAnalytics";
+import { toast } from "sonner";
 
 export default function Contact() {
+  const { trackContactFormSubmit } = useAnalytics();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,8 +24,9 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement form submission
-    console.log("Form submitted:", formData);
+    trackContactFormSubmit(formData.company);
+    toast.success("✓ Mensagem enviada! Responderei em até 24 horas.");
+    setFormData({ name: "", email: "", company: "", message: "" });
   };
 
   return (
@@ -164,15 +168,24 @@ export default function Contact() {
                 />
               </div>
 
+              <div className="grid grid-cols-2 gap-4">
               <Button
                 type="submit"
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+                disabled={!formData.name || !formData.email || !formData.message}
               >
                 Enviar Mensagem
               </Button>
+                <a
+                  href="#calendly"
+                  className="inline-flex items-center justify-center px-4 py-2 bg-muted text-foreground border border-border rounded-md font-accent hover:bg-muted/80 transition-colors"
+                >
+                  Agendar Agora
+                </a>
+              </div>
 
               <p className="font-body text-xs text-muted-foreground text-center">
-                Responderei em até 24 horas
+                Responderei em até 24 horas ou agende uma consulta direta
               </p>
             </form>
           </div>
