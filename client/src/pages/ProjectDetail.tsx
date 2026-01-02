@@ -1,6 +1,7 @@
 import { useLocation } from "wouter";
 import { ArrowLeft, Calendar, Users, TrendingUp } from "lucide-react";
 import { Link } from "wouter";
+import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 const projects = {
   "fraude-bancaria": {
@@ -196,21 +197,13 @@ export default function ProjectDetail() {
           {/* Challenge */}
           <section className="mb-12">
             <h2 className="font-heading text-foreground mb-4">O Desafio</h2>
-            <div className="font-body text-foreground leading-relaxed space-y-4">
-              {project.challenge.split("\n\n").map((paragraph, idx) => (
-                <p key={idx}>{paragraph.trim()}</p>
-              ))}
-            </div>
+            <MarkdownRenderer content={project.challenge} />
           </section>
 
           {/* Solution */}
           <section className="mb-12">
             <h2 className="font-heading text-foreground mb-4">A Solução</h2>
-            <div className="font-body text-foreground leading-relaxed space-y-4">
-              {project.solution.split("\n\n").map((paragraph, idx) => (
-                <p key={idx}>{paragraph.trim()}</p>
-              ))}
-            </div>
+            <MarkdownRenderer content={project.solution} />
           </section>
 
           {/* Impact */}
@@ -232,11 +225,7 @@ export default function ProjectDetail() {
           {/* Learnings */}
           <section className="mb-12">
             <h2 className="font-heading text-foreground mb-4">Aprendizados</h2>
-            <div className="font-body text-foreground leading-relaxed space-y-4">
-              {project.learnings.split("\n\n").map((paragraph, idx) => (
-                <p key={idx}>{paragraph.trim()}</p>
-              ))}
-            </div>
+            <MarkdownRenderer content={project.learnings} />
           </section>
 
           {/* Divider */}

@@ -1,6 +1,7 @@
 import { useLocation } from "wouter";
 import { ArrowLeft, Calendar, Clock, Share2 } from "lucide-react";
 import { Link } from "wouter";
+import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 const articles = {
   "dados-sinteticos": {
@@ -339,30 +340,8 @@ export default function BlogArticle() {
           <div className="border-t border-border mb-8" />
 
           {/* Content */}
-          <div className="prose prose-invert max-w-none mb-12">
-            <div className="font-body text-foreground leading-relaxed space-y-6">
-              {article.content.split("\n\n").map((paragraph, idx) => {
-                if (paragraph.startsWith("##")) {
-                  return (
-                    <h2 key={idx} className="font-heading text-foreground mt-8 mb-4">
-                      {paragraph.replace("## ", "")}
-                    </h2>
-                  );
-                }
-                if (paragraph.startsWith("**")) {
-                  return (
-                    <p key={idx} className="text-foreground">
-                      {paragraph}
-                    </p>
-                  );
-                }
-                return (
-                  <p key={idx} className="text-foreground">
-                    {paragraph}
-                  </p>
-                );
-              })}
-            </div>
+          <div className="mb-12">
+            <MarkdownRenderer content={article.content} />
           </div>
 
           {/* Divider */}
