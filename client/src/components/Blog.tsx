@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 13,
+    title: "AI-Ready Data: A Fundação Invisível que Separa o Sucesso do Fracasso em IA",
+    excerpt:
+      "Com 95% de taxa de falha em projetos de IA devido a problemas de dados, 2026 será o ano em que investimentos em dados prontos para IA eclipsarão o desenvolvimento de agentes. Descubra por que a fundação invisível dos dados é o verdadeiro diferencial competitivo.",
+    date: "12 de Janeiro de 2026",
+    readTime: "7 min",
+    category: "IA & Dados",
+    tags: ["AI-Ready Data", "Governança", "Semantic Layers"],
+    link: "/blog/ai-ready-data",
+  },
+  {
     id: 1,
     title: "Dados Sintéticos: A Solução para o Dilema de Treinamento de IA em 2025",
     excerpt:
