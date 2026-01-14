@@ -11,7 +11,8 @@ Posicionar Michael Santos como especialista em engenharia de dados e consultoria
 - **Hero Section**: Proposta de valor impactante com estatísticas
 - **3 Cases de Sucesso**: Projetos detalhados com desafios, soluções e métricas de impacto
 - **6 Serviços de Consultoria**: Soluções escaláveis e versáteis
-- **12 Artigos de Blog**: Tendências em dados, IA e transformação digital
+- **14 Artigos de Blog**: Tendências em dados, IA e transformação digital
+- **Geração Automática de Artigos**: Script com LLM para criar conteúdo original
 - **3 Depoimentos de Clientes**: Feedback de parceiros e empresas
 - **Newsletter**: Guia gratuito "10 Passos para Implementar Dados Estratégicos"
 - **FAQ Interativa**: 10 perguntas em 5 categorias com accordion
@@ -111,9 +112,26 @@ O projeto usa variáveis injetadas automaticamente pelo Manus:
 - `VITE_APP_ID`
 - `VITE_APP_TITLE`
 
-### Adicionar Novo Artigo de Blog
+### Gerar Artigo de Blog Automaticamente
 
-1. Adicione o artigo ao array `articles` em `client/src/pages/BlogArticle.tsx`
+O projeto inclui um script que usa LLM para gerar artigos automaticamente sobre tendências em dados, IA e tecnologia:
+
+```bash
+# Gerar novo artigo
+npx tsx scripts/generateDailyArticle.ts
+```
+
+O script:
+- Usa OpenAI (gpt-4.1-mini) para gerar conteúdo original
+- Cria artigos de mínimo 800 palavras em português brasileiro
+- Conecta tendências com engenharia de dados e aplicações práticas
+- Calcula automaticamente tempo de leitura
+- Gera slug único para roteamento
+- Retorna JSON pronto para integração
+
+### Adicionar Novo Artigo de Blog Manualmente
+
+1. Adicione o artigo ao objeto `articles` em `client/src/pages/BlogArticle.tsx`
 2. Atualize o array `blogArticles` em `client/src/components/Blog.tsx`
 3. O roteamento funciona automaticamente via slug
 

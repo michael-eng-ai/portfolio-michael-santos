@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 14,
+    title: "Computação Generativa: A Revolução da IA na Engenharia de Dados em 2026",
+    excerpt:
+      "Explore como a computação generativa está transformando a engenharia de dados, impulsionando inovações e otimizando decisões estratégicas em 2026.",
+    date: "14 de Janeiro de 2026",
+    readTime: "4 min",
+    category: "IA & Dados",
+    tags: ["Computação Generativa", "Engenharia de Dados", "Inteligência Artificial"],
+    link: "/blog/computacao-generativa",
+  },
+  {
     id: 13,
     title: "AI-Ready Data: A Fundação Invisível que Separa o Sucesso do Fracasso em IA",
     excerpt:
