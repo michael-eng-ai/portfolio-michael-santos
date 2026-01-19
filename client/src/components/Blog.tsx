@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 19,
+    title: "Como a Engenharia de Dados Impulsiona o Crescimento da IA Generativa em 2026",
+    excerpt:
+      "Explore como a engenharia de dados é fundamental para a adoção da IA generativa, transformando dados em ativos estratégicos e abrindo novas oportunidades de negócio.",
+    date: "19 de janeiro de 2026",
+    readTime: "4 min",
+    category: "IA & Dados",
+    tags: ["IA Generativa", "Engenharia de Dados", "Machine Learning"],
+    link: "/blog/como-a-engenharia-de-dados-impulsiona-o-crescimento-da-ia-generativa-em-2026",
+  },
+  {
     id: 18,
     title: "Data Mesh: A Revolução na Engenharia de Dados para 2026 e Além",
     excerpt:
