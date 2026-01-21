@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 21,
+    title: "Data Mesh em 2026: A Revolução na Gestão e Escalabilidade de Dados Corporativos",
+    excerpt:
+      "Descubra como Data Mesh está transformando a gestão de dados em grandes organizações, promovendo descentralização, agilidade e escalabilidade.",
+    date: "21 de janeiro de 2026",
+    readTime: "5 min",
+    category: "Arquitetura de Dados",
+    tags: ["Data Mesh", "Engenharia de Dados", "Arquitetura Descentralizada"],
+    link: "/blog/data-mesh-em-2026-a-revolucao-na-gestao-e-escalabilidade-de-dados-corporativos",
+  },
+  {
     id: 20,
     title: "Data Mesh: A Revolução na Engenharia de Dados para Empresas Ágeis em 2026",
     excerpt:
