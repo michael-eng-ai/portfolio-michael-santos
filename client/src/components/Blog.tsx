@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 25,
+    title: "Data Mesh em 2026: A Revolução Descentralizada na Engenharia de Dados",
+    excerpt:
+      "Explore como o Data Mesh vem transformando a engenharia de dados em 2026, promovendo autonomia, escalabilidade e inovação por meio da descentralização.",
+    date: "25 de janeiro de 2026",
+    readTime: "5 min",
+    category: "IA & Dados",
+    tags: ["Data Mesh", "Engenharia de Dados", "Arquitetura de Dados"],
+    link: "/blog/data-mesh-em-2026-a-revolucao-descentralizada-na-engenharia-de-dados",
+  },
+  {
     id: 24,
     title: "Data Mesh em 2026: Revolucionando a Engenharia de Dados na Era da IA Distribuída",
     excerpt:
