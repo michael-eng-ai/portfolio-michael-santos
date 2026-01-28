@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 29,
+    title: "IA Agêntica: A Revolução Silenciosa que Está Transformando a Engenharia de Dados em 2026",
+    excerpt:
+      "Descubra como a IA Agêntica está automatizando pipelines de dados, eliminando tarefas manuais e gerando bilhões em valor de negócio. A engenharia de dados nunca mais será a mesma.",
+    date: "28 de janeiro de 2026",
+    readTime: "6 min",
+    category: "IA & Dados",
+    tags: ["IA Agêntica", "Engenharia de Dados", "Automação"],
+    link: "/blog/ia-agentica-a-revolucao-silenciosa-que-esta-transformando-a-engenharia-de-dados-em-2026",
+  },
+  {
     id: 28,
     title: "Data Mesh em 2026: Revolucionando a Engenharia de Dados para IA Escalável",
     excerpt:
