@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 30,
+    title: "Modelos de IA Generativa e Engenharia de Dados: A Nova Era da Inteligência Estratégica",
+    excerpt:
+      "Explore como a integração entre IA generativa e engenharia de dados está revolucionando decisões estratégicas, com exemplos práticos e desafios para 2026.",
+    date: "29 de janeiro de 2026",
+    readTime: "4 min",
+    category: "IA & Dados",
+    tags: ["IA Generativa", "Engenharia de Dados", "DataOps"],
+    link: "/blog/modelos-de-ia-generativa-e-engenharia-de-dados-a-nova-era-da-inteligencia-estrategica",
+  },
+  {
     id: 29,
     title: "IA Agêntica: A Revolução Silenciosa que Está Transformando a Engenharia de Dados em 2026",
     excerpt:
