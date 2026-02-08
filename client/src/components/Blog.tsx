@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 39,
+    title: "MLOps 2.0: A Revolução na Engenharia de Dados e IA para 2026",
+    excerpt:
+      "Descubra como o MLOps 2.0 está transformando a engenharia de dados e acelerando a adoção de IA com práticas integradas e automação avançada.",
+    date: "8 de fevereiro de 2026",
+    readTime: "4 min",
+    category: "IA & Dados",
+    tags: ["MLOps", "Engenharia de Dados", "Inteligência Artificial"],
+    link: "/blog/mlops-2-0-a-revolucao-na-engenharia-de-dados-e-ia-para-2026",
+  },
+  {
     id: 38,
     title: "Data Mesh: A Revolução na Engenharia de Dados para 2026",
     excerpt:
