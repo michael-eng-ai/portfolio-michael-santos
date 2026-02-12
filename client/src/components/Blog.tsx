@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 43,
+    title: "Data Fabric em 2026: a revolução da engenharia de dados unificada",
+    excerpt:
+      "Data Fabric emerge como a solução estratégica para integração e governança de dados, transformando a engenharia de dados com agilidade e inteligência em 2026.",
+    date: "12 de fevereiro de 2026",
+    readTime: "5 min",
+    category: "IA & Dados",
+    tags: ["Data Fabric", "Engenharia de Dados", "Governança de Dados"],
+    link: "/blog/data-fabric-em-2026-a-revolucao-da-engenharia-de-dados-unificada",
+  },
+  {
     id: 42,
     title: "Data Mesh em 2026: Revolucionando a Engenharia de Dados para Decisões Ágeis",
     excerpt:
