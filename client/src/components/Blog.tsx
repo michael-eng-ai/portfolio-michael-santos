@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 46,
+    title: "IA Generativa e Engenharia de Dados: O Futuro da Automação Inteligente em 2026",
+    excerpt:
+      "Descubra como a IA generativa está revolucionando a engenharia de dados, automatizando pipelines, melhorando governança e acelerando a transformação digital.",
+    date: "15 de fevereiro de 2026",
+    readTime: "6 min",
+    category: "IA & Dados",
+    tags: ["IA Generativa", "Engenharia de Dados", "Automação"],
+    link: "/blog/ia-generativa-e-engenharia-de-dados-o-futuro-da-automacao-inteligente-em-2026",
+  },
+  {
     id: 45,
     title: "A Ascensão do Data Mesh em 2026: A Revolução na Engenharia de Dados",
     excerpt:
