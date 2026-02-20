@@ -4,6 +4,16 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 51,
+    title: "Data Mesh em 2026: Revolucionando a Engenharia de Dados para Decisões Ágeis",
+    excerpt: "Explore como o Data Mesh está transformando a engenharia de dados, promovendo escalabilidade e autonomia nas empresas digitais em 2026.",
+    date: "20 de fevereiro de 2026",
+    readTime: "4 min",
+    category: "IA & Dados",
+    tags: ["Data Mesh", "Engenharia de Dados", "Arquitetura de Dados"],
+    link: "/blog/data-mesh-em-2026-revolucionando-a-engenharia-de-dados-para-decisoes-ageis",
+  },
+  {
     id: 50,
     title: "Data Mesh em 2026: Revolucionando a Engenharia de Dados e a Governança em Grandes Empresas",
     excerpt: "Descubra como o Data Mesh se consolidou como a arquitetura de dados dominante em 2026, impactando diretamente a engenharia de dados, governança e inovação nas empresas.",
