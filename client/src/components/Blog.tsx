@@ -4,6 +4,16 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 53,
+    title: "Como a Engenharia de Dados Transforma a IA de Tendência em Infraestrutura Estratégica nas Empresas",
+    excerpt: "A inteligência artificial deixou de ser apenas uma tendência para se tornar infraestrutura essencial. Entenda como a engenharia de dados viabiliza essa transformação, garantindo dados confiáveis, governança e eficiência operacional.",
+    date: "21 de fevereiro de 2026",
+    readTime: "5 min",
+    category: "Engenharia de Dados",
+    tags: ["Engenharia de Dados", "Inteligência Artificial", "Governança de Dados"],
+    link: "/blog/como-a-engenharia-de-dados-transforma-a-ia-de-tendencia-em-infraestrutura-estrategica-nas-empresas",
+  },
+  {
     id: 52,
     title: "Data Mesh em 2026: A Revolução da Engenharia de Dados Distribuída",
     excerpt: "Data Mesh transforma a engenharia de dados ao descentralizar propriedade e acelerar insights. Entenda o conceito, aplicações e desafios estratégicos em 2026.",
