@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 54,
+    title: "Streaming em Tempo Real com Apache Kafka e Flink: Revolução nas Decisões Empresariais em 2026",
+    excerpt:
+      "Descubra como Apache Kafka e Flink estão transformando arquiteturas de dados em tempo real, potencializando decisões empresariais ágeis e precisas em 2026.",
+    date: "22 de fevereiro de 2026",
+    readTime: "4 min",
+    category: "Arquitetura de Dados",
+    tags: ["Streaming de Dados", "Apache Kafka", "Apache Flink"],
+    link: "/blog/streaming-em-tempo-real-com-apache-kafka-e-flink-revolucao-nas-decisoes-empresariais-em-2026",
+  },
+  {
     id: 53,
     title: "Como a Engenharia de Dados Transforma a IA de Tendência em Infraestrutura Estratégica nas Empresas",
     excerpt: "A inteligência artificial deixou de ser apenas uma tendência para se tornar infraestrutura essencial. Entenda como a engenharia de dados viabiliza essa transformação, garantindo dados confiáveis, governança e eficiência operacional.",
