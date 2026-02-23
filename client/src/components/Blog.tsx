@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 55,
+    title: "LLMOps em 2026: Engenharia de Dados na Era dos Modelos de Linguagem em Produção",
+    excerpt:
+      "Descubra como LLMOps transforma a engenharia de dados para operacionalizar grandes modelos de linguagem, abordando pipelines, infraestrutura e ferramentas essenciais.",
+    date: "23 de fevereiro de 2026",
+    readTime: "6 min",
+    category: "IA & Dados",
+    tags: ["LLMOps", "Engenharia de Dados", "IA Generativa"],
+    link: "/blog/llmops-em-2026-engenharia-de-dados-na-era-dos-modelos-de-linguagem-em-producao",
+  },
+  {
     id: 54,
     title: "Streaming em Tempo Real com Apache Kafka e Flink: Revolução nas Decisões Empresariais em 2026",
     excerpt:
