@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 56,
+    title: "Agentes de IA Autônomos em 2026: O Papel Vital da Engenharia de Dados",
+    excerpt:
+      "Explore como agentes de IA autônomos revolucionam sistemas inteligentes em 2026, destacando a engenharia de dados como base para seu funcionamento eficiente e escalável.",
+    date: "24 de fevereiro de 2026",
+    readTime: "6 min",
+    category: "IA & Dados",
+    tags: ["Agentes de IA", "Engenharia de Dados", "IA Generativa"],
+    link: "/blog/agentes-de-ia-autonomos-em-2026-o-papel-vital-da-engenharia-de-dados",
+  },
+  {
     id: 55,
     title: "LLMOps em 2026: Engenharia de Dados na Era dos Modelos de Linguagem em Produção",
     excerpt:
