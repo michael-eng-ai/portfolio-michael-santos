@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 57,
+    title: "Observabilidade de Dados: A Nova Fronteira da Engenharia de Dados em 2026",
+    excerpt:
+      "Descubra como a observabilidade de dados está transformando pipelines, garantindo qualidade e agilidade nas decisões estratégicas das empresas em 2026.",
+    date: "25 de fevereiro de 2026",
+    readTime: "4 min",
+    category: "IA & Dados",
+    tags: ["Observabilidade de Dados", "Engenharia de Dados", "Qualidade de Dados"],
+    link: "/blog/observabilidade-de-dados-a-nova-fronteira-da-engenharia-de-dados-em-2026",
+  },
+  {
     id: 56,
     title: "Agentes de IA Autônomos em 2026: O Papel Vital da Engenharia de Dados",
     excerpt:
