@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 58,
+    title: "Engenharia de Dados em 2026: Da Automação à Decisão em Tempo Real no Brasil",
+    excerpt:
+      "Em 2026, pipelines ETL evoluem para sistemas autônomos com IA, enquanto produtos de dados passam a executar decisões em tempo real. Entenda o impacto dessas transformações na engenharia de dados e nos negócios brasileiros.",
+    date: "27 de fevereiro de 2026",
+    readTime: "5 min",
+    category: "Engenharia de Dados",
+    tags: ["Engenharia de Dados", "IA Agêntica", "Streaming"],
+    link: "/blog/engenharia-de-dados-em-2026-da-automacao-a-decisao-em-tempo-real-no-brasil",
+  },
+  {
     id: 57,
     title: "Observabilidade de Dados: A Nova Fronteira da Engenharia de Dados em 2026",
     excerpt:
