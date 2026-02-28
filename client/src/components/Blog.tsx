@@ -4,7 +4,7 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
-    id: 59,
+    id: 60,
     title: "IA Agêntica na Engenharia de Dados: A Nova Era da Transformação Digital",
     excerpt:
       "Descubra como a IA agêntica revoluciona pipelines ETL e gera ROI real para empresas com exemplos do Bradesco e Kard.",
@@ -13,6 +13,17 @@ const blogArticles = [
     category: "Engenharia de Dados",
     tags: ["IA agêntica", "Engenharia de Dados", "Lakeflow"],
     link: "/blog/ia-agentica-na-engenharia-de-dados-a-nova-era-da-transformacao-digital",
+  },
+  {
+    id: 59,
+    title: "Lakehouse Architecture: O Futuro da Engenharia de Dados em 2026",
+    excerpt:
+      "Descubra como a arquitetura Lakehouse está revolucionando a engenharia de dados, unificando data lakes e data warehouses para acelerar a tomada de decisão e otimizar pipelines.",
+    date: "28 de fevereiro de 2026",
+    readTime: "5 min",
+    category: "Arquitetura de Dados",
+    tags: ["Lakehouse", "Engenharia de Dados", "Data Architecture"],
+    link: "/blog/lakehouse-architecture-o-futuro-da-engenharia-de-dados-em-2026",
   },
   {
     id: 58,
