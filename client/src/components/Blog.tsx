@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 59,
+    title: "IA Agêntica na Engenharia de Dados: A Nova Era da Transformação Digital",
+    excerpt:
+      "Descubra como a IA agêntica revoluciona pipelines ETL e gera ROI real para empresas com exemplos do Bradesco e Kard.",
+    date: "28 de fevereiro de 2026",
+    readTime: "8 min",
+    category: "Engenharia de Dados",
+    tags: ["IA agêntica", "Engenharia de Dados", "Lakeflow"],
+    link: "/blog/ia-agentica-na-engenharia-de-dados-a-nova-era-da-transformacao-digital",
+  },
+  {
     id: 58,
     title: "Engenharia de Dados em 2026: Da Automação à Decisão em Tempo Real no Brasil",
     excerpt:
