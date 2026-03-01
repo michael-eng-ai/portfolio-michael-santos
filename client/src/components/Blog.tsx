@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 62,
+    title: "A Revolução do ETL Inteligente em 2026: Como a IA Está Transformando o Papel do Engenheiro de Dados",
+    excerpt:
+      "Em 2026, a incorporação nativa de IA nos pipelines ETL está mudando o jogo para engenheiros de dados e empresas. Com a chegada do Lakeflow da Databricks, funções inteligentes embarcadas reduzem drasticamente o tempo de processamento e ampliam o valor estratégico dos dados.",
+    date: "1 de março de 2026",
+    readTime: "4 min",
+    category: "Engenharia de Dados",
+    tags: ["ETL Inteligente", "Inteligência Artificial", "Engenharia de Dados"],
+    link: "/blog/a-revolucao-do-etl-inteligente-em-2026-como-a-ia-esta-transformando-o-papel-do-engenheiro-de-dados",
+  },
+  {
     id: 61,
     title: "Synthetic Data Generation: a solução para privacidade e escassez de dados no Brasil",
     excerpt:
