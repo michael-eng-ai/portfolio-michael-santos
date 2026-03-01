@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 61,
+    title: "Synthetic Data Generation: a solução para privacidade e escassez de dados no Brasil",
+    excerpt:
+      "Dados sintéticos emergem como ferramenta estratégica para superar desafios de privacidade e escassez no Brasil, alinhando engenharia de dados com LGPD e inovação em IA.",
+    date: "1 de março de 2026",
+    readTime: "6 min",
+    category: "Engenharia de Dados",
+    tags: ["Dados Sintéticos", "Privacidade", "Engenharia de Dados"],
+    link: "/blog/synthetic-data-generation-a-solucao-para-privacidade-e-escassez-de-dados-no-brasil",
+  },
+  {
     id: 60,
     title: "IA Agêntica na Engenharia de Dados: A Nova Era da Transformação Digital",
     excerpt:
