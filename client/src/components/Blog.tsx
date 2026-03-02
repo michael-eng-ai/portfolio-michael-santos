@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 64,
+    title: "IA em Tempo Real: Como Engenheiros de Dados Conectam o Presente ao Futuro",
+    excerpt:
+      "A Confluent Intelligence está redefinindo o papel da IA empresarial, integrando-a com dados de negócio em tempo real. Este artigo explora como a engenharia de dados se torna a espinha dorsal dessa revolução, permitindo que empresas tomem decisões estratégicas e ágeis. Descubra o impacto nos negócios e o novo horizonte para profissionais de dados.",
+    date: "2 de março de 2026",
+    readTime: "8 min",
+    category: "Engenharia de Dados",
+    tags: ["data streaming", "agentes de IA", "Apache Kafka"],
+    link: "/blog/ia-em-tempo-real-como-engenheiros-de-dados-conectam-o-presente-ao-futuro",
+  },
+  {
     id: 63,
     title: "Data Mesh em 2026: Revolucionando a Engenharia de Dados nas Empresas",
     excerpt:
