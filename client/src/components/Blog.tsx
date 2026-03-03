@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 65,
+    title: "Observabilidade de Dados em 2026: O Futuro da Engenharia de Dados Transparente",
+    excerpt:
+      "Entenda como a observabilidade de dados está revolucionando a engenharia de dados, garantindo qualidade, confiança e agilidade em ambientes complexos e distribuídos.",
+    date: "3 de março de 2026",
+    readTime: "6 min",
+    category: "Engenharia de Dados",
+    tags: ["Observabilidade de Dados", "Engenharia de Dados", "Qualidade de Dados"],
+    link: "/blog/observabilidade-de-dados-em-2026-o-futuro-da-engenharia-de-dados-transparente",
+  },
+  {
     id: 64,
     title: "IA em Tempo Real: Como Engenheiros de Dados Conectam o Presente ao Futuro",
     excerpt:
