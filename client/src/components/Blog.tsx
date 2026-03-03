@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 66,
+    title: "Adeus, Pipeline Tradicional: Como a Engenharia de Dados está se Transformando para a Era da IA (e por que seu negócio precisa agir AGORA)",
+    excerpt:
+      "A engenharia de dados está em uma revolução. Os pipelines ETL tradicionais estão dando lugar a sistemas adaptativos, impulsionados pela IA. Descubra como essa transformação impacta seu negócio e o papel crucial do engenheiro de dados como Arquiteto de Contexto.",
+    date: "3 de março de 2026",
+    readTime: "7 min",
+    category: "Engenharia de Dados",
+    tags: ["Engenharia de Dados", "IA Generativa", "Pipelines de Dados"],
+    link: "/blog/adeus-pipeline-tradicional-como-a-engenharia-de-dados-esta-se-transformando-para-a-era-da-ia-e-por-que-seu-negocio-precisa-agir-agora",
+  },
+  {
     id: 65,
     title: "Observabilidade de Dados em 2026: O Futuro da Engenharia de Dados Transparente",
     excerpt:
