@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 68,
+    title: "Por que seu projeto de IA vai falhar sem engenharia de dados de ponta",
+    excerpt:
+      "Apesar do entusiasmo com IA, 62% das empresas ainda estão em piloto e 72% não investem em dados. Entenda como a engenharia de dados é o verdadeiro motor para escalar IA e garantir impacto real nos negócios.",
+    date: "4 de março de 2026",
+    readTime: "5 min",
+    category: "Engenharia de Dados",
+    tags: ["Inteligência Artificial", "Engenharia de Dados", "Data Quality"],
+    link: "/blog/por-que-seu-projeto-de-ia-vai-falhar-sem-engenharia-de-dados-de-ponta",
+  },
+  {
     id: 67,
     title: "Feature Stores: O Pilar Estratégico da Engenharia de Dados para Modelos de IA em 2026",
     excerpt:
