@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 67,
+    title: "Feature Stores: O Pilar Estratégico da Engenharia de Dados para Modelos de IA em 2026",
+    excerpt:
+      "Descubra como Feature Stores revolucionam a engenharia de dados, garantindo consistência, escalabilidade e eficiência em projetos de IA, com aplicações práticas e métricas reais.",
+    date: "4 de março de 2026",
+    readTime: "7 min",
+    category: "Engenharia de Dados",
+    tags: ["Feature Store", "MLOps", "Engenharia de Dados"],
+    link: "/blog/feature-stores-o-pilar-estrategico-da-engenharia-de-dados-para-modelos-de-ia-em-2026",
+  },
+  {
     id: 66,
     title: "Adeus, Pipeline Tradicional: Como a Engenharia de Dados está se Transformando para a Era da IA (e por que seu negócio precisa agir AGORA)",
     excerpt:
