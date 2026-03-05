@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 70,
+    title: "Engenharia de Dados: O Pilar Estratégico para Vencer na Era da IA e Dados Limpos",
+    excerpt:
+      "Com a explosão da IA e agentes autônomos, dados limpos e infraestrutura robusta são essenciais para vantagem competitiva. Veja como a engenharia de dados transforma desafios em oportunidades reais para negócios brasileiros.",
+    date: "5 de março de 2026",
+    readTime: "5 min",
+    category: "Engenharia de Dados",
+    tags: ["engenharia de dados", "inteligência artificial", "pipeline de dados"],
+    link: "/blog/engenharia-de-dados-o-pilar-estrategico-para-vencer-na-era-da-ia-e-dados-limpos",
+  },
+  {
     id: 69,
     title: "Model Context Protocol (MCP): Revolucionando a Integração entre LLMs e Sistemas de Dados",
     excerpt:
