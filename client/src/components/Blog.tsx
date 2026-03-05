@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 69,
+    title: "Model Context Protocol (MCP): Revolucionando a Integração entre LLMs e Sistemas de Dados",
+    excerpt:
+      "O Model Context Protocol (MCP) está transformando como grandes modelos de linguagem interagem com sistemas de dados, trazendo eficiência e segurança na integração de IA e backend.",
+    date: "5 de março de 2026",
+    readTime: "6 min",
+    category: "IA & Dados",
+    tags: ["Model Context Protocol", "LLM", "Engenharia de Dados"],
+    link: "/blog/model-context-protocol-mcp-revolucionando-a-integracao-entre-llms-e-sistemas-de-dados",
+  },
+  {
     id: 68,
     title: "Por que seu projeto de IA vai falhar sem engenharia de dados de ponta",
     excerpt:
