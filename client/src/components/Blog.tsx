@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 71,
+    title: "Quantum Computing em Dados e IA: Revolução Prática para 2026 no Brasil",
+    excerpt:
+      "Descubra como a computação quântica está transformando a engenharia de dados e IA em 2026, com aplicações concretas, desafios e estratégias para empresas brasileiras liderarem essa inovação.",
+    date: "6 de março de 2026",
+    readTime: "5 min",
+    category: "IA & Dados",
+    tags: ["Computação Quântica", "Engenharia de Dados", "Inteligência Artificial"],
+    link: "/blog/quantum-computing-em-dados-e-ia-revolucao-pratica-para-2026-no-brasil",
+  },
+  {
     id: 70,
     title: "Engenharia de Dados: O Pilar Estratégico para Vencer na Era da IA e Dados Limpos",
     excerpt:
