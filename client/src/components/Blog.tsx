@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 72,
+    title: "Data Mesh em 2026: A Revolução na Escalabilidade e Governança de Dados Corporativos",
+    excerpt:
+      "Entenda como o Data Mesh está transformando a engenharia de dados, ampliando a escalabilidade e eficiência nas organizações em 2026.",
+    date: "7 de março de 2026",
+    readTime: "4 min",
+    category: "IA & Dados",
+    tags: ["Data Mesh", "Engenharia de Dados", "Governança de Dados"],
+    link: "/blog/data-mesh-em-2026-a-revolucao-na-escalabilidade-e-governanca-de-dados-corporativos",
+  },
+  {
     id: 71,
     title: "Quantum Computing em Dados e IA: Revolução Prática para 2026 no Brasil",
     excerpt:
