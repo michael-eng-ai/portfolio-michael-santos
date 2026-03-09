@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 73,
+    title: "Agentes de IA Autônomos na Engenharia de Dados: O Futuro dos Pipelines Inteligentes",
+    excerpt:
+      "Descubra como agentes de IA autônomos revolucionam pipelines de dados, automatizando decisões e otimizando operações em engenharia de dados para ganhos estratégicos.",
+    date: "9 de março de 2026",
+    readTime: "4 min",
+    category: "IA & Dados",
+    tags: ["Agentes de IA", "Engenharia de Dados", "Automação"],
+    link: "/blog/agentes-de-ia-autonomos-na-engenharia-de-dados-o-futuro-dos-pipelines-inteligentes",
+  },
+  {
     id: 72,
     title: "Data Mesh em 2026: A Revolução na Escalabilidade e Governança de Dados Corporativos",
     excerpt:
