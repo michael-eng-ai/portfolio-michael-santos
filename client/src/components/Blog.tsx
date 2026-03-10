@@ -4,6 +4,17 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const blogArticles = [
   {
+    id: 74,
+    title: "Governança de IA em 2026: Como a LGPD Molda a Conformidade e Segurança de Dados",
+    excerpt:
+      "Em 2026, a governança de IA se tornou central para empresas brasileiras que buscam conformidade com a LGPD, mitigação de riscos e ética no uso de algoritmos avançados. Descubra como implementar políticas eficazes e integrar compliance na engenharia de dados.",
+    date: "10 de março de 2026",
+    readTime: "5 min",
+    category: "IA & Dados",
+    tags: ["Governança de IA", "LGPD", "Compliance"],
+    link: "/blog/governanca-de-ia-em-2026-como-a-lgpd-molda-a-conformidade-e-seguranca-de-dados",
+  },
+  {
     id: 73,
     title: "Agentes de IA Autônomos na Engenharia de Dados: O Futuro dos Pipelines Inteligentes",
     excerpt:
