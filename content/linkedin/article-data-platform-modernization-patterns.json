@@ -3,18 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "data-platform-modernization-patterns",
   "status": "draft",
-  "generatedAt": "2026-03-11T17:20:32.334Z",
+  "generatedAt": "2026-03-12T20:34:51.822Z",
   "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/data-platform-modernization-patterns",
+    "pt": "https://michael.business/pt/articles/data-platform-modernization-patterns",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
   "locales": {
     "en": {
       "hook": "Three Patterns Behind Modern Data Platform Delivery",
       "body": "Across lakehouse, warehouse, and cross-cloud implementations, the winning pattern is not a single tool. It is the ability to connect platform design, governed data flow, and delivery clarity.",
-      "cta": "See the full story on the site and explore the GitHub implementation."
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
       "hook": "Tres Padrões Por Trás da Entrega de Plataformas Modernas de Dados",
       "body": "Em implementações lakehouse, warehouse e cross-cloud, o padrão vencedor não é uma única ferramenta. É a capacidade de conectar desenho de plataforma, fluxo governado de dados e clareza na entrega.",
-      "cta": "Veja a historia completa no site e explore a implementacao no GitHub."
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }
 }

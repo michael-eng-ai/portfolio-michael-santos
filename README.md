@@ -31,6 +31,7 @@ This repository powers a bilingual `Next.js` content platform designed to close 
 - `content/articles/`: bilingual long-form articles
 - `content/news/`: curated external references
 - `content/linkedin/`: draft or published LinkedIn payloads
+- `content/x/`: draft or published X payloads
 - `content/generated/`: synchronized GitHub metadata snapshots
 
 ## Local Development
@@ -62,8 +63,10 @@ Set `NEXT_PUBLIC_GA_MEASUREMENT_ID` with your GA4 measurement ID (for example `G
 ```bash
 pnpm content:new:project --slug your-project --repo owner/repo
 pnpm content:new:article --slug your-article
+pnpm content:generate:article
 pnpm content:sync:github
 pnpm content:linkedin
+pnpm content:x
 ```
 
 ## Newsletter
@@ -86,5 +89,7 @@ See `DEPLOYMENT.md` for Vercel setup, required secrets, scheduled jobs, and doma
 ## Automation
 
 - `.github/workflows/news-auto-publish.yml`: syncs curated RSS news every 6 hours and opens an automated PR with the generated refresh
-- `.github/workflows/content-pipeline.yml`: syncs GitHub metadata and LinkedIn drafts, then opens a review PR
+- `.github/workflows/content-pipeline.yml`: syncs GitHub metadata and regenerates LinkedIn and X drafts, then opens a review PR
+- `.github/workflows/article-draft-pipeline.yml`: generates a bilingual article draft with AI, refreshes social drafts, and opens a review PR
+- `.github/workflows/social-distribution.yml`: publishes a selected draft slug to LinkedIn and/or X through protected API routes
 - Vercel Git integration: deploys new commits automatically after they land on `main`

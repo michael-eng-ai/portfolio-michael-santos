@@ -4,6 +4,31 @@ import path from "node:path";
 import { getArticles, getProjects } from "@/lib/content";
 import { localePath, siteConfig } from "@/lib/site";
 
+function limitPost(text: string, maxLength = 278) {
+  if (text.length <= maxLength) {
+    return text;
+  }
+
+  return `${text.slice(0, maxLength - 1).trimEnd()}…`;
+}
+
+function buildPost(parts: Array<string | null | undefined>, url?: string | null) {
+  const content = parts.filter(Boolean).join("\n\n");
+
+  if (!url) {
+    return limitPost(content);
+  }
+
+  const suffix = `\n\n${url}`;
+  const maxContentLength = Math.max(40, 278 - suffix.length);
+  const trimmedContent =
+    content.length <= maxContentLength
+      ? content
+      : `${content.slice(0, maxContentLength - 1).trimEnd()}…`;
+
+  return `${trimmedContent}${suffix}`;
+}
+
 function createDraftPayload({
   slug,
   sourceType,
@@ -27,6 +52,36 @@ function createDraftPayload({
     proof: string | null;
   };
 }) {
+  const enPosts = [
+    buildPost([
+      titleEn,
+      excerptEn,
+      "Read on site:",
+    ], urls.en),
+  ];
+
+  const ptPosts = [
+    buildPost([
+      titlePt,
+      excerptPt,
+      "Leia no site:",
+    ], urls.pt),
+  ];
+
+  if (urls.proof) {
+    enPosts.push(
+      buildPost([
+        "Operational proof lives on GitHub.",
+      ], urls.proof),
+    );
+
+    ptPosts.push(
+      buildPost([
+        "A prova operacional esta no GitHub.",
+      ], urls.proof),
+    );
+  }
+
   return {
     slug,
     sourceType,
@@ -37,21 +92,17 @@ function createDraftPayload({
     urls,
     locales: {
       en: {
-        hook: titleEn,
-        body: excerptEn,
-        cta: "Read the full story on the site and use GitHub as the operational proof point."
+        posts: enPosts,
       },
       pt: {
-        hook: titlePt,
-        body: excerptPt,
-        cta: "Leia a historia completa no site e use o GitHub como prova operacional."
-      }
-    }
+        posts: ptPosts,
+      },
+    },
   };
 }
 
 async function writeDraft(slug: string, payload: unknown) {
-  const targetPath = path.join(process.cwd(), "content", "linkedin", `${slug}.json`);
+  const targetPath = path.join(process.cwd(), "content", "x", `${slug}.json`);
   await fs.mkdir(path.dirname(targetPath), { recursive: true });
   await fs.writeFile(targetPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
   console.log(`Generated ${targetPath}`);

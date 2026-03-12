@@ -16,7 +16,8 @@
     "content:sync:news": "tsx scripts/sync-news.ts",
     "content:sync:github": "tsx scripts/sync-github-projects.ts",
     "content:linkedin": "tsx scripts/generate-linkedin-drafts.ts",
-    "content:pipeline": "pnpm content:sync:news && pnpm content:sync:github && pnpm content:linkedin && pnpm content:validate",
+    "content:x": "tsx scripts/generate-x-drafts.ts",
+    "content:pipeline": "pnpm content:sync:news && pnpm content:sync:github && pnpm content:linkedin && pnpm content:x && pnpm content:validate",
     "deploy": "vercel --prod",
     "deploy:preview": "vercel"
   },

@@ -10,7 +10,9 @@ This repository now runs as a `Next.js` content platform, which makes Vercel a s
 
 - `.github/workflows/ci.yml` for install, content validation, type check, and build
 - `.github/workflows/news-auto-publish.yml` for automatic RSS news publication to `main`
-- `.github/workflows/content-pipeline.yml` for scheduled GitHub sync and LinkedIn draft generation via pull request
+- `.github/workflows/content-pipeline.yml` for scheduled GitHub sync and LinkedIn/X draft generation via pull request
+- `.github/workflows/article-draft-pipeline.yml` for AI article draft generation plus social draft refresh
+- `.github/workflows/social-distribution.yml` for protected distribution to LinkedIn and X
 - `.github/workflows/deploy-vercel.yml` for optional manual deploys through GitHub Actions
 - `app/sitemap.ts`, `app/robots.ts`, and `app/feed.xml/route.ts` for SEO outputs
 
@@ -34,6 +36,8 @@ Optional but recommended:
 - `LINKEDIN_ACCESS_TOKEN`
 - `LINKEDIN_PERSON_URN`
 - `LINKEDIN_PUBLISH_SECRET`
+- `X_USER_ACCESS_TOKEN`
+- `X_PUBLISH_SECRET`
 
 ## First-Time Vercel Setup
 
@@ -65,7 +69,15 @@ Optional but recommended:
 ### GitHub sync and LinkedIn drafts
 - The scheduled workflow runs `pnpm content:sync:github`
 - It then runs `pnpm content:linkedin`
+- It also runs `pnpm content:x`
 - If outputs change, the workflow opens a pull request automatically
+
+### AI article draft generation
+- `.github/workflows/article-draft-pipeline.yml` runs on weekdays and manual dispatch
+- It requires `OPENAI_API_KEY`
+- It creates a bilingual article draft in `content/articles`
+- It refreshes LinkedIn and X draft assets so distribution stays aligned with the site
+- It opens a pull request instead of publishing directly, which keeps editorial review available
 
 ### Newsletter backend
 - Create the subscriber table using `supabase/newsletter_subscribers.sql`
@@ -96,6 +108,13 @@ In GA4, mark those events as key events if you want them treated as conversions 
 - Direct publishing should only be enabled after the relevant LinkedIn API access is approved
 - Keep `LINKEDIN_PUBLISH_ENABLED=false` until approval exists
 - Protect the publish route with `LINKEDIN_PUBLISH_SECRET`
+
+### X publishing
+- Draft generation works without X credentials
+- Direct publishing requires a user-context access token that can create posts on your behalf
+- Keep `X_PUBLISH_ENABLED=false` until the token is configured
+- Protect the publish route with `X_PUBLISH_SECRET`
+- Use `.github/workflows/social-distribution.yml` to publish a selected draft slug to LinkedIn, X, or both
 
 ## GoDaddy: MCP e hospedagem
 

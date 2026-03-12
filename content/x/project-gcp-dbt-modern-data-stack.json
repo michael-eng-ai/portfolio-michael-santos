@@ -1,0 +1,27 @@
+{
+  "slug": "project-gcp-dbt-modern-data-stack",
+  "sourceType": "project",
+  "sourceSlug": "gcp-dbt-modern-data-stack",
+  "status": "draft",
+  "generatedAt": "2026-03-12T20:37:59.137Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/projects/gcp-dbt-modern-data-stack",
+    "pt": "https://michael.business/pt/projects/gcp-dbt-modern-data-stack",
+    "proof": "https://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "GCP Modern Data Stack\n\nA cloud-native analytics engineering project showing how Terraform, Python ingestion, dbt, and CI/CD work together in a repeatable GCP workflow.\n\nRead on site:\n\nhttps://michael.business/en/projects/gcp-dbt-modern-data-stack",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Modern Data Stack na GCP\n\nUm projeto cloud-native de analytics engineering mostrando como Terraform, ingestão em Python, dbt e CI/CD trabalham juntos em um fluxo repetível na GCP.\n\nLeia no site:\n\nhttps://michael.business/pt/projects/gcp-dbt-modern-data-stack",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+      ]
+    }
+  }
+}

@@ -1,0 +1,54 @@
+name: Social Distribution
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: Draft slug to publish
+        required: true
+        type: string
+      locale:
+        description: Locale to publish
+        required: true
+        default: en
+        type: choice
+        options:
+          - en
+          - pt
+      channel:
+        description: Channel to publish
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - linkedin
+          - x
+
+concurrency:
+  group: social-distribution-${{ inputs.slug }}-${{ inputs.locale }}-${{ inputs.channel }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Publish to LinkedIn
+        if: inputs.channel == 'all' || inputs.channel == 'linkedin'
+        run: |
+          curl --fail-with-body --request POST \
+            --url "https://michael.business/api/linkedin/publish" \
+            --header "Content-Type: application/json" \
+            --header "x-linkedin-publish-secret: ${{ secrets.LINKEDIN_PUBLISH_SECRET }}" \
+            --data '{"slug":"${{ inputs.slug }}","locale":"${{ inputs.locale }}"}'
+
+      - name: Publish to X
+        if: inputs.channel == 'all' || inputs.channel == 'x'
+        run: |
+          curl --fail-with-body --request POST \
+            --url "https://michael.business/api/x/publish" \
+            --header "Content-Type: application/json" \
+            --header "x-x-publish-secret: ${{ secrets.X_PUBLISH_SECRET }}" \
+            --data '{"slug":"${{ inputs.slug }}","locale":"${{ inputs.locale }}"}'

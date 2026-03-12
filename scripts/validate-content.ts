@@ -9,6 +9,7 @@ import {
   newsFeedCatalogSchema,
   newsSchema,
   projectSchema,
+  xDraftSchema,
 } from "@/lib/content";
 
 async function validateDirectory(directory: string, parser: { parse: (value: unknown) => unknown }) {
@@ -29,6 +30,7 @@ async function main() {
   const articleCount = await validateDirectory("articles", articleSchema);
   const newsCount = await validateDirectory("news", newsSchema);
   const linkedinCount = await validateDirectory("linkedin", linkedinDraftSchema);
+  const xCount = await validateDirectory("x", xDraftSchema).catch(() => 0);
   const sourcesRaw = await fs.readFile(
     path.join(process.cwd(), "content", "sources", "news-feeds.json"),
     "utf8",
@@ -49,7 +51,7 @@ async function main() {
   snapshotPayload.repos.forEach((entry) => githubRepoSnapshotSchema.parse(entry));
 
   console.log(
-    `Validated ${projectCount} projects, ${articleCount} articles, ${newsCount} manual news references, ${generatedNews.items.length} generated news items, ${sources.length} feed sources, and ${linkedinCount} LinkedIn drafts.`,
+    `Validated ${projectCount} projects, ${articleCount} articles, ${newsCount} manual news references, ${generatedNews.items.length} generated news items, ${sources.length} feed sources, ${linkedinCount} LinkedIn drafts, and ${xCount} X drafts.`,
   );
 }
 
