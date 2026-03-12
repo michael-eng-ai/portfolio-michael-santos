@@ -29,6 +29,7 @@ Optional but recommended:
 - `RESEND_API_KEY`
 - `NEWSLETTER_FROM_EMAIL`
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID`
+- `GOOGLE_SITE_VERIFICATION`
 - `OPENAI_API_KEY`
 - `LINKEDIN_ACCESS_TOKEN`
 - `LINKEDIN_PERSON_URN`
@@ -76,6 +77,19 @@ Optional but recommended:
 - Copy the Measurement ID, which looks like `G-XXXXXXXXXX`
 - Add it to Vercel as `NEXT_PUBLIC_GA_MEASUREMENT_ID`
 - Redeploy or push a new commit so the measurement script is included in production
+
+The site now emits these conversion-friendly events:
+
+- `newsletter_signup`
+- `contact_click`
+
+In GA4, mark those events as key events if you want them treated as conversions in reports.
+
+### Google Search Console
+- Prefer a `Domain property` if you want one verification to cover `michael.business`, `www`, and future subdomains
+- Use the TXT record that Search Console provides and add it in GoDaddy DNS
+- Alternative: use a URL-prefix property and add the token to Vercel as `GOOGLE_SITE_VERIFICATION`
+- After verification, submit `https://michael.business/sitemap.xml`
 
 ### LinkedIn publishing
 - Draft generation works without LinkedIn credentials
@@ -158,6 +172,8 @@ Se preferir zero manutenção de DNS no futuro, uma alternativa é manter o dom�
 
 - Home page loads in both English and Portuguese
 - Google Analytics is receiving page views in GA4 Realtime
+- `newsletter_signup` and `contact_click` show up in GA4 after testing
+- `michael.business/sitemap.xml` is submitted in Search Console
 - Project pages render localized content correctly
 - Article and news pages open correctly on refresh and direct access
 - Resume download works

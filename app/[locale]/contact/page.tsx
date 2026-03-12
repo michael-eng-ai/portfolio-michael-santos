@@ -1,3 +1,4 @@
+import { TrackedExternalLink } from "@/components/tracked-external-link";
 import { buildPageMetadata } from "@/lib/seo";
 import { Locale, copy, siteConfig } from "@/lib/site";
 
@@ -61,9 +62,14 @@ export default async function ContactPage({
           <div className="space-y-5 text-slate-300">
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-slate-400">Email</p>
-              <a href={`mailto:${siteConfig.email}`} className="link-safe-break mt-2 block text-base text-white sm:text-lg">
+              <TrackedExternalLink
+                href={`mailto:${siteConfig.email}`}
+                className="link-safe-break mt-2 block text-base text-white sm:text-lg"
+                eventName="contact_click"
+                eventParams={{ channel: "email", location: "contact_page" }}
+              >
                 {siteConfig.email}
-              </a>
+              </TrackedExternalLink>
             </div>
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-slate-400">GitHub</p>
@@ -73,9 +79,16 @@ export default async function ContactPage({
             </div>
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-slate-400">LinkedIn</p>
-              <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer" className="link-safe-break mt-2 block text-base text-white sm:text-lg">
+              <TrackedExternalLink
+                href={siteConfig.linkedinUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="link-safe-break mt-2 block text-base text-white sm:text-lg"
+                eventName="contact_click"
+                eventParams={{ channel: "linkedin", location: "contact_page" }}
+              >
                 {siteConfig.linkedinUrl}
-              </a>
+              </TrackedExternalLink>
             </div>
           </div>
         </section>
