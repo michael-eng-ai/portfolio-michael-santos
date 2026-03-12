@@ -8,6 +8,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  statuses: write
 
 concurrency:
   group: content-pipeline
@@ -46,6 +47,7 @@ jobs:
         run: pnpm content:validate
 
       - name: Create pull request for content updates
+        id: create_content_pr
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "chore: update content pipeline outputs"
@@ -53,3 +55,15 @@ jobs:
           body: |
             Automated update from the content pipeline workflow.
           branch: chore/content-pipeline-updates
+
+      - name: Mark validation status on generated content PR
+        if: steps.create_content_pr.outputs.pull-request-head-sha != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+            repos/${{ github.repository }}/statuses/${{ steps.create_content_pr.outputs.pull-request-head-sha }} \
+            -f state=success \
+            -f context=validate \
+            -f description='Validated automated content update' \
+            -f target_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
