@@ -79,6 +79,11 @@ Optional but recommended:
 - It refreshes LinkedIn and X draft assets so distribution stays aligned with the site
 - It opens a pull request instead of publishing directly, which keeps editorial review available
 
+### Local Claude generation
+- If you prefer running generation on your own machine, use `pnpm content:generate:article:claude`
+- For branch plus commit plus optional PR automation, use `pnpm content:local:automation`
+- The local automation guide and `launchd` example live in `docs/LOCAL_CLAUDE_AUTOMATION.md`
+
 ### Newsletter backend
 - Create the subscriber table using `supabase/newsletter_subscribers.sql`
 - Add `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`

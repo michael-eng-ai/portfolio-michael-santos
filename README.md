@@ -64,6 +64,8 @@ Set `NEXT_PUBLIC_GA_MEASUREMENT_ID` with your GA4 measurement ID (for example `G
 pnpm content:new:project --slug your-project --repo owner/repo
 pnpm content:new:article --slug your-article
 pnpm content:generate:article
+pnpm content:generate:article:claude -- --topic "AI agents for governed analytics"
+pnpm content:local:automation -- --topic "AI agents for governed analytics"
 pnpm content:sync:github
 pnpm content:linkedin
 pnpm content:x
@@ -85,6 +87,8 @@ The repository supports two modes:
 ## Deployment
 
 See `DEPLOYMENT.md` for Vercel setup, required secrets, scheduled jobs, and domain rollout for `michael.business`.
+
+For local scheduled generation with Claude Code, see `docs/LOCAL_CLAUDE_AUTOMATION.md`.
 
 ## Automation
 
