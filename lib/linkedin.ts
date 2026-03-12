@@ -23,30 +23,32 @@ export async function publishLinkedinDraft(draft: LinkedinDraft, locale: Locale 
 
   const payload = {
     author: personUrn,
-    commentary: [
-      localizedDraft.hook,
-      localizedDraft.body,
-      localizedDraft.cta,
-      siteUrl,
-      proofUrl,
-    ]
-      .filter(Boolean)
-      .join("\n\n"),
-    visibility: "PUBLIC",
-    distribution: {
-      feedDistribution: "MAIN_FEED",
-      targetEntities: [],
-      thirdPartyDistributionChannels: [],
-    },
     lifecycleState: "PUBLISHED",
-    isReshareDisabledByAuthor: false,
+    specificContent: {
+      "com.linkedin.ugc.ShareContent": {
+        shareCommentary: {
+          text: [
+            localizedDraft.hook,
+            localizedDraft.body,
+            localizedDraft.cta,
+            siteUrl,
+            proofUrl,
+          ]
+            .filter(Boolean)
+            .join("\n\n"),
+        },
+        shareMediaCategory: "NONE",
+      },
+    },
+    visibility: {
+      "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC",
+    },
   };
 
-  const response = await fetch("https://api.linkedin.com/rest/posts", {
+  const response = await fetch("https://api.linkedin.com/v2/ugcPosts", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${accessToken}`,
-      "Linkedin-Version": "202502",
       "X-Restli-Protocol-Version": "2.0.0",
       "Content-Type": "application/json",
     },
@@ -59,11 +61,12 @@ export async function publishLinkedinDraft(draft: LinkedinDraft, locale: Locale 
   }
 
   const data = (await response.json().catch(() => ({}))) as { id?: string };
+  const headerId = response.headers.get("x-restli-id");
 
   return {
     mode: "api",
     published: true,
-    id: data.id ?? null,
+    id: headerId ?? data.id ?? null,
     locale,
   } as const;
 }
