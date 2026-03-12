@@ -1,0 +1,43 @@
+{
+  "slug": "from-news-to-data-product",
+  "publishedAt": "2026-03-11",
+  "featured": true,
+  "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+  "category": {
+    "en": "Business Strategy",
+    "pt": "Estrategia de Negocio"
+  },
+  "tags": ["business-value", "data-strategy", "ai-adoption"],
+  "readingMinutes": 6,
+  "channelStrategy": {
+    "site": {
+      "primaryAngle": "Executive article on business value",
+      "audience": "Business leaders, hiring managers, clients",
+      "businessMessage": "Make clear that technology is only meaningful when it changes cost, speed, trust, or growth."
+    },
+    "github": {
+      "primaryAngle": "Reference supporting implementations",
+      "audience": "Engineers and technical evaluators",
+      "operationalMessage": "Link to repositories that prove how the business narrative is implemented."
+    },
+    "linkedin": {
+      "primaryAngle": "Short business-to-technical framing",
+      "audience": "Broader professional audience",
+      "bridgeMessage": "Turn the article into a concise statement that connects business pressure to delivery patterns."
+    }
+  },
+  "relatedProjectSlugs": ["kafka-debezium-dbt", "streaming-kafka-fastapi"],
+  "relatedNewsSlugs": ["streaming-governance-2026"],
+  "locales": {
+    "en": {
+      "title": "Why Data Engineering And AI Only Matter When They Solve A Business Problem",
+      "excerpt": "The market no longer rewards technical novelty alone. What matters is the ability to connect data and AI work to speed, cost, risk, revenue, and decision quality.",
+      "body": "## The shift happening in the market\n\nMost companies are no longer impressed by technology names alone. They want to know which business pressure is being addressed: operational delay, low trust in data, weak forecasting, rising cloud cost, slower product decisions, or poor customer experience.\n\n## What makes a data initiative credible\n\nA credible initiative explains three layers clearly:\n\n1. The business problem.\n2. The delivery pattern.\n3. The operational implementation.\n\nThat is why a strong public presence should not stop at source code. The site should explain the business case, while the GitHub repository should expose the implementation details.\n\n## The practical implication\n\nFor professionals in data engineering and AI, this changes how projects should be presented. The winning narrative is not simply about tools. It is about how architecture choices improve business responsiveness, trust, governance, and scalability."
+    },
+    "pt": {
+      "title": "Por Que Engenharia de Dados e IA So Importam Quando Resolvem um Problema de Negocio",
+      "excerpt": "O mercado nao recompensa mais apenas novidade tecnica. O que importa e a capacidade de conectar dados e IA a velocidade, custo, risco, receita e qualidade de decisao.",
+      "body": "## A mudanca que o mercado esta vivendo\n\nA maior parte das empresas nao se impressiona mais apenas com nomes de tecnologia. Elas querem saber qual pressao de negocio esta sendo atacada: atraso operacional, baixa confianca nos dados, previsao ruim, custo alto de nuvem, decisoes lentas de produto ou experiencia ruim do cliente.\n\n## O que torna uma iniciativa de dados crivel\n\nUma iniciativa crivel explica tres camadas com clareza:\n\n1. O problema de negocio.\n2. O padrao de entrega.\n3. A implementacao operacional.\n\nPor isso, uma presenca publica forte nao deve parar no codigo-fonte. O site precisa explicar o caso de negocio, enquanto o repositório no GitHub expõe os detalhes de implementacao.\n\n## A implicacao pratica\n\nPara profissionais de engenharia de dados e IA, isso muda a forma de apresentar projetos. A narrativa vencedora nao e apenas sobre ferramentas. E sobre como decisoes de arquitetura melhoram capacidade de resposta, confianca, governanca e escalabilidade."
+    }
+  }
+}

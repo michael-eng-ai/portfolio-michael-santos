@@ -1,0 +1,30 @@
+{
+  "slug": "data-platform-modernization-patterns",
+  "publishedAt": "2026-03-09",
+  "featured": true,
+  "imageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+  "category": {
+    "en": "Cloud Data Platforms",
+    "pt": "Plataformas de Dados em Nuvem"
+  },
+  "tags": ["lakehouse", "dbt", "snowflake", "terraform"],
+  "readingMinutes": 8,
+  "relatedProjectSlugs": [
+    "aws-databricks-lakehouse",
+    "gcp-dbt-modern-data-stack",
+    "azure-snowflake-pipeline"
+  ],
+  "relatedNewsSlugs": ["databricks-lakeflow-2026", "dbt-fusion-engine-2026", "snowflake-open-lakehouse-2026"],
+  "locales": {
+    "en": {
+      "title": "Three Patterns Behind Modern Data Platform Delivery",
+      "excerpt": "Across lakehouse, warehouse, and cross-cloud implementations, the winning pattern is not a single tool. It is the ability to connect platform design, governed data flow, and delivery clarity.",
+      "body": "## Pattern one: platform before tooling\n\nTeams fail when they discuss tools before operating models. The stronger strategy is to explain how ingestion, transformation, governance, and consumption work together to improve business responsiveness.\n\n## Pattern two: clarity before scale\n\nModern platforms succeed when decision-makers understand why the architecture exists. Storage layers, transformation strategy, and orchestration only matter when they improve trust, reuse, and speed of delivery.\n\n## Pattern three: repeatable delivery\n\nThe best platform stories are repeatable. They show how a company can move from isolated pipelines to a governed operating model without turning the platform into an opaque or fragile system."
+    },
+    "pt": {
+      "title": "Tres Padrões Por Trás da Entrega de Plataformas Modernas de Dados",
+      "excerpt": "Em implementações lakehouse, warehouse e cross-cloud, o padrão vencedor não é uma única ferramenta. É a capacidade de conectar desenho de plataforma, fluxo governado de dados e clareza na entrega.",
+      "body": "## Padrao um: plataforma antes da ferramenta\n\nOs times falham quando discutem ferramenta antes de modelo operacional. A estrategia mais forte e explicar como ingestao, transformacao, governanca e consumo trabalham juntos para melhorar a capacidade de resposta do negocio.\n\n## Padrao dois: clareza antes da escala\n\nPlataformas modernas funcionam melhor quando as liderancas entendem por que a arquitetura existe. Camadas de storage, estrategia de transformacao e orquestracao so importam quando melhoram confianca, reuso e velocidade de entrega.\n\n## Padrao tres: entrega repetivel\n\nAs melhores historias de plataforma sao repetiveis. Elas mostram como uma empresa sai de pipelines isolados para um modelo operacional governado sem transformar a plataforma em um sistema opaco ou fragil."
+    }
+  }
+}

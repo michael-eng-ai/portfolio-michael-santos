@@ -7,32 +7,22 @@ export default function Footer() {
     <footer className="bg-foreground text-background py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          {/* Brand */}
           <div className="space-y-4">
             <p className="font-display text-2xl">MS</p>
             <p className="font-body text-sm opacity-80">
-              Engenharia de Dados & Consultoria Estratégica
+              Senior Data Engineer focused on cloud data platforms and analytics systems.
             </p>
           </div>
 
-          {/* Quick Links */}
           <div className="space-y-4">
-            <p className="font-accent text-sm font-semibold">Links Rápidos</p>
+            <p className="font-accent text-sm font-semibold">Quick Links</p>
             <ul className="space-y-2">
               <li>
                 <a
                   href="#projects"
                   className="font-body text-sm opacity-80 hover:opacity-100 transition-opacity"
                 >
-                  Projetos
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#services"
-                  className="font-body text-sm opacity-80 hover:opacity-100 transition-opacity"
-                >
-                  Serviços
+                  Projects
                 </a>
               </li>
               <li>
@@ -40,7 +30,16 @@ export default function Footer() {
                   href="#about"
                   className="font-body text-sm opacity-80 hover:opacity-100 transition-opacity"
                 >
-                  Sobre
+                  About
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/resume/michael-barbosa-santos-resume-en.md"
+                  className="font-body text-sm opacity-80 hover:opacity-100 transition-opacity"
+                  download
+                >
+                  Resume
                 </a>
               </li>
               <li>
@@ -48,15 +47,14 @@ export default function Footer() {
                   href="#contact"
                   className="font-body text-sm opacity-80 hover:opacity-100 transition-opacity"
                 >
-                  Contato
+                  Contact
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Social Links */}
           <div className="space-y-4">
-            <p className="font-accent text-sm font-semibold">Redes Sociais</p>
+            <p className="font-accent text-sm font-semibold">Profiles</p>
             <div className="flex gap-4">
               <a
                 href="https://www.linkedin.com/in/michael-bs/"
@@ -73,7 +71,7 @@ export default function Footer() {
                 <Mail size={18} />
               </a>
               <a
-                href="https://github.com"
+                href="https://github.com/michael-eng-ai"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-background/20 hover:bg-background/30 transition-colors"
@@ -84,28 +82,15 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="border-t border-background/20 my-8" />
 
-        {/* Bottom */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="font-body text-sm opacity-60">
-            © {currentYear} Michael Santos. Todos os direitos reservados.
+            © {currentYear} Michael Barbosa Santos. All rights reserved.
           </p>
-          <div className="flex gap-6">
-            <a
-              href="#"
-              className="font-body text-sm opacity-60 hover:opacity-100 transition-opacity"
-            >
-              Política de Privacidade
-            </a>
-            <a
-              href="#"
-              className="font-body text-sm opacity-60 hover:opacity-100 transition-opacity"
-            >
-              Termos de Uso
-            </a>
-          </div>
+          <p className="font-body text-sm opacity-60">
+            Built to connect business context with technical execution.
+          </p>
         </div>
       </div>
     </footer>

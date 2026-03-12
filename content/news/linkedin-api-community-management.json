@@ -1,0 +1,22 @@
+{
+  "slug": "linkedin-api-community-management",
+  "publishedAt": "2026-03-05",
+  "sourceName": "Microsoft Learn",
+  "sourceUrl": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review?view=li-lms-2025-10",
+  "imageUrl": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+  "category": {"en": "Cloud & AI", "pt": "Cloud e IA"},
+  "tags": ["linkedin", "distribution", "api"],
+  "relatedProjectSlugs": ["ai-data-analyst-bot"],
+  "locales": {
+    "en": {
+      "title": "LinkedIn publishing remains powerful but approval-gated",
+      "summary": "LinkedIn publishing APIs still require app review and specific access, which means content systems should support both draft-first and API-enabled distribution paths.",
+      "whyItMatters": "This validates the decision to build a LinkedIn workflow that can publish where approved and fall back to structured drafts where direct automation is unavailable."
+    },
+    "pt": {
+      "title": "Publicacao no LinkedIn continua poderosa, mas depende de aprovacao",
+      "summary": "As APIs de publicacao do LinkedIn continuam exigindo revisao do app e acessos especificos, o que significa que o sistema de conteudo precisa suportar tanto rascunhos quanto publicacao por API quando houver aprovacao.",
+      "whyItMatters": "Isso valida a decisao de construir um fluxo para LinkedIn que publique quando houver acesso aprovado e caia para drafts estruturados quando a automacao direta nao estiver disponivel."
+    }
+  }
+}

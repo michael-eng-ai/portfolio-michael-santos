@@ -1,0 +1,20 @@
+{
+  "slug": "project-aws-databricks-lakehouse",
+  "sourceType": "project",
+  "sourceSlug": "aws-databricks-lakehouse",
+  "status": "draft",
+  "generatedAt": "2026-03-11T17:20:32.335Z",
+  "publishedUrl": null,
+  "locales": {
+    "en": {
+      "hook": "AWS And Databricks Lakehouse",
+      "body": "A lakehouse portfolio case that connects raw event ingestion, medallion transformations, and infrastructure as code on AWS and Databricks.",
+      "cta": "See the full story on the site and explore the GitHub implementation."
+    },
+    "pt": {
+      "hook": "Lakehouse com AWS e Databricks",
+      "body": "Um caso de portfólio de lakehouse que conecta ingestão de eventos brutos, transformações em camadas medallion e infraestrutura como código em AWS e Databricks.",
+      "cta": "Veja a historia completa no site e explore a implementacao no GitHub."
+    }
+  }
+}

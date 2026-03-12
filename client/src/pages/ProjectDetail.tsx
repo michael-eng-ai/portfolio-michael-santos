@@ -1,130 +1,21 @@
-import { useLocation } from "wouter";
-import { ArrowLeft, Calendar, Users, TrendingUp } from "lucide-react";
-import { Link } from "wouter";
-import MarkdownRenderer from "@/components/MarkdownRenderer";
-
-const projects = {
-  "fraude-bancaria": {
-    title: "Prevenção de Fraudes em Transações Bancárias",
-    subtitle: "Arquitetura de Dados para Detecção em Tempo Real",
-    date: "Outubro 2022 - Agosto 2023",
-    company: "Act Digital",
-    image: "/images/case-study-fraud-detection.jpg",
-    challenge: `
-O cliente, uma instituição financeira de grande porte, enfrentava um desafio crítico: **fraudes em transações não eram detectadas em tempo real**. O sistema legado processava dados em batch (uma vez por dia), o que significava que fraudes eram descobertas apenas 24 horas depois — tempo suficiente para que fraudadores aproveitassem a janela.
-
-Além disso, o cliente tinha múltiplas fontes de dados (SQL Server, MongoDB, Oracle) que não se comunicavam, tornando impossível correlacionar padrões de fraude em tempo real.
-    `,
-    solution: `
-Implementei uma **arquitetura de dados moderna** que integrou todas as fontes em um pipeline em tempo real:
-
-1. **Ingestão em Tempo Real:** Usamos Kafka para capturar eventos de transação assim que ocorrem
-2. **Processamento:** Azure Data Lake + Databricks para processar e enriquecer dados
-3. **Detecção:** Modelos de machine learning que identificam padrões anômalos em milissegundos
-4. **Ação:** Integração com sistemas de bloqueio automático para parar transações suspeitas
-
-**Tecnologias:** Azure Data Lake, Databricks, Kafka, GCP, Oracle, Python, Machine Learning
-
-**Resultado:** Sistema capaz de processar **1 milhão+ de transações por dia** com latência de **< 500ms**.
-    `,
-    impact: [
-      "Redução de 45% em fraudes não detectadas",
-      "Processamento de 1M+ transações/dia em tempo real",
-      "ROI de 3x em 12 meses",
-      "Economia de R$ 2.5M+ em perdas por fraude",
-    ],
-    learnings: `
-Este projeto me ensinou que **dados em tempo real não são apenas sobre velocidade, mas sobre confiabilidade**. Um sistema que detecta fraude 99% das vezes é inútil se falha 1% das vezes (quando a fraude acontece). Por isso, implementamos redundância, fallbacks e monitoramento contínuo.
-
-Também aprendi a importância de **comunicação com stakeholders não-técnicos**. O CFO não entende Kafka ou Databricks, mas entende "economia de R$ 2.5M". Sempre traduzo tecnologia em impacto de negócio.
-    `,
-  },
-  "healthcare-insights": {
-    title: "Otimização de Atendimento em Healthcare",
-    subtitle: "Integração de Dados para Insights de Pacientes",
-    date: "Agosto 2023 - Presente",
-    company: "K2 Partnering Solutions",
-    image: "/images/case-study-healthcare-insights.jpg",
-    challenge: `
-O cliente, uma plataforma de saúde digital, tinha dados espalhados em múltiplos sistemas: **CRM, chatbot, Watson Assistant, Sendbird** (mensagens), Google Analytics. Ninguém tinha uma visão completa da jornada do paciente.
-
-Resultado: **oportunidades de melhoria eram invisíveis**. Não sabíamos por que pacientes abandonavam o atendimento, qual era o tempo médio de resposta, ou como melhorar a experiência.
-    `,
-    solution: `
-Criei um **data lake unificado** que integrou todas as fontes:
-
-1. **Ingestão:** Pipelines no GCP (Cloud Functions, Cloud Storage) e AWS (Lambda, S3) para capturar dados de todas as plataformas
-2. **Transformação:** BigQuery para consolidar e enriquecer dados
-3. **Visualização:** Qlik Sense para criar dashboards que mostram a jornada completa do paciente
-4. **Insights:** Análises que identificam gargalos e oportunidades
-
-**Tecnologias:** GCP (BigQuery, Cloud Functions, Google Analytics), AWS (Lambda, S3), Qlik Sense, CRM, Chatbot, Watson
-
-**Resultado:** Dashboard em tempo real que mostra **jornada completa do paciente** com métricas de satisfação, tempo de resposta e taxa de conclusão.
-    `,
-    impact: [
-      "Aumento de 38% na satisfação do cliente",
-      "Redução de 25% no tempo de resposta",
-      "Insights acionáveis em <24h",
-      "Melhoria de 22% na taxa de conclusão de atendimentos",
-    ],
-    learnings: `
-Este projeto mostrou que **dados não são sobre quantidade, mas sobre qualidade e contexto**. Tínhamos bilhões de eventos, mas a maioria era ruído. O verdadeiro valor veio de **correlacionar dados** de múltiplas fontes para entender o comportamento do paciente.
-
-Também aprendi sobre **compliance em healthcare**. Dados de saúde são sensíveis. Implementamos criptografia, auditoria e governança rigorosa para garantir que dados de pacientes fossem protegidos.
-    `,
-  },
-  "automacao-financeira": {
-    title: "Automação de Processos Financeiros",
-    subtitle: "ETL Pipeline para Eficiência Operacional",
-    date: "Dezembro 2021 - Outubro 2022",
-    company: "Art It",
-    image: "/images/case-study-automation-efficiency.jpg",
-    challenge: `
-O cliente, uma companhia aérea, tinha um processo manual de geração de relatórios financeiros e regulatórios. **Cada relatório levava 3-4 dias para ser gerado**, envolvia múltiplas pessoas e tinha uma taxa de erro de ~5%.
-
-Além disso, dados estavam em SAP (sistema financeiro) e GCP (data warehouse), e ninguém tinha uma visão unificada.
-    `,
-    solution: `
-Implementei uma **automação completa** usando Airflow:
-
-1. **Extração:** Pipelines que extraem dados de SAP e GCP automaticamente
-2. **Transformação:** Lógica de negócio implementada em Python para calcular métricas financeiras
-3. **Orquestração:** Airflow (AWS) e Composer (GCP) para orquestrar todo o processo
-4. **Entrega:** Relatórios gerados automaticamente e enviados para stakeholders
-
-**Tecnologias:** AWS (Airflow, S3, Lambda, EC2), GCP (Composer), Docker, Python, SAP, MongoDB
-
-**Resultado:** Processo que levava **3-4 dias agora leva < 2 horas**, com **zero erros manuais**.
-    `,
-    impact: [
-      "Redução de 60% em tempo manual de processamento",
-      "Eliminação de 95% de erros manuais",
-      "Economia de R$ 500k+ anuais em horas de trabalho",
-      "Compliance 100% com regulamentações",
-    ],
-    learnings: `
-Este projeto me ensinou que **automação é sobre eliminar fricção, não apenas velocidade**. O verdadeiro valor não era apenas processar relatórios mais rápido, mas **liberar pessoas** para trabalhar em coisas mais estratégicas.
-
-Também aprendi sobre **orquestração em ambientes multi-cloud**. Usar Airflow na AWS e Composer no GCP simultaneamente foi desafiador, mas mostrou que é possível construir soluções agnósticas de cloud.
-    `,
-  },
-};
+import { ArrowLeft, Github, TrendingUp } from "lucide-react";
+import { Link, useLocation } from "wouter";
+import { featuredProjectsBySlug } from "@/data/featuredProjects";
 
 export default function ProjectDetail() {
   const [location] = useLocation();
   const projectId = location.split("/").pop();
-  const project = projects[projectId as keyof typeof projects];
+  const project = projectId ? featuredProjectsBySlug[projectId] : undefined;
 
   if (!project) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <h1 className="font-display text-foreground mb-4">Projeto não encontrado</h1>
+          <h1 className="font-display text-foreground mb-4">Project not found</h1>
           <Link href="/">
             <a className="inline-flex items-center text-primary font-accent hover:gap-2 transition-all group">
               <ArrowLeft size={18} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-              Voltar para Home
+              Back to home
             </a>
           </Link>
         </div>
@@ -134,83 +25,81 @@ export default function ProjectDetail() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <header className="sticky top-0 z-50 bg-background border-b border-border">
         <div className="container mx-auto px-4 py-4">
           <Link href="/">
             <a className="inline-flex items-center text-primary font-accent text-sm hover:gap-1 transition-all group">
               <ArrowLeft size={16} className="mr-1 group-hover:-translate-x-1 transition-transform" />
-              Voltar
+              Back
             </a>
           </Link>
         </div>
       </header>
 
-      {/* Hero */}
-      <div
-        className="relative h-96 bg-cover bg-center"
-        style={{
-          backgroundImage: `url('${project.image}')`,
-        }}
-      >
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="relative h-full flex items-end">
-          <div className="container mx-auto px-4 pb-12">
-            <p className="font-accent text-primary/80 text-sm uppercase tracking-widest mb-2">
-              Case de Sucesso
+      <article className="py-16">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="mb-12 border-b border-border pb-12">
+            <p className="font-accent text-primary text-sm uppercase tracking-widest mb-2">
+              Case Study
             </p>
-            <h1 className="font-display text-white mb-4">
-              {project.title}
-            </h1>
-            <p className="font-body text-white/90 max-w-2xl">
+            <h1 className="font-display text-foreground mb-4">{project.title}</h1>
+            <p className="font-body text-lg text-muted-foreground max-w-3xl">
               {project.subtitle}
             </p>
           </div>
-        </div>
-      </div>
 
-      {/* Content */}
-      <article className="py-16">
-        <div className="container mx-auto px-4 max-w-3xl">
-          {/* Meta */}
-          <div className="grid grid-cols-3 gap-6 mb-12 pb-12 border-b border-border">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 pb-12 border-b border-border">
             <div>
               <p className="font-accent text-muted-foreground text-xs uppercase mb-2">
-                Período
+                Repository
               </p>
-              <p className="font-body text-foreground">{project.date}</p>
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-body text-primary hover:underline"
+              >
+                <Github size={16} />
+                Open on GitHub
+              </a>
             </div>
             <div>
               <p className="font-accent text-muted-foreground text-xs uppercase mb-2">
-                Empresa
+                Focus
               </p>
-              <p className="font-body text-foreground">{project.company}</p>
+              <p className="font-body text-foreground">Business problem to technical execution</p>
             </div>
             <div>
               <p className="font-accent text-muted-foreground text-xs uppercase mb-2">
-                Impacto
+                Type
               </p>
-              <p className="font-body text-foreground">ROI 3x+</p>
+              <p className="font-body text-foreground">Production-minded portfolio case</p>
             </div>
           </div>
 
-          {/* Challenge */}
           <section className="mb-12">
-            <h2 className="font-heading text-foreground mb-4">O Desafio</h2>
-            <MarkdownRenderer content={project.challenge} />
+            <h2 className="font-heading text-foreground mb-4">Business Problem</h2>
+            <p className="font-body text-muted-foreground leading-7">
+              {project.businessProblem}
+            </p>
           </section>
 
-          {/* Solution */}
           <section className="mb-12">
-            <h2 className="font-heading text-foreground mb-4">A Solução</h2>
-            <MarkdownRenderer content={project.solution} />
+            <h2 className="font-heading text-foreground mb-4">Technical Solution</h2>
+            <ul className="space-y-3">
+              {project.technicalSolution.map((item) => (
+                <li key={item} className="font-body text-muted-foreground flex items-start gap-3">
+                  <span className="text-primary font-bold">-</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
           </section>
 
-          {/* Impact */}
           <section className="mb-12 bg-muted/30 rounded-lg p-8">
             <h2 className="font-heading text-foreground mb-6 flex items-center gap-2">
               <TrendingUp className="text-primary" />
-              Impacto Mensurável
+              Why It Matters
             </h2>
             <ul className="space-y-3">
               {project.impact.map((item, idx) => (
@@ -222,29 +111,50 @@ export default function ProjectDetail() {
             </ul>
           </section>
 
-          {/* Learnings */}
           <section className="mb-12">
-            <h2 className="font-heading text-foreground mb-4">Aprendizados</h2>
-            <MarkdownRenderer content={project.learnings} />
+            <h2 className="font-heading text-foreground mb-4">Architecture Summary</h2>
+            <p className="font-body text-muted-foreground leading-7">
+              {project.architectureSummary}
+            </p>
           </section>
 
-          {/* Divider */}
-          <div className="border-t border-border my-12" />
+          <section className="mb-12">
+            <h2 className="font-heading text-foreground mb-4">Stack</h2>
+            <div className="flex flex-wrap gap-3">
+              {project.stack.map((tech) => (
+                <span
+                  key={tech}
+                  className="px-3 py-2 rounded-full bg-muted text-foreground text-sm font-accent"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </section>
 
-          {/* CTA */}
           <div className="bg-muted/30 rounded-lg p-8 text-center">
             <h3 className="font-heading text-foreground mb-3">
-              Seu projeto pode ter resultados similares
+              Explore the implementation details
             </h3>
             <p className="font-body text-muted-foreground mb-6">
-              Se você enfrenta desafios similares, vamos conversar sobre como implementar uma solução que gere impacto real.
+              This page focuses on the business framing. The GitHub repository contains the implementation details, code structure, and technical artifacts.
             </p>
-            <a
-              href="/#contact"
-              className="inline-flex items-center justify-center px-8 py-3 bg-primary text-primary-foreground rounded-md font-accent hover:bg-primary/90 transition-colors"
-            >
-              Agendar Consulta
-            </a>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-8 py-3 bg-primary text-primary-foreground rounded-md font-accent hover:bg-primary/90 transition-colors"
+              >
+                View Repository
+              </a>
+              <a
+                href="/#contact"
+                className="inline-flex items-center justify-center px-8 py-3 border border-primary text-primary rounded-md font-accent hover:bg-primary/5 transition-colors"
+              >
+                Contact Michael
+              </a>
+            </div>
           </div>
         </div>
       </article>

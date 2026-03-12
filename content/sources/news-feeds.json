@@ -1,0 +1,112 @@
+[
+  {
+    "slug": "aws-big-data-blog",
+    "sourceName": "AWS Big Data Blog",
+    "homepageUrl": "https://aws.amazon.com/blogs/big-data/",
+    "feedUrl": "https://aws.amazon.com/blogs/big-data/feed/",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80",
+    "category": {
+      "en": "Cloud Platforms",
+      "pt": "Plataformas Cloud"
+    },
+    "tags": ["aws", "analytics", "data-platform"],
+    "relatedProjectSlugs": ["aws-databricks-lakehouse"],
+    "topic": {
+      "en": "cloud-scale analytics and data platforms",
+      "pt": "analytics em escala na nuvem e plataformas de dados"
+    },
+    "whyItMatters": {
+      "en": "This signal matters because cloud data platforms are increasingly evaluated on delivery speed, governance, and the ability to scale reliable analytics without operational sprawl.",
+      "pt": "Esse sinal importa porque plataformas de dados em nuvem sao cada vez mais avaliadas por velocidade de entrega, governanca e capacidade de escalar analytics confiavel sem espalhar complexidade operacional."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "confluent-blog",
+    "sourceName": "Confluent",
+    "homepageUrl": "https://www.confluent.io/blog/",
+    "feedUrl": "https://www.confluent.io/rss.xml",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+    "category": {
+      "en": "Real-Time Data",
+      "pt": "Dados em Tempo Real"
+    },
+    "tags": ["streaming", "kafka", "governance"],
+    "relatedProjectSlugs": ["kafka-debezium-dbt", "streaming-kafka-fastapi"],
+    "topic": {
+      "en": "streaming systems, event operations, and trustworthy data movement",
+      "pt": "sistemas de streaming, operacao orientada a eventos e movimento confiavel de dados"
+    },
+    "whyItMatters": {
+      "en": "This matters because streaming is only strategically valuable when faster operational data improves visibility, responsiveness, and confidence in downstream decisions.",
+      "pt": "Isso importa porque streaming so tem valor estrategico quando dados operacionais mais rapidos melhoram visibilidade, capacidade de resposta e confianca nas decisoes downstream."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "snowflake-blog",
+    "sourceName": "Snowflake",
+    "homepageUrl": "https://www.snowflake.com/blog/",
+    "feedUrl": "https://www.snowflake.com/feed/",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&q=80",
+    "category": {
+      "en": "Analytics Platforms",
+      "pt": "Plataformas Analiticas"
+    },
+    "tags": ["snowflake", "governance", "data-platform"],
+    "relatedProjectSlugs": ["azure-snowflake-pipeline"],
+    "topic": {
+      "en": "governed analytics, interoperability, and platform modernization",
+      "pt": "analytics governado, interoperabilidade e modernizacao de plataforma"
+    },
+    "whyItMatters": {
+      "en": "This signal matters because analytical platforms are under pressure to improve governance, interoperability, and executive trust while still accelerating delivery.",
+      "pt": "Esse sinal importa porque plataformas analiticas estao sob pressao para melhorar governanca, interoperabilidade e confianca executiva sem perder velocidade de entrega."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "google-cloud-blog",
+    "sourceName": "Google Cloud Blog",
+    "homepageUrl": "https://cloud.google.com/blog",
+    "feedUrl": "https://cloudblog.withgoogle.com/rss/",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=800&q=80",
+    "category": {
+      "en": "Cloud & AI",
+      "pt": "Cloud e IA"
+    },
+    "tags": ["gcp", "analytics-engineering", "modern-data-stack"],
+    "relatedProjectSlugs": ["gcp-dbt-modern-data-stack"],
+    "topic": {
+      "en": "modern analytics, data stack simplification, and cloud-native delivery",
+      "pt": "analytics moderno, simplificacao do data stack e entrega cloud-native"
+    },
+    "whyItMatters": {
+      "en": "This matters because modern data teams are expected to simplify tooling, govern transformation, and deliver analytical products faster with less operational overhead.",
+      "pt": "Isso importa porque times modernos de dados precisam simplificar ferramentas, governar transformacoes e entregar produtos analiticos mais rapido com menos custo operacional."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "dbt-labs-blog",
+    "sourceName": "dbt Labs",
+    "homepageUrl": "https://blog.getdbt.com/",
+    "feedUrl": "https://blog.getdbt.com/rss.xml",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+    "category": {
+      "en": "Data Engineering",
+      "pt": "Engenharia de Dados"
+    },
+    "tags": ["dbt", "analytics-engineering", "governance"],
+    "relatedProjectSlugs": ["gcp-dbt-modern-data-stack"],
+    "topic": {
+      "en": "analytics engineering, governed transformation, and developer workflow",
+      "pt": "analytics engineering, transformacao governada e fluxo de desenvolvimento"
+    },
+    "whyItMatters": {
+      "en": "This matters because reliable transformation is becoming a strategic layer in analytics delivery, improving trust, reuse, and the quality of business-facing data products.",
+      "pt": "Isso importa porque transformacao confiavel esta se tornando uma camada estrategica na entrega analitica, melhorando confianca, reuso e a qualidade dos produtos de dados voltados ao negocio."
+    },
+    "maxItems": 4
+  }
+]
