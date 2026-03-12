@@ -1,0 +1,57 @@
+name: Content Pipeline
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 11 * * 1-5"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: content-pipeline
+  cancel-in-progress: true
+
+jobs:
+  sync-and-draft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.4.1
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Sync GitHub project metadata
+        run: pnpm content:sync:github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate LinkedIn drafts
+        run: pnpm content:linkedin
+
+      - name: Validate content
+        run: pnpm content:validate
+
+      - name: Create pull request for content updates
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore: update content pipeline outputs"
+          title: "chore: update content pipeline outputs"
+          body: |
+            Automated update from the content pipeline workflow.
+          branch: chore/content-pipeline-updates

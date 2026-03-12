@@ -1,0 +1,66 @@
+name: Auto Publish News
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auto-publish-news
+  cancel-in-progress: true
+
+jobs:
+  sync-news:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.4.1
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Sync curated RSS news
+        run: pnpm content:sync:news
+
+      - name: Validate content
+        run: pnpm content:validate
+
+      - name: Detect generated news changes
+        id: news_changes
+        run: |
+          if git diff --quiet -- content/generated/news.json; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push generated news
+        if: steps.news_changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/generated/news.json
+          git commit -m "chore: auto-update curated news"
+          git push origin HEAD:main
+
+      - name: No news updates
+        if: steps.news_changes.outputs.has_changes != 'true'
+        run: echo "No generated news changes detected."
