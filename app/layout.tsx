@@ -28,6 +28,11 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.name, url: siteConfig.linkedinUrl }],
   creator: siteConfig.name,
   publisher: siteConfig.name,
+  verification: process.env.GOOGLE_SITE_VERIFICATION
+    ? {
+        google: process.env.GOOGLE_SITE_VERIFICATION,
+      }
+    : undefined,
   formatDetection: {
     email: false,
     address: false,

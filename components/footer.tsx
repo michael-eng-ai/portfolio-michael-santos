@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { TrackedExternalLink } from "@/components/tracked-external-link";
 import { Locale, copy, localePath, siteConfig } from "@/lib/site";
 
 type FooterProps = {
@@ -37,10 +38,24 @@ export function Footer({ locale }: FooterProps) {
             <a className="brand-link inline-block py-1.5" href={siteConfig.githubUrl} target="_blank" rel="noreferrer">
               GitHub
             </a>
-            <a className="brand-link inline-block py-1.5" href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">
+            <TrackedExternalLink
+              className="brand-link inline-block py-1.5"
+              href={siteConfig.linkedinUrl}
+              target="_blank"
+              rel="noreferrer"
+              eventName="contact_click"
+              eventParams={{ channel: "linkedin", location: "footer" }}
+            >
               LinkedIn
-            </a>
-            <a className="brand-link inline-block py-1.5" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+            </TrackedExternalLink>
+            <TrackedExternalLink
+              className="brand-link inline-block py-1.5"
+              href={`mailto:${siteConfig.email}`}
+              eventName="contact_click"
+              eventParams={{ channel: "email", location: "footer" }}
+            >
+              {siteConfig.email}
+            </TrackedExternalLink>
           </div>
         </div>
       </div>

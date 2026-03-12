@@ -54,6 +54,7 @@ Set `NEXT_PUBLIC_GA_MEASUREMENT_ID` with your GA4 measurement ID (for example `G
 
 - pageview tracking on all routes
 - newsletter conversion events
+- contact click conversion events
 - production analytics on Vercel without changing the code again
 
 ## Authoring Workflow
