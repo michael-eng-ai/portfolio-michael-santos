@@ -10,24 +10,71 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getNewsReferences(),
   ]);
 
-  const staticRoutes = locales.flatMap((locale) => [
-    `${siteConfig.url}/${locale}`,
-    `${siteConfig.url}/${locale}/projects`,
-    `${siteConfig.url}/${locale}/articles`,
-    `${siteConfig.url}/${locale}/news`,
-    `${siteConfig.url}/${locale}/newsletter`,
-    `${siteConfig.url}/${locale}/resume`,
-    `${siteConfig.url}/${locale}/contact`,
+  const staticRoutes: MetadataRoute.Sitemap = locales.flatMap((locale) => [
+    {
+      url: `${siteConfig.url}/${locale}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 1,
+    },
+    {
+      url: `${siteConfig.url}/${locale}/projects`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${siteConfig.url}/${locale}/articles`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${siteConfig.url}/${locale}/news`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    {
+      url: `${siteConfig.url}/${locale}/newsletter`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${siteConfig.url}/${locale}/resume`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${siteConfig.url}/${locale}/contact`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
   ]);
 
-  const dynamicRoutes = locales.flatMap((locale) => [
-    ...projects.map((project) => `${siteConfig.url}/${locale}/projects/${project.slug}`),
-    ...articles.map((article) => `${siteConfig.url}/${locale}/articles/${article.slug}`),
-    ...news.map((item) => `${siteConfig.url}/${locale}/news/${item.slug}`),
+  const dynamicRoutes: MetadataRoute.Sitemap = locales.flatMap((locale) => [
+    ...projects.map((project) => ({
+      url: `${siteConfig.url}/${locale}/projects/${project.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+    ...articles.map((article) => ({
+      url: `${siteConfig.url}/${locale}/articles/${article.slug}`,
+      lastModified: new Date(article.publishedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+    ...news.map((item) => ({
+      url: `${siteConfig.url}/${locale}/news/${item.slug}`,
+      lastModified: new Date(item.publishedAt),
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    })),
   ]);
 
-  return [...staticRoutes, ...dynamicRoutes].map((url) => ({
-    url,
-    lastModified: new Date(),
-  }));
+  return [...staticRoutes, ...dynamicRoutes];
 }

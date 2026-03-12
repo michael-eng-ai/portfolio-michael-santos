@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 
+import { trackEvent } from "@/lib/analytics";
 import { Locale, copy } from "@/lib/site";
 
 type NewsletterFormProps = {
@@ -21,6 +22,8 @@ export function NewsletterForm({ locale, source }: NewsletterFormProps) {
     setMessage("");
 
     try {
+      trackEvent("newsletter_submit_started", { locale, source });
+
       const response = await fetch("/api/newsletter/subscribe", {
         method: "POST",
         headers: {
@@ -45,6 +48,7 @@ export function NewsletterForm({ locale, source }: NewsletterFormProps) {
       );
       setEmail("");
       setWebsite("");
+      trackEvent("newsletter_signup", { locale, source });
     } catch (error) {
       setStatus("error");
       setMessage(
@@ -52,11 +56,12 @@ export function NewsletterForm({ locale, source }: NewsletterFormProps) {
           ? error.message
           : copy(locale, "Unexpected error.", "Erro inesperado."),
       );
+      trackEvent("newsletter_signup_error", { locale, source });
     }
   }
 
   return (
-    <form onSubmit={onSubmit} className="section-card rounded-3xl p-6">
+    <form onSubmit={onSubmit} className="section-card rounded-3xl p-5 sm:p-6">
       <div className="space-y-4">
         <div className="sr-only" aria-hidden="true">
           <label htmlFor={`website-${source}`}>Website</label>

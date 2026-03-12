@@ -4,8 +4,10 @@ import { notFound } from "next/navigation";
 
 import { EditorialCover } from "@/components/editorial-cover";
 import { MarkdownContent } from "@/components/markdown-content";
+import { StructuredData } from "@/components/structured-data";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { getArticleBySlug, getArticles, getProjects } from "@/lib/content";
+import { buildArticleJsonLd, buildPageMetadata } from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 
 export async function generateStaticParams() {
@@ -27,10 +29,17 @@ export async function generateMetadata({
 
   const locale = resolvedParams.locale as Locale;
 
-  return {
+  return buildPageMetadata({
+    locale,
     title: `${article.locales[locale].title} | Michael Barbosa Santos`,
     description: article.locales[locale].excerpt,
-  };
+    path: `/articles/${article.slug}`,
+    imageUrl: article.imageUrl,
+    keywords: article.tags,
+    type: "article",
+    publishedTime: article.publishedAt,
+    modifiedTime: article.publishedAt,
+  });
 }
 
 export default async function ArticleDetailPage({
@@ -53,7 +62,18 @@ export default async function ArticleDetailPage({
   const relatedProjects = projects.filter((project) => article.relatedProjectSlugs.includes(project.slug));
 
   return (
-    <main className="container-shell py-16">
+    <main className="container-shell py-10 sm:py-16">
+      <StructuredData
+        data={buildArticleJsonLd({
+          locale,
+          title: content.title,
+          description: content.excerpt,
+          path: `/articles/${article.slug}`,
+          imageUrl: article.imageUrl,
+          publishedAt: article.publishedAt,
+          keywords: article.tags,
+        })}
+      />
       <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
         <article className="section-card overflow-hidden rounded-[32px]">
           <EditorialCover
@@ -64,7 +84,7 @@ export default async function ArticleDetailPage({
             meta={`${article.publishedAt} • ${article.readingMinutes} min`}
             imageUrl={article.imageUrl}
           />
-          <div className="p-8 md:p-10">
+          <div className="p-6 sm:p-8 md:p-10">
             <h1 className="sr-only">{content.title}</h1>
             <div>
               <MarkdownContent content={content.body} />
@@ -73,7 +93,7 @@ export default async function ArticleDetailPage({
         </article>
 
         <aside className="space-y-6">
-          <section className="section-card rounded-3xl p-6">
+          <section className="section-card rounded-3xl p-5 sm:p-6">
             <h2 className="text-xl font-semibold text-white">
               {copy(locale, "Related business cases", "Casos de negocio relacionados")}
             </h2>
@@ -86,7 +106,7 @@ export default async function ArticleDetailPage({
             </div>
           </section>
 
-          <section className="section-card rounded-3xl p-6">
+          <section className="section-card rounded-3xl p-5 sm:p-6">
             <h2 className="text-xl font-semibold text-white">
               {copy(locale, "How to read this analysis", "Como ler esta analise")}
             </h2>

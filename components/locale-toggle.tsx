@@ -24,7 +24,7 @@ export function LocaleToggle({ locale }: LocaleToggleProps) {
           <Link
             key={nextLocale}
             href={href}
-            className={`rounded-full px-3 py-1 transition ${
+            className={`rounded-full px-3.5 py-1.5 transition ${
               isActive ? "bg-blue-400 text-slate-950" : "text-slate-300 hover:text-white"
             }`}
           >

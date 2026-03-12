@@ -29,7 +29,7 @@ export function NewsCard({ item, locale }: NewsCardProps) {
         meta={`${sourceInitials(item.sourceName)} • ${item.publishedAt}`}
         imageUrl={item.imageUrl}
       />
-      <div className="border-t border-white/8 p-6">
+      <div className="border-t border-white/8 p-5 sm:p-6">
         <div className="flex flex-wrap gap-2">
           {item.tags.slice(0, 3).map((tag) => (
             <span key={tag} className="rounded-full border border-white/10 px-3 py-1 text-xs text-blue-100/90">
@@ -39,7 +39,7 @@ export function NewsCard({ item, locale }: NewsCardProps) {
         </div>
         <p className="mt-4 line-clamp-4 text-sm leading-7 text-slate-300">{summary}</p>
         <p className="mt-3 line-clamp-3 text-sm leading-7 text-slate-400">{context}</p>
-        <div className="mt-5 flex items-center gap-3 text-sm">
+        <div className="mt-5 flex flex-col items-start gap-3 text-sm sm:flex-row sm:items-center">
           <Link href={localePath(locale, `/news/${item.slug}`)} className="font-medium text-blue-300">
             {copy(locale, "Read analysis", "Ler analise")}
           </Link>

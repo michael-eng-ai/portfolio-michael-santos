@@ -1,5 +1,31 @@
 import { NewsletterForm } from "@/components/newsletter-form";
+import { buildPageMetadata } from "@/lib/seo";
 import { Locale, copy } from "@/lib/site";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: rawLocale } = await params;
+  const locale = rawLocale as Locale;
+
+  return buildPageMetadata({
+    locale,
+    title: copy(
+      locale,
+      "Newsletter On AI, Data Platforms, And Digital Strategy",
+      "Newsletter Sobre IA, Plataformas de Dados e Estrategia Digital",
+    ),
+    description: copy(
+      locale,
+      "Weekly executive signals on data engineering, AI adoption, and digital growth opportunities.",
+      "Sinais executivos semanais sobre engenharia de dados, adocao de IA e oportunidades de crescimento digital.",
+    ),
+    path: "/newsletter",
+    keywords: ["newsletter", "AI newsletter", "data platform newsletter"],
+  });
+}
 
 export default async function NewsletterPage({
   params,
@@ -10,9 +36,9 @@ export default async function NewsletterPage({
   const locale = rawLocale as Locale;
 
   return (
-    <main className="container-shell py-16">
+    <main className="container-shell py-10 sm:py-16">
       <div className="grid gap-8 lg:grid-cols-[1fr_0.95fr]">
-        <section className="section-card rounded-[32px] p-8 md:p-10">
+        <section className="section-card rounded-[28px] p-6 sm:rounded-[32px] sm:p-8 md:p-10">
           <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
             {copy(locale, "Newsletter", "Newsletter")}
           </p>

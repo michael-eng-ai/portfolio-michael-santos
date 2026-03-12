@@ -28,11 +28,11 @@ export function ArticleCard({ article, locale }: ArticleCardProps) {
         meta={`${article.publishedAt} • ${article.readingMinutes} min`}
         imageUrl={article.imageUrl}
       />
-      <div className="border-t border-white/8 p-6">
+      <div className="border-t border-white/8 p-5 sm:p-6">
         <p className="line-clamp-4 text-sm leading-7 text-slate-300">{excerpt}</p>
         <Link
           href={localePath(locale, `/articles/${article.slug}`)}
-          className="mt-4 inline-block text-sm font-medium text-[var(--primary)] transition hover:text-white"
+          className="mt-4 inline-flex text-sm font-medium text-[var(--primary)] transition hover:text-white"
         >
           {copy(locale, "Read insight →", "Ler insight →")}
         </Link>

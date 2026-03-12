@@ -7,7 +7,37 @@ import { NewsletterForm } from "@/components/newsletter-form";
 import { ProjectCard } from "@/components/project-card";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { getArticles, getNewsReferences, getProjects } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
 import { Locale, copy, localePath, siteConfig } from "@/lib/site";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: rawLocale } = await params;
+  const locale = rawLocale as Locale;
+
+  return buildPageMetadata({
+    locale,
+    title: copy(
+      locale,
+      "Michael Barbosa Santos | Data Engineering And AI Strategy",
+      "Michael Barbosa Santos | Estrategia de Dados e IA",
+    ),
+    description: copy(
+      locale,
+      "Business-facing insights, market signals, and execution cases that turn data engineering and AI into measurable growth.",
+      "Insights de negocio, sinais de mercado e casos de execucao que transformam engenharia de dados e IA em crescimento mensuravel.",
+    ),
+    keywords: [
+      "AI insights",
+      "data engineering portfolio",
+      "business cases",
+      "market intelligence",
+    ],
+  });
+}
 
 export default async function LocaleHomePage({
   params,
@@ -37,9 +67,9 @@ export default async function LocaleHomePage({
   );
 
   return (
-    <main className="pb-20">
-      <section className="container-shell py-16">
-        <div className="brand-shell hero-orb section-card rounded-[36px] p-8 md:p-12">
+    <main className="pb-16 md:pb-20">
+      <section className="container-shell py-10 sm:py-16">
+        <div className="brand-shell hero-orb section-card rounded-[28px] p-6 sm:rounded-[36px] sm:p-8 md:p-12">
           <div className="grid gap-10 lg:grid-cols-[1.25fr_0.75fr]">
             <div className="relative z-10 space-y-6">
               <span className="eyebrow-pill">
@@ -51,16 +81,16 @@ export default async function LocaleHomePage({
               <p className="max-w-3xl text-base text-slate-300 sm:text-lg">
                 {heroSummary}
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Link
                   href={localePath(locale, "/articles")}
-                  className="brand-button-primary rounded-full px-5 py-3 font-medium"
+                  className="brand-button-primary rounded-full px-5 py-3 text-center font-medium"
                 >
                   {copy(locale, "Read insights", "Ler insights")}
                 </Link>
                 <Link
                   href={localePath(locale, "/projects")}
-                  className="brand-button-secondary rounded-full px-5 py-3 font-medium"
+                  className="brand-button-secondary rounded-full px-5 py-3 text-center font-medium"
                 >
                   {copy(locale, "Explore business cases", "Explorar casos de negocio")}
                 </Link>
@@ -78,7 +108,7 @@ export default async function LocaleHomePage({
               </div>
             </div>
 
-            <div className="relative z-10 hidden lg:block">
+            <div className="relative z-10 max-w-xl lg:max-w-none">
               <EditorialCover
                 variant="insight"
                 eyebrow={copy(locale, "Featured", "Destaque")}
@@ -96,7 +126,7 @@ export default async function LocaleHomePage({
         </div>
       </section>
 
-      <section className="container-shell grid gap-6 py-6 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr]">
+      <section className="container-shell grid gap-8 py-4 sm:py-6 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="space-y-6">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
@@ -139,7 +169,7 @@ export default async function LocaleHomePage({
       </section>
 
       <section className="container-shell py-10">
-        <div className="mb-8 flex items-end justify-between gap-6">
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
               {copy(locale, "Business cases", "Casos de negocio")}
@@ -168,7 +198,7 @@ export default async function LocaleHomePage({
       </section>
 
       <section className="container-shell py-10">
-        <div className="section-card rounded-[32px] p-8 md:p-10">
+        <div className="section-card rounded-[28px] p-6 sm:rounded-[32px] sm:p-8 md:p-10">
           <div className="grid gap-8 lg:grid-cols-[1fr_0.8fr]">
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
@@ -189,7 +219,7 @@ export default async function LocaleHomePage({
                 )}
               </p>
             </div>
-            <div className="section-card rounded-3xl p-6">
+            <div className="section-card rounded-3xl p-5 sm:p-6">
               <div className="space-y-3 text-sm text-slate-300">
                 <p>{copy(locale, "1. Follow market changes in data and AI.", "1. Acompanhe mudancas de mercado em dados e IA.")}</p>
                 <p>{copy(locale, "2. Understand the business opportunity behind the trend.", "2. Entenda a oportunidade de negocio por tras da tendencia.")}</p>

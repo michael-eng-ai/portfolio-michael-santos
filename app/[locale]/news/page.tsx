@@ -1,6 +1,32 @@
 import { NewsListPaginated } from "@/components/news-list-paginated";
 import { getNewsReferences } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
 import { Locale, copy } from "@/lib/site";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: rawLocale } = await params;
+  const locale = rawLocale as Locale;
+
+  return buildPageMetadata({
+    locale,
+    title: copy(
+      locale,
+      "Curated Market Signals For Data, AI, And Digital Strategy",
+      "Sinais de Mercado Curados Para Dados, IA e Estrategia Digital",
+    ),
+    description: copy(
+      locale,
+      "A filtered view of the external signals shaping investment, operating models, and platform strategy.",
+      "Uma visao filtrada dos sinais externos que moldam investimento, modelos operacionais e estrategia de plataforma.",
+    ),
+    path: "/news",
+    keywords: ["AI market signals", "data engineering news", "digital strategy news"],
+  });
+}
 
 export default async function NewsPage({
   params,
@@ -12,7 +38,7 @@ export default async function NewsPage({
   const news = await getNewsReferences();
 
   return (
-    <main className="container-shell py-16">
+    <main className="container-shell py-10 sm:py-16">
       <div className="mb-10 max-w-3xl">
         <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
           {copy(locale, "News", "Noticias")}

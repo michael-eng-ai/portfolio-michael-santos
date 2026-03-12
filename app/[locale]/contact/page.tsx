@@ -1,4 +1,30 @@
+import { buildPageMetadata } from "@/lib/seo";
 import { Locale, copy, siteConfig } from "@/lib/site";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: rawLocale } = await params;
+  const locale = rawLocale as Locale;
+
+  return buildPageMetadata({
+    locale,
+    title: copy(
+      locale,
+      "Contact Michael Barbosa Santos",
+      "Contato com Michael Barbosa Santos",
+    ),
+    description: copy(
+      locale,
+      "Get in touch for consulting, technical leadership, partnerships, and growth-focused data or AI initiatives.",
+      "Entre em contato para consultoria, lideranca tecnica, parcerias e iniciativas de dados ou IA focadas em crescimento.",
+    ),
+    path: "/contact",
+    keywords: ["contact", "consulting", "data engineering advisor"],
+  });
+}
 
 export default async function ContactPage({
   params,
@@ -9,9 +35,9 @@ export default async function ContactPage({
   const locale = rawLocale as Locale;
 
   return (
-    <main className="container-shell py-16">
+    <main className="container-shell py-10 sm:py-16">
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-[1fr_0.9fr]">
-        <section className="section-card rounded-[32px] p-8 md:p-10">
+        <section className="section-card rounded-[28px] p-6 sm:rounded-[32px] sm:p-8 md:p-10">
           <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
             {copy(locale, "Contact", "Contato")}
           </p>
@@ -31,23 +57,23 @@ export default async function ContactPage({
           </p>
         </section>
 
-        <section className="section-card rounded-[32px] p-8 md:p-10">
+        <section className="section-card rounded-[28px] p-6 sm:rounded-[32px] sm:p-8 md:p-10">
           <div className="space-y-5 text-slate-300">
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-slate-400">Email</p>
-              <a href={`mailto:${siteConfig.email}`} className="mt-2 block text-lg text-white">
+              <a href={`mailto:${siteConfig.email}`} className="link-safe-break mt-2 block text-base text-white sm:text-lg">
                 {siteConfig.email}
               </a>
             </div>
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-slate-400">GitHub</p>
-              <a href={siteConfig.githubUrl} target="_blank" rel="noreferrer" className="mt-2 block text-lg text-white">
+              <a href={siteConfig.githubUrl} target="_blank" rel="noreferrer" className="link-safe-break mt-2 block text-base text-white sm:text-lg">
                 {siteConfig.githubUrl}
               </a>
             </div>
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-slate-400">LinkedIn</p>
-              <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer" className="mt-2 block text-lg text-white">
+              <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer" className="link-safe-break mt-2 block text-base text-white sm:text-lg">
                 {siteConfig.linkedinUrl}
               </a>
             </div>

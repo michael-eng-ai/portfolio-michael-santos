@@ -43,7 +43,7 @@ export function EditorialCover({
           src={imageUrl}
           alt=""
           fill
-          sizes="(max-width: 768px) 100vw, 50vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
           className="editorial-cover__image"
         />
       ) : (

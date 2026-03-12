@@ -4,8 +4,10 @@ import { notFound } from "next/navigation";
 
 import { EditorialCover } from "@/components/editorial-cover";
 import { MarkdownContent } from "@/components/markdown-content";
+import { StructuredData } from "@/components/structured-data";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { getArticles, getGithubRepoSnapshots, getGithubSnapshotForProject, getNewsReferences, getProjectBySlug, getProjects } from "@/lib/content";
+import { buildPageMetadata, buildProjectJsonLd } from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 
 export async function generateStaticParams() {
@@ -28,10 +30,14 @@ export async function generateMetadata({
   const locale = resolvedParams.locale as Locale;
   const content = project.locales[locale];
 
-  return {
+  return buildPageMetadata({
+    locale,
     title: `${content.title} | Michael Barbosa Santos`,
     description: content.summary,
-  };
+    path: `/projects/${project.slug}`,
+    imageUrl: project.imageUrl,
+    keywords: [...project.tags, ...project.stack],
+  });
 }
 
 export default async function ProjectDetailPage({
@@ -58,8 +64,19 @@ export default async function ProjectDetailPage({
   const snapshot = getGithubSnapshotForProject(project, snapshots);
 
   return (
-    <main className="container-shell py-16">
-      <div className="mb-10 overflow-hidden rounded-[32px]">
+    <main className="container-shell py-10 sm:py-16">
+      <StructuredData
+        data={buildProjectJsonLd({
+          locale,
+          title: content.title,
+          description: content.summary,
+          path: `/projects/${project.slug}`,
+          imageUrl: project.imageUrl,
+          repoUrl: project.github.url,
+          keywords: [...project.tags, ...project.stack],
+        })}
+      />
+      <div className="mb-8 overflow-hidden rounded-[28px] sm:mb-10 sm:rounded-[32px]">
         <EditorialCover
           variant="case"
           eyebrow={copy(locale, "Business case", "Caso de negocio")}
@@ -72,14 +89,14 @@ export default async function ProjectDetailPage({
 
       <div className="grid gap-8 md:grid-cols-[1fr_1fr] lg:grid-cols-[1.25fr_0.75fr]">
         <div className="space-y-8">
-          <section className="section-card rounded-3xl p-8">
+          <section className="section-card rounded-3xl p-6 sm:p-8">
             <h2 className="text-2xl font-semibold text-white">
               {copy(locale, "The challenge", "O desafio")}
             </h2>
             <p className="mt-4 text-slate-300">{content.businessProblem}</p>
           </section>
 
-          <section className="section-card rounded-3xl p-8">
+          <section className="section-card rounded-3xl p-6 sm:p-8">
             <h2 className="text-2xl font-semibold text-white">
               {copy(locale, "How we solved it", "Como resolvemos")}
             </h2>
@@ -90,7 +107,7 @@ export default async function ProjectDetailPage({
             </ul>
           </section>
 
-          <section className="section-card rounded-3xl p-8">
+          <section className="section-card rounded-3xl p-6 sm:p-8">
             <h2 className="text-2xl font-semibold text-white">
               {copy(locale, "Execution story", "Historia de execucao")}
             </h2>
@@ -102,7 +119,7 @@ export default async function ProjectDetailPage({
         </div>
 
         <aside className="space-y-6">
-          <section className="section-card rounded-3xl p-6">
+          <section className="section-card rounded-3xl p-5 sm:p-6">
             <h2 className="text-xl font-semibold text-white">
               {copy(locale, "Technical implementation", "Implementacao tecnica")}
             </h2>
@@ -139,7 +156,7 @@ export default async function ProjectDetailPage({
             )}
           </section>
 
-          <section className="section-card rounded-3xl p-6">
+          <section className="section-card rounded-3xl p-5 sm:p-6">
             <h2 className="text-xl font-semibold text-white">{copy(locale, "Business impact", "Impacto no negocio")}</h2>
             <ul className="mt-4 space-y-3 text-sm text-slate-300">
               {content.impact.map((item) => (
@@ -148,7 +165,7 @@ export default async function ProjectDetailPage({
             </ul>
           </section>
 
-          <section className="section-card rounded-3xl p-6">
+          <section className="section-card rounded-3xl p-5 sm:p-6">
             <h2 className="text-xl font-semibold text-white">
               {copy(locale, "Related insights", "Insights relacionados")}
             </h2>

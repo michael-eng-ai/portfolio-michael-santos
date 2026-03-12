@@ -1,4 +1,30 @@
+import { buildPageMetadata } from "@/lib/seo";
 import { Locale, copy } from "@/lib/site";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: rawLocale } = await params;
+  const locale = rawLocale as Locale;
+
+  return buildPageMetadata({
+    locale,
+    title: copy(
+      locale,
+      "Bilingual Resume Download",
+      "Download do Curriculo Bilingue",
+    ),
+    description: copy(
+      locale,
+      "Download English and Portuguese resume versions aligned with the site's business and technical positioning.",
+      "Baixe as versoes em ingles e portugues do curriculo alinhadas ao posicionamento tecnico e de negocio do site.",
+    ),
+    path: "/resume",
+    keywords: ["resume", "CV", "Senior Data Engineer resume"],
+  });
+}
 
 export default async function ResumePage({
   params,
@@ -9,8 +35,8 @@ export default async function ResumePage({
   const locale = rawLocale as Locale;
 
   return (
-    <main className="container-shell py-16">
-      <div className="section-card rounded-[32px] p-8 md:p-10">
+    <main className="container-shell py-10 sm:py-16">
+      <div className="section-card rounded-[28px] p-6 sm:rounded-[32px] sm:p-8 md:p-10">
         <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
           {copy(locale, "Resume", "Curriculo")}
         </p>
