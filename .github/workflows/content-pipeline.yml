@@ -43,6 +43,9 @@ jobs:
       - name: Generate LinkedIn drafts
         run: pnpm content:linkedin
 
+      - name: Generate X drafts
+        run: pnpm content:x
+
       - name: Validate content
         run: pnpm content:validate
 

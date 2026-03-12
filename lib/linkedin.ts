@@ -1,9 +1,13 @@
 import { LinkedinDraft } from "@/lib/content";
+import { Locale } from "@/lib/site";
 
-export async function publishLinkedinDraft(draft: LinkedinDraft) {
+export async function publishLinkedinDraft(draft: LinkedinDraft, locale: Locale = "en") {
   const accessToken = process.env.LINKEDIN_ACCESS_TOKEN;
   const personUrn = process.env.LINKEDIN_PERSON_URN;
   const enabled = process.env.LINKEDIN_PUBLISH_ENABLED === "true";
+  const localizedDraft = draft.locales[locale];
+  const siteUrl = draft.urls[locale];
+  const proofUrl = draft.urls.proof;
 
   if (!enabled) {
     return {
@@ -19,7 +23,15 @@ export async function publishLinkedinDraft(draft: LinkedinDraft) {
 
   const payload = {
     author: personUrn,
-    commentary: `${draft.locales.en.hook}\n\n${draft.locales.en.body}\n\n${draft.locales.en.cta}`,
+    commentary: [
+      localizedDraft.hook,
+      localizedDraft.body,
+      localizedDraft.cta,
+      siteUrl,
+      proofUrl,
+    ]
+      .filter(Boolean)
+      .join("\n\n"),
     visibility: "PUBLIC",
     distribution: {
       feedDistribution: "MAIN_FEED",
@@ -52,5 +64,6 @@ export async function publishLinkedinDraft(draft: LinkedinDraft) {
     mode: "api",
     published: true,
     id: data.id ?? null,
+    locale,
   } as const;
 }

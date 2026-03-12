@@ -5,6 +5,11 @@
   "status": "draft",
   "generatedAt": "2026-03-11T00:00:00.000Z",
   "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/from-news-to-data-product",
+    "pt": "https://michael.business/pt/articles/from-news-to-data-product",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
   "locales": {
     "en": {
       "hook": "Most technical portfolios stop at code. The stronger ones show market context, business problem, and implementation path together.",

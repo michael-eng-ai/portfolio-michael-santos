@@ -3,18 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "ai-data-analyst-bot",
   "status": "draft",
-  "generatedAt": "2026-03-11T17:20:32.336Z",
+  "generatedAt": "2026-03-12T20:34:51.824Z",
   "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/projects/ai-data-analyst-bot",
+    "pt": "https://michael.business/pt/projects/ai-data-analyst-bot",
+    "proof": "https://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
+  },
   "locales": {
     "en": {
       "hook": "AI Data Analyst Bot",
       "body": "A portfolio project that links data engineering foundations with AI-enabled interfaces for warehouse and documentation access.",
-      "cta": "See the full story on the site and explore the GitHub implementation."
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
       "hook": "AI Data Analyst Bot",
       "body": "Um projeto de portfólio que conecta fundamentos de engenharia de dados com interfaces habilitadas por IA para acesso a warehouse e documentação.",
-      "cta": "Veja a historia completa no site e explore a implementacao no GitHub."
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }
 }

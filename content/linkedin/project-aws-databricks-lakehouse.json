@@ -3,18 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "aws-databricks-lakehouse",
   "status": "draft",
-  "generatedAt": "2026-03-11T17:20:32.335Z",
+  "generatedAt": "2026-03-12T20:34:51.823Z",
   "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/projects/aws-databricks-lakehouse",
+    "pt": "https://michael.business/pt/projects/aws-databricks-lakehouse",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
   "locales": {
     "en": {
       "hook": "AWS And Databricks Lakehouse",
       "body": "A lakehouse portfolio case that connects raw event ingestion, medallion transformations, and infrastructure as code on AWS and Databricks.",
-      "cta": "See the full story on the site and explore the GitHub implementation."
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
       "hook": "Lakehouse com AWS e Databricks",
       "body": "Um caso de portfólio de lakehouse que conecta ingestão de eventos brutos, transformações em camadas medallion e infraestrutura como código em AWS e Databricks.",
-      "cta": "Veja a historia completa no site e explore a implementacao no GitHub."
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }
 }

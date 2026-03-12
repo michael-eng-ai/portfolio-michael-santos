@@ -1,0 +1,27 @@
+{
+  "slug": "article-from-news-to-data-product",
+  "sourceType": "article",
+  "sourceSlug": "from-news-to-data-product",
+  "status": "draft",
+  "generatedAt": "2026-03-12T20:37:59.132Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/from-news-to-data-product",
+    "pt": "https://michael.business/pt/articles/from-news-to-data-product",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Why Data Engineering And AI Only Matter When They Solve A Business Problem\n\nThe market no longer rewards technical novelty alone. What matters is the ability to connect data and AI work to speed, cost, risk, reven…\n\nhttps://michael.business/en/articles/from-news-to-data-product",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Por Que Engenharia de Dados e IA So Importam Quando Resolvem um Problema de Negocio\n\nO mercado nao recompensa mais apenas novidade tecnica. O que importa e a capacidade de conectar dados e IA a velocidade, custo,…\n\nhttps://michael.business/pt/articles/from-news-to-data-product",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    }
+  }
+}

@@ -7,6 +7,7 @@ This document is the source of truth for how the same underlying project or topi
 - site
 - GitHub
 - LinkedIn
+- X
 
 Use it as an anti-hallucination guide whenever AI helps create or refine content.
 
@@ -19,6 +20,7 @@ Each one has a different job:
 - Site: explain the business problem, market context, and strategic value in executive-friendly language
 - GitHub: show the operational implementation, code structure, architecture, setup, and technical proof
 - LinkedIn: bridge the two by connecting business context with operational credibility in a concise public format
+- X: create fast-moving visibility by turning one market signal and one execution proof into a short post or compact thread
 
 ## Channel Roles
 
@@ -61,6 +63,18 @@ Each one has a different job:
   - copying the README intro
   - sounding too promotional or too abstract
 
+### X
+- Primary function: reach and repetition
+- Tone: direct, opinionated, credible, compact
+- Focus:
+  - one business pressure
+  - one operational proof
+  - one tight call to action
+- Avoid:
+  - generic engagement bait
+  - long corporate phrasing
+  - copying the LinkedIn post verbatim
+
 ## Canonical Flow
 
 1. Start from the real project or topic.
@@ -69,6 +83,7 @@ Each one has a different job:
 4. Create site copy from business framing.
 5. Create GitHub copy from implementation framing.
 6. Create LinkedIn copy as the bridge between the two.
+7. Create X copy as the fast-moving public signal.
 
 ## AI Authoring Rules
 
@@ -77,12 +92,14 @@ When AI helps create a new project or article, it should always produce:
 - `site angle`
 - `github angle`
 - `linkedin angle`
+- `x angle`
 
 And it should keep them distinct:
 
 - Site asks: why should a business stakeholder care?
 - GitHub asks: how does this actually work?
 - LinkedIn asks: how do I connect value and execution in one short post?
+- X asks: what is the sharpest version of this insight that still points back to site and GitHub proof?
 
 ## Example Mapping
 
@@ -90,6 +107,7 @@ And it should keep them distinct:
 - Site: reduce delay between operational change and analytical visibility
 - GitHub: Debezium, Kafka, Python consumer, dbt layering
 - LinkedIn: why fresher operational data matters and how CDC enables it
+- X: one-line market pressure plus a short thread that points to the repo and article
 
 ### Example: Lakehouse Platform
 - Site: modernization, governance, reuse, scalability

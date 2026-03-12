@@ -1,0 +1,27 @@
+{
+  "slug": "project-kafka-debezium-dbt",
+  "sourceType": "project",
+  "sourceSlug": "kafka-debezium-dbt",
+  "status": "draft",
+  "generatedAt": "2026-03-12T20:37:59.137Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/projects/kafka-debezium-dbt",
+    "pt": "https://michael.business/pt/projects/kafka-debezium-dbt",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Real-Time CDC Analytics Pipeline\n\nHow near real-time operational change data can become trusted analytical information without adding unnecessary platform complexity.\n\nRead on site:\n\nhttps://michael.business/en/projects/kafka-debezium-dbt",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Pipeline Analítico de CDC em Tempo Real\n\nComo dados de mudanca operacional em quase tempo real podem virar informacao analitica confiavel sem adicionar complexidade desnecessaria de plataforma.\n\nLeia no site:\n\nhttps://michael.business/pt/projects/kafka-debezium-dbt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    }
+  }
+}

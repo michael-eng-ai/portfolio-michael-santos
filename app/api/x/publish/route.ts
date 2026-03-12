@@ -4,9 +4,9 @@ import path from "node:path";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { linkedinDraftSchema } from "@/lib/content";
-import { publishLinkedinDraft } from "@/lib/linkedin";
+import { xDraftSchema } from "@/lib/content";
 import { isLocale } from "@/lib/site";
+import { publishXDraft } from "@/lib/x";
 
 const requestSchema = z.object({
   slug: z.string().min(1),
@@ -14,8 +14,8 @@ const requestSchema = z.object({
 });
 
 export async function POST(request: Request) {
-  const publishSecret = process.env.LINKEDIN_PUBLISH_SECRET;
-  const providedSecret = request.headers.get("x-linkedin-publish-secret");
+  const publishSecret = process.env.X_PUBLISH_SECRET;
+  const providedSecret = request.headers.get("x-x-publish-secret");
 
   if (!publishSecret || providedSecret !== publishSecret) {
     return NextResponse.json(
@@ -29,10 +29,10 @@ export async function POST(request: Request) {
 
   try {
     const { slug, locale } = requestSchema.parse(await request.json());
-    const file = path.join(process.cwd(), "content", "linkedin", `${slug}.json`);
+    const file = path.join(process.cwd(), "content", "x", `${slug}.json`);
     const raw = await fs.readFile(file, "utf8");
-    const draft = linkedinDraftSchema.parse(JSON.parse(raw));
-    const result = await publishLinkedinDraft(draft, locale && isLocale(locale) ? locale : "en");
+    const draft = xDraftSchema.parse(JSON.parse(raw));
+    const result = await publishXDraft(draft, locale && isLocale(locale) ? locale : "en");
 
     return NextResponse.json({
       success: true,
@@ -42,7 +42,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: false,
-        message: error instanceof Error ? error.message : "LinkedIn publishing failed.",
+        message: error instanceof Error ? error.message : "X publishing failed.",
       },
       { status: 400 },
     );

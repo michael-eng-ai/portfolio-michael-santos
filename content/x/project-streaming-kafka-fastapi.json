@@ -1,0 +1,27 @@
+{
+  "slug": "project-streaming-kafka-fastapi",
+  "sourceType": "project",
+  "sourceSlug": "streaming-kafka-fastapi",
+  "status": "draft",
+  "generatedAt": "2026-03-12T20:37:59.137Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/projects/streaming-kafka-fastapi",
+    "pt": "https://michael.business/pt/projects/streaming-kafka-fastapi",
+    "proof": "https://github.com/michael-eng-ai/streaming-kafka-fastapi"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Streaming Radar API\n\nA project that translates event-driven architecture into a business-facing case about low-latency data delivery and real-time serving.\n\nRead on site:\n\nhttps://michael.business/en/projects/streaming-kafka-fastapi",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/streaming-kafka-fastapi"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Streaming Radar API\n\nUm projeto que traduz arquitetura orientada a eventos em um caso de negócio sobre entrega de dados em baixa latência e serving em tempo real.\n\nLeia no site:\n\nhttps://michael.business/pt/projects/streaming-kafka-fastapi",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/streaming-kafka-fastapi"
+      ]
+    }
+  }
+}

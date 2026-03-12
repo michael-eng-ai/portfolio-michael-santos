@@ -1,0 +1,27 @@
+{
+  "slug": "article-governed-ai-analytics",
+  "sourceType": "article",
+  "sourceSlug": "governed-ai-analytics",
+  "status": "draft",
+  "generatedAt": "2026-03-12T20:37:59.136Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/governed-ai-analytics",
+    "pt": "https://michael.business/pt/articles/governed-ai-analytics",
+    "proof": "https://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Why AI Analytics Still Depends On Strong Data Engineering\n\nText-to-SQL, retrieval, and AI copilots only become valuable when they sit on top of governed pipelines, trusted metadata, and well-structured delivery paths.…\n\nhttps://michael.business/en/articles/governed-ai-analytics",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Por Que Analytics com IA Ainda Depende de Boa Engenharia de Dados\n\nText-to-SQL, retrieval e copilotos de IA só geram valor quando estão sobre pipelines governados, metadados confiáveis e caminhos de entrega bem estrut…\n\nhttps://michael.business/pt/articles/governed-ai-analytics",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
+      ]
+    }
+  }
+}

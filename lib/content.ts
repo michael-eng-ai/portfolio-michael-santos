@@ -36,6 +36,10 @@ const localizedLinkedinSchema = z.object({
   cta: z.string().min(1),
 });
 
+const localizedXSchema = z.object({
+  posts: z.array(z.string().min(1)).min(1).max(3),
+});
+
 const channelStrategySchema = z.object({
   site: z.object({
     primaryAngle: z.string().min(1),
@@ -52,6 +56,11 @@ const channelStrategySchema = z.object({
     audience: z.string().min(1),
     bridgeMessage: z.string().min(1),
   }),
+  x: z.object({
+    primaryAngle: z.string().min(1),
+    audience: z.string().min(1),
+    bridgeMessage: z.string().min(1),
+  }).optional(),
 });
 
 export const projectSchema = z.object({
@@ -130,9 +139,32 @@ export const linkedinDraftSchema = z.object({
   status: z.enum(["draft", "approved", "published"]),
   generatedAt: z.string().min(1),
   publishedUrl: z.string().url().nullable().default(null),
+  urls: z.object({
+    en: z.string().url(),
+    pt: z.string().url(),
+    proof: z.string().url().nullable().default(null),
+  }),
   locales: z.object({
     en: localizedLinkedinSchema,
     pt: localizedLinkedinSchema,
+  }),
+});
+
+export const xDraftSchema = z.object({
+  slug: z.string().min(1),
+  sourceType: z.enum(["article", "project"]),
+  sourceSlug: z.string().min(1),
+  status: z.enum(["draft", "approved", "published"]),
+  generatedAt: z.string().min(1),
+  publishedUrl: z.string().url().nullable().default(null),
+  urls: z.object({
+    en: z.string().url(),
+    pt: z.string().url(),
+    proof: z.string().url().nullable().default(null),
+  }),
+  locales: z.object({
+    en: localizedXSchema,
+    pt: localizedXSchema,
   }),
 });
 
@@ -165,6 +197,7 @@ export type Article = z.infer<typeof articleSchema>;
 export type NewsReference = z.infer<typeof newsSchema>;
 export type NewsFeedSource = z.infer<typeof newsFeedSourceSchema>;
 export type LinkedinDraft = z.infer<typeof linkedinDraftSchema>;
+export type XDraft = z.infer<typeof xDraftSchema>;
 export type GithubRepoSnapshot = z.infer<typeof githubRepoSnapshotSchema>;
 
 const contentRoot = path.join(process.cwd(), "content");
@@ -238,6 +271,15 @@ export async function getNewsReferenceBySlug(slug: string) {
 export async function getLinkedinDrafts() {
   try {
     const entries = await readJsonCollection("linkedin", linkedinDraftSchema);
+    return entries.sort((left, right) => right.generatedAt.localeCompare(left.generatedAt));
+  } catch {
+    return [];
+  }
+}
+
+export async function getXDrafts() {
+  try {
+    const entries = await readJsonCollection("x", xDraftSchema);
     return entries.sort((left, right) => right.generatedAt.localeCompare(left.generatedAt));
   } catch {
     return [];
