@@ -29,6 +29,7 @@ html {
 
 body {
   margin: 0;
+  overflow-x: hidden;
   background:
     radial-gradient(circle at 12% 8%, rgba(109, 185, 255, 0.16), transparent 26%),
     radial-gradient(circle at 84% 16%, rgba(157, 140, 255, 0.14), transparent 24%),
@@ -37,6 +38,7 @@ body {
     linear-gradient(180deg, #0c1827 0%, #102032 44%, #13253a 100%);
   color: var(--foreground);
   font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
 }
 
 h1,
@@ -55,17 +57,18 @@ a {
 
 .app-shell {
   min-height: 100vh;
+  overflow: clip;
 }
 
 .container-shell {
   margin: 0 auto;
   max-width: 1280px;
-  padding: 0 16px;
+  padding: 0 14px;
 }
 
 @media (min-width: 640px) {
   .container-shell {
-    padding: 0 24px;
+    padding: 0 20px;
   }
 }
 
@@ -258,9 +261,10 @@ a {
 .editorial-cover__title {
   margin: 0;
   max-width: 18ch;
-  font-size: 1.72rem;
+  font-size: clamp(1.3rem, 1.05rem + 1vw, 1.72rem);
   line-height: 1.08;
   color: #f8fbff;
+  text-wrap: balance;
 }
 
 .editorial-cover__supporting {
@@ -269,6 +273,7 @@ a {
   color: rgba(231, 239, 249, 0.82);
   font-size: 0.95rem;
   line-height: 1.6;
+  text-wrap: pretty;
 }
 
 .editorial-cover__meta {
@@ -334,6 +339,7 @@ a {
 .markdown-content ol,
 .markdown-content blockquote {
   margin: 1rem 0;
+  overflow-wrap: anywhere;
 }
 
 .markdown-content ul,
@@ -363,6 +369,10 @@ a {
 .footer-shell {
   background:
     linear-gradient(180deg, rgba(14, 24, 38, 0.95), rgba(10, 18, 30, 0.98));
+}
+
+.link-safe-break {
+  overflow-wrap: anywhere;
 }
 
 @media (max-width: 768px) {

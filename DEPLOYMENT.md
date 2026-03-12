@@ -28,6 +28,7 @@ Optional but recommended:
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `RESEND_API_KEY`
 - `NEWSLETTER_FROM_EMAIL`
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID`
 - `OPENAI_API_KEY`
 - `LINKEDIN_ACCESS_TOKEN`
 - `LINKEDIN_PERSON_URN`
@@ -69,6 +70,12 @@ Optional but recommended:
 - Create the subscriber table using `supabase/newsletter_subscribers.sql`
 - Add `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`
 - Add Resend credentials if you want welcome emails enabled
+
+### Google Analytics 4
+- Create a GA4 Web Data Stream for `michael.business`
+- Copy the Measurement ID, which looks like `G-XXXXXXXXXX`
+- Add it to Vercel as `NEXT_PUBLIC_GA_MEASUREMENT_ID`
+- Redeploy or push a new commit so the measurement script is included in production
 
 ### LinkedIn publishing
 - Draft generation works without LinkedIn credentials
@@ -150,6 +157,7 @@ Se preferir zero manutenção de DNS no futuro, uma alternativa é manter o dom�
 ## Recommended Validation Checklist
 
 - Home page loads in both English and Portuguese
+- Google Analytics is receiving page views in GA4 Realtime
 - Project pages render localized content correctly
 - Article and news pages open correctly on refresh and direct access
 - Resume download works

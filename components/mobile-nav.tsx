@@ -39,14 +39,16 @@ export function MobileNav({ locale }: MobileNavProps) {
         type="button"
         onClick={() => setOpen(!open)}
         aria-label={open ? "Close menu" : "Open menu"}
+        aria-expanded={open}
+        aria-controls="mobile-navigation"
         className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white transition hover:bg-white/10"
       >
         {open ? <X size={20} /> : <Menu size={20} />}
       </button>
 
       {open && (
-        <div className="fixed inset-0 top-[73px] z-40 bg-[rgba(11,20,31,0.97)] backdrop-blur-xl">
-          <nav className="container-shell flex flex-col gap-1 py-6">
+        <div className="fixed inset-x-0 bottom-0 top-[64px] z-40 overflow-y-auto bg-[rgba(11,20,31,0.97)] backdrop-blur-xl sm:top-[72px]">
+          <nav id="mobile-navigation" className="container-shell flex flex-col gap-1 py-6">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (

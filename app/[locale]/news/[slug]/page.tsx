@@ -3,8 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { EditorialCover } from "@/components/editorial-cover";
+import { StructuredData } from "@/components/structured-data";
 import { clampText, editorialLimits, sourceInitials } from "@/lib/editorial";
 import { getNewsReferenceBySlug, getNewsReferences, getProjects } from "@/lib/content";
+import { buildArticleJsonLd, buildPageMetadata } from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -27,10 +29,17 @@ export async function generateMetadata({
   }
 
   const locale = resolvedParams.locale as Locale;
-  return {
+  return buildPageMetadata({
+    locale,
     title: `${item.locales[locale].title} | Michael Barbosa Santos`,
     description: item.locales[locale].summary,
-  };
+    path: `/news/${item.slug}`,
+    imageUrl: item.imageUrl,
+    keywords: item.tags,
+    type: "article",
+    publishedTime: item.publishedAt,
+    modifiedTime: item.publishedAt,
+  });
 }
 
 export default async function NewsDetailPage({
@@ -53,8 +62,20 @@ export default async function NewsDetailPage({
   const relatedProjects = projects.filter((project) => item.relatedProjectSlugs.includes(project.slug));
 
   return (
-    <main className="container-shell py-16">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-[1.15fr_0.85fr]">
+    <main className="container-shell py-10 sm:py-16">
+      <StructuredData
+        data={buildArticleJsonLd({
+          locale,
+          title: content.title,
+          description: content.summary,
+          path: `/news/${item.slug}`,
+          imageUrl: item.imageUrl,
+          publishedAt: item.publishedAt,
+          keywords: item.tags,
+          type: "NewsArticle",
+        })}
+      />
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-[1.15fr_0.85fr]">
         <article className="section-card overflow-hidden rounded-[32px]">
           <EditorialCover
             variant="news"
@@ -64,7 +85,7 @@ export default async function NewsDetailPage({
             meta={`${sourceInitials(item.sourceName)} • ${item.publishedAt}`}
             imageUrl={item.imageUrl}
           />
-          <div className="p-8 md:p-10">
+          <div className="p-6 sm:p-8 md:p-10">
             <h1 className="sr-only">{content.title}</h1>
             <p className="max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">{content.summary}</p>
             <a
@@ -79,7 +100,7 @@ export default async function NewsDetailPage({
         </article>
 
         <aside className="space-y-6">
-          <section className="section-card rounded-3xl p-6">
+          <section className="section-card rounded-3xl p-5 sm:p-6">
             <h2 className="text-xl font-semibold text-white">
               {copy(locale, "Connected business cases", "Casos conectados")}
             </h2>
@@ -92,7 +113,7 @@ export default async function NewsDetailPage({
             </div>
           </section>
 
-          <section className="section-card rounded-3xl p-6">
+          <section className="section-card rounded-3xl p-5 sm:p-6">
             <h2 className="text-xl font-semibold text-white">
               {copy(locale, "Why this signal matters", "Por que esse sinal importa")}
             </h2>

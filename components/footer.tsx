@@ -8,7 +8,7 @@ type FooterProps = {
 
 export function Footer({ locale }: FooterProps) {
   return (
-    <footer className="footer-shell border-t border-white/8 py-14">
+    <footer className="footer-shell border-t border-white/8 py-12 sm:py-14">
       <div className="container-shell grid gap-10 sm:grid-cols-2 md:grid-cols-3">
         <div className="space-y-3">
           <p className="display-copy text-lg font-semibold text-white">{siteConfig.name}</p>

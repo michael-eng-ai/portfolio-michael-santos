@@ -1,6 +1,32 @@
 import { ArticleCard } from "@/components/article-card";
 import { getArticles } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
 import { Locale, copy } from "@/lib/site";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: rawLocale } = await params;
+  const locale = rawLocale as Locale;
+
+  return buildPageMetadata({
+    locale,
+    title: copy(
+      locale,
+      "Insights On Data Engineering, AI, And Growth",
+      "Insights Sobre Engenharia de Dados, IA e Crescimento",
+    ),
+    description: copy(
+      locale,
+      "Long-form analysis that connects market pressure, technical execution, and measurable business outcomes.",
+      "Analises que conectam pressao de mercado, execucao tecnica e resultados de negocio mensuraveis.",
+    ),
+    path: "/articles",
+    keywords: ["AI articles", "data platform strategy", "digital transformation"],
+  });
+}
 
 export default async function ArticlesPage({
   params,
@@ -12,7 +38,7 @@ export default async function ArticlesPage({
   const articles = await getArticles();
 
   return (
-    <main className="container-shell py-16">
+    <main className="container-shell py-10 sm:py-16">
       <div className="mb-10 max-w-3xl">
         <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
           {copy(locale, "Insights", "Insights")}

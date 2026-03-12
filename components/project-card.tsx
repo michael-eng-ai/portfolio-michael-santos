@@ -25,7 +25,7 @@ export function ProjectCard({ project, locale }: ProjectCardProps) {
         meta={project.stack.slice(0, 3).join(" • ")}
         imageUrl={project.imageUrl}
       />
-      <div className="space-y-4 border-t border-white/8 p-6">
+      <div className="space-y-4 border-t border-white/8 p-5 sm:p-6">
         <div className="flex flex-wrap gap-2">
           {project.tags.map((tag) => (
             <span key={tag} className="rounded-full border border-white/10 px-3 py-1 text-xs text-blue-200">
@@ -39,7 +39,7 @@ export function ProjectCard({ project, locale }: ProjectCardProps) {
             <span key={item}>{item}</span>
           ))}
         </div>
-        <div className="flex items-center gap-3 pt-1 text-sm">
+        <div className="flex flex-col items-start gap-3 pt-1 text-sm sm:flex-row sm:items-center">
           <Link
             href={localePath(locale, `/projects/${project.slug}`)}
             className="brand-button-primary rounded-full px-4 py-2 font-medium"

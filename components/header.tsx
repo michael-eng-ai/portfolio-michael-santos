@@ -19,7 +19,7 @@ export function Header({ locale }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/8 bg-[rgba(11,20,31,0.58)] backdrop-blur-xl">
-      <div className="container-shell flex items-center justify-between gap-4 py-4">
+      <div className="container-shell flex items-center justify-between gap-3 py-3 sm:gap-4 sm:py-4">
         <Link href={localePath(locale)} className="flex min-w-0 flex-col">
           <span className="brand-heading-kicker hidden text-slate-400 sm:block">
             {siteConfig.role}

@@ -21,6 +21,7 @@ This repository powers a bilingual `Next.js` content platform designed to close 
 - JSON-based Git content collections
 - Supabase for newsletter subscribers
 - Resend for welcome emails and lightweight newsletter delivery
+- Google Analytics 4 for traffic and newsletter conversion tracking
 - GitHub Actions for CI and content automation
 - Vercel for production hosting and Git-based deploys
 
@@ -46,6 +47,14 @@ pnpm content:validate
 pnpm check
 pnpm build
 ```
+
+## Analytics
+
+Set `NEXT_PUBLIC_GA_MEASUREMENT_ID` with your GA4 measurement ID (for example `G-XXXXXXXXXX`) to enable:
+
+- pageview tracking on all routes
+- newsletter conversion events
+- production analytics on Vercel without changing the code again
 
 ## Authoring Workflow
 

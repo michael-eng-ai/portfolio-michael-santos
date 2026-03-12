@@ -1,6 +1,32 @@
 import { ProjectCard } from "@/components/project-card";
 import { getProjects } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/seo";
 import { Locale, copy } from "@/lib/site";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: rawLocale } = await params;
+  const locale = rawLocale as Locale;
+
+  return buildPageMetadata({
+    locale,
+    title: copy(
+      locale,
+      "Business Cases In Data Engineering And AI Delivery",
+      "Casos de Negocio em Engenharia de Dados e Entrega de IA",
+    ),
+    description: copy(
+      locale,
+      "Execution cases that show how strategy becomes technical delivery and measurable business impact.",
+      "Casos de execucao que mostram como a estrategia vira entrega tecnica e impacto de negocio mensuravel.",
+    ),
+    path: "/projects",
+    keywords: ["data engineering projects", "AI case studies", "technical portfolio"],
+  });
+}
 
 export default async function ProjectsPage({
   params,
@@ -12,7 +38,7 @@ export default async function ProjectsPage({
   const projects = await getProjects();
 
   return (
-    <main className="container-shell py-16">
+    <main className="container-shell py-10 sm:py-16">
       <div className="mb-10 max-w-3xl">
         <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
           {copy(locale, "Business cases", "Casos de negocio")}

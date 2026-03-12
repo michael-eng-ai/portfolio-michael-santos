@@ -93,7 +93,7 @@ export function NewsListPaginated({
       )}
 
       {totalPages > 1 && (
-        <nav className="mt-10 flex items-center justify-center gap-2">
+        <nav className="mt-10 flex flex-wrap items-center justify-center gap-2">
           <button
             type="button"
             disabled={safeCurrentPage <= 1}
