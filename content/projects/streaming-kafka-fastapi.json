@@ -1,0 +1,55 @@
+{
+  "slug": "streaming-kafka-fastapi",
+  "featured": true,
+  "order": 5,
+  "imageUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
+  "stack": ["Kafka", "Redis", "FastAPI", "Python", "Docker"],
+  "tags": ["streaming", "event-driven", "api"],
+  "github": {
+    "owner": "michael-eng-ai",
+    "repo": "streaming-kafka-fastapi",
+    "url": "https://github.com/michael-eng-ai/streaming-kafka-fastapi"
+  },
+  "relatedArticleSlugs": ["from-news-to-data-product"],
+  "relatedNewsSlugs": ["streaming-governance-2026"],
+  "locales": {
+    "en": {
+      "title": "Streaming Radar API",
+      "subtitle": "Event-driven serving path from Kafka to low-latency APIs",
+      "summary": "A project that translates event-driven architecture into a business-facing case about low-latency data delivery and real-time serving.",
+      "businessProblem": "Some data systems are valuable only if they deliver information while it still matters. That means the architecture has to connect ingestion, processing, state management, and serving with low latency and operational clarity.",
+      "technicalSolution": [
+        "Use Kafka as the streaming backbone",
+        "Process events through Python producer and consumer services",
+        "Keep serving state in Redis",
+        "Expose the latest state through FastAPI endpoints"
+      ],
+      "architectureSummary": "Streaming events move through Kafka, are transformed by Python services, stored in Redis, and exposed via FastAPI as a practical real-time serving path.",
+      "impact": [
+        "Supports a narrative around real-time decision systems",
+        "Shows how a GitHub project becomes a business case on the site",
+        "Creates material for articles and LinkedIn posts about event-driven delivery"
+      ],
+      "body": "## Real-time as a business requirement\n\nThe project is framed around timeliness, not only technology. When the site talks about low-latency systems, this repository becomes the technical proof behind that claim.\n\n## Why it fits the platform\n\nThis is the kind of project that benefits from being connected to external references, because its value grows when it is placed inside a broader market conversation about streaming and operational responsiveness."
+    },
+    "pt": {
+      "title": "Streaming Radar API",
+      "subtitle": "Caminho orientado a eventos do Kafka até APIs de baixa latência",
+      "summary": "Um projeto que traduz arquitetura orientada a eventos em um caso de negócio sobre entrega de dados em baixa latência e serving em tempo real.",
+      "businessProblem": "Alguns sistemas de dados só têm valor se entregarem informação enquanto ela ainda importa. Isso exige uma arquitetura que conecte ingestão, processamento, gerenciamento de estado e serving com baixa latência e clareza operacional.",
+      "technicalSolution": [
+        "Uso do Kafka como backbone de streaming",
+        "Processamento dos eventos com serviços producer e consumer em Python",
+        "Manutenção do estado de serving no Redis",
+        "Exposição do estado mais recente por endpoints FastAPI"
+      ],
+      "architectureSummary": "Os eventos passam pelo Kafka, são transformados por serviços Python, armazenados no Redis e expostos pelo FastAPI como caminho prático de serving em tempo real.",
+      "impact": [
+        "Sustenta uma narrativa sobre sistemas de decisão em tempo real",
+        "Mostra como um projeto no GitHub vira caso de negócio no site",
+        "Gera material para artigos e posts de LinkedIn sobre entrega orientada a eventos"
+      ],
+      "body": "## Tempo real como requisito de negócio\n\nO projeto é apresentado a partir de oportunidade temporal, e não apenas de tecnologia. Quando o site fala sobre sistemas de baixa latência, este repositório vira a prova técnica por trás da narrativa.\n\n## Por que ele combina com a plataforma\n\nÉ o tipo de projeto que ganha valor quando conectado a referências externas, porque faz parte de uma conversa maior sobre streaming e capacidade de resposta operacional."
+    }
+  }
+}

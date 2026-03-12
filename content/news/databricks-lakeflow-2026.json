@@ -1,0 +1,22 @@
+{
+  "slug": "databricks-lakeflow-2026",
+  "publishedAt": "2026-03-01",
+  "sourceName": "Databricks",
+  "sourceUrl": "https://www.databricks.com/blog",
+  "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
+  "category": {"en": "Cloud Platforms", "pt": "Plataformas Cloud"},
+  "tags": ["lakehouse", "orchestration", "databricks"],
+  "relatedProjectSlugs": ["aws-databricks-lakehouse"],
+  "locales": {
+    "en": {
+      "title": "Lakeflow and the push toward integrated platform delivery",
+      "summary": "Recent Databricks product direction reinforces the idea that orchestration, ingestion, and transformation are increasingly discussed as one platform story rather than isolated layers.",
+      "whyItMatters": "This matters because platform leaders are being pushed to simplify fragmented data estates. Integrated delivery stories become more attractive when teams need speed, governance, and lower operational friction at the same time."
+    },
+    "pt": {
+      "title": "Lakeflow e o movimento para entrega integrada de plataforma",
+      "summary": "A direção recente de produto da Databricks reforça a ideia de que orquestração, ingestão e transformação estão sendo tratadas como uma história única de plataforma, e não como camadas isoladas.",
+      "whyItMatters": "Isso importa porque liderancas de plataforma estao sendo pressionadas a simplificar ambientes de dados fragmentados. Historias de entrega integrada ficam mais atraentes quando os times precisam de velocidade, governanca e menor friccao operacional ao mesmo tempo."
+    }
+  }
+}

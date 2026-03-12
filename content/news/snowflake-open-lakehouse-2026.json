@@ -1,0 +1,22 @@
+{
+  "slug": "snowflake-open-lakehouse-2026",
+  "publishedAt": "2026-02-18",
+  "sourceName": "Snowflake",
+  "sourceUrl": "https://www.snowflake.com/blog/",
+  "imageUrl": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&q=80",
+  "category": {"en": "Analytics Platforms", "pt": "Plataformas Analiticas"},
+  "tags": ["snowflake", "cross-cloud", "warehouse"],
+  "relatedProjectSlugs": ["azure-snowflake-pipeline"],
+  "locales": {
+    "en": {
+      "title": "Snowflake's open ecosystem messaging supports cross-cloud storytelling",
+      "summary": "Snowflake's ecosystem direction continues to validate architectures that connect external storage, ingestion workflows, and governed analytical serving.",
+      "whyItMatters": "This gives stronger business context to cross-cloud projects and helps your site explain why those implementations matter beyond a technical demo."
+    },
+    "pt": {
+      "title": "A mensagem de ecossistema aberto da Snowflake reforca a narrativa cross-cloud",
+      "summary": "A direcao de ecossistema da Snowflake continua validando arquiteturas que conectam storage externo, fluxos de ingestao e serving analitico governado.",
+      "whyItMatters": "Isso da mais contexto de negocio para projetos cross-cloud e ajuda o site a explicar por que essas implementacoes importam alem de uma demo tecnica."
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "project-kafka-debezium-dbt",
+  "sourceType": "project",
+  "sourceSlug": "kafka-debezium-dbt",
+  "status": "draft",
+  "generatedAt": "2026-03-11T17:20:32.335Z",
+  "publishedUrl": null,
+  "locales": {
+    "en": {
+      "hook": "Real-Time CDC Analytics Pipeline",
+      "body": "A GitHub project and business case showing how low-latency CDC can feed governed analytics layers without heavy closed tooling.",
+      "cta": "See the full story on the site and explore the GitHub implementation."
+    },
+    "pt": {
+      "hook": "Pipeline Analítico de CDC em Tempo Real",
+      "body": "Um projeto no GitHub e também um caso de negócio mostrando como CDC de baixa latência pode alimentar camadas analíticas governadas sem depender de ferramentas fechadas pesadas.",
+      "cta": "Veja a historia completa no site e explore a implementacao no GitHub."
+    }
+  }
+}

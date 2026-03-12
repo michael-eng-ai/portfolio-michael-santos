@@ -1,0 +1,20 @@
+{
+  "slug": "article-from-news-to-data-product",
+  "sourceType": "article",
+  "sourceSlug": "from-news-to-data-product",
+  "status": "draft",
+  "generatedAt": "2026-03-11T17:20:32.332Z",
+  "publishedUrl": null,
+  "locales": {
+    "en": {
+      "hook": "From Industry News To Data Product Storytelling",
+      "body": "A strong technical portfolio is more than code. It connects real market signals to concrete GitHub implementations and explains why the solution matters.",
+      "cta": "See the full story on the site and explore the GitHub implementation."
+    },
+    "pt": {
+      "hook": "De Notícia do Setor Para Narrativa de Data Product",
+      "body": "Um portfólio técnico forte é mais do que código. Ele conecta sinais reais do mercado a implementações concretas no GitHub e explica por que a solução importa.",
+      "cta": "Veja a historia completa no site e explore a implementacao no GitHub."
+    }
+  }
+}

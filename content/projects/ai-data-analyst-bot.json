@@ -1,0 +1,55 @@
+{
+  "slug": "ai-data-analyst-bot",
+  "featured": true,
+  "order": 6,
+  "imageUrl": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+  "stack": ["Python", "Streamlit", "Gemini", "LangChain", "LangGraph", "BigQuery", "Terraform"],
+  "tags": ["genai", "text-to-sql", "rag"],
+  "github": {
+    "owner": "michael-eng-ai",
+    "repo": "AI-Data-Analyst-Bot",
+    "url": "https://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
+  },
+  "relatedArticleSlugs": ["governed-ai-analytics"],
+  "relatedNewsSlugs": ["linkedin-api-community-management"],
+  "locales": {
+    "en": {
+      "title": "AI Data Analyst Bot",
+      "subtitle": "Text-to-SQL and RAG for business-facing data access",
+      "summary": "A portfolio project that links data engineering foundations with AI-enabled interfaces for warehouse and documentation access.",
+      "businessProblem": "Business users want answers, not dashboards and table schemas. But AI access to data only works when retrieval, query generation, and governance are designed carefully. This project shows that AI analytics products still depend on solid data engineering.",
+      "technicalSolution": [
+        "Route requests between Text-to-SQL and RAG flows",
+        "Use retrieval to ground document-based answers",
+        "Use warehouse querying for structured analytical questions",
+        "Expose the experience through a lightweight application interface"
+      ],
+      "architectureSummary": "The application decides whether the user needs SQL generation or knowledge retrieval, then responds through a grounded workflow instead of a single opaque prompt.",
+      "impact": [
+        "Extends the portfolio beyond pipelines into data products",
+        "Creates a strong bridge between AI discourse and data engineering fundamentals",
+        "Provides rich material for bilingual articles and LinkedIn drafts"
+      ],
+      "body": "## AI without weak foundations\n\nThis project is useful on the site because it demonstrates an important point for the market: AI interfaces only create trust when the data platform underneath is reliable.\n\n## Why it matters for the publishing cycle\n\nThe topic performs well across GitHub, site content, and LinkedIn because it naturally connects engineering depth with a broader business audience."
+    },
+    "pt": {
+      "title": "AI Data Analyst Bot",
+      "subtitle": "Text-to-SQL e RAG para acesso analítico orientado ao negócio",
+      "summary": "Um projeto de portfólio que conecta fundamentos de engenharia de dados com interfaces habilitadas por IA para acesso a warehouse e documentação.",
+      "businessProblem": "Usuários de negócio querem respostas, não dashboards e schemas de tabelas. Mas acesso a dados com IA só funciona quando retrieval, geração de consulta e governança são desenhados com cuidado. Este projeto mostra que produtos analíticos com IA continuam dependendo de engenharia de dados sólida.",
+      "technicalSolution": [
+        "Roteamento entre fluxos de Text-to-SQL e RAG",
+        "Uso de retrieval para aterrar respostas baseadas em documentos",
+        "Consulta ao warehouse para perguntas analíticas estruturadas",
+        "Exposição da experiência por uma interface leve"
+      ],
+      "architectureSummary": "A aplicação decide se o usuário precisa de geração SQL ou recuperação de conhecimento, e responde por um fluxo aterrado em vez de um prompt único opaco.",
+      "impact": [
+        "Expande o portfólio para além de pipelines e entra em data products",
+        "Cria uma ponte forte entre discurso de IA e fundamentos de engenharia de dados",
+        "Fornece material rico para artigos bilíngues e drafts de LinkedIn"
+      ],
+      "body": "## IA sem base fraca\n\nEste projeto é valioso no site porque demonstra um ponto importante para o mercado: interfaces de IA só geram confiança quando a plataforma de dados por trás é confiável.\n\n## Por que importa para o ciclo editorial\n\nO tema performa bem entre GitHub, site e LinkedIn porque conecta profundidade técnica com uma audiência de negócio mais ampla."
+    }
+  }
+}

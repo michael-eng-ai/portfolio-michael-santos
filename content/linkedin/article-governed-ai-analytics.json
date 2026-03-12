@@ -1,0 +1,20 @@
+{
+  "slug": "article-governed-ai-analytics",
+  "sourceType": "article",
+  "sourceSlug": "governed-ai-analytics",
+  "status": "draft",
+  "generatedAt": "2026-03-11T17:20:32.334Z",
+  "publishedUrl": null,
+  "locales": {
+    "en": {
+      "hook": "Why AI Analytics Still Depends On Strong Data Engineering",
+      "body": "Text-to-SQL, retrieval, and AI copilots only become valuable when they sit on top of governed pipelines, trusted metadata, and well-structured delivery paths.",
+      "cta": "See the full story on the site and explore the GitHub implementation."
+    },
+    "pt": {
+      "hook": "Por Que Analytics com IA Ainda Depende de Boa Engenharia de Dados",
+      "body": "Text-to-SQL, retrieval e copilotos de IA só geram valor quando estão sobre pipelines governados, metadados confiáveis e caminhos de entrega bem estruturados.",
+      "cta": "Veja a historia completa no site e explore a implementacao no GitHub."
+    }
+  }
+}

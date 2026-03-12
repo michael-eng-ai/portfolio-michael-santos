@@ -1,0 +1,22 @@
+{
+  "slug": "streaming-governance-2026",
+  "publishedAt": "2026-03-03",
+  "sourceName": "Confluent",
+  "sourceUrl": "https://www.confluent.io/blog/",
+  "imageUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+  "category": {"en": "Real-Time Data", "pt": "Dados em Tempo Real"},
+  "tags": ["streaming", "kafka", "governance"],
+  "relatedProjectSlugs": ["kafka-debezium-dbt", "streaming-kafka-fastapi"],
+  "locales": {
+    "en": {
+      "title": "Streaming conversations are moving from speed alone to trustworthy operations",
+      "summary": "Industry discussions around streaming continue to focus on governance, reliability, and operational readiness instead of only throughput and latency.",
+      "whyItMatters": "This matters because executives do not buy streaming for speed alone. They invest when faster movement of operational data improves visibility, responsiveness, and confidence in downstream decisions."
+    },
+    "pt": {
+      "title": "As conversas sobre streaming estao saindo de velocidade pura para operacao confiavel",
+      "summary": "As discussoes do setor sobre streaming seguem enfatizando governanca, confiabilidade e prontidao operacional, e nao apenas throughput e latencia.",
+      "whyItMatters": "Isso importa porque executivos nao compram streaming apenas por velocidade. O investimento acontece quando o movimento mais rapido de dados operacionais melhora visibilidade, capacidade de resposta e confianca nas decisoes downstream."
+    }
+  }
+}

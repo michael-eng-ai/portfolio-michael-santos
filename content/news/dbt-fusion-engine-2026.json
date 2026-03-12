@@ -1,0 +1,22 @@
+{
+  "slug": "dbt-fusion-engine-2026",
+  "publishedAt": "2026-02-25",
+  "sourceName": "dbt Labs",
+  "sourceUrl": "https://www.getdbt.com/blog",
+  "imageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+  "category": {"en": "Data Engineering", "pt": "Engenharia de Dados"},
+  "tags": ["dbt", "analytics-engineering", "governance"],
+  "relatedProjectSlugs": ["gcp-dbt-modern-data-stack"],
+  "locales": {
+    "en": {
+      "title": "dbt's evolution keeps analytics engineering in the platform spotlight",
+      "summary": "dbt-related platform announcements continue to emphasize testing, developer workflow, and governed transformation as strategic parts of the analytics stack.",
+      "whyItMatters": "This matters because analytics is increasingly judged on reliability and governance, not just dashboard output. Teams that treat transformation as a strategic layer improve trust, delivery quality, and long-term platform reuse."
+    },
+    "pt": {
+      "title": "A evolucao do dbt mantem analytics engineering no centro da plataforma",
+      "summary": "Os anuncios recentes ligados ao dbt continuam enfatizando testes, fluxo de desenvolvimento e transformacao governada como partes estrategicas do stack analitico.",
+      "whyItMatters": "Isso importa porque analytics esta sendo cada vez mais avaliado por confiabilidade e governanca, e nao apenas pela entrega de dashboards. Times que tratam transformacao como camada estrategica melhoram confianca, qualidade de entrega e reuso de plataforma no longo prazo."
+    }
+  }
+}

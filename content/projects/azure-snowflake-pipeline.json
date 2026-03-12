@@ -1,0 +1,55 @@
+{
+  "slug": "azure-snowflake-pipeline",
+  "featured": false,
+  "order": 4,
+  "imageUrl": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&q=80",
+  "stack": ["Azure", "ADLS Gen2", "Snowflake", "Snowpipe", "Terraform", "Python", "SQL"],
+  "tags": ["cross-cloud", "snowflake", "warehouse-ingestion"],
+  "github": {
+    "owner": "michael-eng-ai",
+    "repo": "azure-snowflake-pipeline",
+    "url": "https://github.com/michael-eng-ai/azure-snowflake-pipeline"
+  },
+  "relatedArticleSlugs": ["data-platform-modernization-patterns"],
+  "relatedNewsSlugs": ["snowflake-open-lakehouse-2026"],
+  "locales": {
+    "en": {
+      "title": "Azure To Snowflake Pipeline",
+      "subtitle": "Cross-cloud ingestion and analytical modeling flow",
+      "summary": "A cross-cloud project that treats Azure storage and Snowflake modeling as a business-ready ingestion pattern instead of isolated cloud mechanics.",
+      "businessProblem": "Enterprises increasingly operate across multiple clouds and need clean ways to land, ingest, and model data without stitching together fragile one-off integrations. The business value comes from operational consistency, not only from moving files.",
+      "technicalSolution": [
+        "Provision Azure storage resources with Terraform",
+        "Generate and land raw files into ADLS Gen2",
+        "Configure Snowpipe-based ingestion into Snowflake",
+        "Create refined analytical layers with SQL"
+      ],
+      "architectureSummary": "Azure handles the landing zone, Snowflake ingests and models the data, and Terraform provides the controlled infrastructure baseline.",
+      "impact": [
+        "Shows how to describe cross-cloud integration as a business operating model",
+        "Supports storytelling around warehouse ingestion and data platform governance",
+        "Expands the portfolio beyond a single cloud narrative"
+      ],
+      "body": "## Why cross-cloud still matters\n\nMany public portfolios stay inside one cloud, but real enterprise delivery often crosses boundaries. This project helps present that reality clearly and simply.\n\n## Content advantage\n\nOn the site, this project can be tied to industry references about Snowflake, open ecosystems, and hybrid platform strategies, which creates stronger context than a standalone GitHub README."
+    },
+    "pt": {
+      "title": "Pipeline Azure para Snowflake",
+      "subtitle": "Fluxo cross-cloud de ingestão e modelagem analítica",
+      "summary": "Um projeto cross-cloud que trata Azure e Snowflake como padrão de ingestão pronto para o negócio, e não apenas como mecânica de nuvem isolada.",
+      "businessProblem": "Empresas operam cada vez mais em múltiplas nuvens e precisam de formas limpas de pousar, ingerir e modelar dados sem depender de integrações frágeis feitas uma a uma. O valor está na consistência operacional, e não apenas em mover arquivos.",
+      "technicalSolution": [
+        "Provisionamento de recursos Azure com Terraform",
+        "Geração e landing de arquivos brutos em ADLS Gen2",
+        "Configuração de ingestão com Snowpipe no Snowflake",
+        "Criação de camadas analíticas refinadas com SQL"
+      ],
+      "architectureSummary": "O Azure cuida da zona de landing, o Snowflake ingere e modela os dados e o Terraform oferece a base controlada de infraestrutura.",
+      "impact": [
+        "Mostra como descrever integração cross-cloud como modelo operacional de negócio",
+        "Ajuda na narrativa sobre ingestão para warehouse e governança de plataforma",
+        "Expande o portfólio para além de uma história de nuvem única"
+      ],
+      "body": "## Por que cross-cloud continua relevante\n\nMuitos portfólios públicos ficam presos a uma nuvem, mas a entrega real em ambiente corporativo normalmente cruza fronteiras. Este projeto ajuda a mostrar essa realidade de forma clara e simples.\n\n## Vantagem de conteúdo\n\nNo site, este projeto pode ser ligado a referências do setor sobre Snowflake, ecossistemas abertos e estratégias híbridas, criando muito mais contexto do que um README isolado."
+    }
+  }
+}

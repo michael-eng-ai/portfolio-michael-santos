@@ -1,0 +1,83 @@
+{
+  "syncedAt": "2026-03-11T17:20:31.770Z",
+  "repos": [
+    {
+      "owner": "michael-eng-ai",
+      "repo": "kafka-debezium-dbt",
+      "description": "Real-time CDC pipeline with PostgreSQL, Debezium, Kafka, dbt, and Streamlit.",
+      "homepage": null,
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "topics": [],
+      "defaultBranch": "main",
+      "pushedAt": "2026-03-10T19:53:24Z",
+      "updatedAt": "2026-03-11T16:35:52Z"
+    },
+    {
+      "owner": "michael-eng-ai",
+      "repo": "aws-databricks-lakehouse",
+      "description": "AWS and Databricks lakehouse architecture with Terraform and PySpark.",
+      "homepage": null,
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "topics": [],
+      "defaultBranch": "main",
+      "pushedAt": "2026-03-06T21:23:46Z",
+      "updatedAt": "2026-03-11T16:35:53Z"
+    },
+    {
+      "owner": "michael-eng-ai",
+      "repo": "gcp-dbt-modern-data-stack",
+      "description": "Modern analytics engineering stack on GCP with dbt, Terraform, and BigQuery.",
+      "homepage": null,
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "topics": [],
+      "defaultBranch": "main",
+      "pushedAt": "2026-03-06T21:23:57Z",
+      "updatedAt": "2026-03-11T16:35:54Z"
+    },
+    {
+      "owner": "michael-eng-ai",
+      "repo": "azure-snowflake-pipeline",
+      "description": "Cross-cloud Azure to Snowflake pipeline with Terraform and analytical modeling.",
+      "homepage": null,
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "topics": [],
+      "defaultBranch": "main",
+      "pushedAt": "2026-03-06T21:24:05Z",
+      "updatedAt": "2026-03-11T16:35:54Z"
+    },
+    {
+      "owner": "michael-eng-ai",
+      "repo": "streaming-kafka-fastapi",
+      "description": "Event-driven streaming architecture with Kafka, Redis, FastAPI, and Docker.",
+      "homepage": null,
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "topics": [],
+      "defaultBranch": "main",
+      "pushedAt": "2026-03-06T21:24:10Z",
+      "updatedAt": "2026-03-11T16:35:55Z"
+    },
+    {
+      "owner": "michael-eng-ai",
+      "repo": "AI-Data-Analyst-Bot",
+      "description": "AI-enabled analytics assistant using Text-to-SQL and RAG for warehouse and document queries.",
+      "homepage": null,
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "topics": [],
+      "defaultBranch": "main",
+      "pushedAt": "2026-03-06T21:23:51Z",
+      "updatedAt": "2026-03-11T16:35:55Z"
+    }
+  ]
+}

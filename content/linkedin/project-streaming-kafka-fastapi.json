@@ -1,0 +1,20 @@
+{
+  "slug": "project-streaming-kafka-fastapi",
+  "sourceType": "project",
+  "sourceSlug": "streaming-kafka-fastapi",
+  "status": "draft",
+  "generatedAt": "2026-03-11T17:20:32.336Z",
+  "publishedUrl": null,
+  "locales": {
+    "en": {
+      "hook": "Streaming Radar API",
+      "body": "A project that translates event-driven architecture into a business-facing case about low-latency data delivery and real-time serving.",
+      "cta": "See the full story on the site and explore the GitHub implementation."
+    },
+    "pt": {
+      "hook": "Streaming Radar API",
+      "body": "Um projeto que traduz arquitetura orientada a eventos em um caso de negócio sobre entrega de dados em baixa latência e serving em tempo real.",
+      "cta": "Veja a historia completa no site e explore a implementacao no GitHub."
+    }
+  }
+}

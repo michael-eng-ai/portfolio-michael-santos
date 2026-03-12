@@ -1,0 +1,20 @@
+{
+  "slug": "project-ai-data-analyst-bot",
+  "sourceType": "project",
+  "sourceSlug": "ai-data-analyst-bot",
+  "status": "draft",
+  "generatedAt": "2026-03-11T17:20:32.336Z",
+  "publishedUrl": null,
+  "locales": {
+    "en": {
+      "hook": "AI Data Analyst Bot",
+      "body": "A portfolio project that links data engineering foundations with AI-enabled interfaces for warehouse and documentation access.",
+      "cta": "See the full story on the site and explore the GitHub implementation."
+    },
+    "pt": {
+      "hook": "AI Data Analyst Bot",
+      "body": "Um projeto de portfólio que conecta fundamentos de engenharia de dados com interfaces habilitadas por IA para acesso a warehouse e documentação.",
+      "cta": "Veja a historia completa no site e explore a implementacao no GitHub."
+    }
+  }
+}

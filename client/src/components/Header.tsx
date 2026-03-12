@@ -6,24 +6,20 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { label: "Projetos", href: "#projects" },
-    { label: "Serviços", href: "#services" },
-    { label: "Blog", href: "#blog" },
-    { label: "Sobre", href: "#about" },
-    { label: "Contato", href: "#contact" },
+    { label: "Projects", href: "#projects" },
+    { label: "About", href: "#about" },
+    { label: "Contact", href: "#contact" },
   ];
 
   return (
     <header className="sticky top-0 z-50 bg-background border-b border-border">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        {/* Logo */}
         <Link href="/">
           <a className="font-display text-2xl text-foreground hover:text-primary transition-colors">
             MS
           </a>
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
             <a
@@ -38,11 +34,10 @@ export default function Header() {
             href="#contact"
             className="px-6 py-2 bg-primary text-primary-foreground rounded-md font-accent text-sm hover:bg-primary/90 transition-colors"
           >
-            Conversar
+            Contact
           </a>
         </nav>
 
-        {/* Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden p-2 text-foreground hover:text-primary transition-colors"
@@ -51,7 +46,6 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Navigation */}
       {isOpen && (
         <div className="md:hidden border-t border-border bg-background">
           <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
@@ -70,7 +64,7 @@ export default function Header() {
               className="px-6 py-2 bg-primary text-primary-foreground rounded-md font-accent text-center hover:bg-primary/90 transition-colors"
               onClick={() => setIsOpen(false)}
             >
-              Conversar
+              Contact
             </a>
           </nav>
         </div>

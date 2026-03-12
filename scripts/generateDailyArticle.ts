@@ -1,139 +1,132 @@
-import OpenAI from "openai";
-import { nanoid } from "nanoid";
+import { promises as fs } from "node:fs";
+import path from "node:path";
 
-interface Article {
-  id: number;
-  title: string;
-  excerpt: string;
-  date: string;
-  readTime: string;
-  category: string;
-  tags: string[];
-  link: string;
-  content: string;
-  slug: string;
+import OpenAI from "openai";
+
+import { getNewsReferences, getProjects } from "@/lib/content";
+
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
-/**
- * Gera um artigo de blog automaticamente usando LLM
- * Conecta tendências atuais em dados, IA e tecnologia com engenharia de dados
- */
-export async function generateDailyArticle(): Promise<Article> {
-  const openai = new OpenAI();
+async function main() {
+  const client = new OpenAI();
+  const [projects, news] = await Promise.all([getProjects(), getNewsReferences()]);
 
-  const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleDateString("pt-BR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
+  const prompt = `
+You are generating a bilingual article draft for a senior data engineering portfolio platform.
+
+Use the following project references:
+${projects
+  .map(
+    (project) =>
+      `- ${project.slug}: ${project.locales.en.title} | ${project.locales.en.summary}`,
+  )
+  .join("\n")}
+
+Use the following news references:
+${news
+  .map(
+    (item) =>
+      `- ${item.slug}: ${item.locales.en.title} | source=${item.sourceName} | why=${item.locales.en.whyItMatters}`,
+  )
+  .join("\n")}
+
+Return valid JSON with this shape:
+{
+  "titleEn": "",
+  "titlePt": "",
+  "excerptEn": "",
+  "excerptPt": "",
+  "categoryEn": "",
+  "categoryPt": "",
+  "tags": ["", ""],
+  "readingMinutes": 6,
+  "relatedProjectSlugs": ["project-slug"],
+  "relatedNewsSlugs": ["news-slug"],
+  "bodyEn": "Markdown body in English",
+  "bodyPt": "Markdown body in Portuguese"
+}
+
+The article should connect a real market theme to one or more GitHub projects.
+`;
+
+  const response = await client.chat.completions.create({
+    model: "gpt-4.1-mini",
+    temperature: 0.7,
+    response_format: { type: "json_object" },
+    messages: [
+      {
+        role: "system",
+        content:
+          "You write precise bilingual content for a data engineering portfolio site. Avoid hype. Keep it useful for recruiters and engineering managers.",
+      },
+      {
+        role: "user",
+        content: prompt,
+      },
+    ],
   });
 
-  // Prompt para gerar o artigo
-  const prompt = `Você é um especialista em engenharia de dados, IA e tecnologia. Crie um artigo de blog em português brasileiro sobre uma tendência atual em dados, IA ou tecnologia.
+  const content = response.choices[0]?.message?.content;
 
-REQUISITOS:
-- Mínimo de 800 palavras
-- Conecte a tendência com engenharia de dados e aplicações práticas
-- Tom profissional e estratégico, voltado para tomadores de decisão
-- Inclua exemplos concretos e métricas quando possível
-- Use markdown para formatação (títulos, listas, negrito, etc)
-
-ESTRUTURA:
-1. Introdução impactante que contextualiza a tendência
-2. Explicação técnica mas acessível do conceito
-3. Conexão com engenharia de dados
-4. Aplicações práticas e casos de uso
-5. Desafios e considerações
-6. Conclusão com insights estratégicos
-
-FORMATO DE RESPOSTA (JSON):
-{
-  "title": "Título atraente e específico (máximo 80 caracteres)",
-  "excerpt": "Resumo de 2-3 frases que captura a essência do artigo (máximo 200 caracteres)",
-  "category": "Categoria do artigo (ex: IA & Dados, Arquitetura de Dados, Cloud & Infraestrutura)",
-  "tags": ["Tag1", "Tag2", "Tag3"],
-  "content": "Conteúdo completo do artigo em markdown"
-}
-
-Gere um artigo sobre uma tendência relevante e atual em ${currentDate.getFullYear()}.`;
-
-  try {
-    console.log("🤖 Gerando artigo com LLM...");
-
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4.1-mini",
-      messages: [
-        {
-          role: "system",
-          content:
-            "Você é um especialista em engenharia de dados e tecnologia que escreve artigos técnicos mas acessíveis para profissionais e tomadores de decisão.",
-        },
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-      temperature: 0.8,
-      response_format: { type: "json_object" },
-    });
-
-    const response = completion.choices[0].message.content;
-    if (!response) {
-      throw new Error("Resposta vazia do LLM");
-    }
-
-    const articleData = JSON.parse(response);
-
-    // Calcular tempo de leitura (assumindo 200 palavras por minuto)
-    const wordCount = articleData.content.split(/\s+/).length;
-    const readTime = Math.ceil(wordCount / 200);
-
-    // Gerar slug único
-    const slug = articleData.title
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-
-    // Obter o próximo ID (em produção, isso viria do banco de dados)
-    const nextId = Date.now() % 10000; // ID temporário baseado em timestamp
-
-    const article: Article = {
-      id: nextId,
-      title: articleData.title,
-      excerpt: articleData.excerpt,
-      date: formattedDate,
-      readTime: `${readTime} min`,
-      category: articleData.category,
-      tags: articleData.tags.slice(0, 3), // Máximo 3 tags
-      link: `/blog/${slug}`,
-      content: articleData.content,
-      slug: slug,
-    };
-
-    console.log("✅ Artigo gerado com sucesso!");
-    console.log(`📝 Título: ${article.title}`);
-    console.log(`🏷️ Categoria: ${article.category}`);
-    console.log(`⏱️ Tempo de leitura: ${article.readTime}`);
-    console.log(`📊 Palavras: ${wordCount}`);
-
-    return article;
-  } catch (error) {
-    console.error("❌ Erro ao gerar artigo:", error);
-    throw error;
+  if (!content) {
+    throw new Error("Empty response from OpenAI.");
   }
+
+  const payload = JSON.parse(content) as {
+    titleEn: string;
+    titlePt: string;
+    excerptEn: string;
+    excerptPt: string;
+    categoryEn: string;
+    categoryPt: string;
+    tags: string[];
+    readingMinutes: number;
+    relatedProjectSlugs: string[];
+    relatedNewsSlugs: string[];
+    bodyEn: string;
+    bodyPt: string;
+  };
+
+  const slug = slugify(payload.titleEn);
+  const article = {
+    slug,
+    publishedAt: new Date().toISOString().slice(0, 10),
+    featured: false,
+    category: {
+      en: payload.categoryEn,
+      pt: payload.categoryPt,
+    },
+    tags: payload.tags.slice(0, 5),
+    readingMinutes: payload.readingMinutes,
+    relatedProjectSlugs: payload.relatedProjectSlugs,
+    relatedNewsSlugs: payload.relatedNewsSlugs,
+    locales: {
+      en: {
+        title: payload.titleEn,
+        excerpt: payload.excerptEn,
+        body: payload.bodyEn,
+      },
+      pt: {
+        title: payload.titlePt,
+        excerpt: payload.excerptPt,
+        body: payload.bodyPt,
+      },
+    },
+  };
+
+  const target = path.join(process.cwd(), "content", "articles", `${slug}.json`);
+  await fs.writeFile(target, `${JSON.stringify(article, null, 2)}\n`, "utf8");
+  console.log(`Created ${target}`);
 }
 
-// Executar se chamado diretamente
-if (import.meta.url === `file://${process.argv[1]}`) {
-  generateDailyArticle()
-    .then((article) => {
-      console.log("\n📄 Artigo gerado:");
-      console.log(JSON.stringify(article, null, 2));
-    })
-    .catch((error) => {
-      console.error("Erro:", error);
-      process.exit(1);
-    });
-}
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: auto-publish-news
@@ -50,14 +51,16 @@ jobs:
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Commit and push generated news
+      - name: Create pull request for generated news
         if: steps.news_changes.outputs.has_changes == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add content/generated/news.json
-          git commit -m "chore: auto-update curated news"
-          git push origin HEAD:main
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore: auto-update curated news"
+          title: "chore: auto-update curated news"
+          body: |
+            Automated RSS sync refreshed `content/generated/news.json`.
+          branch: chore/auto-news-updates
+          delete-branch: true
 
       - name: No news updates
         if: steps.news_changes.outputs.has_changes != 'true'

@@ -1,0 +1,20 @@
+{
+  "slug": "launch-dynamic-platform",
+  "sourceType": "article",
+  "sourceSlug": "from-news-to-data-product",
+  "status": "draft",
+  "generatedAt": "2026-03-11T00:00:00.000Z",
+  "publishedUrl": null,
+  "locales": {
+    "en": {
+      "hook": "Most technical portfolios stop at code. The stronger ones show market context, business problem, and implementation path together.",
+      "body": "I have been rebuilding my portfolio as a dynamic content platform that connects GitHub projects, external industry references, bilingual site content, newsletter capture, and LinkedIn distribution. The goal is simple: turn each project into a reusable technical and business narrative asset.",
+      "cta": "If you work on data platforms, analytics engineering, streaming, or AI-enabled data products, I would love to compare notes."
+    },
+    "pt": {
+      "hook": "A maioria dos portfólios técnicos para no código. Os mais fortes mostram contexto de mercado, problema de negócio e caminho de implementação juntos.",
+      "body": "Estou reconstruindo meu portfólio como uma plataforma dinâmica de conteúdo que conecta projetos do GitHub, referências externas do setor, conteúdo bilíngue no site, captura de newsletter e distribuição para LinkedIn. O objetivo é simples: transformar cada projeto em um ativo reutilizável de narrativa técnica e de negócio.",
+      "cta": "Se você trabalha com data platforms, analytics engineering, streaming ou produtos de dados com IA, vamos trocar ideias."
+    }
+  }
+}
