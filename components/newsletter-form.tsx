@@ -11,6 +11,7 @@ type NewsletterFormProps = {
 
 export function NewsletterForm({ locale, source }: NewsletterFormProps) {
   const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
@@ -25,7 +26,7 @@ export function NewsletterForm({ locale, source }: NewsletterFormProps) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, locale, source }),
+        body: JSON.stringify({ email, locale, source, website }),
       });
 
       const payload = (await response.json()) as { message?: string };
@@ -43,6 +44,7 @@ export function NewsletterForm({ locale, source }: NewsletterFormProps) {
         ),
       );
       setEmail("");
+      setWebsite("");
     } catch (error) {
       setStatus("error");
       setMessage(
@@ -56,6 +58,18 @@ export function NewsletterForm({ locale, source }: NewsletterFormProps) {
   return (
     <form onSubmit={onSubmit} className="section-card rounded-3xl p-6">
       <div className="space-y-4">
+        <div className="sr-only" aria-hidden="true">
+          <label htmlFor={`website-${source}`}>Website</label>
+          <input
+            id={`website-${source}`}
+            type="text"
+            value={website}
+            onChange={(event) => setWebsite(event.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
+
         <div>
           <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
             {copy(locale, "Newsletter", "Newsletter")}
