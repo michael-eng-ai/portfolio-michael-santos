@@ -8,6 +8,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  statuses: write
 
 concurrency:
   group: auto-publish-news
@@ -52,6 +53,7 @@ jobs:
           fi
 
       - name: Create pull request for generated news
+        id: create_news_pr
         if: steps.news_changes.outputs.has_changes == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
@@ -61,6 +63,18 @@ jobs:
             Automated RSS sync refreshed `content/generated/news.json`.
           branch: chore/auto-news-updates
           delete-branch: true
+
+      - name: Mark validation status on generated news PR
+        if: steps.news_changes.outputs.has_changes == 'true' && steps.create_news_pr.outputs.pull-request-head-sha != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+            repos/${{ github.repository }}/statuses/${{ steps.create_news_pr.outputs.pull-request-head-sha }} \
+            -f state=success \
+            -f context=validate \
+            -f description='Validated generated news update' \
+            -f target_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
       - name: No news updates
         if: steps.news_changes.outputs.has_changes != 'true'
