@@ -61,7 +61,7 @@ export function NewsletterForm({ locale, source }: NewsletterFormProps) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="section-card rounded-3xl p-5 sm:p-6">
+    <form onSubmit={onSubmit} className="stat-highlight rounded-3xl p-5 backdrop-blur-[14px] sm:p-6">
       <div className="space-y-4">
         <div className="sr-only" aria-hidden="true">
           <label htmlFor={`website-${source}`}>Website</label>
@@ -95,7 +95,7 @@ export function NewsletterForm({ locale, source }: NewsletterFormProps) {
             onChange={(event) => setEmail(event.target.value)}
             placeholder={copy(locale, "your@email.com", "seu@email.com")}
             required
-            className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-sm text-white outline-none ring-0"
+            className="rounded-2xl border border-white/12 bg-slate-950/70 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none ring-0 focus:border-[var(--primary)]/40 transition-colors"
           />
           <button
             type="submit"

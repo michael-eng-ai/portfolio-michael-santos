@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Briefcase, Cloud, Layers, Target, TrendingUp, Zap } from "lucide-react";
 
 import { ArticleCard } from "@/components/article-card";
 import { EditorialCover } from "@/components/editorial-cover";
@@ -75,7 +76,7 @@ export default async function LocaleHomePage({
               <span className="eyebrow-pill">
                 {copy(locale, "Data Engineering And AI Intelligence", "Inteligencia em Engenharia de Dados e IA")}
               </span>
-              <h1 className="max-w-4xl text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+              <h1 className="animated-gradient-text max-w-4xl text-3xl font-semibold leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
                 {heroTitle}
               </h1>
               <p className="max-w-3xl text-base text-slate-300 sm:text-lg">
@@ -96,15 +97,42 @@ export default async function LocaleHomePage({
                 </Link>
               </div>
               <div className="flex flex-wrap gap-3 pt-3 text-sm text-slate-300">
-                <span className="rounded-full border border-white/10 bg-white/4 px-4 py-2">
+                <span className="flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-4 py-2">
+                  <TrendingUp size={14} className="text-[var(--accent-mint)]" />
                   {copy(locale, "Revenue growth", "Aumento de receita")}
                 </span>
-                <span className="rounded-full border border-white/10 bg-white/4 px-4 py-2">
+                <span className="flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-4 py-2">
+                  <Zap size={14} className="text-[var(--accent-warm)]" />
                   {copy(locale, "Operational efficiency", "Eficiencia operacional")}
                 </span>
-                <span className="rounded-full border border-white/10 bg-white/4 px-4 py-2">
+                <span className="flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-4 py-2">
+                  <Target size={14} className="text-[var(--accent)]" />
                   {copy(locale, "Smarter decisions", "Decisoes mais inteligentes")}
                 </span>
+              </div>
+
+              <div className="flex flex-wrap gap-4 pt-2">
+                <div className="stat-highlight flex items-center gap-3 rounded-2xl px-4 py-3">
+                  <Briefcase size={18} className="text-[var(--primary)]" />
+                  <div>
+                    <p className="text-lg font-semibold text-white">6+</p>
+                    <p className="text-xs text-slate-400">{copy(locale, "Business Cases", "Casos de negocio")}</p>
+                  </div>
+                </div>
+                <div className="stat-highlight flex items-center gap-3 rounded-2xl px-4 py-3">
+                  <Cloud size={18} className="text-[var(--accent-mint)]" />
+                  <div>
+                    <p className="text-lg font-semibold text-white">3</p>
+                    <p className="text-xs text-slate-400">{copy(locale, "Cloud Platforms", "Plataformas Cloud")}</p>
+                  </div>
+                </div>
+                <div className="stat-highlight flex items-center gap-3 rounded-2xl px-4 py-3">
+                  <Layers size={18} className="text-[var(--accent)]" />
+                  <div>
+                    <p className="text-lg font-semibold text-white">E2E</p>
+                    <p className="text-xs text-slate-400">{copy(locale, "Full Delivery", "Entrega Completa")}</p>
+                  </div>
+                </div>
               </div>
             </div>
 

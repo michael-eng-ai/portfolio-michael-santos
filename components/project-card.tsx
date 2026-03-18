@@ -16,7 +16,7 @@ export function ProjectCard({ project, locale }: ProjectCardProps) {
   const businessProblem = clampText(content.businessProblem, editorialLimits.cardContextMax);
 
   return (
-    <article className="section-card overflow-hidden rounded-3xl">
+    <article className="section-card overflow-hidden rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(109,185,255,0.12)]">
       <EditorialCover
         variant="case"
         eyebrow={copy(locale, "Business case", "Caso de negocio")}

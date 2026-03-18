@@ -40,6 +40,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Sync news from RSS feeds
+        run: pnpm content:sync:news
+
       - name: Generate LinkedIn drafts
         run: pnpm content:linkedin
 

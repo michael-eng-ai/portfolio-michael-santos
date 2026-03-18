@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 import { TrackedExternalLink } from "@/components/tracked-external-link";
 import { Locale, copy, localePath, siteConfig } from "@/lib/site";
@@ -35,25 +36,28 @@ export function Footer({ locale }: FooterProps) {
         <div className="space-y-3 text-sm text-slate-300">
           <p className="font-semibold text-white">{copy(locale, "Profiles", "Perfis")}</p>
           <div className="flex flex-col gap-1">
-            <a className="brand-link inline-block py-1.5" href={siteConfig.githubUrl} target="_blank" rel="noreferrer">
+            <a className="brand-link inline-flex items-center gap-2 py-1.5" href={siteConfig.githubUrl} target="_blank" rel="noreferrer">
+              <Github size={14} />
               GitHub
             </a>
             <TrackedExternalLink
-              className="brand-link inline-block py-1.5"
+              className="brand-link inline-flex items-center gap-2 py-1.5"
               href={siteConfig.linkedinUrl}
               target="_blank"
               rel="noreferrer"
               eventName="contact_click"
               eventParams={{ channel: "linkedin", location: "footer" }}
             >
+              <Linkedin size={14} />
               LinkedIn
             </TrackedExternalLink>
             <TrackedExternalLink
-              className="brand-link inline-block py-1.5"
+              className="brand-link inline-flex items-center gap-2 py-1.5"
               href={`mailto:${siteConfig.email}`}
               eventName="contact_click"
               eventParams={{ channel: "email", location: "footer" }}
             >
+              <Mail size={14} />
               {siteConfig.email}
             </TrackedExternalLink>
           </div>
