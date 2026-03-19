@@ -90,6 +90,12 @@ See `DEPLOYMENT.md` for Vercel setup, required secrets, scheduled jobs, and doma
 
 For local scheduled generation with Claude Code, see `docs/LOCAL_CLAUDE_AUTOMATION.md`.
 
+The repo also includes:
+
+- `.env.content-automation.example` for local defaults
+- `scripts/run-local-content-automation.sh` for stable macOS scheduling
+- `ops/macos/com.michael.content-automation.plist` as a ready-to-install `launchd` template
+
 ## Automation
 
 - `.github/workflows/news-auto-publish.yml`: syncs curated RSS news every 6 hours and opens an automated PR with the generated refresh

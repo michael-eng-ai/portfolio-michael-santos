@@ -82,7 +82,9 @@ Optional but recommended:
 ### Local Claude generation
 - If you prefer running generation on your own machine, use `pnpm content:generate:article:claude`
 - For branch plus commit plus optional PR automation, use `pnpm content:local:automation`
-- The local automation guide and `launchd` example live in `docs/LOCAL_CLAUDE_AUTOMATION.md`
+- The local automation guide lives in `docs/LOCAL_CLAUDE_AUTOMATION.md`
+- Use `.env.content-automation.example` to keep the schedule settings out of the plist
+- Use `scripts/run-local-content-automation.sh` together with `ops/macos/com.michael.content-automation.plist` for a stable macOS `launchd` setup
 
 ### Newsletter backend
 - Create the subscriber table using `supabase/newsletter_subscribers.sql`

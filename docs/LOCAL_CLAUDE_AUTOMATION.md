@@ -51,14 +51,12 @@ pnpm content:local:automation -- --topic "AI agents for governed analytics"
 - `LOCAL_CONTENT_OPEN_PR`
   - default: `false`
 
+You can keep these defaults in `.env.content-automation` by copying `.env.content-automation.example`.
+
 Recommended automated mode:
 
 ```bash
-export CLAUDE_CONTENT_MODEL=sonnet
-export CLAUDE_CONTENT_MAX_BUDGET_USD=1
-export LOCAL_CONTENT_RUN_BUILD=true
-export LOCAL_CONTENT_PUSH=true
-export LOCAL_CONTENT_OPEN_PR=true
+cp .env.content-automation.example .env.content-automation
 ```
 
 ## Behavior guardrails
@@ -68,55 +66,47 @@ export LOCAL_CONTENT_OPEN_PR=true
 - The script creates a new branch before generation.
 - If no content changes are produced, the branch is deleted automatically.
 
-## macOS launchd example
+## macOS launchd setup
 
-Create `~/Library/LaunchAgents/com.michael.content-automation.plist`:
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-  <dict>
-    <key>Label</key>
-    <string>com.michael.content-automation</string>
-
-    <key>ProgramArguments</key>
-    <array>
-      <string>/bin/zsh</string>
-      <string>-lc</string>
-      <string>cd /Users/michaelsantos/Documents/GitHub/portfolio-michael-santos && export CLAUDE_CONTENT_MODEL=sonnet && export CLAUDE_CONTENT_MAX_BUDGET_USD=1 && export LOCAL_CONTENT_RUN_BUILD=true && export LOCAL_CONTENT_PUSH=true && export LOCAL_CONTENT_OPEN_PR=true && pnpm content:local:automation -- --topic "business cases in data and AI"</string>
-    </array>
-
-    <key>StartCalendarInterval</key>
-    <dict>
-      <key>Weekday</key>
-      <integer>2</integer>
-      <key>Hour</key>
-      <integer>8</integer>
-      <key>Minute</key>
-      <integer>30</integer>
-    </dict>
-
-    <key>StandardOutPath</key>
-    <string>/tmp/content-automation.log</string>
-
-    <key>StandardErrorPath</key>
-    <string>/tmp/content-automation.err</string>
-  </dict>
-</plist>
-```
-
-Load it:
+Copy the automation defaults:
 
 ```bash
-launchctl load ~/Library/LaunchAgents/com.michael.content-automation.plist
+cp .env.content-automation.example .env.content-automation
+```
+
+Adjust `.env.content-automation` to set your topic angle, model, and budget.
+
+The repository includes a ready-to-install plist at `ops/macos/com.michael.content-automation.plist`.
+
+It runs on weekdays at `08:30` and calls the dedicated wrapper script `scripts/run-local-content-automation.sh`.
+
+Install it:
+
+```bash
+mkdir -p ~/Library/LaunchAgents
+cp ops/macos/com.michael.content-automation.plist ~/Library/LaunchAgents/com.michael.content-automation.plist
+```
+
+Load it with the modern `launchctl` commands:
+
+```bash
+launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.michael.content-automation.plist
+launchctl kickstart -k "gui/$(id -u)/com.michael.content-automation"
 ```
 
 Reload after changes:
 
 ```bash
-launchctl unload ~/Library/LaunchAgents/com.michael.content-automation.plist
-launchctl load ~/Library/LaunchAgents/com.michael.content-automation.plist
+launchctl bootout "gui/$(id -u)" ~/Library/LaunchAgents/com.michael.content-automation.plist
+cp ops/macos/com.michael.content-automation.plist ~/Library/LaunchAgents/com.michael.content-automation.plist
+launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.michael.content-automation.plist
+```
+
+Logs are written to:
+
+```bash
+/tmp/portfolio-michael-santos-content-automation.log
+/tmp/portfolio-michael-santos-content-automation.err
 ```
 
 ## Recommended operating model
