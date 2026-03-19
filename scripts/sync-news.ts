@@ -298,6 +298,41 @@ async function main() {
   }
 
   console.log(`SUCCESS: ${data.length} news items upserted into Supabase (zero commits needed)`);
+
+  await notifyIndexNow(sorted.map((item) => item.slug));
+}
+
+const INDEXNOW_KEY = process.env.INDEXNOW_KEY;
+const SITE_HOST = "michael.business";
+
+async function notifyIndexNow(slugs: string[]): Promise<void> {
+  if (!INDEXNOW_KEY || slugs.length === 0) {
+    return;
+  }
+
+  const urlList = slugs.flatMap((slug) => [
+    `https://${SITE_HOST}/en/news/${slug}`,
+    `https://${SITE_HOST}/pt/news/${slug}`,
+  ]);
+
+  urlList.push(`https://${SITE_HOST}/en/news`, `https://${SITE_HOST}/pt/news`);
+
+  try {
+    const response = await fetch("https://api.indexnow.org/IndexNow", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        host: SITE_HOST,
+        key: INDEXNOW_KEY,
+        keyLocation: `https://${SITE_HOST}/${INDEXNOW_KEY}.txt`,
+        urlList: urlList.slice(0, 100),
+      }),
+    });
+
+    console.log(`IndexNow: submitted ${urlList.length} URLs (status ${response.status})`);
+  } catch (indexNowError) {
+    console.warn("IndexNow notification failed:", indexNowError instanceof Error ? indexNowError.message : "Unknown error");
+  }
 }
 
 main().catch((error) => {
