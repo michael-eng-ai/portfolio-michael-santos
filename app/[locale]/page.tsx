@@ -58,7 +58,7 @@ export default async function LocaleHomePage({
   return (
     <main>
       {/* Hero */}
-      <section className="relative flex min-h-[85vh] items-center justify-center px-6 pt-20 md:px-20">
+      <section className="relative flex min-h-[85vh] items-center justify-center px-6 pt-16 md:px-20 lg:pt-20">
         <div className="relative z-10 max-w-4xl text-center">
           <span className="mb-8 inline-block text-xs font-bold uppercase tracking-[0.3em] text-[var(--primary)]">
             {copy(locale, "Precision Data Architecture", "Arquitetura de Dados de Precisao")}

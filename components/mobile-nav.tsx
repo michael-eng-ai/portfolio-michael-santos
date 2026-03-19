@@ -47,7 +47,7 @@ export function MobileNav({ locale }: MobileNavProps) {
       </button>
 
       {open && (
-        <div className="fixed inset-x-0 bottom-0 top-[64px] z-40 overflow-y-auto bg-white/97 backdrop-blur-xl sm:top-[72px]">
+        <div className="fixed inset-x-0 top-[64px] z-[60] h-[calc(100vh-64px)] overflow-y-auto bg-white">
           <nav id="mobile-navigation" className="container-shell flex flex-col gap-1 py-6">
             {navItems.map((item) => {
               const isActive = pathname === item.href;

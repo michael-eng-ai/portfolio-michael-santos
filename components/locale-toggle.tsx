@@ -15,7 +15,7 @@ export function LocaleToggle({ locale }: LocaleToggleProps) {
   const rest = segments.slice(1).join("/");
 
   return (
-    <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 p-1 text-xs">
+    <div className="flex items-center gap-1 rounded-full border border-gray-200 bg-gray-50 p-0.5 text-xs lg:gap-2 lg:p-1">
       {locales.map((nextLocale) => {
         const href = `/${nextLocale}${rest ? `/${rest}` : ""}`;
         const isActive = nextLocale === locale;
@@ -24,7 +24,7 @@ export function LocaleToggle({ locale }: LocaleToggleProps) {
           <Link
             key={nextLocale}
             href={href}
-            className={`rounded-full px-3.5 py-1.5 transition ${
+            className={`rounded-full px-2.5 py-1 text-[11px] transition lg:px-3.5 lg:py-1.5 lg:text-xs ${
               isActive ? "bg-[var(--primary)] text-white" : "text-gray-500 hover:text-gray-900"
             }`}
           >
