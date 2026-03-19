@@ -1,21 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Manrope } from "next/font/google";
 
-import "@/app/globals.css";
-import { GoogleAnalyticsProvider } from "@/components/google-analytics";
-import { StructuredData } from "@/components/structured-data";
-import { absoluteUrl, buildPersonJsonLd, buildWebsiteJsonLd } from "@/lib/seo";
+import { absoluteUrl } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-display",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -76,13 +62,5 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <body className={`${inter.variable} ${manrope.variable}`}>
-        <StructuredData data={[buildPersonJsonLd(), buildWebsiteJsonLd("en")]} />
-        <div className="app-shell">{children}</div>
-        <GoogleAnalyticsProvider />
-      </body>
-    </html>
-  );
+  return children;
 }
