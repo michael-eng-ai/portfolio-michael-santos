@@ -1,0 +1,25 @@
+{
+  "slug": "article-agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
+  "sourceType": "article",
+  "sourceSlug": "agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
+  "status": "draft",
+  "generatedAt": "2026-03-19T11:17:43.919Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
+    "pt": "https://michael.business/pt/articles/agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "Agentic AI and Data Engineering: The Revolution of Autonomous Agents in Modern Pipelines",
+      "body": "In 2026, autonomous AI agents, or Agentic AI, are transforming data engineering by automating and optimizing complex pipelines. This article technically explores how this innovation impacts orchestration, self-healing, and transformation generation, offering practical cases, architectures, and strategic recommendations for technology leaders.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Agentic AI e Engenharia de Dados: A Revolução dos Agentes Autônomos em Pipelines Modernos",
+      "body": "Em 2026, agentes de IA autônomos, ou Agentic AI, estão transformando a engenharia de dados ao automatizar e otimizar pipelines complexos. Este artigo explora tecnicamente como essa inovação impacta orquestração, auto-reparo e geração de transformações, oferecendo casos práticos, arquiteturas e recomendações estratégicas para líderes de tecnologia.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}

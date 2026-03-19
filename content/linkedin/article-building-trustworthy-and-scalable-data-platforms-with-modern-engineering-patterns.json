@@ -1,0 +1,25 @@
+{
+  "slug": "article-building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns",
+  "sourceType": "article",
+  "sourceSlug": "building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns",
+  "status": "draft",
+  "generatedAt": "2026-03-19T11:17:43.920Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns",
+    "pt": "https://michael.business/pt/articles/building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "Building Trustworthy and Scalable Data Platforms with Modern Engineering Patterns",
+      "body": "Explore how modern data engineering practices enable scalable, governed, and reliable analytics platforms by integrating real-time change data capture, cloud-native workflows, and cross-cloud pipelines.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Construindo Plataformas de Dados Confiáveis e Escaláveis com Padrões Modernos de Engenharia",
+      "body": "Explore como as práticas modernas de engenharia de dados possibilitam plataformas analíticas escaláveis, governadas e confiáveis ao integrar captura de dados em mudança em tempo real, fluxos nativos em nuvem e pipelines entre nuvens.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "slug": "article-generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines",
+  "sourceType": "article",
+  "sourceSlug": "generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines",
+  "status": "draft",
+  "generatedAt": "2026-03-19T11:17:44.851Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines",
+    "pt": "https://michael.business/pt/articles/generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines",
+    "proof": "https://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Generative AI and Data Engineering in 2026: How LLMs Are Transforming Data Pipelines\n\nIn 2026, Large Language Models (LLMs) have become pivotal in reshapin…\n\nhttps://michael.business/en/articles/generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "IA Generativa e Engenharia de Dados em 2026: Como LLMs Estão Transformando Pipelines de Dados\n\nEm 2026, os Grandes Modelos de Linguagem (LLMs) tornaram-se…\n\nhttps://michael.business/pt/articles/generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
+      ]
+    }
+  }
+}

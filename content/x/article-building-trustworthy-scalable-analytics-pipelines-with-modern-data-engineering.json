@@ -1,0 +1,27 @@
+{
+  "slug": "article-building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering",
+  "sourceType": "article",
+  "sourceSlug": "building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering",
+  "status": "draft",
+  "generatedAt": "2026-03-19T11:17:44.857Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering",
+    "pt": "https://michael.business/pt/articles/building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Building Trustworthy, Scalable Analytics Pipelines with Modern Data Engineering\n\nExplore how modern data engineering projects leverage real-time change data cap…\n\nhttps://michael.business/en/articles/building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Construindo Pipelines Analíticos Confiáveis e Escaláveis com Engenharia de Dados Moderna\n\nExplore como projetos modernos de engenharia de dados utilizam captura…\n\nhttps://michael.business/pt/articles/building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "slug": "article-agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
+  "sourceType": "article",
+  "sourceSlug": "agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
+  "status": "draft",
+  "generatedAt": "2026-03-19T11:17:44.856Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
+    "pt": "https://michael.business/pt/articles/agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Agentic AI and Data Engineering: The Revolution of Autonomous Agents in Modern Pipelines\n\nIn 2026, autonomous AI agents, or Agentic AI, are transformin…\n\nhttps://michael.business/en/articles/agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Agentic AI e Engenharia de Dados: A Revolução dos Agentes Autônomos em Pipelines Modernos\n\nEm 2026, agentes de IA autônomos, ou Agentic AI, estão trans…\n\nhttps://michael.business/pt/articles/agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    }
+  }
+}

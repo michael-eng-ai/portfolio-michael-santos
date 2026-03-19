@@ -1,0 +1,25 @@
+{
+  "slug": "article-building-trustworthy-and-scalable-modern-data-platforms",
+  "sourceType": "article",
+  "sourceSlug": "building-trustworthy-and-scalable-modern-data-platforms",
+  "status": "draft",
+  "generatedAt": "2026-03-19T11:17:43.919Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/building-trustworthy-and-scalable-modern-data-platforms",
+    "pt": "https://michael.business/pt/articles/building-trustworthy-and-scalable-modern-data-platforms",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "Building Trustworthy and Scalable Modern Data Platforms",
+      "body": "Exploring how reliable transformation layers and cross-cloud data engineering projects enable scalable, governed, and business-ready analytics platforms.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Construindo Plataformas de Dados Modernas Confiáveis e Escaláveis",
+      "body": "Explorando como camadas confiáveis de transformação e projetos de engenharia de dados multicloud possibilitam plataformas analíticas escaláveis, governadas e prontas para negócios.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}

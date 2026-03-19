@@ -1,0 +1,27 @@
+{
+  "slug": "article-real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics",
+  "sourceType": "article",
+  "sourceSlug": "real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics",
+  "status": "draft",
+  "generatedAt": "2026-03-19T11:17:44.855Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics",
+    "pt": "https://michael.business/pt/articles/real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Real-Time Data Architectures in 2026: Streaming and CDC for Trustworthy Operational Analytics\n\nIn 2026, real-time data architectures leveraging st…\n\nhttps://michael.business/en/articles/real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Arquiteturas de Dados em Tempo Real em 2026: Streaming e CDC para Análises Operacionais Confiáveis\n\nEm 2026, as arquiteturas de dados em tempo rea…\n\nhttps://michael.business/pt/articles/real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    }
+  }
+}
