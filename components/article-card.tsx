@@ -1,6 +1,6 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-import { EditorialCover } from "@/components/editorial-cover";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { Article } from "@/lib/content";
 import { Locale, copy, localePath } from "@/lib/site";
@@ -15,28 +15,20 @@ export function ArticleCard({ article, locale }: ArticleCardProps) {
   const excerpt = clampText(content.excerpt, editorialLimits.cardSummaryMax);
 
   return (
-    <article className="section-card overflow-hidden rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(109,185,255,0.12)]">
-      <EditorialCover
-        variant="insight"
-        eyebrow={article.category[locale]}
-        title={clampText(content.title, editorialLimits.cardTitleMax)}
-        supportingText={copy(
-          locale,
-          "Executive perspective on data platforms, AI adoption, and delivery strategy.",
-          "Perspectiva executiva sobre plataformas de dados, adocao de IA e estrategia de entrega.",
-        )}
-        meta={`${article.publishedAt} • ${article.readingMinutes} min`}
-        imageUrl={article.imageUrl}
-      />
-      <div className="border-t border-white/8 p-5 sm:p-6">
-        <p className="line-clamp-4 text-sm leading-7 text-slate-300">{excerpt}</p>
-        <Link
-          href={localePath(locale, `/articles/${article.slug}`)}
-          className="mt-4 inline-flex text-sm font-medium text-[var(--primary)] transition hover:text-white"
-        >
-          {copy(locale, "Read insight →", "Ler insight →")}
-        </Link>
-      </div>
-    </article>
+    <Link
+      href={localePath(locale, `/articles/${article.slug}`)}
+      className="group bg-white p-8 transition-all duration-500 monolith-shadow hover:bg-gray-50 md:p-10"
+    >
+      <time className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">
+        {article.publishedAt} — {article.readingMinutes} min
+      </time>
+      <h3 className="mb-6 mt-4 text-xl font-bold uppercase leading-tight tracking-tight text-gray-900 transition-colors group-hover:text-[var(--primary)] md:text-2xl">
+        {clampText(content.title, editorialLimits.cardTitleMax)}
+      </h3>
+      <p className="mb-8 font-light leading-relaxed text-gray-500">
+        {excerpt}
+      </p>
+      <ArrowRight size={20} aria-hidden="true" className="text-[var(--primary)] transition-transform group-hover:translate-x-2" />
+    </Link>
   );
 }

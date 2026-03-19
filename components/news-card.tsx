@@ -1,6 +1,6 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-import { EditorialCover } from "@/components/editorial-cover";
 import { clampText, editorialLimits, sourceInitials } from "@/lib/editorial";
 import { NewsReference } from "@/lib/content";
 import { Locale, copy, localePath } from "@/lib/site";
@@ -13,40 +13,36 @@ type NewsCardProps = {
 export function NewsCard({ item, locale }: NewsCardProps) {
   const content = item.locales[locale];
   const summary = clampText(content.summary, editorialLimits.newsSummaryMax);
-  const context = clampText(content.whyItMatters, editorialLimits.whyItMattersMax);
 
   return (
-    <article className="section-card overflow-hidden rounded-3xl">
-      <EditorialCover
-        variant="news"
-        eyebrow={item.category?.[locale] ?? item.sourceName}
-        title={clampText(content.title, editorialLimits.cardTitleMax)}
-        supportingText={copy(
-          locale,
-          "Market signal curated for business impact and delivery relevance.",
-          "Sinal de mercado curado com foco em impacto de negocio e relevancia de entrega.",
-        )}
-        meta={`${sourceInitials(item.sourceName)} • ${item.publishedAt}`}
-        imageUrl={item.imageUrl}
-      />
-      <div className="border-t border-white/8 p-5 sm:p-6">
-        <div className="flex flex-wrap gap-2">
-          {item.tags.slice(0, 3).map((tag) => (
-            <span key={tag} className="rounded-full border border-white/10 px-3 py-1 text-xs text-blue-100/90">
-              {tag}
-            </span>
-          ))}
-        </div>
-        <p className="mt-4 line-clamp-4 text-sm leading-7 text-slate-300">{summary}</p>
-        <p className="mt-3 line-clamp-3 text-sm leading-7 text-slate-400">{context}</p>
-        <div className="mt-5 flex flex-col items-start gap-3 text-sm sm:flex-row sm:items-center">
-          <Link href={localePath(locale, `/news/${item.slug}`)} className="font-medium text-blue-300">
-            {copy(locale, "Read analysis", "Ler analise")}
-          </Link>
-          <a href={item.sourceUrl} target="_blank" rel="noreferrer" className="text-slate-300 hover:text-white">
-            {copy(locale, "Source", "Fonte")}
-          </a>
-        </div>
+    <article className="group bg-white p-8 transition-all duration-500 monolith-shadow hover:bg-gray-50 md:p-10">
+      <time className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">
+        {sourceInitials(item.sourceName)} — {item.publishedAt}
+      </time>
+      <h3 className="mb-4 mt-4 text-xl font-bold uppercase leading-tight tracking-tight text-gray-900 transition-colors group-hover:text-[var(--primary)] md:text-2xl">
+        {clampText(content.title, editorialLimits.cardTitleMax)}
+      </h3>
+      <div className="mb-4 flex flex-wrap gap-2">
+        {item.tags.slice(0, 3).map((tag) => (
+          <span key={tag} className="rounded bg-[var(--accent-mint)]/10 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[var(--accent-mint)]">
+            {tag}
+          </span>
+        ))}
+      </div>
+      <p className="mb-8 font-light leading-relaxed text-gray-500">
+        {summary}
+      </p>
+      <div className="flex items-center gap-6">
+        <Link
+          href={localePath(locale, `/news/${item.slug}`)}
+          className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-gray-900 transition hover:text-[var(--primary)]"
+        >
+          {copy(locale, "Read Analysis", "Ler Analise")}
+          <ArrowRight size={14} aria-hidden="true" className="text-[var(--primary)] transition-transform group-hover:translate-x-1" />
+        </Link>
+        <a href={item.sourceUrl} target="_blank" rel="noreferrer" className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 transition hover:text-gray-700">
+          {copy(locale, "Source", "Fonte")}
+        </a>
       </div>
     </article>
   );

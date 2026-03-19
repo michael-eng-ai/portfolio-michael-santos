@@ -1,15 +1,14 @@
 import Link from "next/link";
-import { Briefcase, Cloud, Layers, Target, TrendingUp, Zap } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
-import { ArticleCard } from "@/components/article-card";
-import { EditorialCover } from "@/components/editorial-cover";
-import { NewsCard } from "@/components/news-card";
 import { NewsletterForm } from "@/components/newsletter-form";
-import { ProjectCard } from "@/components/project-card";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { getArticles, getNewsReferences, getProjects } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
 import { Locale, copy, localePath, siteConfig } from "@/lib/site";
+
+export const revalidate = 600;
 
 export async function generateMetadata({
   params,
@@ -23,8 +22,8 @@ export async function generateMetadata({
     locale,
     title: copy(
       locale,
-      "Michael Barbosa Santos | Data Engineering And AI Strategy",
-      "Michael Barbosa Santos | Estrategia de Dados e IA",
+      "Michael Santos | Data Engineering & AI Strategy",
+      "Michael Santos | Estrategia de Dados e IA",
     ),
     description: copy(
       locale,
@@ -54,221 +53,242 @@ export default async function LocaleHomePage({
   ]);
 
   const featuredProjects = projects.filter((project) => project.featured).slice(0, 3);
-  const featuredArticles = articles.slice(0, 2);
-  const featuredNews = news.slice(0, 2);
-  const heroTitle = copy(
-    locale,
-    "Turn data and AI into real business growth.",
-    "Transforme dados e IA em crescimento real.",
-  );
-  const heroSummary = copy(
-    locale,
-    "Insights, cases, and market signals for leaders who want faster decisions, leaner operations, and stronger competitive advantage.",
-    "Insights, casos e sinais de mercado para lideres que buscam decisoes mais rapidas, operacoes mais enxutas e vantagem competitiva.",
-  );
+  const featuredArticles = articles.slice(0, 3);
 
   return (
-    <main className="pb-16 md:pb-20">
-      <section className="container-shell py-10 sm:py-16">
-        <div className="brand-shell hero-orb section-card rounded-[28px] p-6 sm:rounded-[36px] sm:p-8 md:p-12">
-          <div className="grid gap-10 lg:grid-cols-[1.25fr_0.75fr]">
-            <div className="relative z-10 space-y-6">
-              <span className="eyebrow-pill">
-                {copy(locale, "Data Engineering And AI Intelligence", "Inteligencia em Engenharia de Dados e IA")}
-              </span>
-              <h1 className="animated-gradient-text max-w-4xl text-3xl font-semibold leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
-                {heroTitle}
-              </h1>
-              <p className="max-w-3xl text-base text-slate-300 sm:text-lg">
-                {heroSummary}
-              </p>
-              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Link
-                  href={localePath(locale, "/articles")}
-                  className="brand-button-primary rounded-full px-5 py-3 text-center font-medium"
-                >
-                  {copy(locale, "Read insights", "Ler insights")}
-                </Link>
-                <Link
-                  href={localePath(locale, "/projects")}
-                  className="brand-button-secondary rounded-full px-5 py-3 text-center font-medium"
-                >
-                  {copy(locale, "Explore business cases", "Explorar casos de negocio")}
-                </Link>
-              </div>
-              <div className="flex flex-wrap gap-3 pt-3 text-sm text-slate-300">
-                <span className="flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-4 py-2">
-                  <TrendingUp size={14} className="text-[var(--accent-mint)]" />
-                  {copy(locale, "Revenue growth", "Aumento de receita")}
-                </span>
-                <span className="flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-4 py-2">
-                  <Zap size={14} className="text-[var(--accent-warm)]" />
-                  {copy(locale, "Operational efficiency", "Eficiencia operacional")}
-                </span>
-                <span className="flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-4 py-2">
-                  <Target size={14} className="text-[var(--accent)]" />
-                  {copy(locale, "Smarter decisions", "Decisoes mais inteligentes")}
-                </span>
-              </div>
+    <main>
+      {/* Hero */}
+      <section className="relative flex min-h-[85vh] items-center justify-center px-6 pt-20 md:px-20">
+        <div className="relative z-10 max-w-4xl text-center">
+          <span className="mb-8 inline-block text-xs font-bold uppercase tracking-[0.3em] text-[var(--primary)]">
+            {copy(locale, "Precision Data Architecture", "Arquitetura de Dados de Precisao")}
+          </span>
+          <h1 className="mb-10 text-5xl font-extrabold leading-[0.9] tracking-tighter text-gray-900 md:text-7xl lg:text-8xl">
+            {copy(locale, "Turn Complex Data", "Transforme Dados Complexos")}
+            <br />
+            {copy(locale, "into ", "em ")}
+            <span className="gradient-text">
+              {copy(locale, "Business Solutions", "Solucoes de Negocio")}
+            </span>.
+          </h1>
+          <p className="mx-auto mb-14 max-w-2xl text-xl font-light leading-relaxed text-gray-500 md:text-2xl">
+            {copy(
+              locale,
+              "Engineering data structures that transform chaotic information into operational excellence and predictive clarity.",
+              "Engenharia de estruturas de dados que transformam informacao caotica em excelencia operacional e clareza preditiva.",
+            )}
+          </p>
+          <div className="flex flex-wrap justify-center gap-5">
+            <Link
+              href={localePath(locale, "/projects")}
+              className="brand-button-primary px-10 py-5 text-lg font-bold"
+            >
+              {copy(locale, "View Success Stories", "Ver Casos de Sucesso")}
+            </Link>
+            <Link
+              href={localePath(locale, "/articles")}
+              className="brand-button-secondary px-10 py-5 text-lg font-bold"
+            >
+              {copy(locale, "Read Insights", "Ler Insights")}
+            </Link>
+          </div>
+        </div>
+      </section>
 
-              <div className="flex flex-wrap gap-4 pt-2">
-                <div className="stat-highlight flex items-center gap-3 rounded-2xl px-4 py-3">
-                  <Briefcase size={18} className="text-[var(--primary)]" />
-                  <div>
-                    <p className="text-lg font-semibold text-white">6+</p>
-                    <p className="text-xs text-slate-400">{copy(locale, "Business Cases", "Casos de negocio")}</p>
+      {/* Strategic Matrix - Business Cases */}
+      <section className="section-alt px-6 py-24 md:px-20 md:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-20">
+            <h2 className="mb-4 text-4xl font-extrabold uppercase tracking-tight text-gray-900 md:text-5xl">
+              {copy(locale, "The Strategic Matrix", "A Matriz Estrategica")}
+            </h2>
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-gray-500">
+              {copy(locale, "Identifying structural challenges. Engineering monolithic solutions.", "Identificando desafios estruturais. Engenhando solucoes monoliticas.")}
+            </p>
+          </div>
+
+          <div className="space-y-28">
+            {featuredProjects.map((project, idx) => {
+              const content = project.locales[locale];
+              const isReverse = idx % 2 !== 0;
+              return (
+                <div key={project.slug} className="grid items-center gap-0 md:grid-cols-2">
+                  <div className={`monolith-shadow bg-gray-100 p-12 md:p-20 ${isReverse ? "md:order-2" : "md:order-1"}`}>
+                    <span className="absolute right-10 top-10 text-7xl font-black text-gray-200">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="mb-6 text-2xl font-bold uppercase tracking-tight text-gray-500">
+                      {copy(locale, "The Challenge", "O Desafio")}
+                    </h3>
+                    <p className="text-lg leading-relaxed text-gray-500 italic">
+                      &ldquo;{clampText(content.businessProblem, 200)}&rdquo;
+                    </p>
+                  </div>
+
+                  <div className={`monolith-shadow relative z-10 border-l-4 border-[var(--accent-mint)] bg-white p-12 md:p-20 ${isReverse ? "md:order-1 md:-mr-12" : "md:order-2 md:-ml-12 md:-mt-12"}`}>
+                    <div className="mb-6 flex items-center gap-3 text-[var(--accent-mint)]">
+                      <span className="text-xs font-bold uppercase tracking-widest">
+                        {copy(locale, "Solution", "Solucao")}: {project.stack.slice(0, 2).join(" + ")}
+                      </span>
+                    </div>
+                    <h4 className="mb-6 text-3xl font-extrabold tracking-tighter text-gray-900 md:text-4xl">
+                      {clampText(content.title, editorialLimits.cardTitleMax)}
+                    </h4>
+                    <p className="mb-8 text-lg leading-relaxed text-gray-600">
+                      {clampText(content.summary, 180)}
+                    </p>
+                    <Link
+                      href={localePath(locale, `/projects/${project.slug}`)}
+                      className="inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.3em] text-gray-900 transition hover:text-[var(--primary)]"
+                    >
+                      {copy(locale, "Read Case Study", "Ver Caso de Sucesso")}
+                      <ArrowRight size={14} className="text-[var(--primary)]" />
+                    </Link>
                   </div>
                 </div>
-                <div className="stat-highlight flex items-center gap-3 rounded-2xl px-4 py-3">
-                  <Cloud size={18} className="text-[var(--accent-mint)]" />
-                  <div>
-                    <p className="text-lg font-semibold text-white">3</p>
-                    <p className="text-xs text-slate-400">{copy(locale, "Cloud Platforms", "Plataformas Cloud")}</p>
-                  </div>
-                </div>
-                <div className="stat-highlight flex items-center gap-3 rounded-2xl px-4 py-3">
-                  <Layers size={18} className="text-[var(--accent)]" />
-                  <div>
-                    <p className="text-lg font-semibold text-white">E2E</p>
-                    <p className="text-xs text-slate-400">{copy(locale, "Full Delivery", "Entrega Completa")}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative z-10 max-w-xl lg:max-w-none">
-              <EditorialCover
-                variant="insight"
-                eyebrow={copy(locale, "Featured", "Destaque")}
-                title={copy(locale, "From market signal to business result.", "Do sinal de mercado ao resultado de negocio.")}
-                supportingText={copy(
-                  locale,
-                  "See how leaders use data, AI, and platform strategy to drive measurable outcomes.",
-                  "Veja como lideres usam dados, IA e estrategia de plataforma para gerar resultados mensuraveis.",
-                )}
-                meta={copy(locale, "Executive intelligence", "Inteligencia executiva")}
-                imageUrl="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80"
-              />
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <section className="container-shell grid gap-8 py-4 sm:py-6 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="space-y-6">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
-              {copy(locale, "Featured insights", "Insights em destaque")}
-            </p>
-            <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">
-              {copy(
-                locale,
-                "Ideas that help leaders create clarity, speed, and competitive advantage",
-                "Ideias que ajudam liderancas a criar clareza, velocidade e vantagem competitiva",
-              )}
-            </h2>
-          </div>
-          <div className="grid gap-6">
-            {featuredArticles.map((article) => (
-              <ArticleCard key={article.slug} article={article} locale={locale} />
-            ))}
-          </div>
-        </div>
-
-        <div className="space-y-6">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
-              {copy(locale, "Market references", "Referencias de mercado")}
-            </p>
-            <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">
-              {copy(
-                locale,
-                "Signals shaping where digital investment and platform strategy are moving",
-                "Sinais que mostram para onde caminham investimento digital e estrategia de plataforma",
-              )}
-            </h2>
-          </div>
-          <div className="grid gap-6">
-            {featuredNews.map((item) => (
-              <NewsCard key={item.slug} item={item} locale={locale} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="container-shell py-10">
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
-              {copy(locale, "Business cases", "Casos de negocio")}
-            </p>
-            <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">
-              {copy(
-                locale,
-                "Cases that connect strategic intent to operational execution",
-                "Casos que conectam intencao estrategica a execucao operacional",
-              )}
-            </h2>
-          </div>
-          <Link href={localePath(locale, "/projects")} className="text-sm text-blue-300">
-            {copy(locale, "View all", "Ver todos")}
-          </Link>
-        </div>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {featuredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} locale={locale} />
-          ))}
-        </div>
-      </section>
-
-      <section className="container-shell py-8">
-        <NewsletterForm locale={locale} source="home-hero" />
-      </section>
-
-      <section className="container-shell py-10">
-        <div className="section-card rounded-[28px] p-6 sm:rounded-[32px] sm:p-8 md:p-10">
-          <div className="grid gap-8 lg:grid-cols-[1fr_0.8fr]">
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
-                {copy(locale, "Editorial perspective", "Perspectiva editorial")}
-              </p>
-              <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">
-                {copy(
-                  locale,
-                  "Technology earns attention when it creates business momentum",
-                  "Tecnologia ganha relevancia quando cria impulso para o negocio",
-                )}
+      {/* Success Stories - Featured with images */}
+      <section className="px-6 py-24 md:px-20 md:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-20 flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-2xl">
+              <h2 className="mb-6 text-4xl font-extrabold uppercase tracking-tight text-gray-900 md:text-5xl">
+                {copy(locale, "Success Stories", "Casos de Sucesso")}
               </h2>
-              <p className="mt-4 max-w-2xl text-slate-300">
+              <p className="text-xl font-light leading-relaxed text-gray-500">
                 {copy(
                   locale,
-                  "This publication turns market change, platform decisions, and execution patterns into language that leaders can actually use to make better bets.",
-                  "Esta publicacao transforma mudancas de mercado, decisoes de plataforma e padroes de execucao em linguagem que liderancas podem usar para fazer apostas melhores.",
+                  "Real-world impact through architectural precision. Explore how data engineering drives measurable business outcomes.",
+                  "Impacto real atraves de precisao arquitetural. Veja como engenharia de dados gera resultados de negocio mensuraveis.",
                 )}
               </p>
             </div>
-            <div className="section-card rounded-3xl p-5 sm:p-6">
-              <div className="space-y-3 text-sm text-slate-300">
-                <p>{copy(locale, "1. Follow market changes in data and AI.", "1. Acompanhe mudancas de mercado em dados e IA.")}</p>
-                <p>{copy(locale, "2. Understand the business opportunity behind the trend.", "2. Entenda a oportunidade de negocio por tras da tendencia.")}</p>
-                <p>{copy(locale, "3. See how the technical solution can be executed.", "3. Veja como a solucao tecnica pode ser executada.")}</p>
-                <p>{copy(locale, "4. Explore the operational implementation in GitHub when needed.", "4. Explore a implementacao operacional no GitHub quando necessario.")}</p>
-              </div>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a
-                  href={siteConfig.githubUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full border border-white/10 px-4 py-2 text-sm text-white"
-                >
-                  GitHub
-                </a>
-                <Link href={localePath(locale, "/contact")} className="rounded-full border border-white/10 px-4 py-2 text-sm text-white">
-                  {copy(locale, "Contact", "Contato")}
-                </Link>
-              </div>
-            </div>
+            <Link
+              href={localePath(locale, "/projects")}
+              className="group flex items-center gap-3 border-b-2 border-[var(--primary)]/30 pb-2 text-xs font-bold uppercase tracking-[0.2em] text-[var(--primary)] transition-all hover:border-[var(--primary)]"
+            >
+              {copy(locale, "Full Portfolio", "Portfolio Completo")}
+              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
+            {featuredProjects[0] && (
+              <div className="group relative min-h-[500px] overflow-hidden rounded-xl bg-gray-100 md:col-span-8">
+                {featuredProjects[0].imageUrl && (
+                  <Image
+                    src={featuredProjects[0].imageUrl}
+                    alt={featuredProjects[0].locales[locale].title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 66vw"
+                    className="object-cover opacity-40 transition-transform duration-1000 group-hover:scale-105"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/30 to-transparent" />
+                <div className="absolute bottom-0 left-0 p-12">
+                  <span className="mb-6 inline-block rounded bg-[var(--primary)]/20 px-4 py-1 text-[10px] font-black uppercase tracking-widest text-[var(--primary)]">
+                    {featuredProjects[0].tags[0]}
+                  </span>
+                  <h3 className="mb-6 text-3xl font-extrabold tracking-tighter text-white md:text-4xl">
+                    {featuredProjects[0].locales[locale].title}
+                  </h3>
+                  <p className="mb-8 max-w-lg text-lg text-gray-300">
+                    {clampText(featuredProjects[0].locales[locale].summary, 120)}
+                  </p>
+                  <Link
+                    href={localePath(locale, `/projects/${featuredProjects[0].slug}`)}
+                    className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-white transition hover:text-[var(--primary)]"
+                  >
+                    {copy(locale, "Read Case Study", "Ver Caso")}
+                    <ArrowRight size={14} className="text-[var(--primary)]" />
+                  </Link>
+                </div>
+              </div>
+            )}
+
+            {featuredProjects[1] && (
+              <div className="group relative min-h-[500px] overflow-hidden rounded-xl bg-gray-100 md:col-span-4">
+                {featuredProjects[1].imageUrl && (
+                  <Image
+                    src={featuredProjects[1].imageUrl}
+                    alt={featuredProjects[1].locales[locale].title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover opacity-30 transition-transform duration-1000 group-hover:scale-105"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 p-12">
+                  <span className="mb-6 inline-block rounded bg-[var(--accent-mint)]/20 px-4 py-1 text-[10px] font-black uppercase tracking-widest text-[var(--accent-mint)]">
+                    {featuredProjects[1].tags[0]}
+                  </span>
+                  <h3 className="mb-6 text-2xl font-extrabold tracking-tighter text-white md:text-3xl">
+                    {featuredProjects[1].locales[locale].title}
+                  </h3>
+                  <p className="mb-8 text-lg text-gray-300">
+                    {clampText(featuredProjects[1].locales[locale].summary, 80)}
+                  </p>
+                  <Link
+                    href={localePath(locale, `/projects/${featuredProjects[1].slug}`)}
+                    className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-white transition hover:text-[var(--primary)]"
+                  >
+                    {copy(locale, "Case Details", "Detalhes do Caso")}
+                    <ArrowRight size={14} className="text-[var(--primary)]" />
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Intelligence Feed - Articles */}
+      <section className="section-deep px-6 py-24 md:px-20 md:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-20 border-l-[6px] border-[var(--primary)] pl-10">
+            <h2 className="text-4xl font-extrabold uppercase tracking-tight text-gray-900">
+              {copy(locale, "The Intelligence Feed", "Feed de Inteligencia")}
+            </h2>
+            <p className="mt-3 text-xs font-bold uppercase tracking-[0.3em] text-gray-500">
+              {copy(locale, "Latest insights from the data frontier", "Ultimos insights da fronteira de dados")}
+            </p>
+          </div>
+
+          <div className="grid gap-10 md:grid-cols-3">
+            {featuredArticles.map((article) => {
+              const content = article.locales[locale];
+              return (
+                <Link
+                  key={article.slug}
+                  href={localePath(locale, `/articles/${article.slug}`)}
+                  className="group cursor-pointer bg-white p-10 transition-all duration-500 monolith-shadow hover:bg-gray-50"
+                >
+                  <time className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">
+                    {article.publishedAt}
+                  </time>
+                  <h4 className="mb-8 mt-6 text-xl font-bold uppercase leading-tight tracking-tight text-gray-900 transition-colors group-hover:text-[var(--primary)] md:text-2xl">
+                    {clampText(content.title, editorialLimits.cardTitleMax)}
+                  </h4>
+                  <p className="mb-10 font-light leading-relaxed text-gray-500">
+                    {clampText(content.excerpt, 120)}
+                  </p>
+                  <ArrowRight size={24} className="text-[var(--primary)] transition-transform group-hover:translate-x-2" />
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="px-6 py-16 md:px-20">
+        <div className="mx-auto max-w-7xl">
+          <NewsletterForm locale={locale} source="home-hero" />
         </div>
       </section>
     </main>
