@@ -18,8 +18,8 @@ export const localeMetadata = {
 } as const;
 
 export const siteConfig = {
-  name: "Michael Barbosa Santos",
-  role: "Data Engineering And AI Business Insights",
+  name: "Michael Santos",
+  role: "Data Engineering & AI",
   title: "Michael Barbosa Santos | Senior Data Engineer",
   description:
     "A bilingual publication on data engineering and AI focused on business problems, market signals, and the technical paths that make solutions real.",

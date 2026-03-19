@@ -41,13 +41,13 @@ export function MobileNav({ locale }: MobileNavProps) {
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
         aria-controls="mobile-navigation"
-        className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white transition hover:bg-white/10"
+        className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 transition hover:bg-gray-50"
       >
         {open ? <X size={20} /> : <Menu size={20} />}
       </button>
 
       {open && (
-        <div className="fixed inset-x-0 bottom-0 top-[64px] z-40 overflow-y-auto bg-[rgba(11,20,31,0.97)] backdrop-blur-xl sm:top-[72px]">
+        <div className="fixed inset-x-0 bottom-0 top-[64px] z-40 overflow-y-auto bg-white/97 backdrop-blur-xl sm:top-[72px]">
           <nav id="mobile-navigation" className="container-shell flex flex-col gap-1 py-6">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
@@ -57,8 +57,8 @@ export function MobileNav({ locale }: MobileNavProps) {
                   href={item.href}
                   className={`rounded-2xl px-5 py-4 text-lg font-medium transition ${
                     isActive
-                      ? "bg-white/8 text-white"
-                      : "text-slate-300 hover:bg-white/5 hover:text-white"
+                      ? "bg-gray-100 text-gray-900"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   }`}
                 >
                   {item.label}

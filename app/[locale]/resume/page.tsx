@@ -35,15 +35,15 @@ export default async function ResumePage({
   const locale = rawLocale as Locale;
 
   return (
-    <main className="container-shell py-10 sm:py-16">
-      <div className="section-card rounded-[28px] p-6 sm:rounded-[32px] sm:p-8 md:p-10">
-        <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
+    <main className="px-6 pb-20 pt-28 md:px-20">
+      <div className="mx-auto max-w-7xl bg-white p-6 monolith-shadow sm:p-8 md:p-10">
+        <p className="text-xs font-medium uppercase tracking-[0.3em] text-[var(--primary)]">
           {copy(locale, "Resume", "Curriculo")}
         </p>
-        <h1 className="mt-3 text-3xl font-semibold text-white sm:text-4xl md:text-5xl">
+        <h1 className="mt-3 text-3xl font-semibold text-gray-900 sm:text-4xl md:text-5xl">
           {copy(locale, "Download the bilingual resume set", "Baixe o conjunto bilingue de curriculos")}
         </h1>
-        <p className="mt-4 max-w-3xl text-base text-slate-300 sm:text-lg">
+        <p className="mt-4 max-w-3xl text-base text-gray-600 sm:text-lg">
           {copy(
             locale,
             "The resume files are aligned with the same positioning used on GitHub, the site, and LinkedIn.",

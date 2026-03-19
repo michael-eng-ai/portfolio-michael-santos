@@ -61,7 +61,7 @@ export function NewsletterForm({ locale, source }: NewsletterFormProps) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="stat-highlight rounded-3xl p-5 backdrop-blur-[14px] sm:p-6">
+    <form onSubmit={onSubmit} className="rounded-2xl border border-gray-200 bg-gray-50 p-5 sm:p-6">
       <div className="space-y-4">
         <div className="sr-only" aria-hidden="true">
           <label htmlFor={`website-${source}`}>Website</label>
@@ -76,10 +76,10 @@ export function NewsletterForm({ locale, source }: NewsletterFormProps) {
         </div>
 
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
+          <p className="text-xs font-medium uppercase tracking-[0.3em] text-[var(--primary)]">
             {copy(locale, "Newsletter", "Newsletter")}
           </p>
-          <h3 className="mt-2 text-2xl font-semibold text-white">
+          <h3 className="mt-2 text-2xl font-semibold text-gray-900">
             {copy(
               locale,
               "Receive curated intelligence on growth, efficiency, and digital strategy.",
@@ -95,18 +95,18 @@ export function NewsletterForm({ locale, source }: NewsletterFormProps) {
             onChange={(event) => setEmail(event.target.value)}
             placeholder={copy(locale, "your@email.com", "seu@email.com")}
             required
-            className="rounded-2xl border border-white/12 bg-slate-950/70 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none ring-0 focus:border-[var(--primary)]/40 transition-colors"
+            className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition-colors focus:border-[var(--primary)]"
           />
           <button
             type="submit"
             disabled={status === "loading"}
-            className="brand-button-primary rounded-2xl px-5 py-3 text-sm font-semibold transition hover:brightness-105 disabled:opacity-60"
+            className="brand-button-primary rounded-xl px-5 py-3 text-sm font-semibold disabled:opacity-60"
           >
             {copy(locale, "Subscribe", "Inscrever")}
           </button>
         </div>
 
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-gray-500">
           {copy(
             locale,
             "One email per week. No spam. Only high-signal content for decision-makers.",
@@ -117,7 +117,7 @@ export function NewsletterForm({ locale, source }: NewsletterFormProps) {
         {message ? (
           <p
             className={`text-sm ${
-              status === "success" ? "text-emerald-300" : "text-rose-300"
+              status === "success" ? "text-emerald-600" : "text-rose-600"
             }`}
           >
             {message}

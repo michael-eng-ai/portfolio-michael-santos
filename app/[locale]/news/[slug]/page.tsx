@@ -9,7 +9,8 @@ import { getNewsReferenceBySlug, getNewsReferences, getProjects } from "@/lib/co
 import { buildArticleJsonLd, buildPageMetadata } from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   const news = await getNewsReferences();
@@ -62,7 +63,7 @@ export default async function NewsDetailPage({
   const relatedProjects = projects.filter((project) => item.relatedProjectSlugs.includes(project.slug));
 
   return (
-    <main className="container-shell py-10 sm:py-16">
+    <main className="px-6 pb-20 pt-28 md:px-20">
       <StructuredData
         data={buildArticleJsonLd({
           locale,
@@ -75,8 +76,8 @@ export default async function NewsDetailPage({
           type: "NewsArticle",
         })}
       />
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-[1.15fr_0.85fr]">
-        <article className="section-card overflow-hidden rounded-[32px]">
+      <div className="mx-auto max-w-7xl grid gap-8 md:grid-cols-2 lg:grid-cols-[1.15fr_0.85fr]">
+        <article className="section-card overflow-hidden rounded-2xl">
           <EditorialCover
             variant="news"
             eyebrow={item.category?.[locale] ?? item.sourceName}
@@ -87,7 +88,7 @@ export default async function NewsDetailPage({
           />
           <div className="p-6 sm:p-8 md:p-10">
             <h1 className="sr-only">{content.title}</h1>
-            <p className="max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">{content.summary}</p>
+            <p className="max-w-3xl text-base leading-8 text-gray-600 sm:text-lg">{content.summary}</p>
             <a
               href={item.sourceUrl}
               target="_blank"
@@ -100,24 +101,24 @@ export default async function NewsDetailPage({
         </article>
 
         <aside className="space-y-6">
-          <section className="section-card rounded-3xl p-5 sm:p-6">
-            <h2 className="text-xl font-semibold text-white">
+          <section className="section-card rounded-2xl p-5 sm:p-6">
+            <h2 className="text-xl font-semibold text-gray-900">
               {copy(locale, "Connected business cases", "Casos conectados")}
             </h2>
             <div className="mt-4 space-y-3 text-sm">
               {relatedProjects.map((project) => (
-                <Link key={project.slug} href={localePath(locale, `/projects/${project.slug}`)} className="block text-blue-300">
+                <Link key={project.slug} href={localePath(locale, `/projects/${project.slug}`)} className="block text-[var(--primary)]">
                   {project.locales[locale].title}
                 </Link>
               ))}
             </div>
           </section>
 
-          <section className="section-card rounded-3xl p-5 sm:p-6">
-            <h2 className="text-xl font-semibold text-white">
+          <section className="section-card rounded-2xl p-5 sm:p-6">
+            <h2 className="text-xl font-semibold text-gray-900">
               {copy(locale, "Why this signal matters", "Por que esse sinal importa")}
             </h2>
-            <p className="mt-4 text-sm text-slate-300">
+            <p className="mt-4 text-sm text-gray-600">
               {copy(
                 locale,
                 "External signals make it easier to explain why a topic matters now, which business pressure is rising, and where technical delivery becomes strategically relevant.",

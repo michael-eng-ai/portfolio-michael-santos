@@ -4,6 +4,8 @@ import { getArticles, getNewsReferences, getProjects } from "@/lib/content";
 import { buildLanguageAlternates, localizedUrl } from "@/lib/seo";
 import { locales } from "@/lib/site";
 
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [projects, articles, news] = await Promise.all([
     getProjects(),

@@ -10,36 +10,36 @@ type HeaderProps = {
 
 export function Header({ locale }: HeaderProps) {
   const navItems = [
+    { href: localePath(locale, "/projects"), label: copy(locale, "Success Stories", "Casos") },
     { href: localePath(locale, "/articles"), label: copy(locale, "Insights", "Insights") },
     { href: localePath(locale, "/news"), label: copy(locale, "News", "Noticias") },
-    { href: localePath(locale, "/projects"), label: copy(locale, "Business Cases", "Casos") },
-    { href: localePath(locale, "/newsletter"), label: copy(locale, "Newsletter", "Newsletter") },
-    { href: localePath(locale, "/contact"), label: copy(locale, "Contact", "Contato") }
+    { href: localePath(locale, "/contact"), label: copy(locale, "Contact", "Contato") },
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/8 bg-[rgba(11,20,31,0.58)] backdrop-blur-xl">
-      <div className="container-shell flex items-center justify-between gap-3 py-3 sm:gap-4 sm:py-4">
-        <Link href={localePath(locale)} className="flex min-w-0 flex-col">
-          <span className="brand-heading-kicker hidden text-slate-400 sm:block">
-            {siteConfig.role}
-          </span>
-          <span className="display-copy truncate text-base font-semibold text-white sm:text-lg">{siteConfig.name}</span>
+    <header className="fixed top-0 z-50 w-full border-b border-gray-200/50 bg-white/80 backdrop-blur-xl">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
+        <Link href={localePath(locale)} className="text-xl font-black uppercase tracking-tighter text-gray-900">
+          {siteConfig.name}
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm text-slate-300 lg:flex">
+        <nav className="hidden items-center gap-10 lg:flex">
           {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className="brand-link transition hover:text-white">
+            <Link
+              key={item.href}
+              href={item.href}
+              className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-[var(--primary)]"
+            >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <LocaleToggle locale={locale} />
           <Link
             href={localePath(locale, "/resume")}
-            className="brand-button-primary hidden rounded-full px-4 py-2 text-sm font-medium transition hover:brightness-105 sm:inline-flex"
+            className="brand-button-primary hidden px-6 py-2.5 text-sm font-bold tracking-tight sm:inline-flex"
           >
             {copy(locale, "Resume", "Curriculo")}
           </Link>

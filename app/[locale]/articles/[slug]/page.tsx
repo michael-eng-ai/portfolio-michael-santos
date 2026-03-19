@@ -62,7 +62,7 @@ export default async function ArticleDetailPage({
   const relatedProjects = projects.filter((project) => article.relatedProjectSlugs.includes(project.slug));
 
   return (
-    <main className="container-shell py-10 sm:py-16">
+    <main className="px-6 pb-20 pt-28 md:px-20">
       <StructuredData
         data={buildArticleJsonLd({
           locale,
@@ -74,8 +74,8 @@ export default async function ArticleDetailPage({
           keywords: article.tags,
         })}
       />
-      <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-        <article className="section-card overflow-hidden rounded-[32px]">
+      <div className="mx-auto max-w-7xl grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+        <article className="section-card overflow-hidden rounded-2xl">
           <EditorialCover
             variant="insight"
             eyebrow={article.category[locale]}
@@ -93,24 +93,24 @@ export default async function ArticleDetailPage({
         </article>
 
         <aside className="space-y-6">
-          <section className="section-card rounded-3xl p-5 sm:p-6">
-            <h2 className="text-xl font-semibold text-white">
+          <section className="section-card rounded-2xl p-5 sm:p-6">
+            <h2 className="text-xl font-semibold text-gray-900">
               {copy(locale, "Related business cases", "Casos de negocio relacionados")}
             </h2>
             <div className="mt-4 space-y-3 text-sm">
               {relatedProjects.map((project) => (
-                <Link key={project.slug} href={localePath(locale, `/projects/${project.slug}`)} className="block text-blue-300">
+                <Link key={project.slug} href={localePath(locale, `/projects/${project.slug}`)} className="block text-[var(--primary)]">
                   {project.locales[locale].title}
                 </Link>
               ))}
             </div>
           </section>
 
-          <section className="section-card rounded-3xl p-5 sm:p-6">
-            <h2 className="text-xl font-semibold text-white">
+          <section className="section-card rounded-2xl p-5 sm:p-6">
+            <h2 className="text-xl font-semibold text-gray-900">
               {copy(locale, "How to read this analysis", "Como ler esta analise")}
             </h2>
-            <ul className="mt-4 space-y-3 text-sm text-slate-300">
+            <ul className="mt-4 space-y-3 text-sm text-gray-600">
               <li>1. {copy(locale, "Start with the market and business pressure.", "Comece pela pressao de mercado e de negocio.")}</li>
               <li>2. {copy(locale, "Then connect it to the delivery pattern.", "Depois conecte isso ao padrao de entrega.")}</li>
               <li>3. {copy(locale, "Use the related case for the operational proof.", "Use o caso relacionado para ver a prova operacional.")}</li>

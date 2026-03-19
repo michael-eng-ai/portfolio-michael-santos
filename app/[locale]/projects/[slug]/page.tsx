@@ -64,7 +64,7 @@ export default async function ProjectDetailPage({
   const snapshot = getGithubSnapshotForProject(project, snapshots);
 
   return (
-    <main className="container-shell py-10 sm:py-16">
+    <main className="px-6 pb-20 pt-28 md:px-20">
       <StructuredData
         data={buildProjectJsonLd({
           locale,
@@ -76,7 +76,7 @@ export default async function ProjectDetailPage({
           keywords: [...project.tags, ...project.stack],
         })}
       />
-      <div className="mb-8 overflow-hidden rounded-[28px] sm:mb-10 sm:rounded-[32px]">
+      <div className="mx-auto max-w-7xl mb-8 overflow-hidden rounded-2xl sm:mb-10">
         <EditorialCover
           variant="case"
           eyebrow={copy(locale, "Business case", "Caso de negocio")}
@@ -87,31 +87,31 @@ export default async function ProjectDetailPage({
         />
       </div>
 
-      <div className="grid gap-8 md:grid-cols-[1fr_1fr] lg:grid-cols-[1.25fr_0.75fr]">
+      <div className="mx-auto max-w-7xl grid gap-8 md:grid-cols-[1fr_1fr] lg:grid-cols-[1.25fr_0.75fr]">
         <div className="space-y-8">
-          <section className="section-card rounded-3xl p-6 sm:p-8">
-            <h2 className="text-2xl font-semibold text-white">
+          <section className="section-card rounded-2xl p-6 sm:p-8">
+            <h2 className="text-2xl font-semibold text-gray-900">
               {copy(locale, "The challenge", "O desafio")}
             </h2>
-            <p className="mt-4 text-slate-300">{content.businessProblem}</p>
+            <p className="mt-4 text-gray-600">{content.businessProblem}</p>
           </section>
 
-          <section className="section-card rounded-3xl p-6 sm:p-8">
-            <h2 className="text-2xl font-semibold text-white">
+          <section className="section-card rounded-2xl p-6 sm:p-8">
+            <h2 className="text-2xl font-semibold text-gray-900">
               {copy(locale, "How we solved it", "Como resolvemos")}
             </h2>
-            <ul className="mt-4 space-y-3 text-slate-300">
+            <ul className="mt-4 space-y-3 text-gray-600">
               {content.technicalSolution.map((item) => (
                 <li key={item}>- {item}</li>
               ))}
             </ul>
           </section>
 
-          <section className="section-card rounded-3xl p-6 sm:p-8">
-            <h2 className="text-2xl font-semibold text-white">
+          <section className="section-card rounded-2xl p-6 sm:p-8">
+            <h2 className="text-2xl font-semibold text-gray-900">
               {copy(locale, "Execution story", "Historia de execucao")}
             </h2>
-            <p className="mt-4 text-slate-300">{content.architectureSummary}</p>
+            <p className="mt-4 text-gray-600">{content.architectureSummary}</p>
             <div className="mt-6">
               <MarkdownContent content={content.body} />
             </div>
@@ -119,34 +119,34 @@ export default async function ProjectDetailPage({
         </div>
 
         <aside className="space-y-6">
-          <section className="section-card rounded-3xl p-5 sm:p-6">
-            <h2 className="text-xl font-semibold text-white">
+          <section className="section-card rounded-2xl p-5 sm:p-6">
+            <h2 className="text-xl font-semibold text-gray-900">
               {copy(locale, "Technical implementation", "Implementacao tecnica")}
             </h2>
-            <a href={project.github.url} target="_blank" rel="noreferrer" className="mt-4 block text-blue-300">
+            <a href={project.github.url} target="_blank" rel="noreferrer" className="mt-4 block text-[var(--primary)]">
               {project.github.owner}/{project.github.repo}
             </a>
             {snapshot ? (
-              <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-slate-300">
+              <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-gray-600">
                 <div>
-                  <p className="text-slate-400">Stars</p>
+                  <p className="text-gray-400">Stars</p>
                   <p>{snapshot.stars}</p>
                 </div>
                 <div>
-                  <p className="text-slate-400">Forks</p>
+                  <p className="text-gray-400">Forks</p>
                   <p>{snapshot.forks}</p>
                 </div>
                 <div>
-                  <p className="text-slate-400">Issues</p>
+                  <p className="text-gray-400">Issues</p>
                   <p>{snapshot.openIssues}</p>
                 </div>
                 <div>
-                  <p className="text-slate-400">Updated</p>
+                  <p className="text-gray-400">Updated</p>
                   <p>{snapshot.updatedAt ?? "-"}</p>
                 </div>
               </div>
             ) : (
-              <p className="mt-4 text-sm text-slate-400">
+              <p className="mt-4 text-sm text-gray-400">
                 {copy(
                   locale,
                   "This block can be enriched with live repository metadata when GitHub sync is configured.",
@@ -156,27 +156,27 @@ export default async function ProjectDetailPage({
             )}
           </section>
 
-          <section className="section-card rounded-3xl p-5 sm:p-6">
-            <h2 className="text-xl font-semibold text-white">{copy(locale, "Business impact", "Impacto no negocio")}</h2>
-            <ul className="mt-4 space-y-3 text-sm text-slate-300">
+          <section className="section-card rounded-2xl p-5 sm:p-6">
+            <h2 className="text-xl font-semibold text-gray-900">{copy(locale, "Business impact", "Impacto no negocio")}</h2>
+            <ul className="mt-4 space-y-3 text-sm text-gray-600">
               {content.impact.map((item) => (
                 <li key={item}>- {item}</li>
               ))}
             </ul>
           </section>
 
-          <section className="section-card rounded-3xl p-5 sm:p-6">
-            <h2 className="text-xl font-semibold text-white">
+          <section className="section-card rounded-2xl p-5 sm:p-6">
+            <h2 className="text-xl font-semibold text-gray-900">
               {copy(locale, "Related insights", "Insights relacionados")}
             </h2>
             <div className="mt-4 space-y-3 text-sm">
               {relatedArticles.map((article) => (
-                <Link key={article.slug} href={localePath(locale, `/articles/${article.slug}`)} className="block text-blue-300">
+                <Link key={article.slug} href={localePath(locale, `/articles/${article.slug}`)} className="block text-[var(--primary)]">
                   {article.locales[locale].title}
                 </Link>
               ))}
               {relatedNews.map((item) => (
-                <Link key={item.slug} href={localePath(locale, `/news/${item.slug}`)} className="block text-slate-300">
+                <Link key={item.slug} href={localePath(locale, `/news/${item.slug}`)} className="block text-gray-600">
                   {item.locales[locale].title}
                 </Link>
               ))}

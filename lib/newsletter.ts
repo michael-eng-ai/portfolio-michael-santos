@@ -1,27 +1,12 @@
 import { Resend } from "resend";
-import { createClient } from "@supabase/supabase-js";
+
+import { getSupabaseAdminClient } from "@/lib/supabase";
 
 type SubscribeInput = {
   email: string;
   locale: "en" | "pt";
   source: string;
 };
-
-function getSupabaseAdminClient() {
-  const url = process.env.SUPABASE_URL;
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  if (!url || !serviceRoleKey) {
-    throw new Error("Supabase admin environment variables are not configured.");
-  }
-
-  return createClient(url, serviceRoleKey, {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-    },
-  });
-}
 
 function getResendClient() {
   if (!process.env.RESEND_API_KEY) {

@@ -58,7 +58,7 @@ export function NewsListPaginated({
             className={`min-h-[44px] rounded-full px-5 py-2.5 text-sm font-medium transition ${
               activeCategory === ALL_CATEGORY
                 ? "brand-button-primary"
-                : "border border-white/12 bg-white/4 text-slate-300 hover:bg-white/8"
+                : "border border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
             }`}
           >
             {copy(locale, "All", "Todas")}
@@ -71,7 +71,7 @@ export function NewsListPaginated({
               className={`min-h-[44px] rounded-full px-5 py-2.5 text-sm font-medium transition ${
                 activeCategory === category
                   ? "brand-button-primary"
-                  : "border border-white/12 bg-white/4 text-slate-300 hover:bg-white/8"
+                  : "border border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
               }`}
             >
               {category}
@@ -87,7 +87,7 @@ export function NewsListPaginated({
       </div>
 
       {pageItems.length === 0 && (
-        <p className="py-12 text-center text-slate-400">
+        <p className="py-12 text-center text-gray-400">
           {copy(locale, "No news found for this category.", "Nenhuma noticia encontrada para esta categoria.")}
         </p>
       )}
@@ -98,7 +98,7 @@ export function NewsListPaginated({
             type="button"
             disabled={safeCurrentPage <= 1}
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-            className="min-h-[44px] rounded-lg border border-white/12 bg-white/4 px-4 py-2.5 text-sm text-slate-300 transition hover:bg-white/8 disabled:opacity-40"
+            className="min-h-[44px] rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-600 transition hover:bg-gray-50 disabled:opacity-40"
           >
             {copy(locale, "Previous", "Anterior")}
           </button>
@@ -111,7 +111,7 @@ export function NewsListPaginated({
               className={`min-h-[44px] min-w-[44px] rounded-lg px-3 py-2.5 text-sm font-medium transition ${
                 page === safeCurrentPage
                   ? "brand-button-primary"
-                  : "border border-white/12 bg-white/4 text-slate-300 hover:bg-white/8"
+                  : "border border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
               }`}
             >
               {page}
@@ -122,7 +122,7 @@ export function NewsListPaginated({
             type="button"
             disabled={safeCurrentPage >= totalPages}
             onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-            className="min-h-[44px] rounded-lg border border-white/12 bg-white/4 px-4 py-2.5 text-sm text-slate-300 transition hover:bg-white/8 disabled:opacity-40"
+            className="min-h-[44px] rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-600 transition hover:bg-gray-50 disabled:opacity-40"
           >
             {copy(locale, "Next", "Proxima")}
           </button>

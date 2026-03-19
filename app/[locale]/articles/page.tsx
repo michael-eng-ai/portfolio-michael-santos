@@ -38,26 +38,33 @@ export default async function ArticlesPage({
   const articles = await getArticles();
 
   return (
-    <main className="container-shell py-10 sm:py-16">
-      <div className="mb-10 max-w-3xl">
-        <p className="text-xs uppercase tracking-[0.3em] text-blue-300">
-          {copy(locale, "Insights", "Insights")}
-        </p>
-        <h1 className="mt-3 text-3xl font-semibold text-white sm:text-4xl md:text-5xl">
-          {copy(locale, "Executive intelligence on growth, digital leverage, and modern platforms", "Inteligencia executiva sobre crescimento, alavancagem digital e plataformas modernas")}
-        </h1>
-        <p className="mt-4 text-base text-slate-300 sm:text-lg">
-          {copy(
-            locale,
-            "These insights translate technology shifts into strategic language for leaders focused on expansion, efficiency, and stronger decisions.",
-            "Esses insights traduzem mudancas de tecnologia em linguagem estrategica para liderancas focadas em expansao, eficiencia e decisoes melhores.",
-          )}
-        </p>
-      </div>
-      <div className="grid gap-6 md:grid-cols-2">
-        {articles.map((article) => (
-          <ArticleCard key={article.slug} article={article} locale={locale} />
-        ))}
+    <main className="px-6 pb-20 pt-28 md:px-20">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-16 border-l-[6px] border-[var(--primary)] pl-10">
+          <h1 className="text-4xl font-extrabold uppercase tracking-tight text-gray-900 md:text-5xl">
+            {copy(locale, "The Intelligence Feed", "Feed de Inteligencia")}
+          </h1>
+          <p className="mt-3 text-xs font-bold uppercase tracking-[0.3em] text-gray-500">
+            {copy(
+              locale,
+              "Executive intelligence on growth, digital leverage, and modern platforms",
+              "Inteligencia executiva sobre crescimento, alavancagem digital e plataformas modernas",
+            )}
+          </p>
+          <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed text-gray-500">
+            {copy(
+              locale,
+              "These insights translate technology shifts into strategic language for leaders focused on expansion, efficiency, and stronger decisions.",
+              "Esses insights traduzem mudancas de tecnologia em linguagem estrategica para liderancas focadas em expansao, eficiencia e decisoes melhores.",
+            )}
+          </p>
+        </div>
+
+        <div className="grid gap-10 md:grid-cols-2">
+          {articles.map((article) => (
+            <ArticleCard key={article.slug} article={article} locale={locale} />
+          ))}
+        </div>
       </div>
     </main>
   );
