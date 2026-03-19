@@ -10,7 +10,7 @@ import { buildArticleJsonLd, buildPageMetadata } from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 
 export const dynamicParams = true;
-export const revalidate = 300;
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   const news = await getNewsReferences();
