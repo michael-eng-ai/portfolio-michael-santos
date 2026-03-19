@@ -185,6 +185,7 @@ export default async function LocaleHomePage({
                     src={featuredProjects[0].imageUrl}
                     alt={featuredProjects[0].locales[locale].title}
                     fill
+                    priority
                     sizes="(max-width: 768px) 100vw, 66vw"
                     className="object-cover opacity-40 transition-transform duration-1000 group-hover:scale-105"
                   />

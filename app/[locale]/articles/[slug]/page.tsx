@@ -7,7 +7,7 @@ import { MarkdownContent } from "@/components/markdown-content";
 import { StructuredData } from "@/components/structured-data";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { getArticleBySlug, getArticles, getProjects } from "@/lib/content";
-import { buildArticleJsonLd, buildPageMetadata } from "@/lib/seo";
+import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildPageMetadata } from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 
 export async function generateStaticParams() {
@@ -64,15 +64,22 @@ export default async function ArticleDetailPage({
   return (
     <main className="px-6 pb-20 pt-28 md:px-20">
       <StructuredData
-        data={buildArticleJsonLd({
-          locale,
-          title: content.title,
-          description: content.excerpt,
-          path: `/articles/${article.slug}`,
-          imageUrl: article.imageUrl,
-          publishedAt: article.publishedAt,
-          keywords: article.tags,
-        })}
+        data={[
+          buildArticleJsonLd({
+            locale,
+            title: content.title,
+            description: content.excerpt,
+            path: `/articles/${article.slug}`,
+            imageUrl: article.imageUrl,
+            publishedAt: article.publishedAt,
+            keywords: article.tags,
+          }),
+          buildBreadcrumbJsonLd(locale, [
+            { name: "Home", path: "/" },
+            { name: "Insights", path: "/articles" },
+            { name: content.title },
+          ]),
+        ]}
       />
       <div className="mx-auto max-w-7xl grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
         <article className="section-card overflow-hidden rounded-2xl">

@@ -6,7 +6,7 @@ import { EditorialCover } from "@/components/editorial-cover";
 import { StructuredData } from "@/components/structured-data";
 import { clampText, editorialLimits, sourceInitials } from "@/lib/editorial";
 import { getNewsReferenceBySlug, getNewsReferences, getProjects } from "@/lib/content";
-import { buildArticleJsonLd, buildPageMetadata } from "@/lib/seo";
+import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildPageMetadata } from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 
 export const dynamicParams = true;
@@ -65,16 +65,23 @@ export default async function NewsDetailPage({
   return (
     <main className="px-6 pb-20 pt-28 md:px-20">
       <StructuredData
-        data={buildArticleJsonLd({
-          locale,
-          title: content.title,
-          description: content.summary,
-          path: `/news/${item.slug}`,
-          imageUrl: item.imageUrl,
-          publishedAt: item.publishedAt,
-          keywords: item.tags,
-          type: "NewsArticle",
-        })}
+        data={[
+          buildArticleJsonLd({
+            locale,
+            title: content.title,
+            description: content.summary,
+            path: `/news/${item.slug}`,
+            imageUrl: item.imageUrl,
+            publishedAt: item.publishedAt,
+            keywords: item.tags,
+            type: "NewsArticle",
+          }),
+          buildBreadcrumbJsonLd(locale, [
+            { name: "Home", path: "/" },
+            { name: "News", path: "/news" },
+            { name: content.title },
+          ]),
+        ]}
       />
       <div className="mx-auto max-w-7xl grid gap-8 md:grid-cols-2 lg:grid-cols-[1.15fr_0.85fr]">
         <article className="section-card overflow-hidden rounded-2xl">

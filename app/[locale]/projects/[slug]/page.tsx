@@ -7,7 +7,7 @@ import { MarkdownContent } from "@/components/markdown-content";
 import { StructuredData } from "@/components/structured-data";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { getArticles, getGithubRepoSnapshots, getGithubSnapshotForProject, getNewsReferences, getProjectBySlug, getProjects } from "@/lib/content";
-import { buildPageMetadata, buildProjectJsonLd } from "@/lib/seo";
+import { buildBreadcrumbJsonLd, buildPageMetadata, buildProjectJsonLd } from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 
 export async function generateStaticParams() {
@@ -66,15 +66,22 @@ export default async function ProjectDetailPage({
   return (
     <main className="px-6 pb-20 pt-28 md:px-20">
       <StructuredData
-        data={buildProjectJsonLd({
-          locale,
-          title: content.title,
-          description: content.summary,
-          path: `/projects/${project.slug}`,
-          imageUrl: project.imageUrl,
-          repoUrl: project.github.url,
-          keywords: [...project.tags, ...project.stack],
-        })}
+        data={[
+          buildProjectJsonLd({
+            locale,
+            title: content.title,
+            description: content.summary,
+            path: `/projects/${project.slug}`,
+            imageUrl: project.imageUrl,
+            repoUrl: project.github.url,
+            keywords: [...project.tags, ...project.stack],
+          }),
+          buildBreadcrumbJsonLd(locale, [
+            { name: "Home", path: "/" },
+            { name: "Projects", path: "/projects" },
+            { name: content.title },
+          ]),
+        ]}
       />
       <div className="mx-auto max-w-7xl mb-8 overflow-hidden rounded-2xl sm:mb-10">
         <EditorialCover
