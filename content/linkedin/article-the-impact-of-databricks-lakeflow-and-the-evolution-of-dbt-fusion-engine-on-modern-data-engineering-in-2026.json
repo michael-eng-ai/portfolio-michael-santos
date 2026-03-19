@@ -1,0 +1,25 @@
+{
+  "slug": "article-the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
+  "sourceType": "article",
+  "sourceSlug": "the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
+  "status": "draft",
+  "generatedAt": "2026-03-19T21:46:28.590Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
+    "pt": "https://michael.business/pt/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "The Impact of Databricks LakeFlow and the Evolution of dbt Fusion Engine on Modern Data Engineering in 2026",
+      "body": "In 2026, Databricks LakeFlow and the advanced dbt Fusion Engine are revolutionizing data engineering by integrating pipelines, governance, and analytics delivery. This article explores how these platforms are transforming fragmented data estates into reliable, governed, and scalable environments.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "O Impacto do LakeFlow da Databricks e da Evolução do dbt Fusion Engine na Engenharia de Dados Moderna em 2026",
+      "body": "Em 2026, o LakeFlow da Databricks e o avançado dbt Fusion Engine estão revolucionando a engenharia de dados ao integrar pipelines, governança e entrega analítica. Este artigo explora como essas plataformas transformam estates de dados fragmentados em ambientes confiáveis, governados e escaláveis.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}

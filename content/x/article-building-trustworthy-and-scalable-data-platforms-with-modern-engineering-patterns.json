@@ -1,0 +1,27 @@
+{
+  "slug": "article-building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns",
+  "sourceType": "article",
+  "sourceSlug": "building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns",
+  "status": "draft",
+  "generatedAt": "2026-03-19T21:46:32.057Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns",
+    "pt": "https://michael.business/pt/articles/building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Building Trustworthy and Scalable Data Platforms with Modern Engineering Patterns\n\nExplore how modern data engineering practices enable scalable, governed, a…\n\nhttps://michael.business/en/articles/building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Construindo Plataformas de Dados Confiáveis e Escaláveis com Padrões Modernos de Engenharia\n\nExplore como as práticas modernas de engenharia de dados possibi…\n\nhttps://michael.business/pt/articles/building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    }
+  }
+}

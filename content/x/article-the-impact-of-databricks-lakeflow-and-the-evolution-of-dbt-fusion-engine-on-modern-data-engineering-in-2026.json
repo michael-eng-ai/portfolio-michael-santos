@@ -1,0 +1,27 @@
+{
+  "slug": "article-the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
+  "sourceType": "article",
+  "sourceSlug": "the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
+  "status": "draft",
+  "generatedAt": "2026-03-19T21:46:32.052Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
+    "pt": "https://michael.business/pt/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "The Impact of Databricks LakeFlow and the Evolution of dbt Fusion Engine on Modern Data Engineering in 2026\n\nIn 2026, Databricks La…\n\nhttps://michael.business/en/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "O Impacto do LakeFlow da Databricks e da Evolução do dbt Fusion Engine na Engenharia de Dados Moderna em 2026\n\nEm 2026, o LakeFlow…\n\nhttps://michael.business/pt/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    }
+  }
+}
