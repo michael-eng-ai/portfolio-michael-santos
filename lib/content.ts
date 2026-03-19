@@ -2,6 +2,8 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { z } from "zod";
 
+import { getSupabaseAdminClient } from "@/lib/supabase";
+
 export const localizedTextSchema = z.object({
   en: z.string().min(1),
   pt: z.string().min(1),
@@ -246,26 +248,61 @@ export async function getArticleBySlug(slug: string) {
   return entries.find((entry) => entry.slug === slug) ?? null;
 }
 
-export async function getNewsReferences() {
-  const [manualEntries, generatedEntries] = await Promise.all([
-    readJsonCollection("news", newsSchema).catch(() => []),
-    getGeneratedNewsReferences(),
-  ]);
-
-  const mergedEntries = new Map<string, NewsReference>();
-
-  for (const entry of [...manualEntries, ...generatedEntries]) {
-    mergedEntries.set(entry.sourceUrl, entry);
-  }
-
-  return Array.from(mergedEntries.values()).sort((left, right) =>
-    right.publishedAt.localeCompare(left.publishedAt),
-  );
+function mapSupabaseRowToNews(row: Record<string, unknown>): NewsReference {
+  return newsSchema.parse({
+    slug: row.slug,
+    publishedAt: row.published_at,
+    sourceName: row.source_name,
+    sourceUrl: row.source_url,
+    imageUrl: row.image_url,
+    category: row.category,
+    tags: row.tags,
+    relatedProjectSlugs: row.related_project_slugs,
+    locales: row.locales,
+  });
 }
 
-export async function getNewsReferenceBySlug(slug: string) {
-  const entries = await getNewsReferences();
-  return entries.find((entry) => entry.slug === slug) ?? null;
+export async function getNewsReferences(): Promise<NewsReference[]> {
+  try {
+    const supabase = getSupabaseAdminClient();
+
+    const { data, error } = await supabase
+      .from("news")
+      .select("*")
+      .eq("is_active", true)
+      .order("published_at", { ascending: false });
+
+    if (error) {
+      console.error("Failed to fetch news from Supabase", { event: "supabase_news_fetch_error", message: error.message });
+      return [];
+    }
+
+    return (data ?? []).map(mapSupabaseRowToNews);
+  } catch (fetchError) {
+    console.error("Unexpected error fetching news", { event: "supabase_news_unexpected_error", error: fetchError });
+    return [];
+  }
+}
+
+export async function getNewsReferenceBySlug(slug: string): Promise<NewsReference | null> {
+  try {
+    const supabase = getSupabaseAdminClient();
+
+    const { data, error } = await supabase
+      .from("news")
+      .select("*")
+      .eq("slug", slug)
+      .eq("is_active", true)
+      .single();
+
+    if (error || !data) {
+      return null;
+    }
+
+    return mapSupabaseRowToNews(data);
+  } catch {
+    return null;
+  }
 }
 
 export async function getLinkedinDrafts() {
@@ -298,17 +335,6 @@ export async function getGithubRepoSnapshots() {
   }
 }
 
-export async function getGeneratedNewsReferences() {
-  try {
-    const payload = await readJsonFile(
-      path.join(contentRoot, "generated", "news.json"),
-      generatedNewsFileSchema,
-    );
-    return payload.items;
-  } catch {
-    return [];
-  }
-}
 
 export function getGithubSnapshotForProject(
   project: Project,

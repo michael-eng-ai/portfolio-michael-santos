@@ -1,11 +1,12 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
+import { createClient } from "@supabase/supabase-js";
 import Parser from "rss-parser";
 import { z } from "zod";
 
 import { clampText, editorialLimits } from "@/lib/editorial";
-import { newsSchema } from "@/lib/content";
+import { newsSchema, type NewsReference } from "@/lib/content";
 
 const feedSourceSchema = z.object({
   slug: z.string().min(1),
@@ -28,11 +29,6 @@ const feedSourceSchema = z.object({
 });
 
 const feedCatalogSchema = z.array(feedSourceSchema);
-
-const generatedNewsFileSchema = z.object({
-  syncedAt: z.string().min(1),
-  items: z.array(newsSchema),
-});
 
 type FeedSource = z.infer<typeof feedSourceSchema>;
 
@@ -193,13 +189,39 @@ async function fetchFeed(source: FeedSource) {
   return parser.parseString(xml);
 }
 
+function toSupabaseRow(entry: NewsReference) {
+  return {
+    slug: entry.slug,
+    published_at: entry.publishedAt,
+    source_name: entry.sourceName,
+    source_url: entry.sourceUrl,
+    image_url: entry.imageUrl ?? null,
+    category: entry.category ?? null,
+    tags: entry.tags,
+    related_project_slugs: entry.relatedProjectSlugs,
+    locales: entry.locales,
+    is_active: true,
+  };
+}
+
 async function main() {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    console.error("ERROR: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set");
+    process.exit(1);
+  }
+
+  const supabase = createClient(supabaseUrl, supabaseKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+
   const catalogPath = path.join(process.cwd(), "content", "sources", "news-feeds.json");
   const rawCatalog = await fs.readFile(catalogPath, "utf8");
   const sources = feedCatalogSchema.parse(JSON.parse(rawCatalog));
-  const outputPath = path.join(process.cwd(), "content", "generated", "news.json");
 
-  const items = [];
+  const items: NewsReference[] = [];
   const seenUrls = new Set<string>();
 
   for (const source of sources) {
@@ -254,14 +276,28 @@ async function main() {
     }
   }
 
-  const payload = generatedNewsFileSchema.parse({
-    syncedAt: new Date().toISOString(),
-    items: items.sort((left, right) => right.publishedAt.localeCompare(left.publishedAt)).slice(0, 24),
-  });
+  const sorted = items
+    .sort((left, right) => right.publishedAt.localeCompare(left.publishedAt))
+    .slice(0, 24);
 
-  await fs.mkdir(path.dirname(outputPath), { recursive: true });
-  await fs.writeFile(outputPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
-  console.log(`Updated ${outputPath} with ${payload.items.length} news items.`);
+  if (sorted.length === 0) {
+    console.log("No news items fetched from feeds.");
+    return;
+  }
+
+  const rows = sorted.map(toSupabaseRow);
+
+  const { data, error } = await supabase
+    .from("news")
+    .upsert(rows, { onConflict: "source_url" })
+    .select("slug");
+
+  if (error) {
+    console.error("ERROR: Supabase upsert failed", error.message);
+    process.exit(1);
+  }
+
+  console.log(`SUCCESS: ${data.length} news items upserted into Supabase (zero commits needed)`);
 }
 
 main().catch((error) => {

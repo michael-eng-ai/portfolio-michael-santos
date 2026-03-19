@@ -1,29 +1,22 @@
-name: Auto Publish News
+name: Auto Sync News to Supabase
 
 on:
   workflow_dispatch:
   schedule:
     - cron: "0 */6 * * *"
 
-permissions:
-  contents: write
-  pull-requests: write
-  statuses: write
-
 concurrency:
-  group: auto-publish-news
+  group: auto-sync-news
   cancel-in-progress: true
 
 jobs:
   sync-news:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -37,45 +30,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Sync curated RSS news
+      - name: Sync RSS news to Supabase
         run: pnpm content:sync:news
-
-      - name: Validate content
-        run: pnpm content:validate
-
-      - name: Detect generated news changes
-        id: news_changes
-        run: |
-          if git diff --quiet -- content/generated/news.json; then
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_changes=true" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Create pull request for generated news
-        id: create_news_pr
-        if: steps.news_changes.outputs.has_changes == 'true'
-        uses: peter-evans/create-pull-request@v7
-        with:
-          commit-message: "chore: auto-update curated news"
-          title: "chore: auto-update curated news"
-          body: |
-            Automated RSS sync refreshed `content/generated/news.json`.
-          branch: chore/auto-news-updates
-          delete-branch: true
-
-      - name: Mark validation status on generated news PR
-        if: steps.news_changes.outputs.has_changes == 'true' && steps.create_news_pr.outputs.pull-request-head-sha != ''
         env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh api \
-            repos/${{ github.repository }}/statuses/${{ steps.create_news_pr.outputs.pull-request-head-sha }} \
-            -f state=success \
-            -f context=validate \
-            -f description='Validated generated news update' \
-            -f target_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-
-      - name: No news updates
-        if: steps.news_changes.outputs.has_changes != 'true'
-        run: echo "No generated news changes detected."
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
