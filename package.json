@@ -18,6 +18,7 @@
     "content:sync:github": "tsx scripts/sync-github-projects.ts",
     "content:linkedin": "tsx scripts/generate-linkedin-drafts.ts",
     "content:x": "tsx scripts/generate-x-drafts.ts",
+    "content:post:x": "tsx scripts/post-news-to-x.ts",
     "content:local:automation": "tsx scripts/run-local-content-automation.ts",
     "content:pipeline": "pnpm content:sync:news && pnpm content:sync:github && pnpm content:linkedin && pnpm content:x && pnpm content:validate",
     "deploy": "vercel --prod",
@@ -76,6 +77,7 @@
     "streamdown": "^1.4.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
+    "twitter-api-v2": "^1.29.0",
     "vaul": "^1.1.2",
     "wouter": "^3.3.5",
     "zod": "^4.1.12"
