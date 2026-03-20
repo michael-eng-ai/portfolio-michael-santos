@@ -1,0 +1,46 @@
+name: News Sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+
+concurrency:
+  group: news-sync
+  cancel-in-progress: true
+
+jobs:
+  sync-news:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          sparse-checkout: |
+            scripts/sync-news.ts
+            content/sources/news-feeds.json
+            lib/
+            package.json
+            pnpm-lock.yaml
+            tsconfig.json
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          package-manager-cache: false
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Sync news from RSS feeds to Supabase
+        run: pnpm content:sync:news
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
