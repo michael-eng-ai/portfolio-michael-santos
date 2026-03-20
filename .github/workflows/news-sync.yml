@@ -22,6 +22,7 @@ jobs:
             scripts/sync-news.ts
             content/sources/news-feeds.json
             lib/
+            patches/
             package.json
             pnpm-lock.yaml
             tsconfig.json
