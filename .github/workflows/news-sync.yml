@@ -20,6 +20,7 @@ jobs:
         with:
           sparse-checkout: |
             scripts/sync-news.ts
+            scripts/post-news-to-x.ts
             content/sources/news-feeds.json
             lib/
             patches/
@@ -45,3 +46,13 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+
+      - name: Post new news to X
+        run: pnpm content:post:x
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
