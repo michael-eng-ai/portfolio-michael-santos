@@ -1,0 +1,25 @@
+{
+  "slug": "article-building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering",
+  "sourceType": "article",
+  "sourceSlug": "building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering",
+  "status": "draft",
+  "generatedAt": "2026-03-19T21:46:28.594Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering",
+    "pt": "https://michael.business/pt/articles/building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "Building Trustworthy, Scalable Analytics Pipelines with Modern Data Engineering",
+      "body": "Explore how modern data engineering projects leverage real-time change data capture, multi-cloud architectures, and reliable transformation layers to deliver trustworthy, scalable analytics solutions.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Construindo Pipelines Analíticos Confiáveis e Escaláveis com Engenharia de Dados Moderna",
+      "body": "Explore como projetos modernos de engenharia de dados utilizam captura de dados em tempo real, arquiteturas multicloud e camadas confiáveis de transformação para entregar soluções analíticas escaláveis e confiáveis.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}

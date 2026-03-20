@@ -1,0 +1,25 @@
+{
+  "slug": "article-real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics",
+  "sourceType": "article",
+  "sourceSlug": "real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics",
+  "status": "draft",
+  "generatedAt": "2026-03-19T21:46:28.593Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics",
+    "pt": "https://michael.business/pt/articles/real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "Real-Time Data Architectures in 2026: Streaming and CDC for Trustworthy Operational Analytics",
+      "body": "In 2026, real-time data architectures leveraging streaming and Change Data Capture (CDC) are evolving beyond speed to enable trustworthy operational analytics. This article explores practical implementations connecting Kafka, Debezium, and modern transformation frameworks to deliver reliable insights with minimal platform complexity.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Arquiteturas de Dados em Tempo Real em 2026: Streaming e CDC para Análises Operacionais Confiáveis",
+      "body": "Em 2026, as arquiteturas de dados em tempo real que utilizam streaming e Change Data Capture (CDC) avançam além da velocidade para viabilizar análises operacionais confiáveis. Este artigo explora implementações práticas que conectam Kafka, Debezium e frameworks modernos de transformação para entregar insights confiáveis com complexidade mínima.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}
