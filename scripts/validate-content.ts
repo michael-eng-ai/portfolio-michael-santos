@@ -3,7 +3,6 @@ import path from "node:path";
 
 import {
   articleSchema,
-  generatedNewsFileSchema,
   githubRepoSnapshotSchema,
   linkedinDraftSchema,
   newsFeedCatalogSchema,
@@ -37,12 +36,6 @@ async function main() {
   );
   const sources = newsFeedCatalogSchema.parse(JSON.parse(sourcesRaw));
 
-  const generatedNewsRaw = await fs.readFile(
-    path.join(process.cwd(), "content", "generated", "news.json"),
-    "utf8",
-  );
-  const generatedNews = generatedNewsFileSchema.parse(JSON.parse(generatedNewsRaw));
-
   const githubSnapshotRaw = await fs.readFile(
     path.join(process.cwd(), "content", "generated", "github-repos.json"),
     "utf8",
@@ -51,7 +44,7 @@ async function main() {
   snapshotPayload.repos.forEach((entry) => githubRepoSnapshotSchema.parse(entry));
 
   console.log(
-    `Validated ${projectCount} projects, ${articleCount} articles, ${newsCount} manual news references, ${generatedNews.items.length} generated news items, ${sources.length} feed sources, ${linkedinCount} LinkedIn drafts, and ${xCount} X drafts.`,
+    `Validated ${projectCount} projects, ${articleCount} articles, ${newsCount} manual news references, ${sources.length} feed sources, ${linkedinCount} LinkedIn drafts, and ${xCount} X drafts.`,
   );
 }
 
