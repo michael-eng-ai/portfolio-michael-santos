@@ -42,6 +42,10 @@ jobs:
 
       - name: Sync news from RSS feeds
         run: pnpm content:sync:news
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
 
       - name: Generate LinkedIn drafts
         run: pnpm content:linkedin
