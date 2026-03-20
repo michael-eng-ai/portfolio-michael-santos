@@ -19,8 +19,8 @@ export function Footer({ locale }: FooterProps) {
             <p className="mb-10 max-w-md text-sm font-medium uppercase leading-relaxed tracking-widest text-gray-500">
               {copy(
                 locale,
-                "Precision in Data Architecture. Engineering clarity from complexity.",
-                "Precisao em Arquitetura de Dados. Engenhando clareza a partir da complexidade.",
+                "Building the data infrastructure that lets you stop guessing and start knowing.",
+                "Construindo a infraestrutura de dados que permite parar de adivinhar e comecar a saber.",
               )}
             </p>
             <div className="flex gap-6">
@@ -84,7 +84,7 @@ export function Footer({ locale }: FooterProps) {
 
         <div className="border-t border-gray-200 pt-10 text-center">
           <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-400">
-            &copy; {new Date().getFullYear()} {siteConfig.name}. {copy(locale, "Precision in Data Architecture.", "Precisao em Arquitetura de Dados.")}
+            &copy; {new Date().getFullYear()} {siteConfig.name}. {copy(locale, "Data infrastructure that drives decisions.", "Infraestrutura de dados que impulsiona decisoes.")}
           </p>
         </div>
       </div>
