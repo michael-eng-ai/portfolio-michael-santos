@@ -27,14 +27,18 @@ export async function generateMetadata({
     ),
     description: copy(
       locale,
-      "Business-facing insights, market signals, and execution cases that turn data engineering and AI into measurable growth.",
-      "Insights de negocio, sinais de mercado e casos de execucao que transformam engenharia de dados e IA em crescimento mensuravel.",
+      "Data pipelines, lakehouse architectures, and AI infrastructure that turn raw data into real-time business decisions. Open-source projects, technical insights, and proven case studies.",
+      "Pipelines de dados, arquiteturas lakehouse e infraestrutura de IA que transformam dados brutos em decisoes de negocio em tempo real. Projetos open-source, insights tecnicos e casos comprovados.",
     ),
     keywords: [
-      "AI insights",
       "data engineering portfolio",
-      "business cases",
-      "market intelligence",
+      "data pipeline architecture",
+      "lakehouse design",
+      "real-time analytics",
+      "CDC pipeline",
+      "dbt databricks",
+      "AI data infrastructure",
+      "business intelligence automation",
     ],
   });
 }
@@ -58,39 +62,72 @@ export default async function LocaleHomePage({
   return (
     <main>
       {/* Hero */}
-      <section className="relative flex min-h-[85vh] items-center justify-center px-6 pt-20 md:px-20">
+      <section className="relative flex min-h-[70vh] items-center justify-center px-6 pt-20 md:min-h-[75vh] md:px-20">
         <div className="relative z-10 max-w-4xl text-center">
-          <span className="mb-8 inline-block text-xs font-bold uppercase tracking-[0.3em] text-[var(--primary)]">
-            {copy(locale, "Precision Data Architecture", "Arquitetura de Dados de Precisao")}
+          <span className="mb-6 inline-block text-xs font-bold uppercase tracking-[0.3em] text-[var(--primary)]">
+            {copy(locale, "Data Engineering & AI Strategy", "Engenharia de Dados & Estrategia de IA")}
           </span>
-          <h1 className="mb-10 text-5xl font-extrabold leading-[0.9] tracking-tighter text-gray-900 md:text-7xl lg:text-8xl">
-            {copy(locale, "Turn Complex Data", "Transforme Dados Complexos")}
+          <h1 className="mb-8 text-4xl font-extrabold leading-[0.95] tracking-tighter text-gray-900 sm:text-5xl md:text-7xl lg:text-8xl">
+            {copy(locale, "Your Data Has", "Seus Dados Tem")}
+            <br className="hidden sm:block" />
+            {copy(locale, " the Answers.", " as Respostas.")}
             <br />
-            {copy(locale, "into ", "em ")}
             <span className="gradient-text">
-              {copy(locale, "Business Solutions", "Solucoes de Negocio")}
-            </span>.
+              {copy(locale, "Your Pipeline Doesn't.", "Seu Pipeline Nao.")}
+            </span>
           </h1>
-          <p className="mx-auto mb-14 max-w-2xl text-xl font-light leading-relaxed text-gray-500 md:text-2xl">
+          <p className="mx-auto mb-10 max-w-2xl text-lg font-light leading-relaxed text-gray-500 sm:text-xl md:text-2xl">
             {copy(
               locale,
-              "Engineering data structures that transform chaotic information into operational excellence and predictive clarity.",
-              "Engenharia de estruturas de dados que transformam informacao caotica em excelencia operacional e clareza preditiva.",
+              "Companies sit on goldmines of data but make critical decisions on gut feeling. I build the infrastructure that turns raw data into real-time clarity — so your next move is backed by evidence, not intuition.",
+              "Empresas sentam em minas de ouro de dados mas tomam decisoes criticas no achismo. Eu construo a infraestrutura que transforma dados brutos em clareza em tempo real — para que sua proxima decisao seja baseada em evidencia, nao em intuicao.",
             )}
           </p>
-          <div className="flex flex-wrap justify-center gap-5">
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-5">
             <Link
               href={localePath(locale, "/projects")}
-              className="brand-button-primary px-10 py-5 text-lg font-bold"
+              className="brand-button-primary w-full px-10 py-5 text-center text-base font-bold sm:w-auto sm:text-lg"
             >
-              {copy(locale, "View Success Stories", "Ver Casos de Sucesso")}
+              {copy(locale, "See How It Works", "Veja Como Funciona")}
             </Link>
             <Link
               href={localePath(locale, "/articles")}
-              className="brand-button-secondary px-10 py-5 text-lg font-bold"
+              className="brand-button-secondary w-full px-10 py-5 text-center text-base font-bold sm:w-auto sm:text-lg"
             >
-              {copy(locale, "Read Insights", "Ler Insights")}
+              {copy(locale, "Read the Insights", "Leia os Insights")}
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof Strip */}
+      <section className="border-y border-gray-200 bg-gray-50 px-6 py-10 md:px-20 md:py-12">
+        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 text-center md:grid-cols-4 md:gap-12">
+          <div>
+            <div className="text-3xl font-black tracking-tight text-gray-900 md:text-4xl">6+</div>
+            <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
+              {copy(locale, "Production Pipelines", "Pipelines em Producao")}
+            </p>
+          </div>
+          <div>
+            <div className="text-3xl font-black tracking-tight text-gray-900 md:text-4xl">3</div>
+            <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
+              {copy(locale, "Cloud Platforms", "Plataformas Cloud")}
+            </p>
+          </div>
+          <div>
+            <div className="text-3xl font-black tracking-tight text-gray-900 md:text-4xl">Real-Time</div>
+            <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
+              {copy(locale, "CDC & Streaming", "CDC & Streaming")}
+            </p>
+          </div>
+          <div>
+            <div className="text-3xl font-black tracking-tight text-gray-900 md:text-4xl">
+              {copy(locale, "Open Source", "Open Source")}
+            </div>
+            <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
+              {copy(locale, "All Projects on GitHub", "Todos os Projetos no GitHub")}
+            </p>
           </div>
         </div>
       </section>
@@ -99,11 +136,15 @@ export default async function LocaleHomePage({
       <section className="section-alt px-6 py-24 md:px-20 md:py-32">
         <div className="mx-auto max-w-7xl">
           <div className="mb-20">
-            <h2 className="mb-4 text-4xl font-extrabold uppercase tracking-tight text-gray-900 md:text-5xl">
-              {copy(locale, "The Strategic Matrix", "A Matriz Estrategica")}
+            <h2 className="mb-4 text-3xl font-extrabold uppercase tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
+              {copy(locale, "Real Problems. Real Pipelines.", "Problemas Reais. Pipelines Reais.")}
             </h2>
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-gray-500">
-              {copy(locale, "Identifying structural challenges. Engineering monolithic solutions.", "Identificando desafios estruturais. Engenhando solucoes monoliticas.")}
+            <p className="max-w-2xl text-base font-light leading-relaxed text-gray-500 md:text-lg">
+              {copy(
+                locale,
+                "Every project below started with a business bottleneck — not a technology wish list. Scroll through to see how the right data architecture turned operational chaos into measurable clarity.",
+                "Cada projeto abaixo comecou com um gargalo de negocio — nao com uma lista de tecnologias. Veja como a arquitetura de dados certa transformou caos operacional em clareza mensuravel.",
+              )}
             </p>
           </div>
 
@@ -113,7 +154,7 @@ export default async function LocaleHomePage({
               const isReverse = idx % 2 !== 0;
               return (
                 <div key={project.slug} className="grid items-center gap-0 md:grid-cols-2">
-                  <div className={`monolith-shadow bg-gray-100 p-12 md:p-20 ${isReverse ? "md:order-2" : "md:order-1"}`}>
+                  <div className={`monolith-shadow bg-gray-100 p-8 sm:p-12 md:p-20 ${isReverse ? "md:order-2" : "md:order-1"}`}>
                     <span className="absolute right-10 top-10 text-7xl font-black text-gray-200">
                       {String(idx + 1).padStart(2, "0")}
                     </span>
@@ -125,7 +166,7 @@ export default async function LocaleHomePage({
                     </p>
                   </div>
 
-                  <div className={`monolith-shadow relative z-10 border-l-4 border-[var(--accent-mint)] bg-white p-12 md:p-20 ${isReverse ? "md:order-1 md:-mr-12" : "md:order-2 md:-ml-12 md:-mt-12"}`}>
+                  <div className={`monolith-shadow relative z-10 border-l-4 border-[var(--accent-mint)] bg-white p-8 sm:p-12 md:p-20 ${isReverse ? "md:order-1 md:-mr-12" : "md:order-2 md:-ml-12 md:-mt-12"}`}>
                     <div className="mb-6 flex items-center gap-3 text-[var(--accent-mint)]">
                       <span className="text-xs font-bold uppercase tracking-widest">
                         {copy(locale, "Solution", "Solucao")}: {project.stack.slice(0, 2).join(" + ")}
@@ -157,14 +198,14 @@ export default async function LocaleHomePage({
         <div className="mx-auto max-w-7xl">
           <div className="mb-20 flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
-              <h2 className="mb-6 text-4xl font-extrabold uppercase tracking-tight text-gray-900 md:text-5xl">
-                {copy(locale, "Success Stories", "Casos de Sucesso")}
+              <h2 className="mb-6 text-3xl font-extrabold uppercase tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
+                {copy(locale, "What Gets Built", "O Que Se Constroi")}
               </h2>
-              <p className="text-xl font-light leading-relaxed text-gray-500">
+              <p className="text-lg font-light leading-relaxed text-gray-500 md:text-xl">
                 {copy(
                   locale,
-                  "Real-world impact through architectural precision. Explore how data engineering drives measurable business outcomes.",
-                  "Impacto real atraves de precisao arquitetural. Veja como engenharia de dados gera resultados de negocio mensuraveis.",
+                  "Dashboards anyone trusts. Pipelines that don't break on Monday morning. Data that arrives before the meeting starts — not after.",
+                  "Dashboards em que todos confiam. Pipelines que nao quebram na segunda-feira. Dados que chegam antes da reuniao comecar — nao depois.",
                 )}
               </p>
             </div>
@@ -179,7 +220,7 @@ export default async function LocaleHomePage({
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
             {featuredProjects[0] && (
-              <div className="group relative min-h-[500px] overflow-hidden rounded-xl bg-gray-100 md:col-span-8">
+              <div className="group relative min-h-[350px] overflow-hidden rounded-xl bg-gray-100 sm:min-h-[500px] md:col-span-8">
                 {featuredProjects[0].imageUrl && (
                   <Image
                     src={featuredProjects[0].imageUrl}
@@ -213,7 +254,7 @@ export default async function LocaleHomePage({
             )}
 
             {featuredProjects[1] && (
-              <div className="group relative min-h-[500px] overflow-hidden rounded-xl bg-gray-100 md:col-span-4">
+              <div className="group relative min-h-[350px] overflow-hidden rounded-xl bg-gray-100 sm:min-h-[500px] md:col-span-4">
                 {featuredProjects[1].imageUrl && (
                   <Image
                     src={featuredProjects[1].imageUrl}
@@ -252,11 +293,15 @@ export default async function LocaleHomePage({
       <section className="section-deep px-6 py-24 md:px-20 md:py-32">
         <div className="mx-auto max-w-7xl">
           <div className="mb-20 border-l-[6px] border-[var(--primary)] pl-10">
-            <h2 className="text-4xl font-extrabold uppercase tracking-tight text-gray-900">
-              {copy(locale, "The Intelligence Feed", "Feed de Inteligencia")}
+            <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900 sm:text-4xl">
+              {copy(locale, "What I'm Thinking About", "O Que Estou Pensando")}
             </h2>
-            <p className="mt-3 text-xs font-bold uppercase tracking-[0.3em] text-gray-500">
-              {copy(locale, "Latest insights from the data frontier", "Ultimos insights da fronteira de dados")}
+            <p className="mt-3 max-w-xl text-base font-light leading-relaxed text-gray-500 md:text-lg">
+              {copy(
+                locale,
+                "Patterns I see working. Architectures I'd bet on. Mistakes I've made so you don't have to.",
+                "Padroes que vejo funcionando. Arquiteturas em que eu apostaria. Erros que cometi para que voce nao precise.",
+              )}
             </p>
           </div>
 
