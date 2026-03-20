@@ -135,9 +135,12 @@ async function main() {
       }
 
       posted += 1;
-    } catch (tweetError) {
+    } catch (tweetError: unknown) {
       const message = tweetError instanceof Error ? tweetError.message : "Unknown error";
-      console.warn(`SKIPPED: ${news.slug} -- ${message}`);
+      const details = tweetError && typeof tweetError === "object" && "data" in tweetError
+        ? JSON.stringify((tweetError as Record<string, unknown>).data)
+        : "";
+      console.warn(`SKIPPED: ${news.slug} -- ${message}${details ? ` | details: ${details}` : ""}`);
     }
   }
 
