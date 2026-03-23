@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { TwitterApi } from "twitter-api-v2";
+import { getTagHashtag, BROAD_HASHTAGS } from "@/lib/tags";
 
 const SITE_HOST = "michael.business";
 const MAX_POSTS_PER_RUN = 3;
@@ -26,45 +27,11 @@ const hookTemplates = [
   (_title: string, source: string) => `New from ${source} -- bookmark this one.`,
 ];
 
-const tagToHashtag: Record<string, string> = {
-  ai: "#AI",
-  lakehouse: "#Lakehouse",
-  dbt: "#dbt",
-  kafka: "#Kafka",
-  governance: "#DataGovernance",
-  snowflake: "#Snowflake",
-  bigquery: "#BigQuery",
-  databricks: "#Databricks",
-  streaming: "#RealTimeData",
-  aws: "#AWS",
-  gcp: "#GoogleCloud",
-  "data-platform": "#DataPlatform",
-  "analytics-engineering": "#AnalyticsEngineering",
-  "modern-data-stack": "#ModernDataStack",
-  analytics: "#Analytics",
-  mlops: "#MLOps",
-  llm: "#LLM",
-  genai: "#GenAI",
-  rag: "#RAG",
-  python: "#Python",
-  "open-source": "#OpenSource",
-};
-
-const broadHashtags = [
-  "#DataEngineering",
-  "#MachineLearning",
-  "#BigData",
-  "#CloudComputing",
-];
-
 function buildHashtags(tags: string[]): string {
-  const specific = tags
-    .map((tag) => tagToHashtag[tag])
-    .filter(Boolean);
-
+  const specific = tags.map((tag) => getTagHashtag(tag));
   const unique = [...new Set(specific)].slice(0, 3);
 
-  const broadPick = broadHashtags.find((h) => !unique.includes(h)) ?? "#DataEngineering";
+  const broadPick = BROAD_HASHTAGS.find((h) => !unique.includes(h)) ?? "#DataEngineering";
   unique.push(broadPick);
 
   return unique.slice(0, 4).join(" ");
