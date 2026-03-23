@@ -100,33 +100,39 @@ export default async function LocaleHomePage({
         </div>
       </section>
 
-      {/* Social Proof Strip */}
+      {/* Credibility Strip */}
       <section className="border-y border-gray-200 bg-gray-50 px-6 py-10 md:px-20 md:py-12">
-        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 text-center md:grid-cols-4 md:gap-12">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">
           <div>
-            <div className="text-3xl font-black tracking-tight text-gray-900 md:text-4xl">6+</div>
-            <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
-              {copy(locale, "Production Pipelines", "Pipelines em Producao")}
-            </p>
-          </div>
-          <div>
-            <div className="text-3xl font-black tracking-tight text-gray-900 md:text-4xl">3</div>
-            <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
               {copy(locale, "Cloud Platforms", "Plataformas Cloud")}
             </p>
-          </div>
-          <div>
-            <div className="text-3xl font-black tracking-tight text-gray-900 md:text-4xl">Real-Time</div>
-            <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
-              {copy(locale, "CDC & Streaming", "CDC & Streaming")}
+            <p className="mt-2 text-sm font-bold leading-relaxed text-gray-900">
+              AWS &middot; Azure &middot; GCP
             </p>
           </div>
           <div>
-            <div className="text-3xl font-black tracking-tight text-gray-900 md:text-4xl">
-              {copy(locale, "Open Source", "Open Source")}
-            </div>
-            <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
-              {copy(locale, "All Projects on GitHub", "Todos os Projetos no GitHub")}
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
+              {copy(locale, "Data Stack", "Stack de Dados")}
+            </p>
+            <p className="mt-2 text-sm font-bold leading-relaxed text-gray-900">
+              Databricks &middot; Snowflake &middot; dbt &middot; Airflow
+            </p>
+          </div>
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
+              {copy(locale, "Pipelines in Production", "Pipelines em Producao")}
+            </p>
+            <p className="mt-2 text-sm font-bold leading-relaxed text-gray-900">
+              {copy(locale, "Batch, CDC & Real-Time Streaming", "Batch, CDC & Streaming em Tempo Real")}
+            </p>
+          </div>
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
+              {copy(locale, "Everything Open Source", "Tudo Open Source")}
+            </p>
+            <p className="mt-2 text-sm font-bold leading-relaxed text-gray-900">
+              {copy(locale, "Code, architecture & docs on GitHub", "Codigo, arquitetura & docs no GitHub")}
             </p>
           </div>
         </div>
