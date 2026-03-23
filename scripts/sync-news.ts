@@ -278,7 +278,7 @@ async function main() {
 
   const sorted = items
     .sort((left, right) => right.publishedAt.localeCompare(left.publishedAt))
-    .slice(0, 24);
+    .slice(0, 56);
 
   if (sorted.length === 0) {
     console.log("No news items fetched from feeds.");

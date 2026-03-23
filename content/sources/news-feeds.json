@@ -108,5 +108,291 @@
       "pt": "Isso importa porque transformacao confiavel esta se tornando uma camada estrategica na entrega analitica, melhorando confianca, reuso e a qualidade dos produtos de dados voltados ao negocio."
     },
     "maxItems": 4
+  },
+  {
+    "slug": "databricks-blog",
+    "sourceName": "Databricks",
+    "homepageUrl": "https://www.databricks.com/blog",
+    "feedUrl": "https://www.databricks.com/feed",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    "category": {
+      "en": "Analytics Platforms",
+      "pt": "Plataformas Analiticas"
+    },
+    "tags": ["databricks", "lakehouse", "ai"],
+    "relatedProjectSlugs": ["aws-databricks-lakehouse"],
+    "topic": {
+      "en": "lakehouse architecture, unified analytics, and AI-driven data platforms",
+      "pt": "arquitetura lakehouse, analytics unificado e plataformas de dados orientadas por IA"
+    },
+    "whyItMatters": {
+      "en": "This signal matters because the lakehouse paradigm is redefining how organizations unify data engineering, analytics, and AI on a single governed platform.",
+      "pt": "Esse sinal importa porque o paradigma lakehouse esta redefinindo como organizacoes unificam engenharia de dados, analytics e IA em uma unica plataforma governada."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "the-new-stack",
+    "sourceName": "The New Stack",
+    "homepageUrl": "https://thenewstack.io/",
+    "feedUrl": "https://thenewstack.io/feed/",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80",
+    "category": {
+      "en": "Data Engineering",
+      "pt": "Engenharia de Dados"
+    },
+    "tags": ["data-platform", "ai", "modern-data-stack"],
+    "relatedProjectSlugs": [],
+    "topic": {
+      "en": "cloud-native infrastructure, developer platforms, and data engineering at scale",
+      "pt": "infraestrutura cloud-native, plataformas de desenvolvimento e engenharia de dados em escala"
+    },
+    "whyItMatters": {
+      "en": "This matters because cloud-native tooling and platform engineering are reshaping how data teams build, deploy, and operate production data systems.",
+      "pt": "Isso importa porque ferramentas cloud-native e engenharia de plataforma estao transformando como times de dados constroem, implantam e operam sistemas de dados em producao."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "infoq",
+    "sourceName": "InfoQ",
+    "homepageUrl": "https://www.infoq.com/",
+    "feedUrl": "https://www.infoq.com/feed/",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&q=80",
+    "category": {
+      "en": "Data Engineering",
+      "pt": "Engenharia de Dados"
+    },
+    "tags": ["ai", "data-platform", "modern-data-stack"],
+    "relatedProjectSlugs": [],
+    "topic": {
+      "en": "software architecture, AI engineering, and enterprise data strategy",
+      "pt": "arquitetura de software, engenharia de IA e estrategia de dados corporativa"
+    },
+    "whyItMatters": {
+      "en": "This matters because enterprise architecture decisions around AI, data, and platform engineering define long-term competitiveness and operational efficiency.",
+      "pt": "Isso importa porque decisoes de arquitetura corporativa em IA, dados e engenharia de plataforma definem competitividade e eficiencia operacional a longo prazo."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "airbyte-blog",
+    "sourceName": "Airbyte",
+    "homepageUrl": "https://airbyte.com/blog",
+    "feedUrl": "https://airbyte.com/blog/rss.xml",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+    "category": {
+      "en": "Data Engineering",
+      "pt": "Engenharia de Dados"
+    },
+    "tags": ["data-platform", "governance", "modern-data-stack"],
+    "relatedProjectSlugs": [],
+    "topic": {
+      "en": "data integration, ELT pipelines, and open-source data movement",
+      "pt": "integracao de dados, pipelines ELT e movimentacao de dados open-source"
+    },
+    "whyItMatters": {
+      "en": "This matters because data integration remains the most time-consuming part of data engineering, and modern ELT approaches are simplifying how teams move and trust their data.",
+      "pt": "Isso importa porque integracao de dados continua sendo a parte mais demorada da engenharia de dados, e abordagens modernas de ELT estao simplificando como times movem e confiam nos seus dados."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "meta-engineering",
+    "sourceName": "Meta Engineering",
+    "homepageUrl": "https://engineering.fb.com/",
+    "feedUrl": "https://engineering.fb.com/feed/",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80",
+    "category": {
+      "en": "Cloud & AI",
+      "pt": "Cloud e IA"
+    },
+    "tags": ["ai", "data-platform", "streaming"],
+    "relatedProjectSlugs": [],
+    "topic": {
+      "en": "large-scale data infrastructure, AI systems, and production engineering",
+      "pt": "infraestrutura de dados em larga escala, sistemas de IA e engenharia de producao"
+    },
+    "whyItMatters": {
+      "en": "This matters because Meta's engineering challenges at scale often preview patterns and tools that reshape the broader data and AI ecosystem.",
+      "pt": "Isso importa porque os desafios de engenharia da Meta em escala frequentemente antecipam padroes e ferramentas que transformam o ecossistema mais amplo de dados e IA."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "towards-data-science",
+    "sourceName": "Towards Data Science",
+    "homepageUrl": "https://towardsdatascience.com/",
+    "feedUrl": "https://towardsdatascience.com/feed",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    "category": {
+      "en": "Data Engineering",
+      "pt": "Engenharia de Dados"
+    },
+    "tags": ["ai", "data-platform", "modern-data-stack"],
+    "relatedProjectSlugs": [],
+    "topic": {
+      "en": "data science, machine learning applications, and analytical best practices",
+      "pt": "ciencia de dados, aplicacoes de machine learning e melhores praticas analiticas"
+    },
+    "whyItMatters": {
+      "en": "This matters because practical data science insights bridge the gap between research and production, helping teams deliver AI-driven value faster.",
+      "pt": "Isso importa porque insights praticos de ciencia de dados conectam pesquisa e producao, ajudando times a entregar valor orientado por IA mais rapido."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "kdnuggets",
+    "sourceName": "KDnuggets",
+    "homepageUrl": "https://www.kdnuggets.com/",
+    "feedUrl": "https://www.kdnuggets.com/feed",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1527474305487-b87b222841cc?w=800&q=80",
+    "category": {
+      "en": "Data Engineering",
+      "pt": "Engenharia de Dados"
+    },
+    "tags": ["ai", "data-platform", "modern-data-stack"],
+    "relatedProjectSlugs": [],
+    "topic": {
+      "en": "data science trends, ML tools, and career insights for data professionals",
+      "pt": "tendencias em ciencia de dados, ferramentas de ML e insights de carreira para profissionais de dados"
+    },
+    "whyItMatters": {
+      "en": "This matters because staying current with tools, techniques, and industry trends is essential for data teams navigating a rapidly evolving landscape.",
+      "pt": "Isso importa porque manter-se atualizado com ferramentas, tecnicas e tendencias e essencial para times de dados em um cenario em rapida evolucao."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "techcrunch-ai",
+    "sourceName": "TechCrunch AI",
+    "homepageUrl": "https://techcrunch.com/category/artificial-intelligence/",
+    "feedUrl": "https://techcrunch.com/category/artificial-intelligence/feed/",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+    "category": {
+      "en": "Cloud & AI",
+      "pt": "Cloud e IA"
+    },
+    "tags": ["ai", "data-platform", "modern-data-stack"],
+    "relatedProjectSlugs": [],
+    "topic": {
+      "en": "AI industry news, startup funding, and emerging technology trends",
+      "pt": "noticias da industria de IA, financiamento de startups e tendencias de tecnologia emergente"
+    },
+    "whyItMatters": {
+      "en": "This matters because AI industry dynamics, funding patterns, and product launches shape the tools and platforms data teams adopt.",
+      "pt": "Isso importa porque a dinamica da industria de IA, padroes de financiamento e lancamentos de produtos moldam as ferramentas e plataformas que times de dados adotam."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "openai-blog",
+    "sourceName": "OpenAI",
+    "homepageUrl": "https://openai.com/blog",
+    "feedUrl": "https://openai.com/blog/rss.xml",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+    "category": {
+      "en": "Cloud & AI",
+      "pt": "Cloud e IA"
+    },
+    "tags": ["ai", "data-platform", "modern-data-stack"],
+    "relatedProjectSlugs": [],
+    "topic": {
+      "en": "frontier AI research, model capabilities, and responsible AI deployment",
+      "pt": "pesquisa de IA de fronteira, capacidades de modelos e implantacao responsavel de IA"
+    },
+    "whyItMatters": {
+      "en": "This matters because OpenAI's research and product decisions set the pace for how organizations integrate generative AI into data workflows and products.",
+      "pt": "Isso importa porque as decisoes de pesquisa e produto da OpenAI definem o ritmo de como organizacoes integram IA generativa em fluxos de dados e produtos."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "huggingface-blog",
+    "sourceName": "Hugging Face",
+    "homepageUrl": "https://huggingface.co/blog",
+    "feedUrl": "https://huggingface.co/blog/feed.xml",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80",
+    "category": {
+      "en": "Cloud & AI",
+      "pt": "Cloud e IA"
+    },
+    "tags": ["ai", "data-platform", "modern-data-stack"],
+    "relatedProjectSlugs": [],
+    "topic": {
+      "en": "open-source AI models, NLP tooling, and democratized machine learning",
+      "pt": "modelos de IA open-source, ferramentas de NLP e machine learning democratizado"
+    },
+    "whyItMatters": {
+      "en": "This matters because open-source AI models are lowering barriers to adoption and giving data teams more control over how they deploy and fine-tune ML capabilities.",
+      "pt": "Isso importa porque modelos de IA open-source estao reduzindo barreiras de adocao e dando mais controle aos times de dados sobre como implantam e ajustam capacidades de ML."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "azure-blog",
+    "sourceName": "Microsoft Azure Blog",
+    "homepageUrl": "https://azure.microsoft.com/en-us/blog/",
+    "feedUrl": "https://azure.microsoft.com/en-us/blog/feed/",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1633419461186-7d40a38105ec?w=800&q=80",
+    "category": {
+      "en": "Cloud Platforms",
+      "pt": "Plataformas Cloud"
+    },
+    "tags": ["data-platform", "ai", "governance"],
+    "relatedProjectSlugs": ["azure-snowflake-pipeline"],
+    "topic": {
+      "en": "cloud infrastructure, Azure AI services, and enterprise data solutions",
+      "pt": "infraestrutura cloud, servicos de IA do Azure e solucoes de dados corporativas"
+    },
+    "whyItMatters": {
+      "en": "This matters because Azure's data and AI portfolio shapes enterprise choices around cloud adoption, hybrid architectures, and governed analytics at scale.",
+      "pt": "Isso importa porque o portfolio de dados e IA do Azure molda escolhas corporativas de adocao cloud, arquiteturas hibridas e analytics governado em escala."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "ml-mastery",
+    "sourceName": "Machine Learning Mastery",
+    "homepageUrl": "https://machinelearningmastery.com/",
+    "feedUrl": "https://machinelearningmastery.com/feed/",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&q=80",
+    "category": {
+      "en": "Cloud & AI",
+      "pt": "Cloud e IA"
+    },
+    "tags": ["ai", "data-platform", "modern-data-stack"],
+    "relatedProjectSlugs": [],
+    "topic": {
+      "en": "applied machine learning, deep learning tutorials, and practical AI implementation",
+      "pt": "machine learning aplicado, tutoriais de deep learning e implementacao pratica de IA"
+    },
+    "whyItMatters": {
+      "en": "This matters because practical ML knowledge bridges the gap between theory and production, enabling data teams to ship AI features with confidence.",
+      "pt": "Isso importa porque conhecimento pratico de ML conecta teoria e producao, permitindo que times de dados entreguem funcionalidades de IA com confianca."
+    },
+    "maxItems": 4
+  },
+  {
+    "slug": "google-ai-blog",
+    "sourceName": "Google AI",
+    "homepageUrl": "https://blog.google/technology/ai/",
+    "feedUrl": "https://blog.google/technology/ai/rss/",
+    "defaultImageUrl": "https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800&q=80",
+    "category": {
+      "en": "Cloud & AI",
+      "pt": "Cloud e IA"
+    },
+    "tags": ["ai", "gcp", "data-platform"],
+    "relatedProjectSlugs": ["gcp-dbt-modern-data-stack"],
+    "topic": {
+      "en": "AI research breakthroughs, Gemini ecosystem, and responsible AI development",
+      "pt": "avancos em pesquisa de IA, ecossistema Gemini e desenvolvimento responsavel de IA"
+    },
+    "whyItMatters": {
+      "en": "This matters because Google's AI research directly influences the tools, models, and capabilities available to data teams building intelligent applications.",
+      "pt": "Isso importa porque a pesquisa de IA do Google influencia diretamente as ferramentas, modelos e capacidades disponiveis para times de dados que constroem aplicacoes inteligentes."
+    },
+    "maxItems": 4
   }
 ]
