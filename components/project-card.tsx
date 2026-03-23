@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { Project } from "@/lib/content";
 import { Locale, copy, localePath } from "@/lib/site";
+import { getTagLabel } from "@/lib/tags";
 
 type ProjectCardProps = {
   project: Project;
@@ -19,7 +20,7 @@ export function ProjectCard({ project, locale }: ProjectCardProps) {
       <div className="mb-4 flex flex-wrap gap-2">
         {project.tags.slice(0, 3).map((tag) => (
           <span key={tag} className="rounded bg-[var(--primary)]/10 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[var(--primary)]">
-            {tag}
+            {getTagLabel(tag)}
           </span>
         ))}
       </div>

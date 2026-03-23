@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { clampText, editorialLimits, sourceInitials } from "@/lib/editorial";
 import { NewsReference } from "@/lib/content";
 import { Locale, copy, localePath } from "@/lib/site";
+import { getTagLabel } from "@/lib/tags";
 
 type NewsCardProps = {
   item: NewsReference;
@@ -25,7 +26,7 @@ export function NewsCard({ item, locale }: NewsCardProps) {
       <div className="mb-4 flex flex-wrap gap-2">
         {item.tags.slice(0, 3).map((tag) => (
           <span key={tag} className="rounded bg-[var(--accent-mint)]/10 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[var(--accent-mint)]">
-            {tag}
+            {getTagLabel(tag)}
           </span>
         ))}
       </div>

@@ -8,6 +8,7 @@ import { clampText, editorialLimits, sourceInitials } from "@/lib/editorial";
 import { getNewsReferenceBySlug, getNewsReferences, getProjects } from "@/lib/content";
 import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildPageMetadata } from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
+import { getTagLabel } from "@/lib/tags";
 
 export const dynamicParams = true;
 export const revalidate = 60;
@@ -93,6 +94,15 @@ export default async function NewsDetailPage({
             meta={`${sourceInitials(item.sourceName)} • ${item.publishedAt}`}
             imageUrl={item.imageUrl}
           />
+          {item.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 px-6 pt-6 sm:px-8 md:px-10">
+              {item.tags.slice(0, 5).map((tag) => (
+                <span key={tag} className="rounded bg-[var(--accent-mint)]/10 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[var(--accent-mint)]">
+                  {getTagLabel(tag)}
+                </span>
+              ))}
+            </div>
+          )}
           <div className="p-6 sm:p-8 md:p-10">
             <h1 className="sr-only">{content.title}</h1>
             <p className="max-w-3xl text-base leading-8 text-gray-600 sm:text-lg">{content.summary}</p>
