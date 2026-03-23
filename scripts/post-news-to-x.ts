@@ -18,10 +18,12 @@ type NewsRow = {
 const hookTemplates = [
   (title: string) => `${title}`,
   (title: string) => `Worth reading: ${title}`,
-  (title: string) => `New signal from the data frontier: ${title}`,
-  (_title: string, source: string) => `${source} just published something worth your attention.`,
-  (title: string) => `This changes how we think about pipelines: ${title}`,
-  (_title: string, source: string) => `Fresh from ${source} -- and it matters for your data stack.`,
+  (_title: string, source: string) => `${source} just dropped something worth your attention.`,
+  (title: string) => `Signal worth tracking: ${title}`,
+  (_title: string, source: string) => `Fresh from ${source} -- relevant for your data stack.`,
+  (title: string) => `If you missed this, catch up now: ${title}`,
+  (title: string) => `This one caught my attention: ${title}`,
+  (_title: string, source: string) => `New from ${source} -- bookmark this one.`,
 ];
 
 const tagToHashtag: Record<string, string> = {
@@ -33,20 +35,39 @@ const tagToHashtag: Record<string, string> = {
   snowflake: "#Snowflake",
   bigquery: "#BigQuery",
   databricks: "#Databricks",
-  streaming: "#Streaming",
+  streaming: "#RealTimeData",
+  aws: "#AWS",
+  gcp: "#GoogleCloud",
+  "data-platform": "#DataPlatform",
+  "analytics-engineering": "#AnalyticsEngineering",
+  "modern-data-stack": "#ModernDataStack",
+  analytics: "#Analytics",
+  mlops: "#MLOps",
+  llm: "#LLM",
+  genai: "#GenAI",
+  rag: "#RAG",
+  python: "#Python",
+  "open-source": "#OpenSource",
 };
 
+const broadHashtags = [
+  "#DataEngineering",
+  "#MachineLearning",
+  "#BigData",
+  "#CloudComputing",
+];
+
 function buildHashtags(tags: string[]): string {
-  const mapped = tags
+  const specific = tags
     .map((tag) => tagToHashtag[tag])
-    .filter(Boolean)
-    .slice(0, 3);
+    .filter(Boolean);
 
-  if (!mapped.includes("#DataEngineering")) {
-    mapped.unshift("#DataEngineering");
-  }
+  const unique = [...new Set(specific)].slice(0, 3);
 
-  return mapped.slice(0, 4).join(" ");
+  const broadPick = broadHashtags.find((h) => !unique.includes(h)) ?? "#DataEngineering";
+  unique.push(broadPick);
+
+  return unique.slice(0, 4).join(" ");
 }
 
 function buildTweet(news: NewsRow, index: number): string {
