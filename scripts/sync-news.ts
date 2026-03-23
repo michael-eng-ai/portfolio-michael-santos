@@ -111,14 +111,23 @@ function detectTags(source: FeedSource, title: string, excerpt: string) {
   const detected = new Set(source.tags);
   const haystack = `${title} ${excerpt}`.toLowerCase();
   const keywordMap: Array<[string, string[]]> = [
-    ["ai", [" ai ", "llm", "genai", "agent", "copilot"]],
-    ["lakehouse", ["lakehouse", "delta lake"]],
+    ["ai", [" ai ", "llm", "genai", "agent", "copilot", "artificial intelligence", "gpt", "claude", "gemini"]],
+    ["lakehouse", ["lakehouse", "delta lake", "iceberg", "hudi"]],
     ["dbt", [" dbt", "analytics engineering"]],
-    ["kafka", ["kafka", "streaming", "debezium"]],
-    ["governance", ["governance", "governed", "compliance"]],
+    ["kafka", ["kafka", "debezium"]],
+    ["streaming", ["streaming", "real-time", "realtime", "event-driven"]],
+    ["governance", ["governance", "governed", "compliance", "lineage", "data quality"]],
     ["snowflake", ["snowflake"]],
     ["bigquery", ["bigquery"]],
-    ["databricks", ["databricks"]],
+    ["databricks", ["databricks", "spark", "pyspark"]],
+    ["mlops", ["mlops", "ml ops", "model registry", "feature store", "ml pipeline"]],
+    ["llm", ["large language", "llm", "transformer", "fine-tun"]],
+    ["genai", ["generative ai", "genai", "gen ai"]],
+    ["rag", [" rag ", "retrieval augmented", "vector search", "embedding"]],
+    ["python", [" python ", "pandas", "polars", "pydantic"]],
+    ["open-source", ["open source", "open-source", "oss "]],
+    ["aws", [" aws ", "amazon web services", "redshift", "sagemaker", "glue"]],
+    ["gcp", [" gcp ", "google cloud", "vertex ai", "bigtable"]],
   ];
 
   for (const [tag, keywords] of keywordMap) {
