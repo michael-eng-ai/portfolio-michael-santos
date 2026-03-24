@@ -11,7 +11,7 @@ import { Locale, copy, localePath } from "@/lib/site";
 import { getTagLabel } from "@/lib/tags";
 
 export const dynamicParams = true;
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const news = await getNewsReferences();

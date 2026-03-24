@@ -108,8 +108,8 @@ export const newsSchema = z.object({
   publishedAt: z.string().min(1),
   sourceName: z.string().min(1),
   sourceUrl: z.string().url(),
-  imageUrl: z.string().url().optional(),
-  category: localizedTextSchema.optional(),
+  imageUrl: z.string().url().nullable().optional(),
+  category: localizedTextSchema.nullable().optional(),
   tags: z.array(z.string().min(1)).default([]),
   relatedProjectSlugs: z.array(z.string().min(1)).default([]),
   editorialAnalysis: z.object({ en: z.string(), pt: z.string() }).nullable().optional(),
@@ -279,7 +279,15 @@ export async function getNewsReferences(): Promise<NewsReference[]> {
       return [];
     }
 
-    return (data ?? []).map(mapSupabaseRowToNews);
+    const results: NewsReference[] = [];
+    for (const row of data ?? []) {
+      try {
+        results.push(mapSupabaseRowToNews(row));
+      } catch (parseError) {
+        console.error("Skipping invalid news row", { event: "supabase_news_parse_error", slug: (row as Record<string, unknown>).slug, error: parseError });
+      }
+    }
+    return results;
   } catch (fetchError) {
     console.error("Unexpected error fetching news", { event: "supabase_news_unexpected_error", error: fetchError });
     return [];
