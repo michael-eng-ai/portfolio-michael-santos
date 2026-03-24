@@ -1,15 +1,16 @@
 import type { MetadataRoute } from "next";
 
-import { getArticles, getProjects } from "@/lib/content";
+import { getArticles, getNewsReferences, getProjects } from "@/lib/content";
 import { buildLanguageAlternates, localizedUrl } from "@/lib/seo";
 import { locales } from "@/lib/site";
 
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [projects, articles] = await Promise.all([
+  const [projects, articles, news] = await Promise.all([
     getProjects(),
     getArticles(),
+    getNewsReferences(),
   ]);
 
   function buildEntry(path: string, lastModified: Date, changeFrequency: "daily" | "weekly" | "monthly", priority: number) {
@@ -53,7 +54,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         languages: buildLanguageAlternates(`/articles/${article.slug}`),
       },
     })),
-    // Individual news pages excluded from sitemap (noindex -- thin content)
+    ...news
+      .filter((item) => !!item.editorialAnalysis)
+      .map((item) => ({
+        url: localizedUrl(locale, `/news/${item.slug}`),
+        lastModified: new Date(item.publishedAt),
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+        alternates: {
+          languages: buildLanguageAlternates(`/news/${item.slug}`),
+        },
+      })),
   ]);
 
   return [...staticRoutes, ...dynamicRoutes];

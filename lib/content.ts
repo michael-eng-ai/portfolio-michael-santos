@@ -112,6 +112,7 @@ export const newsSchema = z.object({
   category: localizedTextSchema.optional(),
   tags: z.array(z.string().min(1)).default([]),
   relatedProjectSlugs: z.array(z.string().min(1)).default([]),
+  editorialAnalysis: z.object({ en: z.string(), pt: z.string() }).nullable().optional(),
   locales: z.object({
     en: localizedNewsSchema,
     pt: localizedNewsSchema,
@@ -258,6 +259,7 @@ function mapSupabaseRowToNews(row: Record<string, unknown>): NewsReference {
     category: row.category,
     tags: row.tags,
     relatedProjectSlugs: row.related_project_slugs,
+    editorialAnalysis: row.editorial_analysis ?? null,
     locales: row.locales,
   });
 }
