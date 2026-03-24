@@ -1,0 +1,11 @@
+[
+  { "query": "data engineering", "tags": ["data-platform"], "maxItems": 3 },
+  { "query": "lakehouse OR delta lake OR iceberg", "tags": ["lakehouse"], "maxItems": 2 },
+  { "query": "dbt OR analytics engineering", "tags": ["dbt"], "maxItems": 2 },
+  { "query": "GenAI data pipeline OR AI agents", "tags": ["ai"], "maxItems": 2 },
+  { "query": "data governance OR data mesh", "tags": ["governance"], "maxItems": 2 },
+  { "query": "real-time streaming OR CDC Kafka", "tags": ["streaming"], "maxItems": 2 },
+  { "query": "MLOps OR LLMOps OR model deployment", "tags": ["ai"], "maxItems": 2 },
+  { "query": "Databricks OR Snowflake OR BigQuery", "tags": ["data-platform"], "maxItems": 2 },
+  { "query": "data quality OR observability pipeline", "tags": ["governance"], "maxItems": 2 }
+]
