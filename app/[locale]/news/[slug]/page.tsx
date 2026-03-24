@@ -36,7 +36,7 @@ export async function generateMetadata({
     title: `${item.locales[locale].title} | Michael Barbosa Santos`,
     description: item.locales[locale].summary,
     path: `/news/${item.slug}`,
-    imageUrl: item.imageUrl,
+    imageUrl: item.imageUrl ?? undefined,
     keywords: item.tags,
     type: "article",
     publishedTime: item.publishedAt,
@@ -78,7 +78,7 @@ export default async function NewsDetailPage({
             title: content.title,
             description: content.summary,
             path: `/news/${item.slug}`,
-            imageUrl: item.imageUrl,
+            imageUrl: item.imageUrl ?? undefined,
             publishedAt: item.publishedAt,
             keywords: item.tags,
             type: "NewsArticle",
@@ -98,7 +98,7 @@ export default async function NewsDetailPage({
             title={clampText(content.title, editorialLimits.cardTitleMax)}
             supportingText={clampText(content.whyItMatters, editorialLimits.articleExcerptMax)}
             meta={`${sourceInitials(item.sourceName)} • ${item.publishedAt}`}
-            imageUrl={item.imageUrl}
+            imageUrl={item.imageUrl ?? undefined}
           />
           {item.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 px-6 pt-6 sm:px-8 md:px-10">
