@@ -14,6 +14,7 @@ type NewsRow = {
     pt: { title: string; summary: string; whyItMatters: string };
   };
   tags: string[];
+  editorial_analysis: { en: string; pt: string } | null;
 };
 
 const hookTemplates = [
@@ -37,11 +38,24 @@ function buildHashtags(tags: string[]): string {
   return unique.slice(0, 4).join(" ");
 }
 
+function extractEditorialHook(analysis: string): string {
+  const firstSentence = analysis.split(/(?<=[.!?])\s+/)[0] ?? "";
+  const secondSentence = analysis.split(/(?<=[.!?])\s+/)[1] ?? "";
+  const hook = secondSentence ? `${firstSentence} ${secondSentence}` : firstSentence;
+  return hook;
+}
+
 function buildTweet(news: NewsRow, index: number): string {
   const url = `https://${SITE_HOST}/en/news/${news.slug}`;
   const hashtags = buildHashtags(news.tags);
-  const hookFn = hookTemplates[index % hookTemplates.length];
-  const hook = hookFn(news.locales.en.title, news.source_name);
+
+  let hook: string;
+  if (news.editorial_analysis?.en) {
+    hook = extractEditorialHook(news.editorial_analysis.en);
+  } else {
+    const hookFn = hookTemplates[index % hookTemplates.length];
+    hook = hookFn(news.locales.en.title, news.source_name);
+  }
 
   const suffix = `\n\n${url}\n\n${hashtags}`;
   const availableForHook = TWEET_MAX_LENGTH - suffix.length;
@@ -85,7 +99,7 @@ async function main() {
 
   const { data: unposted, error: fetchError } = await supabase
     .from("news")
-    .select("slug, source_name, locales, tags")
+    .select("slug, source_name, locales, tags, editorial_analysis")
     .is("posted_to_x_at", null)
     .eq("is_active", true)
     .order("published_at", { ascending: false })

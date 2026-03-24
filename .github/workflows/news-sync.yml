@@ -20,6 +20,7 @@ jobs:
         with:
           sparse-checkout: |
             scripts/sync-news.ts
+            scripts/enrich-news.ts
             scripts/post-news-to-x.ts
             content/sources/news-feeds.json
             lib/
@@ -46,6 +47,13 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+
+      - name: Enrich news with editorial analysis
+        run: pnpm content:enrich:news
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Post new news to X
         run: pnpm content:post:x

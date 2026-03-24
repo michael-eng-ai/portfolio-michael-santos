@@ -42,9 +42,10 @@ export async function generateMetadata({
     publishedTime: item.publishedAt,
     modifiedTime: item.publishedAt,
   });
+  const hasEditorial = !!item.editorialAnalysis?.[locale];
   return {
     ...meta,
-    robots: { index: false, follow: true },
+    ...(hasEditorial ? {} : { robots: { index: false, follow: true } }),
   };
 }
 
@@ -65,6 +66,7 @@ export default async function NewsDetailPage({
   }
 
   const content = item.locales[locale];
+  const editorial = item.editorialAnalysis?.[locale] ?? null;
   const relatedProjects = projects.filter((project) => item.relatedProjectSlugs.includes(project.slug));
 
   return (
@@ -110,6 +112,18 @@ export default async function NewsDetailPage({
           <div className="p-6 sm:p-8 md:p-10">
             <h1 className="sr-only">{content.title}</h1>
             <p className="max-w-3xl text-base leading-8 text-gray-600 sm:text-lg">{content.summary}</p>
+            {editorial && (
+              <div className="mt-8 border-t border-gray-100 pt-8">
+                <h2 className="mb-4 text-lg font-bold text-gray-900">
+                  {copy(locale, "Editorial Analysis", "Analise Editorial")}
+                </h2>
+                <div className="max-w-3xl space-y-4 text-base leading-8 text-gray-700">
+                  {editorial.split("\n\n").map((paragraph, idx) => (
+                    <p key={idx}>{paragraph}</p>
+                  ))}
+                </div>
+              </div>
+            )}
             <a
               href={item.sourceUrl}
               target="_blank"
