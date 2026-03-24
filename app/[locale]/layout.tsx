@@ -1,4 +1,6 @@
 import { Inter, Manrope } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "@/app/globals.css";
 import { Footer } from "@/components/footer";
@@ -47,6 +49,8 @@ export default async function LocaleLayout({
         </div>
         <ScrollTracker />
         <GoogleAnalyticsProvider />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

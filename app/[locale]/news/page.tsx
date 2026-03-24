@@ -3,7 +3,7 @@ import { getNewsReferences } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
 import { Locale, copy } from "@/lib/site";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata({
   params,
