@@ -9,6 +9,25 @@ const nextConfig = {
       { protocol: "https", hostname: "images.unsplash.com" },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/:locale/articles/building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns",
+        destination: "/:locale/articles/building-trustworthy-and-scalable-modern-data-platforms",
+        permanent: true,
+      },
+      {
+        source: "/:locale/articles/building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering",
+        destination: "/:locale/articles/building-trustworthy-and-scalable-modern-data-platforms",
+        permanent: true,
+      },
+      {
+        source: "/:locale/articles/agentic-ai-and-data-engineering-how-autonomous-systems-are-rewriting-the-pipeline-playbook-in-2026",
+        destination: "/:locale/articles/agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

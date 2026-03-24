@@ -11,7 +11,7 @@ import { Locale, copy, localePath } from "@/lib/site";
 import { getTagLabel } from "@/lib/tags";
 
 export const dynamicParams = true;
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateStaticParams() {
   const news = await getNewsReferences();
@@ -31,7 +31,7 @@ export async function generateMetadata({
   }
 
   const locale = resolvedParams.locale as Locale;
-  return buildPageMetadata({
+  const meta = await buildPageMetadata({
     locale,
     title: `${item.locales[locale].title} | Michael Barbosa Santos`,
     description: item.locales[locale].summary,
@@ -42,6 +42,10 @@ export async function generateMetadata({
     publishedTime: item.publishedAt,
     modifiedTime: item.publishedAt,
   });
+  return {
+    ...meta,
+    robots: { index: false, follow: true },
+  };
 }
 
 export default async function NewsDetailPage({
