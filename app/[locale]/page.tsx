@@ -62,37 +62,44 @@ export default async function LocaleHomePage({
   return (
     <main>
       {/* Hero */}
-      <section className="relative flex min-h-[70vh] items-center justify-center px-6 pt-20 md:min-h-[75vh] md:px-20">
+      <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden px-6 pt-20 md:min-h-[85vh] md:px-20">
+        <Image
+          src="https://images.unsplash.com/photo-1639322537228-f710d846310a?w=1920&q=80&auto=format&fit=crop"
+          alt=""
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-gray-900/70 to-gray-900/90" />
         <div className="relative z-10 max-w-4xl text-center">
-          <span className="mb-6 inline-block text-xs font-bold uppercase tracking-[0.3em] text-[var(--primary)]">
+          <span className="mb-6 inline-block text-xs font-bold uppercase tracking-[0.3em] text-blue-400">
             {copy(locale, "Data Engineering & AI Strategy", "Engenharia de Dados & Estrategia de IA")}
           </span>
-          <h1 className="mb-8 text-4xl font-extrabold leading-[0.95] tracking-tighter text-gray-900 sm:text-5xl md:text-7xl lg:text-8xl">
-            {copy(locale, "Your Data Has", "Seus Dados Tem")}
-            <br className="hidden sm:block" />
-            {copy(locale, " the Answers.", " as Respostas.")}
+          <h1 className="mb-4 text-4xl font-extrabold leading-[0.95] tracking-tighter text-white sm:text-5xl md:text-7xl lg:text-8xl">
+            {copy(locale, "Growth Starts", "O Crescimento")}
             <br />
-            <span className="gradient-text">
-              {copy(locale, "Your Pipeline Doesn't.", "Seu Pipeline Nao.")}
+            <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
+              {copy(locale, "With Your Data.", "Comeca Pelos Dados.")}
             </span>
           </h1>
-          <p className="mx-auto mb-10 max-w-2xl text-lg font-light leading-relaxed text-gray-500 sm:text-xl md:text-2xl">
+          <p className="mx-auto mb-10 max-w-xl text-lg font-light leading-relaxed text-gray-300 sm:text-xl">
             {copy(
               locale,
-              "Companies sit on goldmines of data but make critical decisions on gut feeling. I build the infrastructure that turns raw data into real-time clarity — so your next move is backed by evidence, not intuition.",
-              "Empresas sentam em minas de ouro de dados mas tomam decisoes criticas no achismo. Eu construo a infraestrutura que transforma dados brutos em clareza em tempo real — para que sua proxima decisao seja baseada em evidencia, nao em intuicao.",
+              "Turn raw data into real-time decisions.",
+              "Transforme dados brutos em decisoes em tempo real.",
             )}
           </p>
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-5">
             <Link
               href={localePath(locale, "/projects")}
-              className="brand-button-primary w-full px-10 py-5 text-center text-base font-bold sm:w-auto sm:text-lg"
+              className="w-full rounded-full bg-white px-10 py-4 text-center text-base font-bold text-gray-900 transition hover:bg-gray-100 sm:w-auto sm:text-lg"
             >
               {copy(locale, "See How It Works", "Veja Como Funciona")}
             </Link>
             <Link
               href={localePath(locale, "/articles")}
-              className="brand-button-secondary w-full px-10 py-5 text-center text-base font-bold sm:w-auto sm:text-lg"
+              className="w-full rounded-full border border-white/30 px-10 py-4 text-center text-base font-bold text-white transition hover:bg-white/10 sm:w-auto sm:text-lg"
             >
               {copy(locale, "Read the Insights", "Leia os Insights")}
             </Link>
