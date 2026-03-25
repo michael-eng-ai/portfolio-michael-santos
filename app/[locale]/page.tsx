@@ -99,7 +99,7 @@ export default async function LocaleHomePage({
             </Link>
             <Link
               href={localePath(locale, "/articles")}
-              className="w-full rounded-full border border-white/30 px-10 py-4 text-center text-base font-bold text-white transition hover:bg-white/10 sm:w-auto sm:text-lg"
+              className="w-full rounded-full border-2 border-white bg-transparent px-10 py-4 text-center text-base font-bold text-white transition hover:bg-white hover:text-gray-900 sm:w-auto sm:text-lg"
             >
               {copy(locale, "Read the Insights", "Leia os Insights")}
             </Link>
