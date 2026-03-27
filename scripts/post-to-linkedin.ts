@@ -79,6 +79,31 @@ async function postToLinkedIn(accessToken: string, authorUrn: string, text: stri
   return postId;
 }
 
+async function validateLinkedInToken(accessToken: string): Promise<boolean> {
+  try {
+    const response = await fetch(`${LINKEDIN_API_BASE}/me`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+
+    if (response.status === 401) {
+      console.error(
+        "CRITICAL: LinkedIn access token expired. Regenerate at https://www.linkedin.com/developers/apps/",
+      );
+      return false;
+    }
+
+    if (!response.ok) {
+      console.error(`LinkedIn token validation failed with status ${response.status}`);
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error(`LinkedIn token validation request failed: ${toErrorMessage(error)}`);
+    return false;
+  }
+}
+
 async function main(): Promise<void> {
   const accessToken = process.env.LINKEDIN_ACCESS_TOKEN;
   const missingDatabaseEnv = getRequiredWriteDatabaseEnvKeys().filter((key) => !process.env[key]);
@@ -96,6 +121,12 @@ async function main(): Promise<void> {
     console.error(`ERROR: Missing required env vars (${[...missingDatabaseEnv, "LINKEDIN_ACCESS_TOKEN", "LINKEDIN_PERSON_URN or LINKEDIN_ORGANIZATION_URN"].join(", ")})`);
     process.exit(1);
   }
+
+  const tokenValid = await validateLinkedInToken(accessToken);
+  if (!tokenValid) {
+    process.exit(1);
+  }
+
   const sampleRow = await getActiveNewsSampleRow();
   const queueSupported = supportsDeliveryQueue(sampleRow as Record<string, unknown> | undefined, "linkedin");
   const unposted = await listPendingNewsRowsForDelivery("linkedin", queueSupported ? 25 : MAX_POSTS_PER_RUN, {

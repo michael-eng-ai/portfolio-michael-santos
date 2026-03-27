@@ -17,6 +17,8 @@
     "content:sync:news": "tsx scripts/sync-news.ts",
     "content:export:news-snapshot": "tsx scripts/export-news-snapshot.ts",
     "content:enrich:news": "tsx scripts/enrich-news.ts",
+    "content:curate:news": "tsx scripts/curate-news.ts",
+    "content:cleanup:news": "tsx scripts/cleanup-old-news.ts",
     "db:shadow:sync": "tsx scripts/sync-supabase-to-postgres.ts",
     "db:shadow:verify": "tsx scripts/verify-postgres-shadow.ts",
     "content:sync:github": "tsx scripts/sync-github-projects.ts",

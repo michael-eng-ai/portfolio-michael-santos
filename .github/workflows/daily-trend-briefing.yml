@@ -68,3 +68,13 @@ jobs:
             echo "- Confirm Anthropic and LinkedIn credentials are still valid."
             echo "- Review \`content/articles\` output if the briefing step generated files."
           } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Create failure issue
+        if: failure()
+        run: |
+          gh issue create \
+            --title "[pipeline] ${{ github.workflow }} failed" \
+            --body "Workflow: ${{ github.workflow }}\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\nRef: ${{ github.ref }}" \
+            --label "pipeline-failure" || true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
