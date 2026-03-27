@@ -12,6 +12,17 @@ Mover o pipeline stateful de noticias para a VM do GCP sem depender do schedule 
 - Docker ativo
 - deploy script para publicar o snapshot atual do repositorio na VM
 - timers do systemd para o ciclo horario e o briefing diario
+- `.env.worker.local` como registro local das variaveis do worker
+
+## Status atual
+
+- a VM foi provisionada e esta acessivel por `gcloud compute ssh`
+- o runtime Node 22 + pnpm foi instalado na VM
+- os units do systemd foram instalados
+- os timers continuam desligados para evitar duplicidade com GitHub Actions
+- o primeiro teste mostrou que o env remoto estava sendo montado com placeholders vazios
+- o deploy script foi ajustado para priorizar valores locais nao vazios e usar `.env.worker.local` por padrao
+- o deploy agora filtra apenas as variaveis necessarias para o worker antes de enviar o env para a VM
 
 ## Como publicar o worker na VM
 
@@ -40,9 +51,28 @@ O deploy tenta montar `/etc/michael-business/worker.env` a partir de:
 
 1. envs de producao da Vercel
 2. `.env.local`
-3. `EXTRA_ENV_FILE`, se informado
+3. `.env.worker.local`
+4. `EXTRA_ENV_FILE`, se informado
 
 Hoje isso cobre bem o sync com Supabase. Os passos opcionais de enrichment e social ficam em modo skip enquanto `ANTHROPIC_API_KEY`, `X_*` e `LINKEDIN_*` nao estiverem presentes.
+
+As variaveis replicadas para a VM sao intencionalmente restritas a:
+
+- `NEXT_PUBLIC_SITE_URL`
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `INDEXNOW_KEY`
+- `ANTHROPIC_API_KEY`
+- `X_API_KEY`
+- `X_API_SECRET`
+- `X_ACCESS_TOKEN`
+- `X_ACCESS_TOKEN_SECRET`
+- `LINKEDIN_ACCESS_TOKEN`
+- `LINKEDIN_PERSON_URN`
+
+## Registro local recomendado
+
+Use [`.env.worker.local.example`](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/.env.worker.local.example) como referencia e mantenha o arquivo real `.env.worker.local` fora do Git.
 
 ## Observacao operacional
 

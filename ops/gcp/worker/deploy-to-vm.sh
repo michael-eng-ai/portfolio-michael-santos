@@ -13,7 +13,7 @@ ENABLE_TIMERS="${ENABLE_TIMERS:-0}"
 PULL_VERCEL_ENV="${PULL_VERCEL_ENV:-1}"
 VERCEL_ENVIRONMENT="${VERCEL_ENVIRONMENT:-production}"
 LOCAL_ENV_FILE="${LOCAL_ENV_FILE:-${LOCAL_REPO_DIR}/.env.local}"
-EXTRA_ENV_FILE="${EXTRA_ENV_FILE:-}"
+EXTRA_ENV_FILE="${EXTRA_ENV_FILE:-${LOCAL_REPO_DIR}/.env.worker.local}"
 
 TMP_ARCHIVE="$(mktemp /tmp/portfolio-michael-santos.XXXXXX.tar.gz)"
 TMP_ENV_FILE="$(mktemp /tmp/michael-worker-env.XXXXXX)"
@@ -26,6 +26,7 @@ cleanup() {
 trap cleanup EXIT
 
 echo "Packing repository snapshot from ${LOCAL_REPO_DIR}"
+export COPYFILE_DISABLE=1
 git -C "$LOCAL_REPO_DIR" ls-files -z | tar --null -czf "$TMP_ARCHIVE" -C "$LOCAL_REPO_DIR" --files-from -
 
 if [[ "$PULL_VERCEL_ENV" == "1" ]]; then
@@ -45,6 +46,19 @@ import sys
 output = Path(sys.argv[1])
 inputs = [Path(arg) for arg in sys.argv[2:] if arg]
 merged = {}
+allowed_keys = {
+    "NEXT_PUBLIC_SITE_URL",
+    "SUPABASE_URL",
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "INDEXNOW_KEY",
+    "ANTHROPIC_API_KEY",
+    "X_API_KEY",
+    "X_API_SECRET",
+    "X_ACCESS_TOKEN",
+    "X_ACCESS_TOKEN_SECRET",
+    "LINKEDIN_ACCESS_TOKEN",
+    "LINKEDIN_PERSON_URN",
+}
 
 for path in inputs:
     if not path.exists():
@@ -54,9 +68,18 @@ for path in inputs:
         if not line or line.startswith("#") or "=" not in line:
             continue
         key, value = line.split("=", 1)
-        merged[key.strip()] = value.strip()
+        key = key.strip()
+        if key not in allowed_keys:
+            continue
+        value = value.strip()
+        if value:
+            merged[key] = value
+        elif key not in merged:
+            merged[key] = value
 
 output.write_text("\n".join(f"{key}={value}" for key, value in merged.items()) + "\n")
+non_empty = sorted(key for key, value in merged.items() if value)
+print("Merged non-empty env vars:", ", ".join(non_empty) if non_empty else "none", file=sys.stderr)
 PY
 
 echo "Uploading application bundle and environment file"
@@ -98,7 +121,7 @@ sudo tar -xzf /tmp/portfolio-michael-santos.tar.gz -C "$REMOTE_REPO_DIR"
 sudo chown -R michaelworker:michaelworker "$REMOTE_REPO_DIR"
 
 sudo install -o root -g michaelworker -m 640 /tmp/worker.env "$REMOTE_ENV_FILE"
-if [[ ! -s "$REMOTE_ENV_FILE" ]]; then
+if ! sudo test -s "$REMOTE_ENV_FILE"; then
   sudo install -o root -g michaelworker -m 640 "$REMOTE_REPO_DIR/ops/gcp/worker/worker.env.example" "$REMOTE_ENV_FILE"
 fi
 
