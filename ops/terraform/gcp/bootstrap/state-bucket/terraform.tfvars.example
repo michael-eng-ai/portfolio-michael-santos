@@ -1,0 +1,3 @@
+project_id  = "astute-veld-370221"
+bucket_name = "astute-veld-370221-terraform-state"
+location    = "US"

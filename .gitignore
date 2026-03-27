@@ -101,6 +101,18 @@ jspm_packages/
 tmp/
 temp/
 
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+backend.hcl
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
 # Database
 *.db
 *.sqlite

@@ -1,0 +1,11 @@
+project_id        = "astute-veld-370221"
+instance_name     = "michael-news-worker-test"
+region            = "us-central1"
+zone              = "us-central1-a"
+machine_type      = "e2-micro"
+allowed_ssh_cidrs = ["0.0.0.0/0"]
+
+enable_web_ports    = false
+deletion_protection = false
+install_docker      = true
+worker_service_account_id = "michael-news-worker"
