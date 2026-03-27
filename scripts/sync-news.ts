@@ -5,10 +5,12 @@ import Parser from "rss-parser";
 import { z } from "zod";
 
 import {
-  getExistingNewsSlugsBySourceUrls,
+  getExistingNewsRowsBySourceUrls,
   getRequiredWriteDatabaseEnvKeys,
+  getSecondaryDatabaseProvider,
   listActiveNewsRows,
   upsertNewsRows,
+  type NewsRowRecord,
 } from "@/lib/database";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { newsSchema, type NewsReference } from "@/lib/content";
@@ -168,7 +170,7 @@ async function fetchFeed(source: FeedSource) {
   );
 }
 
-function toSupabaseRow(entry: NewsReference) {
+function toNewsRow(entry: NewsReference, existing?: NewsRowRecord) {
   return {
     slug: entry.slug,
     published_at: entry.publishedAt,
@@ -179,7 +181,24 @@ function toSupabaseRow(entry: NewsReference) {
     tags: entry.tags,
     related_project_slugs: entry.relatedProjectSlugs,
     locales: entry.locales,
+    editorial_analysis: existing?.editorial_analysis ?? null,
     is_active: true,
+    posted_to_x_at: existing?.posted_to_x_at ?? null,
+    posted_to_linkedin_at: existing?.posted_to_linkedin_at ?? null,
+    x_post_status: existing?.x_post_status ?? null,
+    x_attempt_count: existing?.x_attempt_count ?? null,
+    x_last_attempt_at: existing?.x_last_attempt_at ?? null,
+    x_next_retry_at: existing?.x_next_retry_at ?? null,
+    x_last_error: existing?.x_last_error ?? null,
+    x_external_post_id: existing?.x_external_post_id ?? null,
+    linkedin_post_status: existing?.linkedin_post_status ?? null,
+    linkedin_attempt_count: existing?.linkedin_attempt_count ?? null,
+    linkedin_last_attempt_at: existing?.linkedin_last_attempt_at ?? null,
+    linkedin_next_retry_at: existing?.linkedin_next_retry_at ?? null,
+    linkedin_last_error: existing?.linkedin_last_error ?? null,
+    linkedin_external_post_id: existing?.linkedin_external_post_id ?? null,
+    created_at: existing?.created_at ?? null,
+    updated_at: existing?.updated_at ?? null,
   };
 }
 
@@ -259,21 +278,55 @@ async function main() {
     return;
   }
 
-  const existingSlugBySourceUrl = new Map<string, string>();
-  for (const row of await getExistingNewsSlugsBySourceUrls(sorted.map((item) => item.sourceUrl))) {
-    const sourceUrl = row.source_url;
-    const slug = row.slug;
+  const existingRowBySourceUrl = new Map<string, NewsRowRecord>();
+  const primaryExistingRows = await getExistingNewsRowsBySourceUrls(sorted.map((item) => item.sourceUrl));
+  const secondaryProvider = getSecondaryDatabaseProvider();
+  const secondaryExistingRows = secondaryProvider
+    ? await getExistingNewsRowsBySourceUrls(sorted.map((item) => item.sourceUrl), secondaryProvider)
+    : [];
 
-    if (typeof sourceUrl === "string" && typeof slug === "string") {
-      existingSlugBySourceUrl.set(sourceUrl, slug);
-    }
+  for (const row of [...primaryExistingRows, ...secondaryExistingRows]) {
+    existingRowBySourceUrl.set(row.source_url, {
+      ...row,
+      editorial_analysis:
+        row.editorial_analysis ?? existingRowBySourceUrl.get(row.source_url)?.editorial_analysis ?? null,
+      posted_to_x_at: row.posted_to_x_at ?? existingRowBySourceUrl.get(row.source_url)?.posted_to_x_at ?? null,
+      posted_to_linkedin_at:
+        row.posted_to_linkedin_at ?? existingRowBySourceUrl.get(row.source_url)?.posted_to_linkedin_at ?? null,
+      x_post_status: row.x_post_status ?? existingRowBySourceUrl.get(row.source_url)?.x_post_status ?? null,
+      x_attempt_count: row.x_attempt_count ?? existingRowBySourceUrl.get(row.source_url)?.x_attempt_count ?? null,
+      x_last_attempt_at:
+        row.x_last_attempt_at ?? existingRowBySourceUrl.get(row.source_url)?.x_last_attempt_at ?? null,
+      x_next_retry_at:
+        row.x_next_retry_at ?? existingRowBySourceUrl.get(row.source_url)?.x_next_retry_at ?? null,
+      x_last_error: row.x_last_error ?? existingRowBySourceUrl.get(row.source_url)?.x_last_error ?? null,
+      x_external_post_id:
+        row.x_external_post_id ?? existingRowBySourceUrl.get(row.source_url)?.x_external_post_id ?? null,
+      linkedin_post_status:
+        row.linkedin_post_status ?? existingRowBySourceUrl.get(row.source_url)?.linkedin_post_status ?? null,
+      linkedin_attempt_count:
+        row.linkedin_attempt_count ?? existingRowBySourceUrl.get(row.source_url)?.linkedin_attempt_count ?? null,
+      linkedin_last_attempt_at:
+        row.linkedin_last_attempt_at ?? existingRowBySourceUrl.get(row.source_url)?.linkedin_last_attempt_at ?? null,
+      linkedin_next_retry_at:
+        row.linkedin_next_retry_at ?? existingRowBySourceUrl.get(row.source_url)?.linkedin_next_retry_at ?? null,
+      linkedin_last_error:
+        row.linkedin_last_error ?? existingRowBySourceUrl.get(row.source_url)?.linkedin_last_error ?? null,
+      linkedin_external_post_id:
+        row.linkedin_external_post_id ?? existingRowBySourceUrl.get(row.source_url)?.linkedin_external_post_id ?? null,
+      created_at: row.created_at ?? existingRowBySourceUrl.get(row.source_url)?.created_at ?? null,
+      updated_at: row.updated_at ?? existingRowBySourceUrl.get(row.source_url)?.updated_at ?? null,
+    });
   }
 
   const rows = sorted.map((item) =>
-    toSupabaseRow({
+    toNewsRow(
+      {
       ...item,
-      slug: existingSlugBySourceUrl.get(item.sourceUrl) ?? item.slug,
-    }),
+      slug: existingRowBySourceUrl.get(item.sourceUrl)?.slug ?? item.slug,
+      },
+      existingRowBySourceUrl.get(item.sourceUrl),
+    ),
   );
 
   const data = await upsertNewsRows(rows);
