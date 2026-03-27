@@ -2,7 +2,7 @@ import { TwitterApi } from "twitter-api-v2";
 
 import {
   getActiveNewsSampleRow,
-  getRequiredPrimaryDatabaseEnvKeys,
+  getRequiredWriteDatabaseEnvKeys,
   listPendingNewsRowsForDelivery,
   updateNewsRowBySlug,
 } from "@/lib/database";
@@ -90,7 +90,7 @@ async function main() {
   const apiSecret = process.env.X_API_SECRET;
   const accessToken = process.env.X_ACCESS_TOKEN;
   const accessTokenSecret = process.env.X_ACCESS_TOKEN_SECRET;
-  const missingDatabaseEnv = getRequiredPrimaryDatabaseEnvKeys().filter((key) => !process.env[key]);
+  const missingDatabaseEnv = getRequiredWriteDatabaseEnvKeys().filter((key) => !process.env[key]);
 
   if (missingDatabaseEnv.length > 0) {
     console.error(`ERROR: Missing required database env vars: ${missingDatabaseEnv.join(", ")}`);

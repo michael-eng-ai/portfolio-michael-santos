@@ -73,6 +73,7 @@ As variaveis replicadas para a VM sao intencionalmente restritas a:
 
 - `NEXT_PUBLIC_SITE_URL`
 - `DATABASE_PROVIDER`
+- `SECONDARY_DATABASE_PROVIDER`
 - `DATABASE_URL`
 - `DATABASE_SSL`
 - `POSTGRES_IMAGE`
@@ -106,6 +107,20 @@ gcloud compute ssh michael-news-worker-test --zone us-central1-a --project astut
 ```
 
 Esse fluxo mantem o site e os workers apontando para Supabase enquanto o PostgreSQL na VM e validado com dados reais.
+
+## Modo de transicao do worker
+
+Para validar o worker em PostgreSQL sem tirar o site do ar:
+
+- mantenha a Vercel lendo Supabase
+- configure na VM `DATABASE_PROVIDER=postgres`
+- configure na VM `SECONDARY_DATABASE_PROVIDER=supabase`
+
+Com isso, o worker passa a usar o PostgreSQL local como primario e espelha as escritas no Supabase. O site continua atualizado enquanto a virada completa nao acontece.
+
+## Bloqueador para a virada da Vercel
+
+Hoje o `DATABASE_URL` do worker aponta para `127.0.0.1` dentro da VM. Isso funciona para o worker local, mas nao para a Vercel. Antes de mover o frontend para PostgreSQL, sera preciso expor o banco de forma segura para a Vercel ou mover o frontend para um ambiente com acesso de rede ao banco.
 
 ## Observacao operacional
 

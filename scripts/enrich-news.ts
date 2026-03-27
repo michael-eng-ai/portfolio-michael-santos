@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 
 import {
-  getRequiredPrimaryDatabaseEnvKeys,
+  getRequiredWriteDatabaseEnvKeys,
   listUnenrichedNewsRows,
   updateNewsRowBySlug,
 } from "@/lib/database";
@@ -74,7 +74,7 @@ function parseAnalysis(response: string): EditorialAnalysis {
 
 async function main(): Promise<void> {
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
-  const missingDatabaseEnv = getRequiredPrimaryDatabaseEnvKeys().filter((key) => !process.env[key]);
+  const missingDatabaseEnv = getRequiredWriteDatabaseEnvKeys().filter((key) => !process.env[key]);
 
   if (missingDatabaseEnv.length > 0) {
     console.error(`ERROR: Missing required database env vars: ${missingDatabaseEnv.join(", ")}`);

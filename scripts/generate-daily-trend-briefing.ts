@@ -4,7 +4,7 @@ import path from "node:path";
 import Anthropic from "@anthropic-ai/sdk";
 import Parser from "rss-parser";
 
-import { getRequiredPrimaryDatabaseEnvKeys, listActiveNewsRows, upsertNewsRows } from "@/lib/database";
+import { getRequiredWriteDatabaseEnvKeys, listActiveNewsRows, upsertNewsRows } from "@/lib/database";
 import { articleSchema, newsSchema } from "@/lib/content";
 import { writeNewsSnapshot } from "@/lib/news-utils";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
@@ -219,7 +219,7 @@ async function writeBriefingArticle(slug: string, briefing: BriefingContent, pub
 
 async function main(): Promise<void> {
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
-  const missingDatabaseEnv = getRequiredPrimaryDatabaseEnvKeys().filter((key) => !process.env[key]);
+  const missingDatabaseEnv = getRequiredWriteDatabaseEnvKeys().filter((key) => !process.env[key]);
 
   if (missingDatabaseEnv.length > 0) {
     console.error(`ERROR: Missing required database env vars: ${missingDatabaseEnv.join(", ")}`);

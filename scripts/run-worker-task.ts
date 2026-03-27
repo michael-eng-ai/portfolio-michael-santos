@@ -1,6 +1,6 @@
 import { spawn } from "node:child_process";
 
-import { getRequiredPrimaryDatabaseEnvKeys } from "@/lib/database";
+import { getRequiredWriteDatabaseEnvKeys } from "@/lib/database";
 
 type WorkerTask = "news-cycle" | "daily-cycle";
 
@@ -16,19 +16,19 @@ const tasks: Record<WorkerTask, Step[]> = {
     {
       label: "Sync RSS news",
       script: "content:sync:news",
-      requiredEnv: ["__PRIMARY_DATABASE__"],
+      requiredEnv: ["__WRITE_DATABASE__"],
     },
     {
       label: "Enrich news with Claude",
       script: "content:enrich:news",
-      requiredEnv: ["__PRIMARY_DATABASE__", "ANTHROPIC_API_KEY"],
+      requiredEnv: ["__WRITE_DATABASE__", "ANTHROPIC_API_KEY"],
       optional: true,
     },
     {
       label: "Post news to X",
       script: "content:post:x",
       requiredEnv: [
-        "__PRIMARY_DATABASE__",
+        "__WRITE_DATABASE__",
         "X_API_KEY",
         "X_API_SECRET",
         "X_ACCESS_TOKEN",
@@ -41,14 +41,14 @@ const tasks: Record<WorkerTask, Step[]> = {
     {
       label: "Generate daily trend briefing",
       script: "content:daily:briefing",
-      requiredEnv: ["__PRIMARY_DATABASE__", "ANTHROPIC_API_KEY"],
+      requiredEnv: ["__WRITE_DATABASE__", "ANTHROPIC_API_KEY"],
       optional: true,
     },
     {
       label: "Post latest news to LinkedIn",
       script: "content:post:linkedin",
       requiredEnv: [
-        "__PRIMARY_DATABASE__",
+        "__WRITE_DATABASE__",
         "LINKEDIN_ACCESS_TOKEN",
       ],
       optional: true,
@@ -90,12 +90,12 @@ async function main() {
     process.exit(1);
   }
 
-  const sharedDatabaseEnv = getRequiredPrimaryDatabaseEnvKeys();
+  const sharedDatabaseEnv = getRequiredWriteDatabaseEnvKeys();
   const pipeline = tasks[taskName];
 
   for (const step of pipeline) {
     step.requiredEnv = step.requiredEnv.map((entry) =>
-      entry === "__PRIMARY_DATABASE__" ? sharedDatabaseEnv.join(",") : entry,
+      entry === "__WRITE_DATABASE__" ? sharedDatabaseEnv.join(",") : entry,
     );
   }
 

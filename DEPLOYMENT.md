@@ -27,6 +27,7 @@ Set these repository secrets only if you want to keep the manual GitHub Actions 
 Optional but recommended:
 
 - `DATABASE_PROVIDER`
+- `SECONDARY_DATABASE_PROVIDER`
 - `DATABASE_URL`
 - `DATABASE_SSL`
 - `SUPABASE_URL`
@@ -84,6 +85,9 @@ Optional but recommended:
 - Deploy with `ENABLE_POSTGRES=1 ./ops/gcp/worker/deploy-to-vm.sh`
 - Run `pnpm db:shadow:sync` on the VM to copy `news` and `newsletter_subscribers`
 - Run `pnpm db:shadow:verify` before any future cutover
+- For worker-first cutover, set `DATABASE_PROVIDER=postgres` and `SECONDARY_DATABASE_PROVIDER=supabase` in `.env.worker.local`
+- This keeps the worker writing to PostgreSQL while mirroring writes back to Supabase for the still-live Vercel site
+- Do not point Vercel to the VM PostgreSQL until the database is reachable from Vercel with a safe network path
 - The shadow database guide lives in [ops/gcp/worker/postgres/README.md](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/ops/gcp/worker/postgres/README.md)
 
 ### GitHub sync and LinkedIn drafts

@@ -220,6 +220,7 @@ Or via workflow: `.github/workflows/deploy-vercel.yml`
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Google Analytics 4 ID |
 | `GOOGLE_SITE_VERIFICATION` | Google Search Console token |
 | `DATABASE_PROVIDER` | `supabase` or `postgres` during cutover work |
+| `SECONDARY_DATABASE_PROVIDER` | Optional mirror target during database cutover (`supabase`) |
 | `DATABASE_URL` | PostgreSQL connection string for the VM shadow database |
 | `DATABASE_SSL` | Optional SSL mode for PostgreSQL (`require`) |
 | `SUPABASE_URL` | Supabase project URL |
@@ -365,4 +366,4 @@ Apply [news_reliability.sql](/Users/michaelsantos/Documents/GitHub/portfolio-mic
 
 The site now exposes [app/api/health/news/route.ts](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/app/api/health/news/route.ts), which returns `503` when Supabase is unavailable and the app is serving the fallback snapshot instead.
 
-For the VM database migration, keep `DATABASE_PROVIDER=supabase` in production while you validate the shadow PostgreSQL flow documented in [ops/gcp/worker/postgres/README.md](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/ops/gcp/worker/postgres/README.md) and [docs/GCP_WORKER_RUNBOOK.md](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/docs/GCP_WORKER_RUNBOOK.md).
+For the VM database migration, start with `DATABASE_PROVIDER=supabase` while you validate the shadow PostgreSQL flow documented in [ops/gcp/worker/postgres/README.md](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/ops/gcp/worker/postgres/README.md) and [docs/GCP_WORKER_RUNBOOK.md](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/docs/GCP_WORKER_RUNBOOK.md). When the worker is ready to move first, use `DATABASE_PROVIDER=postgres` together with `SECONDARY_DATABASE_PROVIDER=supabase` so writes are mirrored back to the site's current source of truth during the transition.

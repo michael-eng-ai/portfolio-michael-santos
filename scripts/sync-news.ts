@@ -6,7 +6,7 @@ import { z } from "zod";
 
 import {
   getExistingNewsSlugsBySourceUrls,
-  getRequiredPrimaryDatabaseEnvKeys,
+  getRequiredWriteDatabaseEnvKeys,
   listActiveNewsRows,
   upsertNewsRows,
 } from "@/lib/database";
@@ -184,7 +184,7 @@ function toSupabaseRow(entry: NewsReference) {
 }
 
 async function main() {
-  const missingDatabaseEnv = getRequiredPrimaryDatabaseEnvKeys().filter((key) => !process.env[key]);
+  const missingDatabaseEnv = getRequiredWriteDatabaseEnvKeys().filter((key) => !process.env[key]);
 
   if (missingDatabaseEnv.length > 0) {
     console.error(`ERROR: Missing required database env vars: ${missingDatabaseEnv.join(", ")}`);

@@ -51,6 +51,7 @@ merged = {}
 allowed_keys = {
     "NEXT_PUBLIC_SITE_URL",
     "DATABASE_PROVIDER",
+    "SECONDARY_DATABASE_PROVIDER",
     "DATABASE_URL",
     "DATABASE_SSL",
     "POSTGRES_IMAGE",

@@ -1,6 +1,6 @@
 import {
   getActiveNewsSampleRow,
-  getRequiredPrimaryDatabaseEnvKeys,
+  getRequiredWriteDatabaseEnvKeys,
   listPendingNewsRowsForDelivery,
   updateNewsRowBySlug,
 } from "@/lib/database";
@@ -81,7 +81,7 @@ async function postToLinkedIn(accessToken: string, authorUrn: string, text: stri
 
 async function main(): Promise<void> {
   const accessToken = process.env.LINKEDIN_ACCESS_TOKEN;
-  const missingDatabaseEnv = getRequiredPrimaryDatabaseEnvKeys().filter((key) => !process.env[key]);
+  const missingDatabaseEnv = getRequiredWriteDatabaseEnvKeys().filter((key) => !process.env[key]);
   let author: ReturnType<typeof resolveLinkedinAuthorUrn> | null = null;
 
   if (accessToken) {
