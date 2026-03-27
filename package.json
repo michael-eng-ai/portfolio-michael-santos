@@ -22,6 +22,8 @@
     "content:post:x": "tsx scripts/post-news-to-x.ts",
     "content:post:linkedin": "tsx scripts/post-to-linkedin.ts",
     "content:daily:briefing": "tsx scripts/generate-daily-trend-briefing.ts",
+    "content:worker:news-cycle": "tsx scripts/run-worker-task.ts news-cycle",
+    "content:worker:daily-cycle": "tsx scripts/run-worker-task.ts daily-cycle",
     "content:local:automation": "tsx scripts/run-local-content-automation.ts",
     "content:pipeline": "pnpm content:sync:news && pnpm content:sync:github && pnpm content:linkedin && pnpm content:x && pnpm content:validate",
     "deploy": "vercel --prod",

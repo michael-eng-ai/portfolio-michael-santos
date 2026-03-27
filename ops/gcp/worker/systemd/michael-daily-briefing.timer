@@ -1,0 +1,12 @@
+[Unit]
+Description=Run Michael Business daily trend briefing
+
+[Timer]
+OnCalendar=*-*-* 10:23:00
+RandomizedDelaySec=20m
+AccuracySec=1m
+Persistent=true
+Unit=michael-daily-briefing.service
+
+[Install]
+WantedBy=timers.target
