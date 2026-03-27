@@ -12,7 +12,7 @@ concurrency:
 jobs:
   generate-briefing:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
@@ -54,3 +54,15 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          LINKEDIN_ORGANIZATION_URN: ${{ secrets.LINKEDIN_ORGANIZATION_URN }}
+
+      - name: Summarize failure
+        if: failure()
+        run: |
+          {
+            echo "## Daily Trend Briefing failed"
+            echo ""
+            echo "- Check the workflow logs for the failing step."
+            echo "- Confirm Anthropic and LinkedIn credentials are still valid."
+            echo "- Review \`content/articles\` output if the briefing step generated files."
+          } >> "$GITHUB_STEP_SUMMARY"

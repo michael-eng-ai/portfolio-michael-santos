@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+export DEBIAN_FRONTEND=noninteractive
+
+apt-get update
+apt-get install -y \
+  ca-certificates \
+  curl \
+  fail2ban \
+  git \
+  jq \
+  unzip
+
+%{ if install_docker ~}
+if ! command -v docker >/dev/null 2>&1; then
+  apt-get install -y docker.io
+  systemctl enable --now docker
+fi
+%{ endif ~}

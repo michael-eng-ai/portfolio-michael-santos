@@ -1,12 +1,19 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
-import { createClient } from "@supabase/supabase-js";
 import Parser from "rss-parser";
 import { z } from "zod";
 
+import {
+  getExistingNewsSlugsBySourceUrls,
+  getRequiredWriteDatabaseEnvKeys,
+  listActiveNewsRows,
+  upsertNewsRows,
+} from "@/lib/database";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { newsSchema, type NewsReference } from "@/lib/content";
+import { buildStableNewsSlug, detectTags, normalizePublishedAt, writeNewsSnapshot } from "@/lib/news-utils";
+import { chunkArray, fetchWithTimeout, toErrorMessage, withRetry } from "@/lib/runtime";
 
 const feedSourceSchema = z.object({
   slug: z.string().min(1),
@@ -48,15 +55,6 @@ const parser = new Parser<Record<string, never>, FeedItem>({
   },
 });
 
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
 function stripHtml(value: string) {
   return value
     .replace(/<[^>]+>/g, " ")
@@ -76,20 +74,6 @@ function truncate(value: string, maxLength: number) {
   return `${value.slice(0, maxLength - 3).trimEnd()}...`;
 }
 
-function normalizePublishedAt(value?: string) {
-  if (!value) {
-    return new Date().toISOString().slice(0, 10);
-  }
-
-  const parsed = new Date(value);
-
-  if (Number.isNaN(parsed.getTime())) {
-    return new Date().toISOString().slice(0, 10);
-  }
-
-  return parsed.toISOString().slice(0, 10);
-}
-
 function getExcerpt(item: FeedItem) {
   const raw = item.contentSnippet ?? item.summary ?? item.content ?? "";
   return truncate(stripHtml(raw), 220);
@@ -105,38 +89,6 @@ function resolveSourceUrl(source: FeedSource, link?: string) {
   } catch {
     return null;
   }
-}
-
-function detectTags(source: FeedSource, title: string, excerpt: string) {
-  const detected = new Set(source.tags);
-  const haystack = `${title} ${excerpt}`.toLowerCase();
-  const keywordMap: Array<[string, string[]]> = [
-    ["ai", [" ai ", "llm", "genai", "agent", "copilot", "artificial intelligence", "gpt", "claude", "gemini"]],
-    ["lakehouse", ["lakehouse", "delta lake", "iceberg", "hudi"]],
-    ["dbt", [" dbt", "analytics engineering"]],
-    ["kafka", ["kafka", "debezium"]],
-    ["streaming", ["streaming", "real-time", "realtime", "event-driven"]],
-    ["governance", ["governance", "governed", "compliance", "lineage", "data quality"]],
-    ["snowflake", ["snowflake"]],
-    ["bigquery", ["bigquery"]],
-    ["databricks", ["databricks", "spark", "pyspark"]],
-    ["mlops", ["mlops", "ml ops", "model registry", "feature store", "ml pipeline"]],
-    ["llm", ["large language", "llm", "transformer", "fine-tun"]],
-    ["genai", ["generative ai", "genai", "gen ai"]],
-    ["rag", [" rag ", "retrieval augmented", "vector search", "embedding"]],
-    ["python", [" python ", "pandas", "polars", "pydantic"]],
-    ["open-source", ["open source", "open-source", "oss "]],
-    ["aws", [" aws ", "amazon web services", "redshift", "sagemaker", "glue"]],
-    ["gcp", [" gcp ", "google cloud", "vertex ai", "bigtable"]],
-  ];
-
-  for (const [tag, keywords] of keywordMap) {
-    if (keywords.some((keyword) => haystack.includes(keyword.trim()))) {
-      detected.add(tag);
-    }
-  }
-
-  return Array.from(detected).slice(0, 6);
 }
 
 function buildEnglishSummary(source: FeedSource, excerpt: string) {
@@ -183,19 +135,37 @@ function buildPortugueseSummary(source: FeedSource, itemIndex: number) {
 }
 
 async function fetchFeed(source: FeedSource) {
-  const response = await fetch(source.feedUrl, {
-    headers: {
-      Accept: "application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8",
-      "User-Agent": "portfolio-michael-santos/1.0 (+https://michael.business)",
+  return withRetry(
+    async () => {
+      const response = await fetchWithTimeout(source.feedUrl, {
+        timeoutMs: 12_000,
+        headers: {
+          Accept: "application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8",
+          "User-Agent": "portfolio-michael-santos/1.0 (+https://michael.business)",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Feed request failed with status ${response.status}`);
+      }
+
+      const xml = await response.text();
+      return parser.parseString(xml);
     },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Feed request failed with status ${response.status}`);
-  }
-
-  const xml = await response.text();
-  return parser.parseString(xml);
+    {
+      attempts: 3,
+      delayMs: 1_000,
+      shouldRetry: (error) => {
+        const message = toErrorMessage(error);
+        return message.includes("status 429") || message.includes("status 5") || message.includes("aborted");
+      },
+      onRetry: (error, attempt, nextDelayMs) => {
+        console.warn(
+          `Retrying feed ${source.sourceName} after attempt ${attempt}: ${toErrorMessage(error)} (next in ${nextDelayMs}ms)`,
+        );
+      },
+    },
+  );
 }
 
 function toSupabaseRow(entry: NewsReference) {
@@ -214,17 +184,12 @@ function toSupabaseRow(entry: NewsReference) {
 }
 
 async function main() {
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const missingDatabaseEnv = getRequiredWriteDatabaseEnvKeys().filter((key) => !process.env[key]);
 
-  if (!supabaseUrl || !supabaseKey) {
-    console.error("ERROR: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set");
+  if (missingDatabaseEnv.length > 0) {
+    console.error(`ERROR: Missing required database env vars: ${missingDatabaseEnv.join(", ")}`);
     process.exit(1);
   }
-
-  const supabase = createClient(supabaseUrl, supabaseKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
 
   const catalogPath = path.join(process.cwd(), "content", "sources", "news-feeds.json");
   const rawCatalog = await fs.readFile(catalogPath, "utf8");
@@ -252,13 +217,13 @@ async function main() {
 
         const excerpt = getExcerpt(item);
         const normalized = newsSchema.parse({
-          slug: `${source.slug}-${slugify(title)}`,
+          slug: buildStableNewsSlug(source.slug, sourceUrl, title),
           publishedAt: normalizePublishedAt(item.isoDate ?? item.pubDate),
           sourceName: source.sourceName,
           sourceUrl,
           imageUrl: source.defaultImageUrl,
           category: source.category,
-          tags: detectTags(source, title, excerpt),
+          tags: detectTags(source.tags, title, excerpt),
           relatedProjectSlugs: source.relatedProjectSlugs,
           locales: {
             en: {
@@ -294,21 +259,50 @@ async function main() {
     return;
   }
 
-  const rows = sorted.map(toSupabaseRow);
+  const existingSlugBySourceUrl = new Map<string, string>();
+  for (const row of await getExistingNewsSlugsBySourceUrls(sorted.map((item) => item.sourceUrl))) {
+    const sourceUrl = row.source_url;
+    const slug = row.slug;
 
-  const { data, error } = await supabase
-    .from("news")
-    .upsert(rows, { onConflict: "source_url" })
-    .select("slug");
-
-  if (error) {
-    console.error("ERROR: Supabase upsert failed", error.message);
-    process.exit(1);
+    if (typeof sourceUrl === "string" && typeof slug === "string") {
+      existingSlugBySourceUrl.set(sourceUrl, slug);
+    }
   }
 
-  console.log(`SUCCESS: ${data.length} news items upserted into Supabase (zero commits needed)`);
+  const rows = sorted.map((item) =>
+    toSupabaseRow({
+      ...item,
+      slug: existingSlugBySourceUrl.get(item.sourceUrl) ?? item.slug,
+    }),
+  );
 
-  await notifyIndexNow(sorted.map((item) => item.slug));
+  const data = await upsertNewsRows(rows);
+
+  console.log(`SUCCESS: ${data.length} news items upserted into the primary database (zero commits needed)`);
+
+  try {
+    const activeRows = await listActiveNewsRows();
+    await writeNewsSnapshot(
+      activeRows.map((row) =>
+        newsSchema.parse({
+          slug: row.slug,
+          publishedAt: row.published_at,
+          sourceName: row.source_name,
+          sourceUrl: row.source_url,
+          imageUrl: row.image_url,
+          category: row.category,
+          tags: row.tags,
+          relatedProjectSlugs: row.related_project_slugs,
+          editorialAnalysis: row.editorial_analysis ?? null,
+          locales: row.locales,
+        }),
+      ),
+    );
+  } catch (snapshotError) {
+    console.warn(`WARNING: failed to refresh news snapshot after sync: ${toErrorMessage(snapshotError)}`);
+  }
+
+  await notifyIndexNow(rows.map((item) => item.slug));
 }
 
 const INDEXNOW_KEY = process.env.INDEXNOW_KEY;
@@ -319,28 +313,49 @@ async function notifyIndexNow(slugs: string[]): Promise<void> {
     return;
   }
 
-  const urlList = slugs.flatMap((slug) => [
+  const urlList = Array.from(new Set(slugs)).flatMap((slug) => [
     `https://${SITE_HOST}/en/news/${slug}`,
     `https://${SITE_HOST}/pt/news/${slug}`,
   ]);
 
   urlList.push(`https://${SITE_HOST}/en/news`, `https://${SITE_HOST}/pt/news`);
 
-  try {
-    const response = await fetch("https://api.indexnow.org/IndexNow", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        host: SITE_HOST,
-        key: INDEXNOW_KEY,
-        keyLocation: `https://${SITE_HOST}/${INDEXNOW_KEY}.txt`,
-        urlList: urlList.slice(0, 100),
-      }),
-    });
+  for (const batch of chunkArray(urlList, 100)) {
+    try {
+      const response = await withRetry(
+        async () => {
+          const response = await fetchWithTimeout("https://api.indexnow.org/IndexNow", {
+            timeoutMs: 10_000,
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              host: SITE_HOST,
+              key: INDEXNOW_KEY,
+              keyLocation: `https://${SITE_HOST}/${INDEXNOW_KEY}.txt`,
+              urlList: batch,
+            }),
+          });
 
-    console.log(`IndexNow: submitted ${urlList.length} URLs (status ${response.status})`);
-  } catch (indexNowError) {
-    console.warn("IndexNow notification failed:", indexNowError instanceof Error ? indexNowError.message : "Unknown error");
+          if (response.status >= 500 || response.status === 429) {
+            throw new Error(`IndexNow request failed with status ${response.status}`);
+          }
+
+          return response;
+        },
+        {
+          attempts: 3,
+          delayMs: 1_000,
+          shouldRetry: (error) => {
+            const message = toErrorMessage(error);
+            return message.includes("aborted") || message.includes("status 429") || message.includes("status 5");
+          },
+        },
+      );
+
+      console.log(`IndexNow: submitted ${batch.length} URLs (status ${response.status})`);
+    } catch (indexNowError) {
+      console.warn("IndexNow notification failed:", toErrorMessage(indexNowError));
+    }
   }
 }
 

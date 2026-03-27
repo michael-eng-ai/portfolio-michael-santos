@@ -2,7 +2,13 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { z } from "zod";
 
-import { getSupabaseAdminClient } from "@/lib/supabase";
+import {
+  getActiveNewsPresence,
+  getActiveNewsRowBySlug,
+  getDatabaseProvider,
+  listActiveNewsRows,
+} from "@/lib/database";
+import { toErrorMessage } from "@/lib/runtime";
 
 export const localizedTextSchema = z.object({
   en: z.string().min(1),
@@ -229,6 +235,38 @@ async function readJsonFile<T>(filePath: string, schema: z.ZodSchema<T>) {
   return schema.parse(JSON.parse(raw));
 }
 
+function sortNewsByPublishedAtDesc(entries: NewsReference[]) {
+  return [...entries].sort((left, right) => right.publishedAt.localeCompare(left.publishedAt));
+}
+
+async function readFallbackNewsReferences(): Promise<NewsReference[]> {
+  const fallbackBySourceUrl = new Map<string, NewsReference>();
+
+  try {
+    const payload = await readJsonFile(
+      path.join(contentRoot, "generated", "news.json"),
+      generatedNewsFileSchema,
+    );
+
+    for (const item of payload.items) {
+      fallbackBySourceUrl.set(item.sourceUrl, item);
+    }
+  } catch {
+    // Snapshot is optional.
+  }
+
+  try {
+    const manualEntries = await readJsonCollection("news", newsSchema);
+    for (const item of manualEntries) {
+      fallbackBySourceUrl.set(item.sourceUrl, item);
+    }
+  } catch {
+    // Manual fallback is optional too.
+  }
+
+  return sortNewsByPublishedAtDesc(Array.from(fallbackBySourceUrl.values()));
+}
+
 export async function getProjects() {
   const entries = await readJsonCollection("projects", projectSchema);
   return entries.sort((left, right) => left.order - right.order);
@@ -266,52 +304,66 @@ function mapSupabaseRowToNews(row: Record<string, unknown>): NewsReference {
 
 export async function getNewsReferences(): Promise<NewsReference[]> {
   try {
-    const supabase = getSupabaseAdminClient();
-
-    const { data, error } = await supabase
-      .from("news")
-      .select("*")
-      .eq("is_active", true)
-      .order("published_at", { ascending: false });
-
-    if (error) {
-      console.error("Failed to fetch news from Supabase", { event: "supabase_news_fetch_error", message: error.message });
-      return [];
-    }
-
     const results: NewsReference[] = [];
-    for (const row of data ?? []) {
+    for (const row of await listActiveNewsRows()) {
       try {
         results.push(mapSupabaseRowToNews(row));
       } catch (parseError) {
-        console.error("Skipping invalid news row", { event: "supabase_news_parse_error", slug: (row as Record<string, unknown>).slug, error: parseError });
+        console.error("Skipping invalid news row", {
+          event: "database_news_parse_error",
+          slug: (row as Record<string, unknown>).slug,
+          error: parseError,
+        });
       }
     }
-    return results;
+
+    if (results.length === 0) {
+      return await readFallbackNewsReferences();
+    }
+
+    return sortNewsByPublishedAtDesc(results);
   } catch (fetchError) {
     console.error("Unexpected error fetching news", { event: "supabase_news_unexpected_error", error: fetchError });
-    return [];
+    return await readFallbackNewsReferences();
   }
 }
 
 export async function getNewsReferenceBySlug(slug: string): Promise<NewsReference | null> {
   try {
-    const supabase = getSupabaseAdminClient();
+    const data = await getActiveNewsRowBySlug(slug);
 
-    const { data, error } = await supabase
-      .from("news")
-      .select("*")
-      .eq("slug", slug)
-      .eq("is_active", true)
-      .single();
-
-    if (error || !data) {
-      return null;
+    if (!data) {
+      const fallbackEntries = await readFallbackNewsReferences();
+      return fallbackEntries.find((entry) => entry.slug === slug) ?? null;
     }
 
     return mapSupabaseRowToNews(data);
   } catch {
-    return null;
+    const fallbackEntries = await readFallbackNewsReferences();
+    return fallbackEntries.find((entry) => entry.slug === slug) ?? null;
+  }
+}
+
+export async function getNewsHealthStatus() {
+  const fallbackEntries = await readFallbackNewsReferences();
+  const provider = getDatabaseProvider();
+
+  try {
+    const activeCount = await getActiveNewsPresence();
+
+    return {
+      ok: true,
+      source: provider,
+      activeCount,
+      fallbackCount: fallbackEntries.length,
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      source: "fallback" as const,
+      fallbackCount: fallbackEntries.length,
+      error: toErrorMessage(error),
+    };
   }
 }
 

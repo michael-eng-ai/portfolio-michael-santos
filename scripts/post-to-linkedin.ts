@@ -1,10 +1,20 @@
-import { createClient } from "@supabase/supabase-js";
+import {
+  getActiveNewsSampleRow,
+  getRequiredWriteDatabaseEnvKeys,
+  listPendingNewsRowsForDelivery,
+  updateNewsRowBySlug,
+} from "@/lib/database";
+import { resolveLinkedinAuthorUrn } from "@/lib/linkedin-author";
+import {
+  buildDeliveryFailurePatch, buildDeliveryStartPatch, buildDeliverySuccessPatch, selectDueDeliveryRows, supportsDeliveryQueue,
+} from "@/lib/news-delivery";
+import { toErrorMessage, withRetry } from "@/lib/runtime";
 
 const SITE_HOST = "michael.business";
 const MAX_POSTS_PER_RUN = 1;
 const LINKEDIN_API_BASE = "https://api.linkedin.com/v2";
 
-type NewsRow = {
+type NewsRow = Record<string, unknown> & {
   slug: string;
   source_name: string;
   locales: {
@@ -15,6 +25,7 @@ type NewsRow = {
   editorial_analysis: { en: string; pt: string } | null;
   published_at: string;
   posted_to_linkedin_at: string | null;
+  linkedin_attempt_count?: number | null;
 };
 
 function buildLinkedInPost(news: NewsRow): string {
@@ -34,9 +45,9 @@ function buildLinkedInPost(news: NewsRow): string {
   return `${content.title}\n\n${excerpt}\n\nRead the full analysis:\n${url}\n\n${hashtags} #DataEngineering`;
 }
 
-async function postToLinkedIn(accessToken: string, personUrn: string, text: string): Promise<string> {
+async function postToLinkedIn(accessToken: string, authorUrn: string, text: string): Promise<string> {
   const body = {
-    author: `urn:li:person:${personUrn}`,
+    author: authorUrn,
     lifecycleState: "PUBLISHED",
     specificContent: {
       "com.linkedin.ugc.ShareContent": {
@@ -69,65 +80,115 @@ async function postToLinkedIn(accessToken: string, personUrn: string, text: stri
 }
 
 async function main(): Promise<void> {
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const accessToken = process.env.LINKEDIN_ACCESS_TOKEN;
-  const personUrn = process.env.LINKEDIN_PERSON_URN;
+  const missingDatabaseEnv = getRequiredWriteDatabaseEnvKeys().filter((key) => !process.env[key]);
+  let author: ReturnType<typeof resolveLinkedinAuthorUrn> | null = null;
 
-  if (!supabaseUrl || !supabaseKey || !accessToken || !personUrn) {
-    console.error("ERROR: Missing required env vars (SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, LINKEDIN_ACCESS_TOKEN, LINKEDIN_PERSON_URN)");
-    process.exit(1);
+  if (accessToken) {
+    try {
+      author = resolveLinkedinAuthorUrn(process.env);
+    } catch {
+      author = null;
+    }
   }
 
-  const supabase = createClient(supabaseUrl, supabaseKey);
-
-  const { data: unposted, error: fetchError } = await supabase
-    .from("news")
-    .select("slug, source_name, locales, tags, editorial_analysis, published_at, posted_to_linkedin_at")
-    .is("posted_to_linkedin_at", null)
-    .not("editorial_analysis", "is", null)
-    .eq("is_active", true)
-    .order("published_at", { ascending: false })
-    .limit(MAX_POSTS_PER_RUN);
-
-  if (fetchError) {
-    console.error("ERROR fetching news:", fetchError.message);
+  if (missingDatabaseEnv.length > 0 || !accessToken || !author) {
+    console.error(`ERROR: Missing required env vars (${[...missingDatabaseEnv, "LINKEDIN_ACCESS_TOKEN", "LINKEDIN_PERSON_URN or LINKEDIN_ORGANIZATION_URN"].join(", ")})`);
     process.exit(1);
   }
+  const sampleRow = await getActiveNewsSampleRow();
+  const queueSupported = supportsDeliveryQueue(sampleRow as Record<string, unknown> | undefined, "linkedin");
+  const unposted = await listPendingNewsRowsForDelivery("linkedin", queueSupported ? 25 : MAX_POSTS_PER_RUN, {
+    requireEditorial: true,
+  });
 
   if (!unposted || unposted.length === 0) {
     console.log("No unposted news found");
     return;
   }
 
-  console.log(`Found ${unposted.length} unposted articles`);
+  const candidates = queueSupported
+    ? selectDueDeliveryRows(unposted as unknown as NewsRow[], "linkedin", MAX_POSTS_PER_RUN)
+    : (unposted as unknown as NewsRow[]);
+
+  if (candidates.length === 0) {
+    console.log("No due LinkedIn delivery items found");
+    return;
+  }
+
+  console.log(`Found ${candidates.length} due LinkedIn delivery items`);
 
   let posted = 0;
 
-  for (const article of unposted as NewsRow[]) {
+  for (const article of candidates) {
     const text = buildLinkedInPost(article);
+    const nextAttemptCount = Number(article.linkedin_attempt_count ?? 0) + 1;
+
+    if (queueSupported) {
+      try {
+        await updateNewsRowBySlug(article.slug, buildDeliveryStartPatch("linkedin", nextAttemptCount));
+      } catch (startError) {
+        console.warn(`SKIPPED: ${article.slug} -- failed to mark LinkedIn delivery attempt: ${toErrorMessage(startError)}`);
+        continue;
+      }
+    }
 
     try {
-      const postId = await postToLinkedIn(accessToken, personUrn, text);
+      const postId = await withRetry(
+        () => postToLinkedIn(accessToken, author.authorUrn, text),
+        {
+          attempts: 3,
+          delayMs: 1_500,
+          shouldRetry: (error) => {
+            const message = toErrorMessage(error);
+            return message.includes("429") || message.includes("5") || message.includes("timeout");
+          },
+          onRetry: (error, attempt, nextDelayMs) => {
+            console.warn(`Retrying LinkedIn publish for ${article.slug} after attempt ${attempt}: ${toErrorMessage(error)} (next in ${nextDelayMs}ms)`);
+          },
+        },
+      );
       console.log(`POSTED: ${article.slug} -> LinkedIn post ${postId}`);
 
-      const { error: updateError } = await supabase
-        .from("news")
-        .update({ posted_to_linkedin_at: new Date().toISOString() })
-        .eq("slug", article.slug);
+      const successPatch = queueSupported
+        ? buildDeliverySuccessPatch("linkedin", nextAttemptCount, postId)
+        : { posted_to_linkedin_at: new Date().toISOString() };
 
-      if (updateError) {
-        console.warn(`WARNING: posted but failed to update Supabase for ${article.slug}: ${updateError.message}`);
+      try {
+        await withRetry(
+          () => updateNewsRowBySlug(article.slug, successPatch),
+          {
+            attempts: 5,
+            delayMs: 500,
+          },
+        );
+      } catch (updateError) {
+        console.warn(`WARNING: posted but failed to persist LinkedIn delivery state for ${article.slug}: ${toErrorMessage(updateError)}`);
       }
 
       posted += 1;
     } catch (postError: unknown) {
-      const message = postError instanceof Error ? postError.message : "Unknown error";
+      const message = toErrorMessage(postError);
+
+      if (queueSupported) {
+        try {
+          await withRetry(
+            () => updateNewsRowBySlug(article.slug, buildDeliveryFailurePatch("linkedin", nextAttemptCount, message)),
+            {
+              attempts: 3,
+              delayMs: 500,
+            },
+          );
+        } catch (failureUpdateError) {
+          console.warn(`WARNING: failed to persist LinkedIn retry state for ${article.slug}: ${toErrorMessage(failureUpdateError)}`);
+        }
+      }
+
       console.warn(`SKIPPED: ${article.slug} -- ${message}`);
     }
   }
 
-  console.log(`SUCCESS: ${posted}/${unposted.length} news posted to LinkedIn`);
+  console.log(`SUCCESS: ${posted}/${candidates.length} news posted to LinkedIn via ${author.mode}`);
 }
 
 main().catch((error) => {

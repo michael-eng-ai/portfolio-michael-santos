@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { EditorialCover } from "@/components/editorial-cover";
 import { StructuredData } from "@/components/structured-data";
+import { formatDisplayDate } from "@/lib/date";
 import { clampText, editorialLimits, sourceInitials } from "@/lib/editorial";
 import { getNewsReferenceBySlug, getNewsReferences, getProjects } from "@/lib/content";
 import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildPageMetadata } from "@/lib/seo";
@@ -97,7 +98,7 @@ export default async function NewsDetailPage({
             eyebrow={item.category?.[locale] ?? item.sourceName}
             title={clampText(content.title, editorialLimits.cardTitleMax)}
             supportingText={clampText(content.whyItMatters, editorialLimits.articleExcerptMax)}
-            meta={`${sourceInitials(item.sourceName)} • ${item.publishedAt}`}
+            meta={`${sourceInitials(item.sourceName)} • ${formatDisplayDate(item.publishedAt, locale)}`}
             imageUrl={item.imageUrl ?? undefined}
           />
           {item.tags.length > 0 && (

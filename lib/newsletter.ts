@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-import { getSupabaseAdminClient } from "@/lib/supabase";
+import { upsertNewsletterSubscriber } from "@/lib/database";
 
 type SubscribeInput = {
   email: string;
@@ -17,8 +17,6 @@ function getResendClient() {
 }
 
 export async function subscribeToNewsletter(input: SubscribeInput) {
-  const supabase = getSupabaseAdminClient();
-
   const insertPayload = {
     email: input.email.toLowerCase().trim(),
     locale: input.locale,
@@ -26,13 +24,7 @@ export async function subscribeToNewsletter(input: SubscribeInput) {
     consented_at: new Date().toISOString(),
   };
 
-  const { error } = await supabase
-    .from("newsletter_subscribers")
-    .upsert(insertPayload, { onConflict: "email" });
-
-  if (error) {
-    throw new Error(error.message);
-  }
+  await upsertNewsletterSubscriber(insertPayload);
 
   const resend = getResendClient();
 

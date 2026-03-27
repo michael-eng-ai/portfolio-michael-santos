@@ -2,8 +2,12 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 
 import Anthropic from "@anthropic-ai/sdk";
-import { createClient } from "@supabase/supabase-js";
 import Parser from "rss-parser";
+
+import { getRequiredWriteDatabaseEnvKeys, listActiveNewsRows, upsertNewsRows } from "@/lib/database";
+import { articleSchema, newsSchema } from "@/lib/content";
+import { writeNewsSnapshot } from "@/lib/news-utils";
+import { toErrorMessage, withRetry } from "@/lib/runtime";
 
 const SITE_HOST = "michael.business";
 const MIN_HEADLINES = 3;
@@ -66,7 +70,17 @@ async function fetchHeadlines(keywords: TrendKeyword[]): Promise<Headline[]> {
     const url = buildGoogleNewsUrl(kw.query);
 
     try {
-      const feed = await parser.parseURL(url);
+      const feed = await withRetry(
+        () => parser.parseURL(url),
+        {
+          attempts: 3,
+          delayMs: 1_000,
+          shouldRetry: (error) => {
+            const message = toErrorMessage(error);
+            return message.includes("timeout") || message.includes("429") || message.includes("5");
+          },
+        },
+      );
       let count = 0;
 
       for (const item of feed.items) {
@@ -85,7 +99,7 @@ async function fetchHeadlines(keywords: TrendKeyword[]): Promise<Headline[]> {
         count++;
       }
     } catch (fetchError: unknown) {
-      const msg = fetchError instanceof Error ? fetchError.message : "Unknown error";
+      const msg = toErrorMessage(fetchError);
       console.warn(`WARNING: failed to fetch trends for "${kw.query}": ${msg}`);
     }
 
@@ -161,13 +175,54 @@ function parseResponse(response: string): BriefingContent {
   return parsed;
 }
 
-async function main(): Promise<void> {
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  const anthropicKey = process.env.ANTHROPIC_API_KEY;
+function estimateReadingMinutes(...paragraphs: string[]) {
+  const wordCount = paragraphs
+    .join(" ")
+    .split(/\s+/)
+    .filter(Boolean).length;
 
-  if (!supabaseUrl || !supabaseKey) {
-    console.error("ERROR: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set");
+  return Math.max(3, Math.ceil(wordCount / 200));
+}
+
+async function writeBriefingArticle(slug: string, briefing: BriefingContent, publishedAt: string) {
+  const article = articleSchema.parse({
+    slug,
+    publishedAt: publishedAt.slice(0, 10),
+    featured: false,
+    category: {
+      en: "Daily Trend Briefing",
+      pt: "Briefing de Tendencias",
+    },
+    tags: briefing.tags,
+    readingMinutes: estimateReadingMinutes(briefing.editorialEn, briefing.editorialPt),
+    relatedProjectSlugs: [],
+    relatedNewsSlugs: [],
+    locales: {
+      en: {
+        title: briefing.titleEn,
+        excerpt: briefing.summaryEn,
+        body: briefing.editorialEn,
+      },
+      pt: {
+        title: briefing.titlePt,
+        excerpt: briefing.summaryPt,
+        body: briefing.editorialPt,
+      },
+    },
+  });
+
+  const targetPath = path.join(process.cwd(), "content", "articles", `${slug}.json`);
+  await fs.mkdir(path.dirname(targetPath), { recursive: true });
+  await fs.writeFile(targetPath, `${JSON.stringify(article, null, 2)}\n`, "utf8");
+  console.log(`ARTICLE: wrote canonical daily briefing to ${targetPath}`);
+}
+
+async function main(): Promise<void> {
+  const anthropicKey = process.env.ANTHROPIC_API_KEY;
+  const missingDatabaseEnv = getRequiredWriteDatabaseEnvKeys().filter((key) => !process.env[key]);
+
+  if (missingDatabaseEnv.length > 0) {
+    console.error(`ERROR: Missing required database env vars: ${missingDatabaseEnv.join(", ")}`);
     process.exit(1);
   }
 
@@ -193,11 +248,22 @@ async function main(): Promise<void> {
   const anthropic = new Anthropic({ apiKey: anthropicKey });
   const prompt = buildPrompt(headlines);
 
-  const message = await anthropic.messages.create({
-    model: "claude-haiku-4-5-20251001",
-    max_tokens: 2048,
-    messages: [{ role: "user", content: prompt }],
-  });
+  const message = await withRetry(
+    () =>
+      anthropic.messages.create({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 2048,
+        messages: [{ role: "user", content: prompt }],
+      }),
+    {
+      attempts: 3,
+      delayMs: 1_500,
+      shouldRetry: (error) => {
+        const message = toErrorMessage(error);
+        return message.includes("rate") || message.includes("overloaded") || message.includes("timeout") || message.includes("529");
+      },
+    },
+  );
 
   const textBlock = message.content.find((block) => block.type === "text");
   if (!textBlock || textBlock.type !== "text") {
@@ -208,15 +274,14 @@ async function main(): Promise<void> {
   const briefing = parseResponse(textBlock.text);
   const slug = todaySlug();
   const sourceUrl = `https://${SITE_HOST}/en/news/${slug}`;
-  const today = new Date().toISOString().slice(0, 10);
+  const nowIso = new Date().toISOString();
+  const today = nowIso.slice(0, 10);
 
-  const supabase = createClient(supabaseUrl, supabaseKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
+  await writeBriefingArticle(slug, briefing, nowIso);
 
   const row = {
     slug,
-    published_at: today,
+    published_at: nowIso,
     source_name: "Daily Trend Briefing",
     source_url: sourceUrl,
     image_url: null,
@@ -242,13 +307,28 @@ async function main(): Promise<void> {
     is_active: true,
   };
 
-  const { error: upsertError } = await supabase
-    .from("news")
-    .upsert(row, { onConflict: "source_url" });
+  await upsertNewsRows([row]);
 
-  if (upsertError) {
-    console.error(`ERROR: Supabase upsert failed: ${upsertError.message}`);
-    process.exit(1);
+  try {
+    const activeRows = await listActiveNewsRows();
+    await writeNewsSnapshot(
+      activeRows.map((row) =>
+        newsSchema.parse({
+          slug: row.slug,
+          publishedAt: row.published_at,
+          sourceName: row.source_name,
+          sourceUrl: row.source_url,
+          imageUrl: row.image_url,
+          category: row.category,
+          tags: row.tags,
+          relatedProjectSlugs: row.related_project_slugs,
+          editorialAnalysis: row.editorial_analysis ?? null,
+          locales: row.locales,
+        }),
+      ),
+    );
+  } catch (snapshotError) {
+    console.warn(`WARNING: failed to refresh news snapshot after daily briefing: ${toErrorMessage(snapshotError)}`);
   }
 
   console.log(`PUBLISHED: ${slug}`);
