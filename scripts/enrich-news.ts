@@ -1,6 +1,8 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@supabase/supabase-js";
 
+import { toErrorMessage, withRetry } from "@/lib/runtime";
+
 const MAX_ITEMS_PER_RUN = 5;
 
 type NewsRow = {
@@ -92,7 +94,7 @@ async function main(): Promise<void> {
     .select("slug, source_name, source_url, tags, locales")
     .is("editorial_analysis", null)
     .eq("is_active", true)
-    .order("published_at", { ascending: false })
+    .order("published_at", { ascending: true })
     .limit(MAX_ITEMS_PER_RUN);
 
   if (fetchError) {
@@ -114,11 +116,25 @@ async function main(): Promise<void> {
     const prompt = buildPrompt(news);
 
     try {
-      const message = await anthropic.messages.create({
-        model: "claude-haiku-4-5-20251001",
-        max_tokens: 1024,
-        messages: [{ role: "user", content: prompt }],
-      });
+      const message = await withRetry(
+        () =>
+          anthropic.messages.create({
+            model: "claude-haiku-4-5-20251001",
+            max_tokens: 1024,
+            messages: [{ role: "user", content: prompt }],
+          }),
+        {
+          attempts: 3,
+          delayMs: 1_500,
+          shouldRetry: (error) => {
+            const message = toErrorMessage(error);
+            return message.includes("rate") || message.includes("overloaded") || message.includes("timeout") || message.includes("529");
+          },
+          onRetry: (error, attempt, nextDelayMs) => {
+            console.warn(`Retrying Claude enrichment for ${news.slug} after attempt ${attempt}: ${toErrorMessage(error)} (next in ${nextDelayMs}ms)`);
+          },
+        },
+      );
 
       const textBlock = message.content.find((block) => block.type === "text");
       if (!textBlock || textBlock.type !== "text") {
@@ -128,10 +144,18 @@ async function main(): Promise<void> {
 
       const analysis = parseAnalysis(textBlock.text);
 
-      const { error: updateError } = await supabase
-        .from("news")
-        .update({ editorial_analysis: analysis })
-        .eq("slug", news.slug);
+      const { error: updateError } = await withRetry(
+        async () =>
+          await supabase
+            .from("news")
+            .update({ editorial_analysis: analysis })
+            .eq("slug", news.slug),
+        {
+          attempts: 3,
+          delayMs: 500,
+          shouldRetry: (error) => toErrorMessage(error).length > 0,
+        },
+      );
 
       if (updateError) {
         console.warn(`SKIPPED: ${news.slug} -- Supabase update failed: ${updateError.message}`);
@@ -141,7 +165,7 @@ async function main(): Promise<void> {
       console.log(`ENRICHED: ${news.slug} (en: ${analysis.en.length} chars, pt: ${analysis.pt.length} chars)`);
       enriched += 1;
     } catch (enrichError: unknown) {
-      const message = enrichError instanceof Error ? enrichError.message : "Unknown error";
+      const message = toErrorMessage(enrichError);
       console.warn(`SKIPPED: ${news.slug} -- ${message}`);
     }
   }

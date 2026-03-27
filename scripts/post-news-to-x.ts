@@ -1,20 +1,33 @@
 import { createClient } from "@supabase/supabase-js";
 import { TwitterApi } from "twitter-api-v2";
+
+import {
+  buildDeliveryFailurePatch,
+  buildDeliverySelectColumns,
+  buildDeliveryStartPatch,
+  buildDeliverySuccessPatch,
+  selectDueDeliveryRows,
+  supportsDeliveryQueue,
+} from "@/lib/news-delivery";
+import { toErrorMessage, withRetry } from "@/lib/runtime";
 import { getTagHashtag, BROAD_HASHTAGS } from "@/lib/tags";
 
 const SITE_HOST = "michael.business";
 const MAX_POSTS_PER_RUN = 3;
 const TWEET_MAX_LENGTH = 280;
 
-type NewsRow = {
+type NewsRow = Record<string, unknown> & {
   slug: string;
   source_name: string;
+  published_at?: string;
+  posted_to_x_at?: string | null;
   locales: {
     en: { title: string; summary: string; whyItMatters: string };
     pt: { title: string; summary: string; whyItMatters: string };
   };
   tags: string[];
   editorial_analysis: { en: string; pt: string } | null;
+  x_attempt_count?: number | null;
 };
 
 const hookTemplates = [
@@ -97,13 +110,29 @@ async function main() {
     accessSecret: accessTokenSecret,
   });
 
+  const { data: sampleRows, error: sampleError } = await supabase
+    .from("news")
+    .select("*")
+    .eq("is_active", true)
+    .limit(1);
+
+  if (sampleError) {
+    console.error("ERROR: failed to inspect news delivery schema", sampleError.message);
+    process.exit(1);
+  }
+
+  const queueSupported = supportsDeliveryQueue((sampleRows ?? [])[0] as Record<string, unknown> | undefined, "x");
+  const selectColumns = queueSupported
+    ? buildDeliverySelectColumns("x", ["slug", "source_name", "published_at", "locales", "tags", "editorial_analysis"])
+    : "slug, source_name, published_at, posted_to_x_at, locales, tags, editorial_analysis";
+
   const { data: unposted, error: fetchError } = await supabase
     .from("news")
-    .select("slug, source_name, locales, tags, editorial_analysis")
-    .is("posted_to_x_at", null)
+    .select(selectColumns)
     .eq("is_active", true)
-    .order("published_at", { ascending: false })
-    .limit(MAX_POSTS_PER_RUN);
+    .is("posted_to_x_at", null)
+    .order("published_at", { ascending: true })
+    .limit(queueSupported ? 50 : MAX_POSTS_PER_RUN);
 
   if (fetchError) {
     console.error("ERROR: failed to query unposted news", fetchError.message);
@@ -115,38 +144,103 @@ async function main() {
     return;
   }
 
-  console.log(`Found ${unposted.length} unposted news items`);
+  const candidates = queueSupported
+    ? selectDueDeliveryRows(unposted as unknown as NewsRow[], "x", MAX_POSTS_PER_RUN)
+    : (unposted as unknown as NewsRow[]);
+
+  if (candidates.length === 0) {
+    console.log("No due X delivery items found. Nothing to do.");
+    return;
+  }
+
+  console.log(`Found ${candidates.length} due X delivery items`);
 
   let posted = 0;
 
-  for (let i = 0; i < unposted.length; i++) {
-    const news = unposted[i] as NewsRow;
+  for (let i = 0; i < candidates.length; i++) {
+    const news = candidates[i];
     const tweet = buildTweet(news, i);
+    const nextAttemptCount = Number(news.x_attempt_count ?? 0) + 1;
 
-    try {
-      const result = await twitter.v2.tweet(tweet);
-      console.log(`POSTED: ${news.slug} -> tweet id ${result.data.id}`);
-
-      const { error: updateError } = await supabase
+    if (queueSupported) {
+      const { error: startError } = await supabase
         .from("news")
-        .update({ posted_to_x_at: new Date().toISOString() })
+        .update(buildDeliveryStartPatch("x", nextAttemptCount))
         .eq("slug", news.slug);
 
+      if (startError) {
+        console.warn(`SKIPPED: ${news.slug} -- failed to mark X delivery attempt: ${startError.message}`);
+        continue;
+      }
+    }
+
+    try {
+      const result = await withRetry(
+        () => twitter.v2.tweet(tweet),
+        {
+          attempts: 3,
+          delayMs: 1_500,
+          shouldRetry: (error) => {
+            const message = toErrorMessage(error);
+            return message.includes("429") || message.includes("503") || message.includes("timeout") || message.includes("ECONNRESET");
+          },
+          onRetry: (error, attempt, nextDelayMs) => {
+            console.warn(`Retrying X publish for ${news.slug} after attempt ${attempt}: ${toErrorMessage(error)} (next in ${nextDelayMs}ms)`);
+          },
+        },
+      );
+      console.log(`POSTED: ${news.slug} -> tweet id ${result.data.id}`);
+
+      const successPatch = queueSupported
+        ? buildDeliverySuccessPatch("x", nextAttemptCount, result.data.id)
+        : { posted_to_x_at: new Date().toISOString() };
+
+      const { error: updateError } = await withRetry(
+        async () =>
+          await supabase
+            .from("news")
+            .update(successPatch)
+            .eq("slug", news.slug),
+        {
+          attempts: 5,
+          delayMs: 500,
+        },
+      );
+
       if (updateError) {
-        console.warn(`WARNING: posted tweet but failed to update Supabase for ${news.slug}: ${updateError.message}`);
+        console.warn(`WARNING: posted tweet but failed to persist X delivery state for ${news.slug}: ${updateError.message}`);
       }
 
       posted += 1;
     } catch (tweetError: unknown) {
-      const message = tweetError instanceof Error ? tweetError.message : "Unknown error";
+      const message = toErrorMessage(tweetError);
       const details = tweetError && typeof tweetError === "object" && "data" in tweetError
         ? JSON.stringify((tweetError as Record<string, unknown>).data)
         : "";
+
+      if (queueSupported) {
+        const { error: failureUpdateError } = await withRetry(
+          async () =>
+            await supabase
+              .from("news")
+              .update(buildDeliveryFailurePatch("x", nextAttemptCount, `${message}${details ? ` | ${details}` : ""}`))
+              .eq("slug", news.slug),
+          {
+            attempts: 3,
+            delayMs: 500,
+          },
+        );
+
+        if (failureUpdateError) {
+          console.warn(`WARNING: failed to persist X retry state for ${news.slug}: ${failureUpdateError.message}`);
+        }
+      }
+
       console.warn(`SKIPPED: ${news.slug} -- ${message}${details ? ` | details: ${details}` : ""}`);
     }
   }
 
-  console.log(`SUCCESS: ${posted}/${unposted.length} news items posted to X`);
+  console.log(`SUCCESS: ${posted}/${candidates.length} news items posted to X`);
 }
 
 main().catch((error) => {

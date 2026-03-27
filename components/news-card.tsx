@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { clampText, editorialLimits, sourceInitials } from "@/lib/editorial";
+import { formatDisplayDate } from "@/lib/date";
 import { NewsReference } from "@/lib/content";
 import { Locale, copy, localePath } from "@/lib/site";
 import { getTagLabel } from "@/lib/tags";
@@ -18,7 +19,7 @@ export function NewsCard({ item, locale }: NewsCardProps) {
   return (
     <article className="group bg-white p-8 transition-all duration-500 monolith-shadow hover:bg-gray-50 md:p-10">
       <time className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">
-        {sourceInitials(item.sourceName)} — {item.publishedAt}
+        {sourceInitials(item.sourceName)} — {formatDisplayDate(item.publishedAt, locale)}
       </time>
       <h3 className="mb-4 mt-4 text-xl font-bold uppercase leading-tight tracking-tight text-gray-900 transition-colors group-hover:text-[var(--primary)] md:text-2xl">
         {clampText(content.title, editorialLimits.cardTitleMax)}

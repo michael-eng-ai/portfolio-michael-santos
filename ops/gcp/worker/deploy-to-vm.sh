@@ -58,6 +58,7 @@ allowed_keys = {
     "X_ACCESS_TOKEN_SECRET",
     "LINKEDIN_ACCESS_TOKEN",
     "LINKEDIN_PERSON_URN",
+    "LINKEDIN_ORGANIZATION_URN",
 }
 
 for path in inputs:

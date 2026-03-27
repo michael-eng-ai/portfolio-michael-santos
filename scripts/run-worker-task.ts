@@ -50,7 +50,6 @@ const tasks: Record<WorkerTask, Step[]> = {
       requiredEnv: [
         ...sharedSupabaseEnv,
         "LINKEDIN_ACCESS_TOKEN",
-        "LINKEDIN_PERSON_URN",
       ],
       optional: true,
     },

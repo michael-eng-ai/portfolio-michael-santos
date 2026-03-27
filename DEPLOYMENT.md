@@ -35,8 +35,12 @@ Optional but recommended:
 - `OPENAI_API_KEY`
 - `LINKEDIN_ACCESS_TOKEN`
 - `LINKEDIN_PERSON_URN`
+- `LINKEDIN_ORGANIZATION_URN`
 - `LINKEDIN_PUBLISH_SECRET`
-- `X_USER_ACCESS_TOKEN`
+- `X_API_KEY`
+- `X_API_SECRET`
+- `X_ACCESS_TOKEN`
+- `X_ACCESS_TOKEN_SECRET`
 - `X_PUBLISH_SECRET`
 
 ## First-Time Vercel Setup
@@ -65,6 +69,11 @@ Optional but recommended:
 - `.github/workflows/news-auto-publish.yml` runs `pnpm content:sync:news` every 6 hours
 - If `content/generated/news.json` changes, the workflow opens or updates an automation PR
 - After merge, Vercel deploys the refreshed news automatically from `main`
+
+### News reliability package
+- Apply [news_reliability.sql](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/supabase/news_reliability.sql) on the existing Supabase project
+- Export a fresh fallback snapshot with `pnpm content:export:news-snapshot`
+- Monitor `https://michael.business/api/health/news` from UptimeRobot or another uptime service
 
 ### GitHub sync and LinkedIn drafts
 - The scheduled workflow runs `pnpm content:sync:github`
@@ -115,10 +124,11 @@ In GA4, mark those events as key events if you want them treated as conversions 
 - Direct publishing should only be enabled after the relevant LinkedIn API access is approved
 - Keep `LINKEDIN_PUBLISH_ENABLED=false` until approval exists
 - Protect the publish route with `LINKEDIN_PUBLISH_SECRET`
+- Prefer `LINKEDIN_ORGANIZATION_URN` for Company Page posting; keep `LINKEDIN_PERSON_URN` only if the channel should publish as a person
 
 ### X publishing
 - Draft generation works without X credentials
-- Direct publishing requires a user-context access token that can create posts on your behalf
+- Direct publishing now uses the same OAuth 1.0a credential set in both the worker scripts and the protected route
 - Keep `X_PUBLISH_ENABLED=false` until the token is configured
 - Protect the publish route with `X_PUBLISH_SECRET`
 - Use `.github/workflows/social-distribution.yml` to publish a selected draft slug to LinkedIn, X, or both

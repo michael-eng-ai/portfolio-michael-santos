@@ -44,6 +44,7 @@ content/                    # Git-based content (source of truth)
     trend-keywords.json     # Google News keywords for daily briefing
   generated/
     github-repos.json       # Live GitHub repository metadata
+    news.json               # Last-known-good news fallback snapshot
 
 app/
   [locale]/                 # Localized routes (en, pt)
@@ -55,6 +56,7 @@ app/
     resume/                 # Resume/CV
     contact/                # Contact page
   api/
+    health/news/            # Supabase news health check (503 on fallback)
     newsletter/subscribe/   # Newsletter subscription endpoint
     linkedin/publish/       # Protected LinkedIn publishing
     x/publish/              # Protected X publishing
@@ -64,9 +66,10 @@ app/
 
 scripts/                    # Automation scripts (tsx)
   sync-news.ts              # RSS feeds -> Supabase
+  export-news-snapshot.ts   # Supabase -> content/generated/news.json
   enrich-news.ts            # Claude editorial analysis -> Supabase
   post-news-to-x.ts         # News -> X API
-  generate-daily-trend-briefing.ts  # Google News + Claude -> Supabase
+  generate-daily-trend-briefing.ts  # Google News + Claude -> article JSON + Supabase
   sync-github-projects.ts   # GitHub API -> generated/github-repos.json
   generateDailyArticle.ts   # OpenAI -> article JSON
   generate-linkedin-drafts.ts
@@ -75,6 +78,8 @@ scripts/                    # Automation scripts (tsx)
 
 lib/
   content.ts                # Zod schemas + content loaders
+  news-delivery.ts          # Retry/DLQ field helpers for X + LinkedIn
+  news-utils.ts             # Stable slugs, tag detection, snapshots
   supabase.ts               # Supabase admin client
   seo.ts                    # SEO metadata builders
   tags.ts                   # Tag-to-hashtag mapping
@@ -91,7 +96,7 @@ lib/
 **Schedule**: Every hour (`0 * * * *`)
 
 ```
-RSS Feeds (8 sources)
+RSS Feeds (18 sources)
     |
     v
 sync-news.ts -----> Supabase (upsert by source_url)
@@ -127,7 +132,10 @@ Claude Haiku synthesizes 2-3 key themes
     (300-400 words, bilingual, data/business lens)
     |
     v
-Supabase news table (with editorial_analysis)
+content/articles/daily-trend-briefing-YYYY-MM-DD.json
+    |
+    v
+Supabase news table (distribution cache)
 ```
 
 ### Content Pipeline (weekdays)
@@ -222,8 +230,10 @@ Or via workflow: `.github/workflows/deploy-vercel.yml`
 | `X_ACCESS_TOKEN` | X API access token |
 | `X_ACCESS_TOKEN_SECRET` | X API access token secret |
 | `LINKEDIN_ACCESS_TOKEN` | LinkedIn API token |
-| `LINKEDIN_PERSON_URN` | LinkedIn person URN |
+| `LINKEDIN_PERSON_URN` | LinkedIn person URN (optional if posting as person) |
+| `LINKEDIN_ORGANIZATION_URN` | LinkedIn organization URN (preferred for Company Page posting) |
 | `LINKEDIN_PUBLISH_SECRET` | Secret for /api/linkedin/publish |
+| `X_USER_ACCESS_TOKEN` | Legacy route token (deprecated) |
 | `X_PUBLISH_SECRET` | Secret for /api/x/publish |
 | `INDEXNOW_KEY` | IndexNow search notification key |
 | `VERCEL_TOKEN` | Vercel CLI token (manual deploys) |
@@ -262,6 +272,7 @@ pnpm content:local:automation -- --topic "topic"  # Full local pipeline
 
 ```bash
 pnpm content:sync:news        # RSS -> Supabase
+pnpm content:export:news-snapshot  # Supabase -> content/generated/news.json
 pnpm content:enrich:news      # Claude analysis -> Supabase
 pnpm content:post:x           # News -> X
 pnpm content:daily:briefing   # Google News + Claude -> Supabase
@@ -340,3 +351,11 @@ pnpm build              # Full build (validate + Next.js)
 | Resend | Free (100 emails/day) |
 | GoDaddy domain | ~$2/month |
 | **Total** | **~$5/month** |
+Apply [news_reliability.sql](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/supabase/news_reliability.sql) on existing environments to add:
+
+- full `published_at` timestamps
+- per-channel retry/DLQ fields for X and LinkedIn
+- external post IDs
+- delivery indexes
+
+The site now exposes [app/api/health/news/route.ts](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/app/api/health/news/route.ts), which returns `503` when Supabase is unavailable and the app is serving the fallback snapshot instead.

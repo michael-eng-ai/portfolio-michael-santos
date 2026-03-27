@@ -3,6 +3,7 @@ import path from "node:path";
 import { z } from "zod";
 
 import { getSupabaseAdminClient } from "@/lib/supabase";
+import { toErrorMessage } from "@/lib/runtime";
 
 export const localizedTextSchema = z.object({
   en: z.string().min(1),
@@ -229,6 +230,38 @@ async function readJsonFile<T>(filePath: string, schema: z.ZodSchema<T>) {
   return schema.parse(JSON.parse(raw));
 }
 
+function sortNewsByPublishedAtDesc(entries: NewsReference[]) {
+  return [...entries].sort((left, right) => right.publishedAt.localeCompare(left.publishedAt));
+}
+
+async function readFallbackNewsReferences(): Promise<NewsReference[]> {
+  const fallbackBySourceUrl = new Map<string, NewsReference>();
+
+  try {
+    const payload = await readJsonFile(
+      path.join(contentRoot, "generated", "news.json"),
+      generatedNewsFileSchema,
+    );
+
+    for (const item of payload.items) {
+      fallbackBySourceUrl.set(item.sourceUrl, item);
+    }
+  } catch {
+    // Snapshot is optional.
+  }
+
+  try {
+    const manualEntries = await readJsonCollection("news", newsSchema);
+    for (const item of manualEntries) {
+      fallbackBySourceUrl.set(item.sourceUrl, item);
+    }
+  } catch {
+    // Manual fallback is optional too.
+  }
+
+  return sortNewsByPublishedAtDesc(Array.from(fallbackBySourceUrl.values()));
+}
+
 export async function getProjects() {
   const entries = await readJsonCollection("projects", projectSchema);
   return entries.sort((left, right) => left.order - right.order);
@@ -276,7 +309,8 @@ export async function getNewsReferences(): Promise<NewsReference[]> {
 
     if (error) {
       console.error("Failed to fetch news from Supabase", { event: "supabase_news_fetch_error", message: error.message });
-      return [];
+      const fallback = await readFallbackNewsReferences();
+      return fallback;
     }
 
     const results: NewsReference[] = [];
@@ -287,10 +321,14 @@ export async function getNewsReferences(): Promise<NewsReference[]> {
         console.error("Skipping invalid news row", { event: "supabase_news_parse_error", slug: (row as Record<string, unknown>).slug, error: parseError });
       }
     }
-    return results;
+    if (results.length === 0) {
+      return await readFallbackNewsReferences();
+    }
+
+    return sortNewsByPublishedAtDesc(results);
   } catch (fetchError) {
     console.error("Unexpected error fetching news", { event: "supabase_news_unexpected_error", error: fetchError });
-    return [];
+    return await readFallbackNewsReferences();
   }
 }
 
@@ -306,12 +344,50 @@ export async function getNewsReferenceBySlug(slug: string): Promise<NewsReferenc
       .single();
 
     if (error || !data) {
-      return null;
+      const fallbackEntries = await readFallbackNewsReferences();
+      return fallbackEntries.find((entry) => entry.slug === slug) ?? null;
     }
 
     return mapSupabaseRowToNews(data);
   } catch {
-    return null;
+    const fallbackEntries = await readFallbackNewsReferences();
+    return fallbackEntries.find((entry) => entry.slug === slug) ?? null;
+  }
+}
+
+export async function getNewsHealthStatus() {
+  const fallbackEntries = await readFallbackNewsReferences();
+
+  try {
+    const supabase = getSupabaseAdminClient();
+    const { data, error } = await supabase
+      .from("news")
+      .select("slug")
+      .eq("is_active", true)
+      .limit(1);
+
+    if (error) {
+      return {
+        ok: false,
+        source: "fallback" as const,
+        fallbackCount: fallbackEntries.length,
+        error: error.message,
+      };
+    }
+
+    return {
+      ok: true,
+      source: "supabase" as const,
+      activeCount: data?.length ?? 0,
+      fallbackCount: fallbackEntries.length,
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      source: "fallback" as const,
+      fallbackCount: fallbackEntries.length,
+      error: toErrorMessage(error),
+    };
   }
 }
 

@@ -15,6 +15,7 @@
     "content:generate:article": "tsx scripts/generateDailyArticle.ts",
     "content:generate:article:claude": "tsx scripts/generate-article-with-claude.ts",
     "content:sync:news": "tsx scripts/sync-news.ts",
+    "content:export:news-snapshot": "tsx scripts/export-news-snapshot.ts",
     "content:enrich:news": "tsx scripts/enrich-news.ts",
     "content:sync:github": "tsx scripts/sync-github-projects.ts",
     "content:linkedin": "tsx scripts/generate-linkedin-drafts.ts",

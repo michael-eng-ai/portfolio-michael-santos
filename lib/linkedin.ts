@@ -1,9 +1,9 @@
 import { LinkedinDraft } from "@/lib/content";
+import { resolveLinkedinAuthorUrn } from "@/lib/linkedin-author";
 import { Locale } from "@/lib/site";
 
 export async function publishLinkedinDraft(draft: LinkedinDraft, locale: Locale = "en") {
   const accessToken = process.env.LINKEDIN_ACCESS_TOKEN;
-  const personUrn = process.env.LINKEDIN_PERSON_URN;
   const enabled = process.env.LINKEDIN_PUBLISH_ENABLED === "true";
   const localizedDraft = draft.locales[locale];
   const siteUrl = draft.urls[locale];
@@ -17,12 +17,14 @@ export async function publishLinkedinDraft(draft: LinkedinDraft, locale: Locale 
     } as const;
   }
 
-  if (!accessToken || !personUrn) {
+  if (!accessToken) {
     throw new Error("LinkedIn environment variables are missing.");
   }
 
+  const author = resolveLinkedinAuthorUrn(process.env);
+
   const payload = {
-    author: personUrn,
+    author: author.authorUrn,
     lifecycleState: "PUBLISHED",
     specificContent: {
       "com.linkedin.ugc.ShareContent": {
