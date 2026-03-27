@@ -404,29 +404,37 @@ export async function getActiveNewsPresence() {
 }
 
 export async function getExistingNewsSlugsBySourceUrls(sourceUrls: string[]) {
+  const rows = await getExistingNewsRowsBySourceUrls(sourceUrls);
+  return rows.map((row) => ({ source_url: row.source_url, slug: row.slug }));
+}
+
+export async function getExistingNewsRowsBySourceUrls(
+  sourceUrls: string[],
+  provider: DatabaseProvider = getDatabaseProvider(),
+) {
   if (sourceUrls.length === 0) {
-    return [];
+    return [] as NewsRowRecord[];
   }
 
-  if (getDatabaseProvider() === "postgres") {
-    const { rows } = await queryPostgres<{ source_url: string; slug: string }>(
-      "select source_url, slug from public.news where source_url = any($1::text[])",
+  if (provider === "postgres") {
+    const { rows } = await queryPostgres<NewsRowRecord>(
+      "select * from public.news where source_url = any($1::text[])",
       [sourceUrls],
     );
-    return rows;
+    return rows.map((row) => normalizeNewsRow(row));
   }
 
   const supabase = getSupabaseAdminClient();
   const { data, error } = await supabase
     .from("news")
-    .select("source_url, slug")
+    .select("*")
     .in("source_url", sourceUrls);
 
   if (error) {
     throw new Error(error.message);
   }
 
-  return (data ?? []) as Array<{ source_url: string; slug: string }>;
+  return (data ?? []).map((row) => normalizeNewsRow(row as Record<string, unknown>));
 }
 
 async function upsertNewsRowsForProvider(provider: DatabaseProvider, rows: NewsRowRecord[]) {
