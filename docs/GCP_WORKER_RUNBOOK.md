@@ -129,3 +129,13 @@ Quando a VM assumir de vez os jobs horarios e diarios, pause os schedules equiva
 - [news-sync.yml](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/.github/workflows/news-sync.yml)
 - [news-auto-publish.yml](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/.github/workflows/news-auto-publish.yml)
 - [daily-trend-briefing.yml](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/.github/workflows/daily-trend-briefing.yml)
+
+## Transicao atual recomendada
+
+Enquanto `ANTHROPIC_API_KEY`, `X_*` e `LINKEDIN_*` ainda nao estiverem configurados na VM:
+
+- a VM fica responsavel pelo `sync-news` horario
+- o GitHub Actions continua com enrichment e postagem social em [news-sync.yml](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/.github/workflows/news-sync.yml)
+- o briefing diario continua no GitHub Actions em [daily-trend-briefing.yml](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/.github/workflows/daily-trend-briefing.yml)
+
+Isso evita duplicidade no sync de RSS e mantem as integracoes sociais no caminho que ja tem credenciais configuradas.

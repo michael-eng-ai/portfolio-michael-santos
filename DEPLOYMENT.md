@@ -87,6 +87,7 @@ Optional but recommended:
 - Run `pnpm db:shadow:verify` before any future cutover
 - For worker-first cutover, set `DATABASE_PROVIDER=postgres` and `SECONDARY_DATABASE_PROVIDER=supabase` in `.env.worker.local`
 - This keeps the worker writing to PostgreSQL while mirroring writes back to Supabase for the still-live Vercel site
+- During the current transition, let the VM own hourly RSS sync and keep `.github/workflows/news-sync.yml` only for enrichment + X posting until social/API secrets are moved to the VM
 - Do not point Vercel to the VM PostgreSQL until the database is reachable from Vercel with a safe network path
 - The shadow database guide lives in [ops/gcp/worker/postgres/README.md](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/ops/gcp/worker/postgres/README.md)
 
