@@ -10,6 +10,7 @@ REMOTE_REPO_DIR="${REMOTE_REPO_DIR:-${REMOTE_APP_ROOT}/portfolio-michael-santos}
 REMOTE_ENV_DIR="${REMOTE_ENV_DIR:-/etc/michael-business}"
 REMOTE_ENV_FILE="${REMOTE_ENV_FILE:-${REMOTE_ENV_DIR}/worker.env}"
 ENABLE_TIMERS="${ENABLE_TIMERS:-0}"
+ENABLE_POSTGRES="${ENABLE_POSTGRES:-0}"
 PULL_VERCEL_ENV="${PULL_VERCEL_ENV:-1}"
 VERCEL_ENVIRONMENT="${VERCEL_ENVIRONMENT:-production}"
 LOCAL_ENV_FILE="${LOCAL_ENV_FILE:-${LOCAL_REPO_DIR}/.env.local}"
@@ -27,7 +28,8 @@ trap cleanup EXIT
 
 echo "Packing repository snapshot from ${LOCAL_REPO_DIR}"
 export COPYFILE_DISABLE=1
-git -C "$LOCAL_REPO_DIR" ls-files -z | tar --null -czf "$TMP_ARCHIVE" -C "$LOCAL_REPO_DIR" --files-from -
+git -C "$LOCAL_REPO_DIR" ls-files -z --cached --others --exclude-standard \
+  | tar --null -czf "$TMP_ARCHIVE" -C "$LOCAL_REPO_DIR" --files-from -
 
 if [[ "$PULL_VERCEL_ENV" == "1" ]]; then
   echo "Pulling Vercel env (${VERCEL_ENVIRONMENT})"
@@ -48,6 +50,15 @@ inputs = [Path(arg) for arg in sys.argv[2:] if arg]
 merged = {}
 allowed_keys = {
     "NEXT_PUBLIC_SITE_URL",
+    "DATABASE_PROVIDER",
+    "DATABASE_URL",
+    "DATABASE_SSL",
+    "POSTGRES_IMAGE",
+    "POSTGRES_CONTAINER_NAME",
+    "POSTGRES_DB",
+    "POSTGRES_USER",
+    "POSTGRES_PASSWORD",
+    "POSTGRES_PORT",
     "SUPABASE_URL",
     "SUPABASE_SERVICE_ROLE_KEY",
     "INDEXNOW_KEY",
@@ -133,6 +144,10 @@ sudo install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/gcp/worker/systemd/mic
 
 sudo -u michaelworker bash -lc 'cd "$REMOTE_REPO_DIR" && pnpm install --frozen-lockfile'
 
+if [[ "$ENABLE_POSTGRES" == "1" ]]; then
+  sudo bash "$REMOTE_REPO_DIR/ops/gcp/worker/postgres/bootstrap-postgres.sh" "$REMOTE_ENV_FILE" "$REMOTE_REPO_DIR"
+fi
+
 sudo systemctl daemon-reload
 
 if [[ "$ENABLE_TIMERS" == "1" ]]; then
@@ -144,5 +159,6 @@ EOF
 
 echo "Deploy complete"
 echo "Timers enabled: $ENABLE_TIMERS"
+echo "Postgres enabled: $ENABLE_POSTGRES"
 echo "Manual test:"
 echo "  gcloud compute ssh $INSTANCE_NAME --zone $ZONE --project $PROJECT_ID --command='sudo systemctl start michael-news-cycle.service'"

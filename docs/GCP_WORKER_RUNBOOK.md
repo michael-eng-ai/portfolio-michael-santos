@@ -13,6 +13,7 @@ Mover o pipeline stateful de noticias para a VM do GCP sem depender do schedule 
 - deploy script para publicar o snapshot atual do repositorio na VM
 - timers do systemd para o ciclo horario e o briefing diario
 - `.env.worker.local` como registro local das variaveis do worker
+- bootstrap opcional de PostgreSQL local para shadow database
 
 ## Status atual
 
@@ -23,6 +24,8 @@ Mover o pipeline stateful de noticias para a VM do GCP sem depender do schedule 
 - o primeiro teste mostrou que o env remoto estava sendo montado com placeholders vazios
 - o deploy script foi ajustado para priorizar valores locais nao vazios e usar `.env.worker.local` por padrao
 - o deploy agora filtra apenas as variaveis necessarias para o worker antes de enviar o env para a VM
+- o deploy agora consegue subir um PostgreSQL local com `ENABLE_POSTGRES=1`
+- existem scripts para sincronizar `Supabase -> PostgreSQL` e verificar consistencia antes do cutover
 
 ## Como publicar o worker na VM
 
@@ -30,6 +33,15 @@ Mover o pipeline stateful de noticias para a VM do GCP sem depender do schedule 
 cd /Users/michaelsantos/Documents/GitHub/portfolio-michael-santos
 ENABLE_TIMERS=0 ./ops/gcp/worker/deploy-to-vm.sh
 ```
+
+## Como subir o PostgreSQL sombra
+
+```bash
+cd /Users/michaelsantos/Documents/GitHub/portfolio-michael-santos
+ENABLE_TIMERS=0 ENABLE_POSTGRES=1 ./ops/gcp/worker/deploy-to-vm.sh
+```
+
+Depois disso, o banco fica disponivel apenas dentro da VM em `127.0.0.1:5432`.
 
 ## Como testar manualmente
 
@@ -59,6 +71,15 @@ Hoje isso cobre bem o sync com Supabase. Os passos opcionais de enrichment e soc
 As variaveis replicadas para a VM sao intencionalmente restritas a:
 
 - `NEXT_PUBLIC_SITE_URL`
+- `DATABASE_PROVIDER`
+- `DATABASE_URL`
+- `DATABASE_SSL`
+- `POSTGRES_IMAGE`
+- `POSTGRES_CONTAINER_NAME`
+- `POSTGRES_DB`
+- `POSTGRES_USER`
+- `POSTGRES_PASSWORD`
+- `POSTGRES_PORT`
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `INDEXNOW_KEY`
@@ -74,6 +95,16 @@ As variaveis replicadas para a VM sao intencionalmente restritas a:
 ## Registro local recomendado
 
 Use [`.env.worker.local.example`](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/.env.worker.local.example) como referencia e mantenha o arquivo real `.env.worker.local` fora do Git.
+
+## Como sincronizar e validar o banco sombra
+
+```bash
+gcloud compute ssh michael-news-worker-test --zone us-central1-a --project astute-veld-370221 --command='cd /opt/michael-business/portfolio-michael-santos && set -a && source /etc/michael-business/worker.env && set +a && pnpm db:shadow:sync'
+
+gcloud compute ssh michael-news-worker-test --zone us-central1-a --project astute-veld-370221 --command='cd /opt/michael-business/portfolio-michael-santos && set -a && source /etc/michael-business/worker.env && set +a && pnpm db:shadow:verify'
+```
+
+Esse fluxo mantem o site e os workers apontando para Supabase enquanto o PostgreSQL na VM e validado com dados reais.
 
 ## Observacao operacional
 

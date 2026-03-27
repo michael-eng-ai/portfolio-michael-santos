@@ -58,6 +58,8 @@ begin
 end;
 $$ language plpgsql;
 
+drop trigger if exists news_updated_at_trigger on public.news;
+
 create trigger news_updated_at_trigger
   before update on public.news
   for each row

@@ -26,6 +26,9 @@ Set these repository secrets only if you want to keep the manual GitHub Actions 
 
 Optional but recommended:
 
+- `DATABASE_PROVIDER`
+- `DATABASE_URL`
+- `DATABASE_SSL`
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `RESEND_API_KEY`
@@ -74,6 +77,14 @@ Optional but recommended:
 - Apply [news_reliability.sql](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/supabase/news_reliability.sql) on the existing Supabase project
 - Export a fresh fallback snapshot with `pnpm content:export:news-snapshot`
 - Monitor `https://michael.business/api/health/news` from UptimeRobot or another uptime service
+
+### VM shadow PostgreSQL
+- Keep production on Supabase while the VM PostgreSQL is validated
+- Add `DATABASE_URL` plus the `POSTGRES_*` variables to `.env.worker.local`
+- Deploy with `ENABLE_POSTGRES=1 ./ops/gcp/worker/deploy-to-vm.sh`
+- Run `pnpm db:shadow:sync` on the VM to copy `news` and `newsletter_subscribers`
+- Run `pnpm db:shadow:verify` before any future cutover
+- The shadow database guide lives in [ops/gcp/worker/postgres/README.md](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/ops/gcp/worker/postgres/README.md)
 
 ### GitHub sync and LinkedIn drafts
 - The scheduled workflow runs `pnpm content:sync:github`

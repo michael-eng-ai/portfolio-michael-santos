@@ -219,6 +219,9 @@ Or via workflow: `.github/workflows/deploy-vercel.yml`
 | `NEXT_PUBLIC_SITE_URL` | Site URL (https://michael.business) |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Google Analytics 4 ID |
 | `GOOGLE_SITE_VERIFICATION` | Google Search Console token |
+| `DATABASE_PROVIDER` | `supabase` or `postgres` during cutover work |
+| `DATABASE_URL` | PostgreSQL connection string for the VM shadow database |
+| `DATABASE_SSL` | Optional SSL mode for PostgreSQL (`require`) |
 | `SUPABASE_URL` | Supabase project URL |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase admin key |
 | `RESEND_API_KEY` | Resend email delivery |
@@ -274,6 +277,8 @@ pnpm content:local:automation -- --topic "topic"  # Full local pipeline
 pnpm content:sync:news        # RSS -> Supabase
 pnpm content:export:news-snapshot  # Supabase -> content/generated/news.json
 pnpm content:enrich:news      # Claude analysis -> Supabase
+pnpm db:shadow:sync           # Supabase -> PostgreSQL shadow database
+pnpm db:shadow:verify         # Compare Supabase and PostgreSQL shadow
 pnpm content:post:x           # News -> X
 pnpm content:daily:briefing   # Google News + Claude -> Supabase
 pnpm content:sync:github      # GitHub API -> generated/
@@ -323,7 +328,7 @@ pnpm build              # Full build (validate + Next.js)
 | editorial_analysis | jsonb | {en: string, pt: string} -- Claude generated |
 | category | jsonb | {en: string, pt: string} |
 | related_project_slugs | text[] | Links to project content |
-| published_at | text | YYYY-MM-DD |
+| published_at | timestamptz | Full publication timestamp |
 | posted_to_x_at | timestamptz | Null until posted |
 | is_active | boolean | Default true |
 
@@ -359,3 +364,5 @@ Apply [news_reliability.sql](/Users/michaelsantos/Documents/GitHub/portfolio-mic
 - delivery indexes
 
 The site now exposes [app/api/health/news/route.ts](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/app/api/health/news/route.ts), which returns `503` when Supabase is unavailable and the app is serving the fallback snapshot instead.
+
+For the VM database migration, keep `DATABASE_PROVIDER=supabase` in production while you validate the shadow PostgreSQL flow documented in [ops/gcp/worker/postgres/README.md](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/ops/gcp/worker/postgres/README.md) and [docs/GCP_WORKER_RUNBOOK.md](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/docs/GCP_WORKER_RUNBOOK.md).
