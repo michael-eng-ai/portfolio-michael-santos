@@ -4,30 +4,29 @@ const SITE_HOST = "michael.business";
 const MAX_POSTS_PER_RUN = 1;
 const LINKEDIN_API_BASE = "https://api.linkedin.com/v2";
 
-type ArticleRow = {
+type NewsRow = {
   slug: string;
+  source_name: string;
   locales: {
-    en: { title: string; summary: string; body: string };
-    pt: { title: string; summary: string; body: string };
+    en: { title: string; summary: string; whyItMatters: string };
+    pt: { title: string; summary: string; whyItMatters: string };
   };
   tags: string[];
+  editorial_analysis: { en: string; pt: string } | null;
   published_at: string;
   posted_to_linkedin_at: string | null;
 };
 
-function buildLinkedInPost(article: ArticleRow): string {
-  const content = article.locales.en;
-  const url = `https://${SITE_HOST}/en/articles/${article.slug}`;
+function buildLinkedInPost(news: NewsRow): string {
+  const content = news.locales.en;
+  const url = `https://${SITE_HOST}/en/news/${news.slug}`;
 
-  const firstParagraph = content.body
-    .split("\n\n")
-    .find((p) => p.length > 80 && !p.startsWith("#"));
+  const editorial = news.editorial_analysis?.en;
+  const excerpt = editorial
+    ? editorial.split("\n\n")[0].slice(0, 280)
+    : content.summary.slice(0, 280);
 
-  const excerpt = firstParagraph
-    ? firstParagraph.slice(0, 250).trimEnd() + (firstParagraph.length > 250 ? "..." : "")
-    : content.summary.slice(0, 250);
-
-  const hashtags = article.tags
+  const hashtags = news.tags
     .slice(0, 4)
     .map((t) => `#${t.replace(/[\s-]/g, "")}`)
     .join(" ");
@@ -83,19 +82,21 @@ async function main(): Promise<void> {
   const supabase = createClient(supabaseUrl, supabaseKey);
 
   const { data: unposted, error: fetchError } = await supabase
-    .from("articles")
-    .select("slug, locales, tags, published_at, posted_to_linkedin_at")
+    .from("news")
+    .select("slug, source_name, locales, tags, editorial_analysis, published_at, posted_to_linkedin_at")
     .is("posted_to_linkedin_at", null)
+    .not("editorial_analysis", "is", null)
+    .eq("is_active", true)
     .order("published_at", { ascending: false })
     .limit(MAX_POSTS_PER_RUN);
 
   if (fetchError) {
-    console.error("ERROR fetching articles:", fetchError.message);
+    console.error("ERROR fetching news:", fetchError.message);
     process.exit(1);
   }
 
   if (!unposted || unposted.length === 0) {
-    console.log("No unposted articles found");
+    console.log("No unposted news found");
     return;
   }
 
@@ -103,7 +104,7 @@ async function main(): Promise<void> {
 
   let posted = 0;
 
-  for (const article of unposted as ArticleRow[]) {
+  for (const article of unposted as NewsRow[]) {
     const text = buildLinkedInPost(article);
 
     try {
@@ -111,7 +112,7 @@ async function main(): Promise<void> {
       console.log(`POSTED: ${article.slug} -> LinkedIn post ${postId}`);
 
       const { error: updateError } = await supabase
-        .from("articles")
+        .from("news")
         .update({ posted_to_linkedin_at: new Date().toISOString() })
         .eq("slug", article.slug);
 
@@ -126,7 +127,7 @@ async function main(): Promise<void> {
     }
   }
 
-  console.log(`SUCCESS: ${posted}/${unposted.length} articles posted to LinkedIn`);
+  console.log(`SUCCESS: ${posted}/${unposted.length} news posted to LinkedIn`);
 }
 
 main().catch((error) => {
