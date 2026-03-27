@@ -17,7 +17,7 @@ import { toErrorMessage, withRetry } from "@/lib/runtime";
 import { getTagHashtag, BROAD_HASHTAGS } from "@/lib/tags";
 
 const SITE_HOST = "michael.business";
-const MAX_POSTS_PER_RUN = 3;
+const MAX_POSTS_PER_RUN = 1;
 const TWEET_MAX_LENGTH = 280;
 
 type NewsRow = Record<string, unknown> & {

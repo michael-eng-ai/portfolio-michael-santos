@@ -25,6 +25,18 @@ const tasks: Record<WorkerTask, Step[]> = {
       optional: true,
     },
     {
+      label: "Curate top news for today",
+      script: "content:curate:news",
+      requiredEnv: ["__WRITE_DATABASE__", "ANTHROPIC_API_KEY"],
+      optional: true,
+    },
+    {
+      label: "Cleanup old news items",
+      script: "content:cleanup:news",
+      requiredEnv: ["__WRITE_DATABASE__"],
+      optional: true,
+    },
+    {
       label: "Post news to X",
       script: "content:post:x",
       requiredEnv: [

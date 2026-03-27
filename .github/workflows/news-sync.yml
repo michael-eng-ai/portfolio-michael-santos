@@ -3,7 +3,7 @@ name: News Sync
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 */8 * * *"
 
 concurrency:
   group: news-sync
@@ -20,6 +20,8 @@ jobs:
         with:
           sparse-checkout: |
             scripts/enrich-news.ts
+            scripts/curate-news.ts
+            scripts/cleanup-old-news.ts
             scripts/post-news-to-x.ts
             lib/
             patches/
@@ -47,6 +49,21 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
+      - name: Curate top news for today
+        if: vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
+        run: pnpm content:curate:news
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Cleanup old news items
+        if: vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
+        run: pnpm content:cleanup:news
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
       - name: Post new news to X
         if: vars.VM_OWNS_X_POSTING != 'true'
         run: pnpm content:post:x
@@ -69,3 +86,13 @@ jobs:
             echo "- Verify \`/api/health/news\` on the site."
             echo "- Confirm Supabase and social credentials are still valid."
           } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Create failure issue
+        if: failure()
+        run: |
+          gh issue create \
+            --title "[pipeline] ${{ github.workflow }} failed" \
+            --body "Workflow: ${{ github.workflow }}\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\nRef: ${{ github.ref }}" \
+            --label "pipeline-failure" || true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
