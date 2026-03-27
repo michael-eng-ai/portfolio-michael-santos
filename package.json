@@ -20,6 +20,7 @@
     "content:linkedin": "tsx scripts/generate-linkedin-drafts.ts",
     "content:x": "tsx scripts/generate-x-drafts.ts",
     "content:post:x": "tsx scripts/post-news-to-x.ts",
+    "content:post:linkedin": "tsx scripts/post-to-linkedin.ts",
     "content:daily:briefing": "tsx scripts/generate-daily-trend-briefing.ts",
     "content:local:automation": "tsx scripts/run-local-content-automation.ts",
     "content:pipeline": "pnpm content:sync:news && pnpm content:sync:github && pnpm content:linkedin && pnpm content:x && pnpm content:validate",

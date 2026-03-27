@@ -21,8 +21,9 @@ export const siteConfig = {
   name: "Michael Santos",
   role: "Data Engineering & AI",
   title: "Michael Barbosa Santos | Senior Data Engineer",
+  tagline: "Growth starts with your data.",
   description:
-    "A bilingual publication on data engineering and AI focused on business problems, market signals, and the technical paths that make solutions real.",
+    "Turning raw data into real-time decisions. Data pipelines, lakehouse architectures, and AI infrastructure that drive business growth.",
   url: "https://michael.business",
   location: "Fortaleza, Brazil",
   email: "eng.michaelbarbosa@hotmail.com",
