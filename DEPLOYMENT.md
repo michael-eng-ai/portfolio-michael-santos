@@ -88,6 +88,7 @@ Optional but recommended:
 - For worker-first cutover, set `DATABASE_PROVIDER=postgres` and `SECONDARY_DATABASE_PROVIDER=supabase` in `.env.worker.local`
 - This keeps the worker writing to PostgreSQL while mirroring writes back to Supabase for the still-live Vercel site
 - During the current transition, let the VM own hourly RSS sync and keep `.github/workflows/news-sync.yml` only for enrichment + X posting until social/API secrets are moved to the VM
+- Once the VM receives the matching secrets, set the GitHub repository variables `VM_OWNS_NEWS_ENRICHMENT`, `VM_OWNS_X_POSTING`, `VM_OWNS_DAILY_BRIEFING`, and `VM_OWNS_LINKEDIN_POSTING` to `true`
 - Do not point Vercel to the VM PostgreSQL until the database is reachable from Vercel with a safe network path
 - The shadow database guide lives in [ops/gcp/worker/postgres/README.md](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/ops/gcp/worker/postgres/README.md)
 

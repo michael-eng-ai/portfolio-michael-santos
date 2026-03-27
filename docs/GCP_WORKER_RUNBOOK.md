@@ -139,3 +139,10 @@ Enquanto `ANTHROPIC_API_KEY`, `X_*` e `LINKEDIN_*` ainda nao estiverem configura
 - o briefing diario continua no GitHub Actions em [daily-trend-briefing.yml](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/.github/workflows/daily-trend-briefing.yml)
 
 Isso evita duplicidade no sync de RSS e mantem as integracoes sociais no caminho que ja tem credenciais configuradas.
+
+Quando as chaves forem configuradas na VM, use estas repository variables no GitHub para desligar os passos equivalentes no Actions sem editar workflow:
+
+- `VM_OWNS_NEWS_ENRICHMENT=true`
+- `VM_OWNS_X_POSTING=true`
+- `VM_OWNS_DAILY_BRIEFING=true`
+- `VM_OWNS_LINKEDIN_POSTING=true`
