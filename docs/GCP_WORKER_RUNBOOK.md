@@ -25,6 +25,7 @@ Mover o pipeline stateful de noticias para a VM do GCP sem depender do schedule 
 - o deploy script foi ajustado para priorizar valores locais nao vazios e usar `.env.worker.local` por padrao
 - o deploy agora filtra apenas as variaveis necessarias para o worker antes de enviar o env para a VM
 - o deploy agora consegue subir um PostgreSQL local com `ENABLE_POSTGRES=1`
+- o bootstrap do PostgreSQL detecta o UID/GID do usuario `postgres` da imagem para evitar drift de permissao no volume
 - existem scripts para sincronizar `Supabase -> PostgreSQL` e verificar consistencia antes do cutover
 
 ## Como publicar o worker na VM

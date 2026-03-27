@@ -2,7 +2,12 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { z } from "zod";
 
-import { getSupabaseAdminClient } from "@/lib/supabase";
+import {
+  getActiveNewsPresence,
+  getActiveNewsRowBySlug,
+  getDatabaseProvider,
+  listActiveNewsRows,
+} from "@/lib/database";
 import { toErrorMessage } from "@/lib/runtime";
 
 export const localizedTextSchema = z.object({
@@ -299,28 +304,19 @@ function mapSupabaseRowToNews(row: Record<string, unknown>): NewsReference {
 
 export async function getNewsReferences(): Promise<NewsReference[]> {
   try {
-    const supabase = getSupabaseAdminClient();
-
-    const { data, error } = await supabase
-      .from("news")
-      .select("*")
-      .eq("is_active", true)
-      .order("published_at", { ascending: false });
-
-    if (error) {
-      console.error("Failed to fetch news from Supabase", { event: "supabase_news_fetch_error", message: error.message });
-      const fallback = await readFallbackNewsReferences();
-      return fallback;
-    }
-
     const results: NewsReference[] = [];
-    for (const row of data ?? []) {
+    for (const row of await listActiveNewsRows()) {
       try {
         results.push(mapSupabaseRowToNews(row));
       } catch (parseError) {
-        console.error("Skipping invalid news row", { event: "supabase_news_parse_error", slug: (row as Record<string, unknown>).slug, error: parseError });
+        console.error("Skipping invalid news row", {
+          event: "database_news_parse_error",
+          slug: (row as Record<string, unknown>).slug,
+          error: parseError,
+        });
       }
     }
+
     if (results.length === 0) {
       return await readFallbackNewsReferences();
     }
@@ -334,16 +330,9 @@ export async function getNewsReferences(): Promise<NewsReference[]> {
 
 export async function getNewsReferenceBySlug(slug: string): Promise<NewsReference | null> {
   try {
-    const supabase = getSupabaseAdminClient();
+    const data = await getActiveNewsRowBySlug(slug);
 
-    const { data, error } = await supabase
-      .from("news")
-      .select("*")
-      .eq("slug", slug)
-      .eq("is_active", true)
-      .single();
-
-    if (error || !data) {
+    if (!data) {
       const fallbackEntries = await readFallbackNewsReferences();
       return fallbackEntries.find((entry) => entry.slug === slug) ?? null;
     }
@@ -357,28 +346,15 @@ export async function getNewsReferenceBySlug(slug: string): Promise<NewsReferenc
 
 export async function getNewsHealthStatus() {
   const fallbackEntries = await readFallbackNewsReferences();
+  const provider = getDatabaseProvider();
 
   try {
-    const supabase = getSupabaseAdminClient();
-    const { data, error } = await supabase
-      .from("news")
-      .select("slug")
-      .eq("is_active", true)
-      .limit(1);
-
-    if (error) {
-      return {
-        ok: false,
-        source: "fallback" as const,
-        fallbackCount: fallbackEntries.length,
-        error: error.message,
-      };
-    }
+    const activeCount = await getActiveNewsPresence();
 
     return {
       ok: true,
-      source: "supabase" as const,
-      activeCount: data?.length ?? 0,
+      source: provider,
+      activeCount,
       fallbackCount: fallbackEntries.length,
     };
   } catch (error) {

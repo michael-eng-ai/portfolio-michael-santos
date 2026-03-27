@@ -2,9 +2,9 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 
 import Anthropic from "@anthropic-ai/sdk";
-import { createClient } from "@supabase/supabase-js";
 import Parser from "rss-parser";
 
+import { getRequiredPrimaryDatabaseEnvKeys, listActiveNewsRows, upsertNewsRows } from "@/lib/database";
 import { articleSchema, newsSchema } from "@/lib/content";
 import { writeNewsSnapshot } from "@/lib/news-utils";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
@@ -218,12 +218,11 @@ async function writeBriefingArticle(slug: string, briefing: BriefingContent, pub
 }
 
 async function main(): Promise<void> {
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
+  const missingDatabaseEnv = getRequiredPrimaryDatabaseEnvKeys().filter((key) => !process.env[key]);
 
-  if (!supabaseUrl || !supabaseKey) {
-    console.error("ERROR: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set");
+  if (missingDatabaseEnv.length > 0) {
+    console.error(`ERROR: Missing required database env vars: ${missingDatabaseEnv.join(", ")}`);
     process.exit(1);
   }
 
@@ -280,10 +279,6 @@ async function main(): Promise<void> {
 
   await writeBriefingArticle(slug, briefing, nowIso);
 
-  const supabase = createClient(supabaseUrl, supabaseKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-
   const row = {
     slug,
     published_at: nowIso,
@@ -312,26 +307,12 @@ async function main(): Promise<void> {
     is_active: true,
   };
 
-  const { error: upsertError } = await supabase
-    .from("news")
-    .upsert(row, { onConflict: "source_url" });
+  await upsertNewsRows([row]);
 
-  if (upsertError) {
-    console.error(`ERROR: Supabase upsert failed: ${upsertError.message}`);
-    process.exit(1);
-  }
-
-  const { data: activeRows, error: snapshotError } = await supabase
-    .from("news")
-    .select("*")
-    .eq("is_active", true)
-    .order("published_at", { ascending: false });
-
-  if (snapshotError) {
-    console.warn(`WARNING: failed to refresh news snapshot after daily briefing: ${snapshotError.message}`);
-  } else {
+  try {
+    const activeRows = await listActiveNewsRows();
     await writeNewsSnapshot(
-      (activeRows ?? []).map((row) =>
+      activeRows.map((row) =>
         newsSchema.parse({
           slug: row.slug,
           publishedAt: row.published_at,
@@ -346,6 +327,8 @@ async function main(): Promise<void> {
         }),
       ),
     );
+  } catch (snapshotError) {
+    console.warn(`WARNING: failed to refresh news snapshot after daily briefing: ${toErrorMessage(snapshotError)}`);
   }
 
   console.log(`PUBLISHED: ${slug}`);

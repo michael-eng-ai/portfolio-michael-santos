@@ -1,5 +1,7 @@
 import { spawn } from "node:child_process";
 
+import { getRequiredPrimaryDatabaseEnvKeys } from "@/lib/database";
+
 type WorkerTask = "news-cycle" | "daily-cycle";
 
 type Step = {
@@ -9,26 +11,24 @@ type Step = {
   optional?: boolean;
 };
 
-const sharedSupabaseEnv = ["SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"];
-
 const tasks: Record<WorkerTask, Step[]> = {
   "news-cycle": [
     {
       label: "Sync RSS news",
       script: "content:sync:news",
-      requiredEnv: sharedSupabaseEnv,
+      requiredEnv: ["__PRIMARY_DATABASE__"],
     },
     {
       label: "Enrich news with Claude",
       script: "content:enrich:news",
-      requiredEnv: [...sharedSupabaseEnv, "ANTHROPIC_API_KEY"],
+      requiredEnv: ["__PRIMARY_DATABASE__", "ANTHROPIC_API_KEY"],
       optional: true,
     },
     {
       label: "Post news to X",
       script: "content:post:x",
       requiredEnv: [
-        ...sharedSupabaseEnv,
+        "__PRIMARY_DATABASE__",
         "X_API_KEY",
         "X_API_SECRET",
         "X_ACCESS_TOKEN",
@@ -41,14 +41,14 @@ const tasks: Record<WorkerTask, Step[]> = {
     {
       label: "Generate daily trend briefing",
       script: "content:daily:briefing",
-      requiredEnv: [...sharedSupabaseEnv, "ANTHROPIC_API_KEY"],
+      requiredEnv: ["__PRIMARY_DATABASE__", "ANTHROPIC_API_KEY"],
       optional: true,
     },
     {
       label: "Post latest news to LinkedIn",
       script: "content:post:linkedin",
       requiredEnv: [
-        ...sharedSupabaseEnv,
+        "__PRIMARY_DATABASE__",
         "LINKEDIN_ACCESS_TOKEN",
       ],
       optional: true,
@@ -57,7 +57,9 @@ const tasks: Record<WorkerTask, Step[]> = {
 };
 
 function getMissingEnv(requiredEnv: string[]) {
-  return requiredEnv.filter((key) => !process.env[key]);
+  return requiredEnv.flatMap((key) =>
+    key.split(",").map((entry) => entry.trim()).filter((entry) => entry.length > 0 && !process.env[entry]),
+  );
 }
 
 function runPnpmScript(script: string) {
@@ -88,7 +90,14 @@ async function main() {
     process.exit(1);
   }
 
+  const sharedDatabaseEnv = getRequiredPrimaryDatabaseEnvKeys();
   const pipeline = tasks[taskName];
+
+  for (const step of pipeline) {
+    step.requiredEnv = step.requiredEnv.map((entry) =>
+      entry === "__PRIMARY_DATABASE__" ? sharedDatabaseEnv.join(",") : entry,
+    );
+  }
 
   for (const step of pipeline) {
     const missing = getMissingEnv(step.requiredEnv);

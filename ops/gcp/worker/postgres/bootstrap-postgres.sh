@@ -20,6 +20,8 @@ POSTGRES_USER="${POSTGRES_USER:-michael_business}"
 POSTGRES_PASSWORD="${POSTGRES_PASSWORD:-}"
 POSTGRES_PORT="${POSTGRES_PORT:-5432}"
 POSTGRES_DATA_DIR="${POSTGRES_DATA_DIR:-/var/lib/michael-business/postgres-data}"
+POSTGRES_RUNTIME_UID="${POSTGRES_RUNTIME_UID:-}"
+POSTGRES_RUNTIME_GID="${POSTGRES_RUNTIME_GID:-}"
 POSTGRES_INIT_DIR="${REPO_DIR}/ops/gcp/worker/postgres/init"
 
 if [[ -z "$POSTGRES_PASSWORD" ]]; then
@@ -38,9 +40,22 @@ if [[ ! -d "$POSTGRES_INIT_DIR" ]]; then
 fi
 
 mkdir -p "$POSTGRES_DATA_DIR"
-chown -R 999:999 "$POSTGRES_DATA_DIR"
-
 docker pull "$POSTGRES_IMAGE" >/dev/null
+
+if [[ -z "$POSTGRES_RUNTIME_UID" ]]; then
+  POSTGRES_RUNTIME_UID="$(docker run --rm --entrypoint sh "$POSTGRES_IMAGE" -lc 'id -u postgres')"
+fi
+
+if [[ -z "$POSTGRES_RUNTIME_GID" ]]; then
+  POSTGRES_RUNTIME_GID="$(docker run --rm --entrypoint sh "$POSTGRES_IMAGE" -lc 'id -g postgres')"
+fi
+
+if [[ -z "$POSTGRES_RUNTIME_UID" || -z "$POSTGRES_RUNTIME_GID" ]]; then
+  echo "Could not resolve postgres runtime UID/GID for image $POSTGRES_IMAGE." >&2
+  exit 1
+fi
+
+chown -R "${POSTGRES_RUNTIME_UID}:${POSTGRES_RUNTIME_GID}" "$POSTGRES_DATA_DIR"
 
 if docker ps --format '{{.Names}}' | grep -qx "$POSTGRES_CONTAINER_NAME"; then
   echo "PostgreSQL container already running: $POSTGRES_CONTAINER_NAME"

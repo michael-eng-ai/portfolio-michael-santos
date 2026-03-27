@@ -1,9 +1,13 @@
-import { createClient } from "@supabase/supabase-js";
 import { TwitterApi } from "twitter-api-v2";
 
 import {
+  getActiveNewsSampleRow,
+  getRequiredPrimaryDatabaseEnvKeys,
+  listPendingNewsRowsForDelivery,
+  updateNewsRowBySlug,
+} from "@/lib/database";
+import {
   buildDeliveryFailurePatch,
-  buildDeliverySelectColumns,
   buildDeliveryStartPatch,
   buildDeliverySuccessPatch,
   selectDueDeliveryRows,
@@ -82,15 +86,14 @@ function buildTweet(news: NewsRow, index: number): string {
 }
 
 async function main() {
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const apiKey = process.env.X_API_KEY;
   const apiSecret = process.env.X_API_SECRET;
   const accessToken = process.env.X_ACCESS_TOKEN;
   const accessTokenSecret = process.env.X_ACCESS_TOKEN_SECRET;
+  const missingDatabaseEnv = getRequiredPrimaryDatabaseEnvKeys().filter((key) => !process.env[key]);
 
-  if (!supabaseUrl || !supabaseKey) {
-    console.error("ERROR: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set");
+  if (missingDatabaseEnv.length > 0) {
+    console.error(`ERROR: Missing required database env vars: ${missingDatabaseEnv.join(", ")}`);
     process.exit(1);
   }
 
@@ -99,10 +102,6 @@ async function main() {
     process.exit(1);
   }
 
-  const supabase = createClient(supabaseUrl, supabaseKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-
   const twitter = new TwitterApi({
     appKey: apiKey,
     appSecret: apiSecret,
@@ -110,34 +109,9 @@ async function main() {
     accessSecret: accessTokenSecret,
   });
 
-  const { data: sampleRows, error: sampleError } = await supabase
-    .from("news")
-    .select("*")
-    .eq("is_active", true)
-    .limit(1);
-
-  if (sampleError) {
-    console.error("ERROR: failed to inspect news delivery schema", sampleError.message);
-    process.exit(1);
-  }
-
-  const queueSupported = supportsDeliveryQueue((sampleRows ?? [])[0] as Record<string, unknown> | undefined, "x");
-  const selectColumns = queueSupported
-    ? buildDeliverySelectColumns("x", ["slug", "source_name", "published_at", "locales", "tags", "editorial_analysis"])
-    : "slug, source_name, published_at, posted_to_x_at, locales, tags, editorial_analysis";
-
-  const { data: unposted, error: fetchError } = await supabase
-    .from("news")
-    .select(selectColumns)
-    .eq("is_active", true)
-    .is("posted_to_x_at", null)
-    .order("published_at", { ascending: true })
-    .limit(queueSupported ? 50 : MAX_POSTS_PER_RUN);
-
-  if (fetchError) {
-    console.error("ERROR: failed to query unposted news", fetchError.message);
-    process.exit(1);
-  }
+  const sampleRow = await getActiveNewsSampleRow();
+  const queueSupported = supportsDeliveryQueue(sampleRow as Record<string, unknown> | undefined, "x");
+  const unposted = await listPendingNewsRowsForDelivery("x", queueSupported ? 50 : MAX_POSTS_PER_RUN);
 
   if (!unposted || unposted.length === 0) {
     console.log("No unposted news items found. Nothing to do.");
@@ -163,13 +137,10 @@ async function main() {
     const nextAttemptCount = Number(news.x_attempt_count ?? 0) + 1;
 
     if (queueSupported) {
-      const { error: startError } = await supabase
-        .from("news")
-        .update(buildDeliveryStartPatch("x", nextAttemptCount))
-        .eq("slug", news.slug);
-
-      if (startError) {
-        console.warn(`SKIPPED: ${news.slug} -- failed to mark X delivery attempt: ${startError.message}`);
+      try {
+        await updateNewsRowBySlug(news.slug, buildDeliveryStartPatch("x", nextAttemptCount));
+      } catch (startError) {
+        console.warn(`SKIPPED: ${news.slug} -- failed to mark X delivery attempt: ${toErrorMessage(startError)}`);
         continue;
       }
     }
@@ -195,20 +166,16 @@ async function main() {
         ? buildDeliverySuccessPatch("x", nextAttemptCount, result.data.id)
         : { posted_to_x_at: new Date().toISOString() };
 
-      const { error: updateError } = await withRetry(
-        async () =>
-          await supabase
-            .from("news")
-            .update(successPatch)
-            .eq("slug", news.slug),
-        {
-          attempts: 5,
-          delayMs: 500,
-        },
-      );
-
-      if (updateError) {
-        console.warn(`WARNING: posted tweet but failed to persist X delivery state for ${news.slug}: ${updateError.message}`);
+      try {
+        await withRetry(
+          () => updateNewsRowBySlug(news.slug, successPatch),
+          {
+            attempts: 5,
+            delayMs: 500,
+          },
+        );
+      } catch (updateError) {
+        console.warn(`WARNING: posted tweet but failed to persist X delivery state for ${news.slug}: ${toErrorMessage(updateError)}`);
       }
 
       posted += 1;
@@ -219,20 +186,16 @@ async function main() {
         : "";
 
       if (queueSupported) {
-        const { error: failureUpdateError } = await withRetry(
-          async () =>
-            await supabase
-              .from("news")
-              .update(buildDeliveryFailurePatch("x", nextAttemptCount, `${message}${details ? ` | ${details}` : ""}`))
-              .eq("slug", news.slug),
-          {
-            attempts: 3,
-            delayMs: 500,
-          },
-        );
-
-        if (failureUpdateError) {
-          console.warn(`WARNING: failed to persist X retry state for ${news.slug}: ${failureUpdateError.message}`);
+        try {
+          await withRetry(
+            () => updateNewsRowBySlug(news.slug, buildDeliveryFailurePatch("x", nextAttemptCount, `${message}${details ? ` | ${details}` : ""}`)),
+            {
+              attempts: 3,
+              delayMs: 500,
+            },
+          );
+        } catch (failureUpdateError) {
+          console.warn(`WARNING: failed to persist X retry state for ${news.slug}: ${toErrorMessage(failureUpdateError)}`);
         }
       }
 

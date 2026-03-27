@@ -12,6 +12,7 @@ Arquivos para subir um PostgreSQL local na VM do GCP como banco sombra do projet
 
 1. O deploy da VM envia as variaveis `DATABASE_URL` e `POSTGRES_*`.
 2. Com `ENABLE_POSTGRES=1`, o script [bootstrap-postgres.sh](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/ops/gcp/worker/postgres/bootstrap-postgres.sh) sobe um container `postgres:16-alpine`.
+   Antes de iniciar, ele detecta automaticamente o UID/GID do usuario `postgres` dentro da imagem e ajusta o volume local para evitar erros de permissao no `pg_filenode.map`.
 3. Na primeira inicializacao, o container aplica:
    - [news.sql](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/supabase/news.sql)
    - [newsletter_subscribers.sql](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/supabase/newsletter_subscribers.sql)

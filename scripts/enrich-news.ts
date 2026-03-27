@@ -1,6 +1,10 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { createClient } from "@supabase/supabase-js";
 
+import {
+  getRequiredPrimaryDatabaseEnvKeys,
+  listUnenrichedNewsRows,
+  updateNewsRowBySlug,
+} from "@/lib/database";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
 
 const MAX_ITEMS_PER_RUN = 5;
@@ -69,12 +73,11 @@ function parseAnalysis(response: string): EditorialAnalysis {
 }
 
 async function main(): Promise<void> {
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
+  const missingDatabaseEnv = getRequiredPrimaryDatabaseEnvKeys().filter((key) => !process.env[key]);
 
-  if (!supabaseUrl || !supabaseKey) {
-    console.error("ERROR: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set");
+  if (missingDatabaseEnv.length > 0) {
+    console.error(`ERROR: Missing required database env vars: ${missingDatabaseEnv.join(", ")}`);
     process.exit(1);
   }
 
@@ -83,24 +86,8 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  const supabase = createClient(supabaseUrl, supabaseKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-
   const anthropic = new Anthropic({ apiKey: anthropicKey });
-
-  const { data: unenriched, error: fetchError } = await supabase
-    .from("news")
-    .select("slug, source_name, source_url, tags, locales")
-    .is("editorial_analysis", null)
-    .eq("is_active", true)
-    .order("published_at", { ascending: true })
-    .limit(MAX_ITEMS_PER_RUN);
-
-  if (fetchError) {
-    console.error("ERROR: failed to query unenriched news", fetchError.message);
-    process.exit(1);
-  }
+  const unenriched = await listUnenrichedNewsRows(MAX_ITEMS_PER_RUN);
 
   if (!unenriched || unenriched.length === 0) {
     console.log("All news items already enriched. Nothing to do.");
@@ -112,7 +99,7 @@ async function main(): Promise<void> {
   let enriched = 0;
 
   for (const row of unenriched) {
-    const news = row as NewsRow;
+    const news = row as unknown as NewsRow;
     const prompt = buildPrompt(news);
 
     try {
@@ -144,23 +131,14 @@ async function main(): Promise<void> {
 
       const analysis = parseAnalysis(textBlock.text);
 
-      const { error: updateError } = await withRetry(
-        async () =>
-          await supabase
-            .from("news")
-            .update({ editorial_analysis: analysis })
-            .eq("slug", news.slug),
+      await withRetry(
+        () => updateNewsRowBySlug(news.slug, { editorial_analysis: analysis }),
         {
           attempts: 3,
           delayMs: 500,
           shouldRetry: (error) => toErrorMessage(error).length > 0,
         },
       );
-
-      if (updateError) {
-        console.warn(`SKIPPED: ${news.slug} -- Supabase update failed: ${updateError.message}`);
-        continue;
-      }
 
       console.log(`ENRICHED: ${news.slug} (en: ${analysis.en.length} chars, pt: ${analysis.pt.length} chars)`);
       enriched += 1;

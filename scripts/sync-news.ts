@@ -1,10 +1,15 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
-import { createClient } from "@supabase/supabase-js";
 import Parser from "rss-parser";
 import { z } from "zod";
 
+import {
+  getExistingNewsSlugsBySourceUrls,
+  getRequiredPrimaryDatabaseEnvKeys,
+  listActiveNewsRows,
+  upsertNewsRows,
+} from "@/lib/database";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { newsSchema, type NewsReference } from "@/lib/content";
 import { buildStableNewsSlug, detectTags, normalizePublishedAt, writeNewsSnapshot } from "@/lib/news-utils";
@@ -179,17 +184,12 @@ function toSupabaseRow(entry: NewsReference) {
 }
 
 async function main() {
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const missingDatabaseEnv = getRequiredPrimaryDatabaseEnvKeys().filter((key) => !process.env[key]);
 
-  if (!supabaseUrl || !supabaseKey) {
-    console.error("ERROR: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set");
+  if (missingDatabaseEnv.length > 0) {
+    console.error(`ERROR: Missing required database env vars: ${missingDatabaseEnv.join(", ")}`);
     process.exit(1);
   }
-
-  const supabase = createClient(supabaseUrl, supabaseKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
 
   const catalogPath = path.join(process.cwd(), "content", "sources", "news-feeds.json");
   const rawCatalog = await fs.readFile(catalogPath, "utf8");
@@ -259,18 +259,8 @@ async function main() {
     return;
   }
 
-  const { data: existingRows, error: existingRowsError } = await supabase
-    .from("news")
-    .select("source_url, slug")
-    .in("source_url", sorted.map((item) => item.sourceUrl));
-
-  if (existingRowsError) {
-    console.error("ERROR: failed to fetch existing slugs", existingRowsError.message);
-    process.exit(1);
-  }
-
   const existingSlugBySourceUrl = new Map<string, string>();
-  for (const row of existingRows ?? []) {
+  for (const row of await getExistingNewsSlugsBySourceUrls(sorted.map((item) => item.sourceUrl))) {
     const sourceUrl = row.source_url;
     const slug = row.slug;
 
@@ -286,29 +276,14 @@ async function main() {
     }),
   );
 
-  const { data, error } = await supabase
-    .from("news")
-    .upsert(rows, { onConflict: "source_url" })
-    .select("*");
+  const data = await upsertNewsRows(rows);
 
-  if (error) {
-    console.error("ERROR: Supabase upsert failed", error.message);
-    process.exit(1);
-  }
+  console.log(`SUCCESS: ${data.length} news items upserted into the primary database (zero commits needed)`);
 
-  console.log(`SUCCESS: ${data.length} news items upserted into Supabase (zero commits needed)`);
-
-  const { data: activeRows, error: activeRowsError } = await supabase
-    .from("news")
-    .select("*")
-    .eq("is_active", true)
-    .order("published_at", { ascending: false });
-
-  if (activeRowsError) {
-    console.warn(`WARNING: failed to refresh news snapshot after sync: ${activeRowsError.message}`);
-  } else {
+  try {
+    const activeRows = await listActiveNewsRows();
     await writeNewsSnapshot(
-      (activeRows ?? []).map((row) =>
+      activeRows.map((row) =>
         newsSchema.parse({
           slug: row.slug,
           publishedAt: row.published_at,
@@ -323,6 +298,8 @@ async function main() {
         }),
       ),
     );
+  } catch (snapshotError) {
+    console.warn(`WARNING: failed to refresh news snapshot after sync: ${toErrorMessage(snapshotError)}`);
   }
 
   await notifyIndexNow(rows.map((item) => item.slug));

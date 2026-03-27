@@ -1,13 +1,12 @@
-import { createClient } from "@supabase/supabase-js";
-
+import {
+  getActiveNewsSampleRow,
+  getRequiredPrimaryDatabaseEnvKeys,
+  listPendingNewsRowsForDelivery,
+  updateNewsRowBySlug,
+} from "@/lib/database";
 import { resolveLinkedinAuthorUrn } from "@/lib/linkedin-author";
 import {
-  buildDeliveryFailurePatch,
-  buildDeliverySelectColumns,
-  buildDeliveryStartPatch,
-  buildDeliverySuccessPatch,
-  selectDueDeliveryRows,
-  supportsDeliveryQueue,
+  buildDeliveryFailurePatch, buildDeliveryStartPatch, buildDeliverySuccessPatch, selectDueDeliveryRows, supportsDeliveryQueue,
 } from "@/lib/news-delivery";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
 
@@ -81,9 +80,8 @@ async function postToLinkedIn(accessToken: string, authorUrn: string, text: stri
 }
 
 async function main(): Promise<void> {
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const accessToken = process.env.LINKEDIN_ACCESS_TOKEN;
+  const missingDatabaseEnv = getRequiredPrimaryDatabaseEnvKeys().filter((key) => !process.env[key]);
   let author: ReturnType<typeof resolveLinkedinAuthorUrn> | null = null;
 
   if (accessToken) {
@@ -94,42 +92,15 @@ async function main(): Promise<void> {
     }
   }
 
-  if (!supabaseUrl || !supabaseKey || !accessToken || !author) {
-    console.error("ERROR: Missing required env vars (SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, LINKEDIN_ACCESS_TOKEN, LINKEDIN_PERSON_URN or LINKEDIN_ORGANIZATION_URN)");
+  if (missingDatabaseEnv.length > 0 || !accessToken || !author) {
+    console.error(`ERROR: Missing required env vars (${[...missingDatabaseEnv, "LINKEDIN_ACCESS_TOKEN", "LINKEDIN_PERSON_URN or LINKEDIN_ORGANIZATION_URN"].join(", ")})`);
     process.exit(1);
   }
-
-  const supabase = createClient(supabaseUrl, supabaseKey);
-
-  const { data: sampleRows, error: sampleError } = await supabase
-    .from("news")
-    .select("*")
-    .eq("is_active", true)
-    .limit(1);
-
-  if (sampleError) {
-    console.error("ERROR: failed to inspect LinkedIn delivery schema", sampleError.message);
-    process.exit(1);
-  }
-
-  const queueSupported = supportsDeliveryQueue((sampleRows ?? [])[0] as Record<string, unknown> | undefined, "linkedin");
-  const selectColumns = queueSupported
-    ? buildDeliverySelectColumns("linkedin", ["slug", "source_name", "locales", "tags", "editorial_analysis", "published_at", "posted_to_linkedin_at"])
-    : "slug, source_name, locales, tags, editorial_analysis, published_at, posted_to_linkedin_at";
-
-  const { data: unposted, error: fetchError } = await supabase
-    .from("news")
-    .select(selectColumns)
-    .is("posted_to_linkedin_at", null)
-    .not("editorial_analysis", "is", null)
-    .eq("is_active", true)
-    .order("published_at", { ascending: true })
-    .limit(queueSupported ? 25 : MAX_POSTS_PER_RUN);
-
-  if (fetchError) {
-    console.error("ERROR fetching news:", fetchError.message);
-    process.exit(1);
-  }
+  const sampleRow = await getActiveNewsSampleRow();
+  const queueSupported = supportsDeliveryQueue(sampleRow as Record<string, unknown> | undefined, "linkedin");
+  const unposted = await listPendingNewsRowsForDelivery("linkedin", queueSupported ? 25 : MAX_POSTS_PER_RUN, {
+    requireEditorial: true,
+  });
 
   if (!unposted || unposted.length === 0) {
     console.log("No unposted news found");
@@ -154,13 +125,10 @@ async function main(): Promise<void> {
     const nextAttemptCount = Number(article.linkedin_attempt_count ?? 0) + 1;
 
     if (queueSupported) {
-      const { error: startError } = await supabase
-        .from("news")
-        .update(buildDeliveryStartPatch("linkedin", nextAttemptCount))
-        .eq("slug", article.slug);
-
-      if (startError) {
-        console.warn(`SKIPPED: ${article.slug} -- failed to mark LinkedIn delivery attempt: ${startError.message}`);
+      try {
+        await updateNewsRowBySlug(article.slug, buildDeliveryStartPatch("linkedin", nextAttemptCount));
+      } catch (startError) {
+        console.warn(`SKIPPED: ${article.slug} -- failed to mark LinkedIn delivery attempt: ${toErrorMessage(startError)}`);
         continue;
       }
     }
@@ -186,20 +154,16 @@ async function main(): Promise<void> {
         ? buildDeliverySuccessPatch("linkedin", nextAttemptCount, postId)
         : { posted_to_linkedin_at: new Date().toISOString() };
 
-      const { error: updateError } = await withRetry(
-        async () =>
-          await supabase
-            .from("news")
-            .update(successPatch)
-            .eq("slug", article.slug),
-        {
-          attempts: 5,
-          delayMs: 500,
-        },
-      );
-
-      if (updateError) {
-        console.warn(`WARNING: posted but failed to persist LinkedIn delivery state for ${article.slug}: ${updateError.message}`);
+      try {
+        await withRetry(
+          () => updateNewsRowBySlug(article.slug, successPatch),
+          {
+            attempts: 5,
+            delayMs: 500,
+          },
+        );
+      } catch (updateError) {
+        console.warn(`WARNING: posted but failed to persist LinkedIn delivery state for ${article.slug}: ${toErrorMessage(updateError)}`);
       }
 
       posted += 1;
@@ -207,20 +171,16 @@ async function main(): Promise<void> {
       const message = toErrorMessage(postError);
 
       if (queueSupported) {
-        const { error: failureUpdateError } = await withRetry(
-          async () =>
-            await supabase
-              .from("news")
-              .update(buildDeliveryFailurePatch("linkedin", nextAttemptCount, message))
-              .eq("slug", article.slug),
-          {
-            attempts: 3,
-            delayMs: 500,
-          },
-        );
-
-        if (failureUpdateError) {
-          console.warn(`WARNING: failed to persist LinkedIn retry state for ${article.slug}: ${failureUpdateError.message}`);
+        try {
+          await withRetry(
+            () => updateNewsRowBySlug(article.slug, buildDeliveryFailurePatch("linkedin", nextAttemptCount, message)),
+            {
+              attempts: 3,
+              delayMs: 500,
+            },
+          );
+        } catch (failureUpdateError) {
+          console.warn(`WARNING: failed to persist LinkedIn retry state for ${article.slug}: ${toErrorMessage(failureUpdateError)}`);
         }
       }
 
