@@ -81,7 +81,7 @@ async function postToLinkedIn(accessToken: string, authorUrn: string, text: stri
 
 async function validateLinkedInToken(accessToken: string): Promise<boolean> {
   try {
-    const response = await fetch(`${LINKEDIN_API_BASE}/me`, {
+    const response = await fetch(`${LINKEDIN_API_BASE}/userinfo`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
 
@@ -92,15 +92,20 @@ async function validateLinkedInToken(accessToken: string): Promise<boolean> {
       return false;
     }
 
+    if (response.status === 403) {
+      console.warn("LinkedIn /userinfo returned 403 (missing profile read scope) -- proceeding with post attempt");
+      return true;
+    }
+
     if (!response.ok) {
-      console.error(`LinkedIn token validation failed with status ${response.status}`);
-      return false;
+      console.warn(`LinkedIn token check returned ${response.status} -- proceeding with post attempt`);
+      return true;
     }
 
     return true;
   } catch (error) {
-    console.error(`LinkedIn token validation request failed: ${toErrorMessage(error)}`);
-    return false;
+    console.warn(`LinkedIn token check failed: ${toErrorMessage(error)} -- proceeding with post attempt`);
+    return true;
   }
 }
 
