@@ -31,6 +31,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Sync RSS news to Supabase
+        if: vars.VM_OWNS_NEWS_SYNC != 'true'
         run: pnpm content:sync:news
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}

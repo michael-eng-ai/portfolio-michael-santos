@@ -182,7 +182,7 @@ function toNewsRow(entry: NewsReference, existing?: NewsRowRecord) {
     related_project_slugs: entry.relatedProjectSlugs,
     locales: entry.locales,
     editorial_analysis: existing?.editorial_analysis ?? null,
-    is_active: true,
+    is_active: existing?.is_active ?? true,
     posted_to_x_at: existing?.posted_to_x_at ?? null,
     posted_to_linkedin_at: existing?.posted_to_linkedin_at ?? null,
     x_post_status: existing?.x_post_status ?? null,
