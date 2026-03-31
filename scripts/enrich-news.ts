@@ -23,6 +23,10 @@ type NewsRow = {
 type EditorialAnalysis = {
   en: string;
   pt: string;
+  seo_title_en?: string;
+  seo_title_pt?: string;
+  seo_description_en?: string;
+  seo_description_pt?: string;
 };
 
 function buildPrompt(news: NewsRow): string {
@@ -55,8 +59,14 @@ RULES:
 - No introductory phrases like "This article discusses..." -- jump straight into the analysis
 - Do NOT reproduce content from the original article -- write original analysis
 
+ALSO generate SEO-optimized metadata for search engines:
+- seo_title_en: A compelling, click-worthy title (max 55 chars). NOT the original title -- rewrite it to spark curiosity or highlight the practical impact. Use power words like "Why", "How", "What Changes", "The Real Impact". Example: "Why Agent Context Layers Change Data Trust Forever"
+- seo_title_pt: Same approach in Brazilian Portuguese (max 55 chars)
+- seo_description_en: A compelling meta description (max 155 chars) that makes someone WANT to click. Include a concrete benefit or surprising insight. End with an implicit call to action.
+- seo_description_pt: Same in Brazilian Portuguese (max 155 chars)
+
 FORMAT your response as JSON:
-{"en": "English analysis here...", "pt": "Portuguese analysis here..."}
+{"en": "English analysis...", "pt": "Portuguese analysis...", "seo_title_en": "...", "seo_title_pt": "...", "seo_description_en": "...", "seo_description_pt": "..."}
 
 Return ONLY the JSON object, no markdown fences or extra text.`;
 }
@@ -69,7 +79,14 @@ function parseAnalysis(response: string): EditorialAnalysis {
     throw new Error("Missing en or pt field in editorial analysis");
   }
 
-  return { en: parsed.en, pt: parsed.pt };
+  return {
+    en: parsed.en,
+    pt: parsed.pt,
+    seo_title_en: parsed.seo_title_en,
+    seo_title_pt: parsed.seo_title_pt,
+    seo_description_en: parsed.seo_description_en,
+    seo_description_pt: parsed.seo_description_pt,
+  };
 }
 
 async function main(): Promise<void> {
