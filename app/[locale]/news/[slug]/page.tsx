@@ -32,10 +32,21 @@ export async function generateMetadata({
   }
 
   const locale = resolvedParams.locale as Locale;
+  const editorial = item.editorialAnalysis as Record<string, string> | null;
+  const seoTitleKey = `seo_title_${locale}` as string;
+  const seoDescKey = `seo_description_${locale}` as string;
+  const seoTitle = editorial?.[seoTitleKey];
+  const seoDesc = editorial?.[seoDescKey];
+
+  const title = seoTitle
+    ? `${seoTitle} | Michael Santos`
+    : `${item.locales[locale].title} | Michael Santos`;
+  const description = seoDesc || item.locales[locale].summary;
+
   const meta = await buildPageMetadata({
     locale,
-    title: `${item.locales[locale].title} | Michael Barbosa Santos`,
-    description: item.locales[locale].summary,
+    title,
+    description,
     path: `/news/${item.slug}`,
     imageUrl: item.imageUrl ?? undefined,
     keywords: item.tags,
