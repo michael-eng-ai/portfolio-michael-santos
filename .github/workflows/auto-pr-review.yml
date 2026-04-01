@@ -1,0 +1,91 @@
+name: Auto PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - main
+
+concurrency:
+  group: pr-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+
+    if: >-
+      github.event.pull_request.user.login != 'github-actions[bot]' &&
+      github.event.pull_request.user.login != 'dependabot[bot]'
+
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Get PR diff
+        id: diff
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DIFF=$(gh pr diff ${{ github.event.pull_request.number }} | head -c 8000)
+          EOF_MARKER=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "diff<<${EOF_MARKER}" >> "$GITHUB_OUTPUT"
+          echo "${DIFF}" >> "$GITHUB_OUTPUT"
+          echo "${EOF_MARKER}" >> "$GITHUB_OUTPUT"
+
+      - name: Review with Claude
+        id: review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          DIFF_CONTENT='${{ steps.diff.outputs.diff }}'
+
+          PROMPT="Review this PR diff as a senior data engineer. Focus on: correctness, security, performance, TypeScript best practices. Be concise. Output format: list of findings with severity (critical/warning/info) and line references when possible.
+
+          If the diff looks clean, say so briefly.
+
+          DIFF:
+          ${DIFF_CONTENT}"
+
+          ESCAPED_PROMPT=$(echo "$PROMPT" | jq -Rs .)
+
+          BODY=$(jq -n \
+            --arg model "claude-haiku-4-5-20251001" \
+            --argjson max_tokens 1024 \
+            --argjson messages "[{\"role\": \"user\", \"content\": ${ESCAPED_PROMPT}}]" \
+            '{model: $model, max_tokens: $max_tokens, messages: $messages}')
+
+          RESPONSE=$(curl -s -X POST https://api.anthropic.com/v1/messages \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: ${ANTHROPIC_API_KEY}" \
+            -H "anthropic-version: 2023-06-01" \
+            -d "$BODY")
+
+          REVIEW=$(echo "$RESPONSE" | jq -r '.content[0].text // "Failed to generate review."')
+
+          EOF_MARKER=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "review<<${EOF_MARKER}" >> "$GITHUB_OUTPUT"
+          echo "${REVIEW}" >> "$GITHUB_OUTPUT"
+          echo "${EOF_MARKER}" >> "$GITHUB_OUTPUT"
+
+      - name: Post review comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          COMMENT_BODY=$(cat <<'COMMENT_EOF'
+          **Claude Code Review**
+
+          ${{ steps.review.outputs.review }}
+
+          ---
+          _Automated review by Claude Haiku. Not a substitute for human review._
+          COMMENT_EOF
+          )
+
+          gh pr comment ${{ github.event.pull_request.number }} --body "${COMMENT_BODY}"
