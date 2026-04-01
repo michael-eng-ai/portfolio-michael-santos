@@ -119,3 +119,6 @@ override.tf.json
 *.sqlite
 *.sqlite3
 .vercel
+
+# Dashboard data (fetched from APIs, not committed)
+dashboard/data/

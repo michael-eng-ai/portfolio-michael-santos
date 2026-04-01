@@ -79,6 +79,16 @@ const tasks: Record<WorkerTask, Step[]> = {
       ],
       optional: true,
     },
+    {
+      label: "Reply to LinkedIn comments",
+      script: "content:reply:linkedin",
+      requiredEnv: [
+        "__WRITE_DATABASE__",
+        "LINKEDIN_ACCESS_TOKEN",
+        "ANTHROPIC_API_KEY",
+      ],
+      optional: true,
+    },
   ],
 };
 
