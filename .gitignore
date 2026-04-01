@@ -122,3 +122,15 @@ override.tf.json
 
 # Dashboard data (fetched from APIs, not committed)
 dashboard/data/
+
+# Secrets and credentials (never commit)
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*-key.json
+*credentials*.json
+service-account*.json
+.htpasswd
+secrets/

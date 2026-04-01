@@ -1,0 +1,19 @@
+[Unit]
+Description=Michael Business analytics dashboard (Streamlit)
+Wants=network-online.target
+After=network-online.target
+ConditionPathExists=/etc/michael-business/worker.env
+
+[Service]
+Type=simple
+User=michaelworker
+Group=michaelworker
+WorkingDirectory=/opt/michael-business/portfolio-michael-santos/dashboard
+EnvironmentFile=/etc/michael-business/worker.env
+ExecStart=/usr/local/bin/streamlit run app.py --server.address 127.0.0.1 --server.port 8501 --server.headless true --browser.gatherUsageStats false
+Restart=on-failure
+RestartSec=10
+Nice=15
+
+[Install]
+WantedBy=multi-user.target
