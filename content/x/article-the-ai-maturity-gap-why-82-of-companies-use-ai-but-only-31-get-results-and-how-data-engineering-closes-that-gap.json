@@ -1,0 +1,27 @@
+{
+  "slug": "article-the-ai-maturity-gap-why-82-of-companies-use-ai-but-only-31-get-results-and-how-data-engineering-closes-that-gap",
+  "sourceType": "article",
+  "sourceSlug": "the-ai-maturity-gap-why-82-of-companies-use-ai-but-only-31-get-results-and-how-data-engineering-closes-that-gap",
+  "status": "draft",
+  "generatedAt": "2026-04-01T11:24:02.819Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/the-ai-maturity-gap-why-82-of-companies-use-ai-but-only-31-get-results-and-how-data-engineering-closes-that-gap",
+    "pt": "https://michael.business/pt/articles/the-ai-maturity-gap-why-82-of-companies-use-ai-but-only-31-get-results-and-how-data-engineering-closes-that-gap",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "The AI Maturity Gap: Why 82% of Companies Use AI but Only 31% Get Results — and How Data Engineering Closes That Gap\n\nDespite w…\n\nhttps://michael.business/en/articles/the-ai-maturity-gap-why-82-of-companies-use-ai-but-only-31-get-results-and-how-data-engineering-closes-that-gap",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "O Gap de Maturidade em IA: Por que 82% das Empresas Usam IA, mas Apenas 31% Obtêm Resultados — e Como a Engenharia de Dados Fec…\n\nhttps://michael.business/pt/articles/the-ai-maturity-gap-why-82-of-companies-use-ai-but-only-31-get-results-and-how-data-engineering-closes-that-gap",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    }
+  }
+}
