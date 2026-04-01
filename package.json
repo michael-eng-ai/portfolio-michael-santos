@@ -28,6 +28,7 @@
     "content:post:linkedin": "tsx scripts/post-to-linkedin.ts",
     "content:daily:briefing": "tsx scripts/generate-daily-trend-briefing.ts",
     "content:reply:x": "tsx scripts/reply-to-x-mentions.ts",
+    "content:reply:linkedin": "tsx scripts/reply-to-linkedin-comments.ts",
     "content:worker:news-cycle": "tsx scripts/run-worker-task.ts news-cycle",
     "content:worker:daily-cycle": "tsx scripts/run-worker-task.ts daily-cycle",
     "content:worker:engagement-cycle": "tsx scripts/run-worker-task.ts engagement-cycle",
