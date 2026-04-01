@@ -1,0 +1,17 @@
+[Unit]
+Description=Michael Business engagement cycle worker
+Wants=network-online.target
+After=network-online.target
+ConditionPathExists=/etc/michael-business/worker.env
+
+[Service]
+Type=oneshot
+User=michaelworker
+Group=michaelworker
+WorkingDirectory=/opt/michael-business/portfolio-michael-santos
+EnvironmentFile=/etc/michael-business/worker.env
+ExecStart=/usr/bin/flock -n /opt/michael-business/run/engagement-cycle.lock /usr/bin/env pnpm content:worker:engagement-cycle
+Nice=10
+
+[Install]
+WantedBy=multi-user.target
