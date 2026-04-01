@@ -80,6 +80,9 @@ allowed_keys = {
     "LINKEDIN_ACCESS_TOKEN",
     "LINKEDIN_PERSON_URN",
     "LINKEDIN_ORGANIZATION_URN",
+    "DASHBOARD_PASSWORD_HASH",
+    "GOOGLE_APPLICATION_CREDENTIALS",
+    "GSC_SITE_URL",
 }
 
 for path in inputs:
@@ -132,6 +135,8 @@ install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/gcp/worker/systemd/michael-
 install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/gcp/worker/systemd/michael-news-cycle.timer" /etc/systemd/system/
 install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/gcp/worker/systemd/michael-daily-briefing.service" /etc/systemd/system/
 install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/gcp/worker/systemd/michael-daily-briefing.timer" /etc/systemd/system/
+install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/oci/systemd/michael-health-check.service" /etc/systemd/system/
+install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/oci/systemd/michael-health-check.timer" /etc/systemd/system/
 
 # Install dependencies
 sudo -u michaelworker bash -lc 'cd $REMOTE_REPO_DIR && pnpm install --frozen-lockfile 2>&1 | tail -5'
@@ -145,10 +150,10 @@ fi
 systemctl daemon-reload
 
 if [[ "$ENABLE_TIMERS" == "1" ]]; then
-  systemctl enable --now michael-news-cycle.timer michael-daily-briefing.timer
+  systemctl enable --now michael-news-cycle.timer michael-daily-briefing.timer michael-health-check.timer
   echo "Timers ENABLED"
 else
-  systemctl disable --now michael-news-cycle.timer michael-daily-briefing.timer >/dev/null 2>&1 || true
+  systemctl disable --now michael-news-cycle.timer michael-daily-briefing.timer michael-health-check.timer >/dev/null 2>&1 || true
   echo "Timers DISABLED"
 fi
 

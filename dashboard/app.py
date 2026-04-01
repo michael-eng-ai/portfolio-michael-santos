@@ -1,5 +1,7 @@
 """Portfolio analytics dashboard consolidating content pipeline, social, and SEO metrics."""
 
+import hashlib
+import hmac
 import os
 from datetime import datetime, timedelta, timezone
 
@@ -17,6 +19,35 @@ st.set_page_config(
     page_icon="M",
     layout="wide",
 )
+
+
+def check_password() -> bool:
+    """Gate access with a password. Returns True if authenticated."""
+    password_hash = os.environ.get("DASHBOARD_PASSWORD_HASH", "")
+
+    if not password_hash:
+        st.error("DASHBOARD_PASSWORD_HASH not configured. Access denied.")
+        st.stop()
+
+    if st.session_state.get("authenticated"):
+        return True
+
+    st.markdown("### Portfolio Analytics")
+    st.markdown("Enter your password to access the dashboard.")
+
+    with st.form("login_form"):
+        password_input = st.text_input("Password", type="password")
+        submitted = st.form_submit_button("Login")
+
+    if submitted:
+        input_hash = hashlib.sha256(password_input.encode()).hexdigest()
+        if hmac.compare_digest(input_hash, password_hash):
+            st.session_state["authenticated"] = True
+            st.rerun()
+        else:
+            st.error("Incorrect password.")
+
+    return False
 
 
 @st.cache_resource
@@ -313,6 +344,9 @@ def render_github_section(stats: dict | None) -> None:
 
 
 def main() -> None:
+    if not check_password():
+        return
+
     st.title("Portfolio Analytics Dashboard")
     st.caption("michael.business | Consolidated metrics")
 
