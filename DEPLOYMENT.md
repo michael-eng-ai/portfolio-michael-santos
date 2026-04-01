@@ -236,6 +236,152 @@ Se preferir zero manutenção de DNS no futuro, uma alternativa é manter o dom�
 - Sitemap is available at `/sitemap.xml`
 - `michael.business` resolves without `404`
 
+## OCI VM Worker
+
+The OCI VM (`137.131.210.212`) runs all background automation. Deploy with:
+
+```bash
+ENABLE_TIMERS=1 ./ops/oci/deploy-to-vm.sh
+```
+
+### Systemd Timers
+
+| Timer | Interval | Service |
+|-------|----------|---------|
+| `michael-news-cycle` | Hourly | RSS sync, enrich, curate, cleanup, post to X |
+| `michael-daily-briefing` | Daily 10:39 UTC | Trend briefing + LinkedIn post |
+| `michael-engagement-cycle` | Every 30 min | Reply to X mentions + LinkedIn comments |
+| `michael-health-check` | Every 5 min | Ping `/api/health` (keeps Supabase active) |
+| `michael-dashboard` | Persistent | Streamlit analytics dashboard |
+
+### Auto PR Review
+
+`.github/workflows/auto-pr-review.yml` uses `pull_request_target` to access secrets. Claude Haiku reviews every PR diff and posts a comment. Safe because it only reads the diff via `gh pr diff`, never executes PR code.
+
+### Engagement Bots
+
+**X Reply Bot** (`scripts/reply-to-x-mentions.ts`):
+- Fetches mentions via X API v2
+- Generates replies with Claude Haiku (max 5/run)
+- Random delay between replies (30-90s)
+- State tracked in `/opt/michael-business/run/last-mention-id.txt`
+
+**LinkedIn Reply Bot** (`scripts/reply-to-linkedin-comments.ts`):
+- Queries Postgres for posts with `linkedin_external_post_id` from last 7 days
+- Fetches comments via LinkedIn Social Actions API
+- Generates replies with Claude Haiku (max 3/run)
+- State tracked in `/opt/michael-business/run/linkedin-replied-comments.json`
+
+### Tech Radar
+
+Interactive technology assessment page at `/radar`. 24 technologies across 4 quadrants (Data Processing, Storage & Query, Orchestration & Ops, AI & ML) with adoption rings (Adopt, Trial, Assess, Hold). Data lives in `content/radar.ts`.
+
+---
+
+## Analytics Dashboard
+
+### Access
+
+- **URL**: `https://analytics.michael.business`
+- **Authentication**: Two layers
+  1. nginx basic auth (user: `michael`)
+  2. Streamlit password gate (SHA-256 hash)
+- **Password**: stored in `.env.worker.local` as `DASHBOARD_PASSWORD_HASH`
+- Generate a new password hash: `python dashboard/generate_password_hash.py`
+
+### What It Shows
+
+- Content pipeline funnel (synced -> active -> enriched -> posted)
+- Social delivery status (X + LinkedIn with pie charts and dead letter counts)
+- Publishing timeline (last 30 days)
+- GitHub repository stats
+- Google Search Console metrics (clicks, impressions, CTR, position, top queries)
+- News source breakdown
+
+### Architecture
+
+```
+Browser -> HTTPS (Let's Encrypt) -> nginx basic auth -> Streamlit (password) -> Postgres (read-only)
+```
+
+### First-Time Setup on VM
+
+```bash
+# Install dependencies (nginx, certbot, pip, streamlit)
+sudo bash /opt/michael-business/portfolio-michael-santos/ops/oci/setup-dashboard.sh
+
+# Or manually:
+sudo pip3 install streamlit psycopg2-binary pandas plotly python-dotenv requests
+sudo systemctl enable --now michael-dashboard.service
+```
+
+### SSL Certificate
+
+- Issued by Let's Encrypt via certbot
+- Auto-renewal: cron job at 3am daily (`/etc/cron.d/certbot-renew`)
+- Manual renewal: `sudo /usr/local/bin/certbot renew`
+
+### Google Search Console Integration
+
+The dashboard can display GSC metrics automatically if data has been fetched.
+
+**Service account**: `michael-gsc-reader@astute-veld-370221.iam.gserviceaccount.com`
+
+```bash
+# Fetch GSC data (run from VM or locally with credentials)
+cd dashboard && python fetch_search_console.py
+```
+
+Required env vars:
+- `GOOGLE_APPLICATION_CREDENTIALS` -- path to the service account JSON key
+- `GSC_SITE_URL` -- Search Console property (default: `https://michael.business/`)
+
+The service account key lives at `/etc/michael-business/gsc-service-account-key.json` on the VM (permissions 600, owned by michaelworker).
+
+---
+
+## Secrets and Credentials
+
+### Where Secrets Live
+
+| Location | Purpose | Committed |
+|----------|---------|-----------|
+| `.env.worker.local` | VM worker secrets (all API keys, DB credentials, dashboard password) | Never (gitignored) |
+| `/etc/michael-business/worker.env` | Deployed copy on OCI VM | N/A (VM only) |
+| `/etc/michael-business/gsc-service-account-key.json` | GCP service account key for Search Console | N/A (VM only) |
+| `/etc/nginx/conf.d/.htpasswd` | nginx basic auth credentials | N/A (VM only) |
+| GitHub Secrets | CI/CD workflows (ANTHROPIC_API_KEY, X/LinkedIn tokens, etc.) | N/A |
+
+### What Is Gitignored
+
+The `.gitignore` blocks all sensitive patterns:
+- `.env`, `.env.local`, `.env.worker.local` and variants
+- `*.pem`, `*.key`, `*.p12`, `*.pfx`, `*.jks`
+- `*-key.json`, `*credentials*.json`, `service-account*.json`
+- `.htpasswd`, `secrets/`
+- `dashboard/data/` (fetched API data)
+
+### Adding New Secrets
+
+1. Add to `.env.worker.local` locally
+2. Add the key name to `allowed_keys` in `ops/oci/deploy-to-vm.sh`
+3. Add to `.env.worker.local.example` (without the value)
+4. Run `ENABLE_TIMERS=1 ./ops/oci/deploy-to-vm.sh` to deploy
+5. If needed by GitHub Actions, also add to GitHub Secrets
+
+---
+
+## DNS
+
+- **Registrar**: GoDaddy
+- **Nameservers**: `ns49.domaincontrol.com`, `ns50.domaincontrol.com`
+- **Records**:
+  - `@` A `76.76.21.21` (Vercel)
+  - `analytics` A `137.131.210.212` (OCI VM dashboard)
+  - CNAME records for Vercel as needed
+
+---
+
 ## Notes
 
 - Keep the site Git-driven even when automation expands. Human review before publish remains the safest workflow.
