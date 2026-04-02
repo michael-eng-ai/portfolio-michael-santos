@@ -2,7 +2,7 @@
   "slug": "aws-databricks-lakehouse",
   "featured": true,
   "order": 2,
-  "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
+  "imageUrl": "/images/projects/lakehouse-platform-case.svg",
   "stack": ["AWS", "S3", "Terraform", "Databricks", "PySpark", "Delta Lake", "Python"],
   "tags": ["lakehouse", "spark", "platform-engineering"],
   "github": {
@@ -16,40 +16,40 @@
     "en": {
       "title": "AWS And Databricks Lakehouse",
       "subtitle": "Storage and compute separation for governed analytical layers",
-      "summary": "A lakehouse portfolio case that connects raw event ingestion, medallion transformations, and infrastructure as code on AWS and Databricks.",
-      "businessProblem": "Modern data platforms need to scale without turning every batch flow into a custom script. Teams want governed analytical layers, lower operational friction, and a credible path from raw events to reusable business datasets.",
+      "summary": "A lakehouse case that provisions AWS storage with Terraform, lands simulated event data in S3, and processes silver and gold Delta layers in Databricks with PySpark.",
+      "businessProblem": "Many teams want lakehouse scale but start with fragile scripts and unclear storage ownership. The hidden cost is coupling storage, compute, and governance so tightly that every new use case feels like a platform rewrite.",
       "technicalSolution": [
-        "Provision AWS resources with Terraform",
-        "Land raw events in S3 with a clear storage strategy",
-        "Process silver and gold layers in Databricks with PySpark",
-        "Use Delta Lake patterns to support reliable analytical serving"
+        "Provision S3 buckets and IAM access patterns with Terraform under an infrastructure-first layout",
+        "Generate and land raw event data in S3 with a deliberate raw versus processed storage split",
+        "Process silver and gold layers in Databricks notebooks using PySpark and Delta Lake patterns",
+        "Keep the medallion flow explicit so infrastructure, ingestion, and analytics stay connected"
       ],
-      "architectureSummary": "Terraform sets up the base platform, event data lands in S3, and Databricks jobs transform raw records into cleaner and more governed layers.",
+      "architectureSummary": "Terraform prepares the AWS base, raw event simulation lands data in S3, and Databricks notebooks promote that data through silver cleanup and gold aggregations. The design demonstrates storage and compute separation without losing operational clarity.",
       "impact": [
-        "Shows a platform-first way to discuss data modernization",
-        "Creates a bridge between infrastructure and analytics outcomes",
-        "Demonstrates how GitHub code can support a business-facing architecture story"
+        "Shows how storage and compute separation becomes a concrete operating model instead of a vague modernization slogan",
+        "Demonstrates medallion processing with runnable Terraform and PySpark assets instead of slideware",
+        "Creates a platform modernization story backed by artifacts that recruiters, clients, and engineering leaders can inspect"
       ],
-      "body": "## Business framing\n\nThis case is designed for conversations about platform modernization, not only Spark syntax. It makes the business value visible: reusable analytical layers, clearer ownership, and lower friction for downstream teams.\n\n## Why it matters in the content platform\n\nThe same project can be linked to industry news about lakehouse evolution, then repackaged into site content and LinkedIn distribution without rewriting the narrative from scratch."
+      "body": "## What this case proves\n\nThis repository connects the pieces that usually get discussed in isolation. Infrastructure is not separate from analytics here: Terraform defines the AWS base, S3 receives the raw files, and Databricks notebooks turn those files into silver and gold Delta outputs that a downstream team could actually reuse.\n\n## Why the architecture is credible\n\nThe case keeps the medallion path inspectable. You can point to the raw bucket strategy, to the event simulator, to the silver cleanup notebook, and to the gold aggregation notebook. That makes the platform story concrete instead of aspirational.\n\n## Tradeoffs worth making explicit\n\nThe repo uses simulated events and notebook-driven execution because the goal is portability and clarity. In production, the next layer would be job definitions, stronger secret management, data quality assertions, and environment separation. The important part is that the foundational split between storage, compute, and governed layers is already visible.\n\n## Practical takeaway\n\nFor modernization conversations, this case helps explain that a lakehouse is not just Spark plus cloud. It is a repeatable path from raw event landing to reusable business aggregates with ownership at each stage."
     },
     "pt": {
       "title": "Lakehouse com AWS e Databricks",
-      "subtitle": "Separação entre storage e compute para camadas analíticas governadas",
-      "summary": "Um caso de portfólio de lakehouse que conecta ingestão de eventos brutos, transformações em camadas medallion e infraestrutura como código em AWS e Databricks.",
-      "businessProblem": "Plataformas modernas de dados precisam escalar sem transformar cada fluxo batch em um script customizado. Os times querem camadas analíticas governadas, menos atrito operacional e um caminho crível do dado bruto até datasets reutilizáveis.",
+      "subtitle": "Separacao entre storage e compute para camadas analiticas governadas",
+      "summary": "Um caso de lakehouse que provisiona storage AWS com Terraform, pousa eventos simulados em S3 e processa camadas silver e gold em Databricks com PySpark.",
+      "businessProblem": "Muitos times querem escala de lakehouse, mas comecam por scripts frageis e ownership pouco claro do storage. O custo escondido e acoplar storage, compute e governanca de um jeito em que cada novo caso de uso parece uma reescrita de plataforma.",
       "technicalSolution": [
-        "Provisionamento de recursos AWS com Terraform",
-        "Pouso de eventos brutos em S3 com estratégia clara de armazenamento",
-        "Processamento das camadas silver e gold no Databricks com PySpark",
-        "Uso de padrões Delta Lake para suportar serving analítico confiável"
+        "Provisionamento de buckets S3 e acessos IAM com Terraform em uma estrutura infrastructure-first",
+        "Geracao e pouso de eventos brutos em S3 com divisao clara entre camadas raw e processed",
+        "Processamento das camadas silver e gold em notebooks Databricks usando PySpark e Delta Lake",
+        "Manutencao do fluxo medallion de forma explicita para conectar infraestrutura, ingestao e analytics"
       ],
-      "architectureSummary": "O Terraform prepara a base da plataforma, os dados de eventos chegam ao S3 e os jobs no Databricks transformam os registros brutos em camadas mais limpas e governadas.",
+      "architectureSummary": "O Terraform prepara a base na AWS, a simulacao de eventos pousa os dados no S3 e os notebooks do Databricks promovem esses dados por silver e gold. O desenho mostra separacao entre storage e compute sem perder clareza operacional.",
       "impact": [
-        "Mostra uma forma orientada à plataforma de falar sobre modernização de dados",
-        "Cria ponte entre infraestrutura e resultado analítico",
-        "Demonstra como o código do GitHub sustenta uma narrativa arquitetural voltada ao negócio"
+        "Mostra como separacao entre storage e compute vira modelo operacional concreto em vez de slogan de modernizacao",
+        "Demonstra processamento medallion com Terraform e PySpark executaveis, nao apenas slides",
+        "Cria uma historia de modernizacao de plataforma sustentada por artefatos que recrutadores, clientes e liderancas conseguem inspecionar"
       ],
-      "body": "## Enquadramento de negócio\n\nEste caso foi pensado para discussões sobre modernização de plataforma, e não apenas sobre sintaxe de Spark. Ele torna o valor visível: camadas analíticas reutilizáveis, ownership mais claro e menos fricção para times consumidores.\n\n## Por que importa dentro da plataforma de conteúdo\n\nO mesmo projeto pode ser ligado a notícias do setor sobre evolução de lakehouse e depois reutilizado em conteúdo do site e no LinkedIn sem reescrever a narrativa toda."
+      "body": "## O que este caso prova\n\nEste repositorio conecta partes que normalmente sao discutidas em separado. Infraestrutura nao aparece isolada do analytics: o Terraform define a base AWS, o S3 recebe os arquivos brutos e os notebooks Databricks transformam esses arquivos em outputs Delta silver e gold que um time consumidor poderia reutilizar.\n\n## Por que a arquitetura e crivel\n\nO caso mantem o caminho medallion inspecionavel. Voce consegue apontar para a estrategia de buckets raw, para o simulador de eventos, para o notebook de limpeza silver e para o notebook de agregacao gold. Isso deixa a historia de plataforma concreta em vez de aspiracional.\n\n## Tradeoffs que precisam ficar claros\n\nO repo usa eventos simulados e execucao por notebook porque o objetivo e portabilidade e clareza. Em producao, a proxima camada seria definicao de jobs, segredos mais fortes, assercoes de qualidade e separacao de ambientes. O ponto importante e que a divisao entre storage, compute e camadas governadas ja esta visivel.\n\n## Takeaway pratico\n\nEm conversas de modernizacao, este caso ajuda a explicar que lakehouse nao e apenas Spark mais cloud. E um caminho repetivel do pouso bruto do evento ate agregados de negocio reutilizaveis com ownership em cada etapa."
     }
   }
 }

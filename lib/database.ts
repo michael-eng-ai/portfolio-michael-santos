@@ -41,6 +41,23 @@ export type NewsletterSubscriberInsert = {
   consented_at: string;
 };
 
+export type AnalyticsEventInsert = {
+  event_id: string;
+  event_name: string;
+  session_id: string;
+  occurred_at: string;
+  page: string | null;
+  locale: string | null;
+  page_type: string | null;
+  source_type: string | null;
+  source_slug: string | null;
+  target_type: string | null;
+  target_slug: string | null;
+  location: string | null;
+  depth: number | null;
+  metadata: Record<string, unknown>;
+};
+
 const NEWS_COLUMNS = [
   "slug",
   "published_at",
@@ -661,5 +678,120 @@ export async function upsertNewsletterSubscriber(input: NewsletterSubscriberInse
 
   if (secondaryProvider) {
     await upsertNewsletterSubscriberForProvider(secondaryProvider, input);
+  }
+}
+
+function toOptionalLocale(value: unknown) {
+  if (value === "en" || value === "pt") {
+    return value;
+  }
+
+  return null;
+}
+
+function toOptionalInteger(value: unknown) {
+  if (typeof value === "number" && Number.isInteger(value)) {
+    return value;
+  }
+
+  return null;
+}
+
+function toMetadataRecord(value: unknown) {
+  if (value && typeof value === "object" && !Array.isArray(value)) {
+    return value as Record<string, unknown>;
+  }
+
+  return {};
+}
+
+function normalizeAnalyticsEvent(input: Record<string, unknown>): AnalyticsEventInsert {
+  return {
+    event_id: requireString(input.event_id, "event_id"),
+    event_name: requireString(input.event_name, "event_name"),
+    session_id: requireString(input.session_id, "session_id"),
+    occurred_at: toTimestampString(input.occurred_at, "occurred_at"),
+    page: toOptionalString(input.page),
+    locale: toOptionalLocale(input.locale),
+    page_type: toOptionalString(input.page_type),
+    source_type: toOptionalString(input.source_type),
+    source_slug: toOptionalString(input.source_slug),
+    target_type: toOptionalString(input.target_type),
+    target_slug: toOptionalString(input.target_slug),
+    location: toOptionalString(input.location),
+    depth: toOptionalInteger(input.depth),
+    metadata: toMetadataRecord(input.metadata),
+  };
+}
+
+async function insertAnalyticsEventsForProvider(
+  provider: DatabaseProvider,
+  events: AnalyticsEventInsert[],
+) {
+  if (events.length === 0) {
+    return;
+  }
+
+  if (provider === "postgres") {
+    const columns = [
+      "event_id",
+      "event_name",
+      "session_id",
+      "occurred_at",
+      "page",
+      "locale",
+      "page_type",
+      "source_type",
+      "source_slug",
+      "target_type",
+      "target_slug",
+      "location",
+      "depth",
+      "metadata",
+    ] as const;
+    const values: unknown[] = [];
+    const tuples = events.map((event, rowIndex) => {
+      const placeholders = columns.map((column, columnIndex) => {
+        values.push(event[column]);
+        return `$${rowIndex * columns.length + columnIndex + 1}`;
+      });
+
+      return `(${placeholders.join(", ")})`;
+    });
+
+    await queryPostgres(
+      `
+        insert into public.analytics_events (${columns.join(", ")})
+        values ${tuples.join(", ")}
+        on conflict (event_id) do nothing
+      `,
+      values,
+    );
+    return;
+  }
+
+  const supabase = getSupabaseAdminClient();
+  const { error } = await supabase
+    .from("analytics_events")
+    .upsert(events, { onConflict: "event_id", ignoreDuplicates: true });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+}
+
+export async function insertAnalyticsEvents(events: Array<Record<string, unknown>>) {
+  if (events.length === 0) {
+    return;
+  }
+
+  const normalizedEvents = events.map((event) => normalizeAnalyticsEvent(event));
+  const primaryProvider = getDatabaseProvider();
+  const secondaryProvider = getSecondaryDatabaseProvider();
+
+  await insertAnalyticsEventsForProvider(primaryProvider, normalizedEvents);
+
+  if (secondaryProvider) {
+    await insertAnalyticsEventsForProvider(secondaryProvider, normalizedEvents);
   }
 }

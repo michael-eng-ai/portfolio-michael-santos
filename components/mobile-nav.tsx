@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
+import { trackEvent } from "@/lib/analytics";
 import { Locale, copy, localePath } from "@/lib/site";
 
 type MobileNavProps = {
@@ -29,11 +30,13 @@ export function MobileNav({ locale }: MobileNavProps) {
   }, [open]);
 
   const navItems = [
-    { href: localePath(locale, "/projects"), label: copy(locale, "Success Stories", "Casos") },
-    { href: localePath(locale, "/articles"), label: copy(locale, "Insights", "Insights") },
-    { href: localePath(locale, "/news"), label: copy(locale, "News", "Noticias") },
-    { href: localePath(locale, "/contact"), label: copy(locale, "Contact", "Contato") },
-    { href: localePath(locale, "/resume"), label: copy(locale, "Resume", "Curriculo") },
+    { href: localePath(locale, "/projects"), label: copy(locale, "Success Stories", "Casos"), target: "projects" },
+    { href: localePath(locale, "/articles"), label: copy(locale, "Insights", "Insights"), target: "articles" },
+    { href: localePath(locale, "/news"), label: copy(locale, "News", "Noticias"), target: "news" },
+    { href: localePath(locale, "/radar"), label: copy(locale, "Radar", "Radar"), target: "radar" },
+    { href: localePath(locale, "/newsletter"), label: copy(locale, "Newsletter", "Newsletter"), target: "newsletter" },
+    { href: localePath(locale, "/resume"), label: copy(locale, "Resume", "Curriculo"), target: "resume" },
+    { href: localePath(locale, "/contact"), label: copy(locale, "Contact", "Contato"), target: "contact" },
   ];
 
   const panel = open ? (
@@ -45,6 +48,13 @@ export function MobileNav({ locale }: MobileNavProps) {
             <Link
               key={item.href}
               href={item.href}
+              onClick={() =>
+                trackEvent("navigation_click", {
+                  location: "mobile_nav",
+                  target: item.target,
+                  locale,
+                })
+              }
               className={`rounded-2xl px-5 py-4 text-lg font-medium transition ${
                 isActive
                   ? "bg-gray-100 text-gray-900"

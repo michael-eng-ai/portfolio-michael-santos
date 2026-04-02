@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+
+import { trackEvent } from "@/lib/analytics";
 import {
   type RadarEntry,
   type RadarQuadrant,
@@ -101,7 +103,14 @@ export function TechRadar({ locale }: { locale: Locale }) {
           <div className="flex flex-wrap gap-1.5">
             <button
               type="button"
-              onClick={() => setSelectedQuadrant("all")}
+              onClick={() => {
+                trackEvent("radar_filter_change", {
+                  locale,
+                  filter_type: "quadrant",
+                  value: "all",
+                });
+                setSelectedQuadrant("all");
+              }}
               className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
                 selectedQuadrant === "all"
                   ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
@@ -114,7 +123,14 @@ export function TechRadar({ locale }: { locale: Locale }) {
               <button
                 type="button"
                 key={q}
-                onClick={() => setSelectedQuadrant(q)}
+                onClick={() => {
+                  trackEvent("radar_filter_change", {
+                    locale,
+                    filter_type: "quadrant",
+                    value: q,
+                  });
+                  setSelectedQuadrant(q);
+                }}
                 className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
                   selectedQuadrant === q
                     ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
@@ -134,7 +150,14 @@ export function TechRadar({ locale }: { locale: Locale }) {
           <div className="flex flex-wrap gap-1.5">
             <button
               type="button"
-              onClick={() => setSelectedRing("all")}
+              onClick={() => {
+                trackEvent("radar_filter_change", {
+                  locale,
+                  filter_type: "ring",
+                  value: "all",
+                });
+                setSelectedRing("all");
+              }}
               className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
                 selectedRing === "all"
                   ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
@@ -147,7 +170,14 @@ export function TechRadar({ locale }: { locale: Locale }) {
               <button
                 type="button"
                 key={r}
-                onClick={() => setSelectedRing(r)}
+                onClick={() => {
+                  trackEvent("radar_filter_change", {
+                    locale,
+                    filter_type: "ring",
+                    value: r,
+                  });
+                  setSelectedRing(r);
+                }}
                 className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
                   selectedRing === r
                     ? "text-white"
@@ -174,9 +204,15 @@ export function TechRadar({ locale }: { locale: Locale }) {
             entry={entry}
             locale={locale}
             isSelected={expandedEntry === entry.name}
-            onClick={() =>
-              setExpandedEntry(expandedEntry === entry.name ? null : entry.name)
-            }
+            onClick={() => {
+              const nextValue = expandedEntry === entry.name ? null : entry.name;
+              trackEvent("radar_entry_expand", {
+                locale,
+                entry_name: entry.name,
+                state: nextValue ? "expanded" : "collapsed",
+              });
+              setExpandedEntry(nextValue);
+            }}
           />
         ))}
       </div>

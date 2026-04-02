@@ -1,3 +1,4 @@
+import { NewsletterForm } from "@/components/newsletter-form";
 import { TechRadar } from "@/components/tech-radar";
 import { buildPageMetadata } from "@/lib/seo";
 import { Locale, copy } from "@/lib/site";
@@ -62,6 +63,24 @@ export default async function RadarPage({
       </div>
 
       <TechRadar locale={locale} />
+
+      <div className="mt-10">
+        <NewsletterForm
+          locale={locale}
+          source="radar-page"
+          eyebrow={copy(locale, "Radar updates", "Atualizacoes do Radar")}
+          title={copy(
+            locale,
+            "Get notified when the stack shifts and the radar changes.",
+            "Receba aviso quando o stack mudar e o radar for atualizado.",
+          )}
+          description={copy(
+            locale,
+            "Use the newsletter to keep a lightweight pulse on what should be adopted, tested, or avoided next.",
+            "Use a newsletter para manter um pulso leve do que deve ser adotado, testado ou evitado na sequencia.",
+          )}
+        />
+      </div>
     </main>
   );
 }

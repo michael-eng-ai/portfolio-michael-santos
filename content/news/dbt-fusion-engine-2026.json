@@ -3,7 +3,7 @@
   "publishedAt": "2026-02-25",
   "sourceName": "dbt Labs",
   "sourceUrl": "https://www.getdbt.com/blog",
-  "imageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+  "imageUrl": "/images/news/transformation-signal.svg",
   "category": {"en": "Data Engineering", "pt": "Engenharia de Dados"},
   "tags": ["dbt", "analytics-engineering", "governance"],
   "relatedProjectSlugs": ["gcp-dbt-modern-data-stack"],

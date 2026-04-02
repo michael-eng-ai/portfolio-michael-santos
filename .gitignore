@@ -60,6 +60,12 @@ jspm_packages/
 # TypeScript cache
 *.tsbuildinfo
 
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
 # Optional npm cache directory
 .npm
 

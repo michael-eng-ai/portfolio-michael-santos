@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ContentJourney, type ContentJourneyStep } from "@/components/content-journey";
 import { EditorialCover } from "@/components/editorial-cover";
+import { RetentionPanel, type RetentionLink } from "@/components/retention-panel";
 import { StructuredData } from "@/components/structured-data";
+import { TrackedExternalLink } from "@/components/tracked-external-link";
+import { TrackedLink } from "@/components/tracked-link";
 import { formatDisplayDate } from "@/lib/date";
 import { clampText, editorialLimits, sourceInitials } from "@/lib/editorial";
-import { getNewsReferenceBySlug, getNewsReferences, getProjects } from "@/lib/content";
+import { getArticles, getNewsReferenceBySlug, getNewsReferences, getProjects } from "@/lib/content";
 import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildPageMetadata } from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 import { getTagLabel } from "@/lib/tags";
@@ -68,9 +71,10 @@ export default async function NewsDetailPage({
 }) {
   const resolvedParams = await params;
   const locale = resolvedParams.locale as Locale;
-  const [item, projects] = await Promise.all([
+  const [item, projects, articles] = await Promise.all([
     getNewsReferenceBySlug(resolvedParams.slug),
     getProjects(),
+    getArticles(),
   ]);
 
   if (!item) {
@@ -80,6 +84,95 @@ export default async function NewsDetailPage({
   const content = item.locales[locale];
   const editorial = item.editorialAnalysis?.[locale] ?? null;
   const relatedProjects = projects.filter((project) => item.relatedProjectSlugs.includes(project.slug));
+  const primaryProject = relatedProjects[0];
+  const primaryArticle = articles[0];
+  const followOnStep: ContentJourneyStep = primaryProject
+    ? {
+        eyebrow: copy(locale, "Implementation proof", "Prova de implementacao"),
+        title: primaryProject.locales[locale].title,
+        description: copy(
+          locale,
+          "See the delivery pattern that turns this external shift into something operational and measurable.",
+          "Veja o padrao de entrega que transforma esta mudanca externa em algo operacional e mensuravel.",
+        ),
+        targetType: "project",
+        targetSlug: primaryProject.slug,
+        href: localePath(locale, `/projects/${primaryProject.slug}`),
+        ctaLabel: copy(locale, "Open the case study", "Abrir o caso"),
+      }
+    : {
+        eyebrow: copy(locale, "Strategic context", "Contexto estrategico"),
+        title: primaryArticle
+          ? primaryArticle.locales[locale].title
+          : copy(locale, "Read the latest insights", "Ler os ultimos insights"),
+        description: copy(
+          locale,
+          "Step back from the headline and understand the larger pattern behind the signal you just read.",
+          "Saia do headline e entenda o padrao maior por tras do sinal que voce acabou de ler.",
+        ),
+        targetType: "article",
+        targetSlug: primaryArticle?.slug,
+        href: primaryArticle
+          ? localePath(locale, `/articles/${primaryArticle.slug}`)
+          : localePath(locale, "/articles"),
+        ctaLabel: copy(locale, "Get the bigger picture", "Ver o quadro maior"),
+      };
+  const journeySteps: ContentJourneyStep[] = [
+    {
+      eyebrow: copy(locale, "Current signal", "Sinal atual"),
+      title: clampText(content.title, editorialLimits.cardTitleMax),
+      description: clampText(content.whyItMatters, editorialLimits.articleExcerptMax),
+      targetType: "news",
+      current: true,
+    },
+    followOnStep,
+    {
+      eyebrow: copy(locale, "Repeat-worthy asset", "Ativo de retorno"),
+      title: copy(locale, "Open the Tech Radar", "Abrir o Tech Radar"),
+      description: copy(
+        locale,
+        "Use the radar to place this signal inside a broader technology thesis and find another reason to keep exploring.",
+        "Use o radar para posicionar este sinal dentro de uma tese tecnologica mais ampla e encontrar mais um motivo para continuar explorando.",
+      ),
+      targetType: "radar",
+      href: localePath(locale, "/radar"),
+      ctaLabel: copy(locale, "See where it fits", "Ver onde isso se encaixa"),
+    },
+  ];
+  const retentionLinks: RetentionLink[] = [
+    ...relatedProjects.map((project) => ({
+      href: localePath(locale, `/projects/${project.slug}`),
+      label: project.locales[locale].title,
+      description: copy(
+        locale,
+        "See the concrete delivery pattern connected to this market shift.",
+        "Veja o padrao concreto de entrega conectado a esta mudanca de mercado.",
+      ),
+      targetType: "project" as const,
+      targetSlug: project.slug,
+    })),
+    ...articles.slice(0, 1).map((article) => ({
+      href: localePath(locale, `/articles/${article.slug}`),
+      label: article.locales[locale].title,
+      description: copy(
+        locale,
+        "Step back from the headline and understand the larger business pattern.",
+        "Saia do headline e entenda o padrao maior de negocio.",
+      ),
+      targetType: "article" as const,
+      targetSlug: article.slug,
+    })),
+    {
+      href: localePath(locale, "/radar"),
+      label: copy(locale, "Open the Tech Radar", "Abrir o Tech Radar"),
+      description: copy(
+        locale,
+        "Review where this technology fits in the broader stack and what deserves attention next.",
+        "Revise onde esta tecnologia se encaixa no stack mais amplo e o que merece atencao na sequencia.",
+      ),
+      targetType: "radar" as const,
+    },
+  ].slice(0, 3);
 
   return (
     <main className="px-6 pb-20 pt-28 md:px-20">
@@ -101,6 +194,24 @@ export default async function NewsDetailPage({
             { name: content.title },
           ]),
         ]}
+      />
+      <ContentJourney
+        locale={locale}
+        sourceType="news"
+        sourceSlug={item.slug}
+        eyebrow={copy(locale, "Recommended path", "Trilha recomendada")}
+        title={copy(
+          locale,
+          "Turn this signal into a deeper session",
+          "Transforme este sinal em uma sessao mais profunda",
+        )}
+        description={copy(
+          locale,
+          "Use the signal as the entry point, then move into proof or strategic context before opening a repeat-worthy asset designed to bring you back.",
+          "Use o sinal como porta de entrada, depois avance para prova ou contexto estrategico antes de abrir um ativo recorrente desenhado para trazer voce de volta.",
+        )}
+        location="news_journey"
+        steps={journeySteps}
       />
       <div className="mx-auto max-w-7xl grid gap-8 md:grid-cols-2 lg:grid-cols-[1.15fr_0.85fr]">
         <article className="section-card overflow-hidden rounded-2xl">
@@ -136,14 +247,16 @@ export default async function NewsDetailPage({
                 </div>
               </div>
             )}
-            <a
+            <TrackedExternalLink
               href={item.sourceUrl}
               target="_blank"
               rel="noreferrer"
+              eventName="external_link_click"
+              eventParams={{ channel: "source", location: "news_detail", slug: item.slug }}
               className="mt-6 inline-flex brand-button-primary rounded-full px-5 py-3 font-medium"
             >
               {copy(locale, "Open source reference", "Abrir fonte original")}
-            </a>
+            </TrackedExternalLink>
           </div>
         </article>
 
@@ -154,9 +267,22 @@ export default async function NewsDetailPage({
             </h2>
             <div className="mt-4 space-y-3 text-sm">
               {relatedProjects.map((project) => (
-                <Link key={project.slug} href={localePath(locale, `/projects/${project.slug}`)} className="block text-[var(--primary)]">
+                <TrackedLink
+                  key={project.slug}
+                  href={localePath(locale, `/projects/${project.slug}`)}
+                  eventName="related_content_click"
+                  eventParams={{
+                    source_type: "news",
+                    source_slug: item.slug,
+                    target_type: "project",
+                    target_slug: project.slug,
+                    locale,
+                    location: "news_sidebar",
+                  }}
+                  className="block text-[var(--primary)]"
+                >
                   {project.locales[locale].title}
-                </Link>
+                </TrackedLink>
               ))}
             </div>
           </section>
@@ -174,6 +300,36 @@ export default async function NewsDetailPage({
             </p>
           </section>
         </aside>
+      </div>
+
+      <div className="mx-auto max-w-7xl">
+        <RetentionPanel
+          locale={locale}
+          sourceType="news"
+          sourceSlug={item.slug}
+          title={copy(
+            locale,
+            "Turn this signal into a repeatable advantage",
+            "Transforme este sinal em uma vantagem repetivel",
+          )}
+          description={copy(
+            locale,
+            "Use the next step below to move from market signal to implementation proof, then subscribe to keep a weekly pulse on what deserves attention.",
+            "Use o proximo passo abaixo para sair do sinal de mercado e chegar a prova de implementacao, depois assine para manter um pulso semanal do que merece atencao.",
+          )}
+          newsletterSource="news-detail-retention"
+          newsletterTitle={copy(
+            locale,
+            "Get weekly signals with a business and execution lens.",
+            "Receba sinais semanais com lente de negocio e execucao.",
+          )}
+          newsletterDescription={copy(
+            locale,
+            "The newsletter helps separate short-lived noise from the shifts worth studying, sharing, or acting on.",
+            "A newsletter ajuda a separar ruido passageiro das mudancas que valem estudo, compartilhamento ou acao.",
+          )}
+          links={retentionLinks}
+        />
       </div>
     </main>
   );

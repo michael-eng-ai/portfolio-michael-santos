@@ -2,7 +2,7 @@
   "slug": "ai-data-analyst-bot",
   "featured": true,
   "order": 6,
-  "imageUrl": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+  "imageUrl": "/images/projects/ai-analytics-agent-case.svg",
   "stack": ["Python", "Streamlit", "Gemini", "LangChain", "LangGraph", "BigQuery", "Terraform"],
   "tags": ["genai", "text-to-sql", "rag"],
   "github": {

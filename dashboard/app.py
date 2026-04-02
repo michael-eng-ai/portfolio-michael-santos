@@ -2,6 +2,7 @@
 
 import hashlib
 import hmac
+import json
 import os
 from datetime import datetime, timedelta, timezone
 
@@ -92,6 +93,64 @@ def load_news_data() -> pd.DataFrame:
     return df
 
 
+@st.cache_data(ttl=300)
+def load_analytics_events(days: int = 90) -> pd.DataFrame:
+    conn = get_db_connection()
+    query = f"""
+        SELECT
+            event_name,
+            occurred_at,
+            page,
+            locale,
+            page_type,
+            source_type,
+            source_slug,
+            target_type,
+            target_slug,
+            location,
+            depth,
+            metadata::text AS metadata_json,
+            session_id
+        FROM public.analytics_events
+        WHERE occurred_at >= now() - interval '{int(days)} days'
+        ORDER BY occurred_at DESC
+    """
+
+    try:
+        df = pd.read_sql(query, conn)
+    except Exception:
+        return pd.DataFrame()
+
+    if df.empty:
+        return df
+
+    df["occurred_at"] = pd.to_datetime(df["occurred_at"], utc=True, errors="coerce")
+
+    def parse_metadata(value: object) -> dict:
+        if isinstance(value, dict):
+            return value
+        if isinstance(value, str) and value.strip():
+            try:
+                return json.loads(value)
+            except json.JSONDecodeError:
+                return {}
+        return {}
+
+    df["metadata"] = df["metadata_json"].apply(parse_metadata)
+    df["source"] = df["metadata"].apply(lambda payload: payload.get("source"))
+    df["channel"] = df["metadata"].apply(lambda payload: payload.get("channel"))
+    df["file"] = df["metadata"].apply(lambda payload: payload.get("file"))
+    df["category"] = df["metadata"].apply(lambda payload: payload.get("category"))
+    df["content_type"] = df["metadata"].apply(lambda payload: payload.get("content_type"))
+    df["target"] = df["metadata"].apply(lambda payload: payload.get("target"))
+    df["surface_type"] = df["metadata"].apply(lambda payload: payload.get("surface_type"))
+    df["page"] = df["page"].fillna("/unknown")
+    df["page_type"] = df["page_type"].fillna("unknown")
+    df["locale"] = df["locale"].fillna("unknown")
+
+    return df
+
+
 @st.cache_data(ttl=600)
 def load_github_stats() -> dict | None:
     token = os.environ.get("GITHUB_TOKEN")
@@ -123,6 +182,14 @@ def load_github_stats() -> dict | None:
         }
     except requests.RequestException:
         return None
+
+
+def get_recent_events(events_df: pd.DataFrame, days: int = 30) -> pd.DataFrame:
+    if events_df.empty:
+        return pd.DataFrame()
+
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    return events_df[events_df["occurred_at"] >= cutoff].copy()
 
 
 def render_kpi_row(df: pd.DataFrame) -> None:
@@ -230,6 +297,407 @@ def render_source_breakdown(df: pd.DataFrame) -> None:
     fig = px.bar(sources, x="count", y="source", orientation="h", labels={"count": "Articles", "source": "Source"})
     fig.update_layout(height=400, margin=dict(t=20, b=20), yaxis=dict(autorange="reversed"))
     st.plotly_chart(fig, use_container_width=True)
+
+
+def render_engagement_kpis(events_df: pd.DataFrame) -> None:
+    st.subheader("On-Site Engagement")
+
+    if events_df.empty:
+        st.info(
+            "No internal analytics events found yet. Apply `supabase/analytics_events.sql` "
+            "and browse the site to start collecting engagement data."
+        )
+        return
+
+    now = datetime.now(timezone.utc)
+    recent = events_df[events_df["occurred_at"] >= now - timedelta(days=30)].copy()
+
+    if recent.empty:
+        st.info("Internal analytics table exists, but there are no events in the last 30 days.")
+        return
+
+    content_views = recent[recent["event_name"] == "content_view"]
+    deep_reads = recent[
+        (recent["event_name"] == "scroll_depth") & (recent["depth"].fillna(0) >= 75)
+    ]
+    related_clicks = recent[recent["event_name"] == "related_content_click"]
+    newsletter_signups = recent[recent["event_name"] == "newsletter_signup"]
+    high_intent = recent[recent["event_name"].isin(["contact_click", "resume_download"])]
+
+    cols = st.columns(5)
+    cols[0].metric("Views (30d)", int(len(content_views)))
+    cols[1].metric("Sessions", int(content_views["session_id"].nunique()))
+    cols[2].metric(
+        "Deep Reads",
+        int(deep_reads["session_id"].nunique()),
+        (
+            f"{deep_reads['session_id'].nunique() / content_views['session_id'].nunique() * 100:.0f}% session rate"
+            if content_views["session_id"].nunique() > 0
+            else "0%"
+        ),
+    )
+    cols[3].metric("Related Clicks", int(len(related_clicks)))
+    cols[4].metric("Signups + Intent", int(len(newsletter_signups) + len(high_intent)))
+
+
+def render_engagement_funnel(events_df: pd.DataFrame) -> None:
+    st.subheader("Engagement Funnel (30d)")
+
+    if events_df.empty:
+        return
+
+    now = datetime.now(timezone.utc)
+    recent = events_df[events_df["occurred_at"] >= now - timedelta(days=30)].copy()
+
+    if recent.empty:
+        return
+
+    stages = [
+        (
+            "Viewed Content",
+            recent[recent["event_name"] == "content_view"]["session_id"].nunique(),
+        ),
+        (
+            "Deep Read (75%+)",
+            recent[
+                (recent["event_name"] == "scroll_depth") & (recent["depth"].fillna(0) >= 75)
+            ]["session_id"].nunique(),
+        ),
+        (
+            "Clicked Related",
+            recent[recent["event_name"] == "related_content_click"]["session_id"].nunique(),
+        ),
+        (
+            "Newsletter Signup",
+            recent[recent["event_name"] == "newsletter_signup"]["session_id"].nunique(),
+        ),
+        (
+            "High Intent",
+            recent[recent["event_name"].isin(["contact_click", "resume_download"])]["session_id"].nunique(),
+        ),
+    ]
+
+    funnel = pd.DataFrame(stages, columns=["stage", "sessions"])
+
+    fig = go.Figure(
+        go.Funnel(
+            y=funnel["stage"],
+            x=funnel["sessions"],
+            textinfo="value+percent initial",
+        )
+    )
+    fig.update_layout(height=340, margin=dict(t=10, b=10))
+    st.plotly_chart(fig, use_container_width=True)
+
+
+def render_top_content_paths(events_df: pd.DataFrame) -> None:
+    st.subheader("Top Content Paths")
+
+    if events_df.empty:
+        return
+
+    views = (
+        events_df[events_df["event_name"] == "content_view"]
+        .groupby(["page", "page_type", "locale"], as_index=False)
+        .agg(page_views=("event_name", "size"), sessions=("session_id", "nunique"))
+    )
+
+    if views.empty:
+        st.info("No content view events available yet.")
+        return
+
+    deep_reads = (
+        events_df[
+            (events_df["event_name"] == "scroll_depth")
+            & (events_df["depth"].fillna(0) >= 75)
+        ]
+        .groupby("page", as_index=False)
+        .agg(deep_read_sessions=("session_id", "nunique"))
+    )
+    related_clicks = (
+        events_df[events_df["event_name"] == "related_content_click"]
+        .groupby("page", as_index=False)
+        .agg(related_clicks=("event_name", "size"))
+    )
+
+    merged = views.merge(deep_reads, on="page", how="left").merge(related_clicks, on="page", how="left")
+    merged["deep_read_sessions"] = merged["deep_read_sessions"].fillna(0).astype(int)
+    merged["related_clicks"] = merged["related_clicks"].fillna(0).astype(int)
+    merged["deep_read_rate"] = (
+        merged["deep_read_sessions"] / merged["sessions"].replace({0: pd.NA}) * 100
+    ).fillna(0).round(1)
+    merged["related_click_rate"] = (
+        merged["related_clicks"] / merged["page_views"].replace({0: pd.NA}) * 100
+    ).fillna(0).round(1)
+
+    st.dataframe(
+        merged.sort_values(["sessions", "page_views"], ascending=False).head(15),
+        use_container_width=True,
+        hide_index=True,
+    )
+
+
+def render_conversion_sources(events_df: pd.DataFrame) -> None:
+    st.subheader("Newsletter Sources And Locale Mix")
+
+    if events_df.empty:
+        return
+
+    signups = events_df[events_df["event_name"] == "newsletter_signup"].copy()
+
+    if signups.empty:
+        st.info("No newsletter signup events recorded yet.")
+        return
+
+    signups["source"] = signups["source"].fillna("unknown")
+    summary = (
+        signups.groupby(["source", "locale"], as_index=False)
+        .agg(signups=("event_name", "size"))
+        .sort_values("signups", ascending=False)
+    )
+
+    fig = px.bar(
+        summary,
+        x="source",
+        y="signups",
+        color="locale",
+        barmode="group",
+        labels={"source": "Signup Source", "signups": "Signups", "locale": "Locale"},
+    )
+    fig.update_layout(height=320, margin=dict(t=10, b=10))
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.dataframe(summary, use_container_width=True, hide_index=True)
+
+
+def render_page_type_mix(events_df: pd.DataFrame) -> None:
+    st.subheader("Views By Page Type")
+
+    if events_df.empty:
+        return
+
+    views = events_df[events_df["event_name"] == "content_view"].copy()
+
+    if views.empty:
+        return
+
+    summary = (
+        views.groupby(["page_type", "locale"], as_index=False)
+        .agg(views=("event_name", "size"), sessions=("session_id", "nunique"))
+        .sort_values("views", ascending=False)
+    )
+
+    fig = px.bar(
+        summary,
+        x="page_type",
+        y="views",
+        color="locale",
+        barmode="stack",
+        labels={"page_type": "Page Type", "views": "Views", "locale": "Locale"},
+    )
+    fig.update_layout(height=320, margin=dict(t=10, b=10))
+    st.plotly_chart(fig, use_container_width=True)
+
+
+def render_home_entry_paths_performance(events_df: pd.DataFrame) -> None:
+    st.subheader("Home Entry Paths")
+
+    recent = get_recent_events(events_df, 30)
+    if recent.empty:
+        st.info("No internal analytics events available for entry-path analysis yet.")
+        return
+
+    impressions = recent[
+        (recent["event_name"] == "surface_view") & (recent["location"] == "home_entry_paths")
+    ].copy()
+    clicks = recent[
+        (recent["event_name"] == "navigation_click") & (recent["location"] == "home_entry_paths")
+    ].copy()
+
+    if impressions.empty:
+        st.info("No `home_entry_paths` impressions recorded yet.")
+        return
+
+    total_impression_sessions = int(impressions["session_id"].nunique())
+    total_click_sessions = int(clicks["session_id"].nunique())
+    session_ctr = (
+        total_click_sessions / total_impression_sessions * 100
+        if total_impression_sessions > 0
+        else 0
+    )
+    top_target = (
+        clicks["target"].fillna("unknown").value_counts().idxmax()
+        if not clicks.empty
+        else "-"
+    )
+
+    cols = st.columns(4)
+    cols[0].metric("Surface Sessions", total_impression_sessions)
+    cols[1].metric("Click Sessions", total_click_sessions, f"{session_ctr:.1f}% CTR")
+    cols[2].metric("Total Clicks", int(len(clicks)))
+    cols[3].metric("Top Entry Target", str(top_target).replace("_", " ").title())
+
+    locale_impressions = (
+        impressions.groupby("locale", as_index=False)
+        .agg(impression_sessions=("session_id", "nunique"))
+    )
+    summary = (
+        clicks.assign(target=clicks["target"].fillna("unknown"))
+        .groupby(["target", "locale"], as_index=False)
+        .agg(clicks=("event_name", "size"), click_sessions=("session_id", "nunique"))
+    )
+
+    if summary.empty:
+        st.info("The entry-path surface is visible, but no clicks have been recorded yet.")
+        return
+
+    summary = summary.merge(locale_impressions, on="locale", how="left")
+    summary["impression_sessions"] = summary["impression_sessions"].fillna(0).astype(int)
+    summary["session_ctr"] = (
+        summary["click_sessions"] / summary["impression_sessions"].replace({0: pd.NA}) * 100
+    ).fillna(0).round(1)
+    summary["target_label"] = summary["target"].str.replace("_", " ").str.title()
+
+    fig = px.bar(
+        summary.sort_values(["click_sessions", "clicks"], ascending=False),
+        x="target_label",
+        y="click_sessions",
+        color="locale",
+        barmode="group",
+        text="session_ctr",
+        labels={
+            "target_label": "Entry Target",
+            "click_sessions": "Sessions With Click",
+            "locale": "Locale",
+            "session_ctr": "Session CTR",
+        },
+    )
+    fig.update_traces(texttemplate="%{text:.1f}%", textposition="outside")
+    fig.update_layout(height=320, margin=dict(t=10, b=10), yaxis_title="Sessions")
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.dataframe(
+        summary[["target_label", "locale", "impression_sessions", "click_sessions", "clicks", "session_ctr"]]
+        .sort_values(["click_sessions", "clicks"], ascending=False),
+        use_container_width=True,
+        hide_index=True,
+    )
+
+
+def render_retention_surface_performance(events_df: pd.DataFrame) -> None:
+    st.subheader("Retention Surface Performance")
+
+    recent = get_recent_events(events_df, 30)
+    if recent.empty:
+        return
+
+    tracked_locations = ["article_journey", "news_journey", "project_journey", "retention_panel"]
+    surface_labels = {
+        "article_journey": "Article Journey",
+        "news_journey": "News Journey",
+        "project_journey": "Project Journey",
+        "article_retention_panel": "Article End Panel",
+        "news_retention_panel": "News End Panel",
+        "project_retention_panel": "Project End Panel",
+    }
+
+    impressions = recent[
+        (recent["event_name"] == "surface_view") & (recent["location"].isin(tracked_locations))
+    ].copy()
+    clicks = recent[
+        (recent["event_name"] == "related_content_click") & (recent["location"].isin(tracked_locations))
+    ].copy()
+
+    if impressions.empty:
+        st.info("No journey or retention-panel impressions recorded yet.")
+        return
+
+    def resolve_surface_key(frame: pd.DataFrame) -> pd.Series:
+        source_type = frame["source_type"].fillna("unknown")
+        return frame["location"].where(
+            frame["location"] != "retention_panel",
+            source_type + "_retention_panel",
+        )
+
+    impressions["surface_key"] = resolve_surface_key(impressions)
+    clicks["surface_key"] = resolve_surface_key(clicks)
+
+    summary = (
+        impressions.groupby("surface_key", as_index=False)
+        .agg(impressions=("event_name", "size"), impression_sessions=("session_id", "nunique"))
+    )
+    click_summary = (
+        clicks.groupby("surface_key", as_index=False)
+        .agg(clicks=("event_name", "size"), click_sessions=("session_id", "nunique"))
+    )
+
+    summary = summary.merge(click_summary, on="surface_key", how="left")
+    summary[["clicks", "click_sessions"]] = summary[["clicks", "click_sessions"]].fillna(0).astype(int)
+    summary["session_ctr"] = (
+        summary["click_sessions"] / summary["impression_sessions"].replace({0: pd.NA}) * 100
+    ).fillna(0).round(1)
+    summary["surface"] = summary["surface_key"].map(surface_labels).fillna(summary["surface_key"])
+
+    best_surface = (
+        summary.sort_values(["session_ctr", "click_sessions"], ascending=False)["surface"].iloc[0]
+        if not summary.empty
+        else "-"
+    )
+    total_surface_sessions = int(summary["impression_sessions"].sum())
+    total_click_sessions = int(summary["click_sessions"].sum())
+
+    cols = st.columns(4)
+    cols[0].metric("Surface Sessions", total_surface_sessions)
+    cols[1].metric(
+        "Click Sessions",
+        total_click_sessions,
+        (
+            f"{total_click_sessions / total_surface_sessions * 100:.1f}% CTR"
+            if total_surface_sessions > 0
+            else "0%"
+        ),
+    )
+    cols[2].metric("Total Surface Clicks", int(summary["clicks"].sum()))
+    cols[3].metric("Best Surface", best_surface)
+
+    fig = px.bar(
+        summary.sort_values("session_ctr", ascending=False),
+        x="surface",
+        y="session_ctr",
+        text="session_ctr",
+        labels={"surface": "Surface", "session_ctr": "Session CTR (%)"},
+    )
+    fig.update_traces(texttemplate="%{text:.1f}%", textposition="outside")
+    fig.update_layout(height=320, margin=dict(t=10, b=10), yaxis_title="CTR (%)")
+    st.plotly_chart(fig, use_container_width=True)
+
+    if not clicks.empty:
+        target_mix = (
+            clicks.assign(
+                surface=clicks["surface_key"].map(surface_labels).fillna(clicks["surface_key"]),
+                target_type=clicks["target_type"].fillna("unknown"),
+            )
+            .groupby(["surface", "target_type"], as_index=False)
+            .agg(clicks=("event_name", "size"))
+        )
+
+        mix_fig = px.bar(
+            target_mix,
+            x="surface",
+            y="clicks",
+            color="target_type",
+            barmode="stack",
+            labels={"surface": "Surface", "clicks": "Clicks", "target_type": "Target Type"},
+        )
+        mix_fig.update_layout(height=320, margin=dict(t=10, b=10))
+        st.plotly_chart(mix_fig, use_container_width=True)
+
+    st.dataframe(
+        summary[["surface", "impression_sessions", "click_sessions", "clicks", "session_ctr"]]
+        .sort_values(["session_ctr", "click_sessions"], ascending=False),
+        use_container_width=True,
+        hide_index=True,
+    )
 
 
 def render_search_console_section() -> None:
@@ -351,6 +819,7 @@ def main() -> None:
     st.caption("michael.business | Consolidated metrics")
 
     df = load_news_data()
+    events_df = load_analytics_events()
 
     if df.empty:
         st.warning("No data found in the database.")
@@ -374,6 +843,25 @@ def main() -> None:
     render_source_breakdown(df)
 
     st.divider()
+    render_engagement_kpis(events_df)
+    col_left, col_right = st.columns([2, 3])
+    with col_left:
+        render_engagement_funnel(events_df)
+        render_page_type_mix(events_df)
+    with col_right:
+        render_top_content_paths(events_df)
+
+    st.divider()
+    col_left, col_right = st.columns(2)
+    with col_left:
+        render_home_entry_paths_performance(events_df)
+    with col_right:
+        render_retention_surface_performance(events_df)
+
+    st.divider()
+    render_conversion_sources(events_df)
+
+    st.divider()
     render_search_console_section()
 
     st.divider()
@@ -382,6 +870,27 @@ def main() -> None:
             df[["slug", "published_at", "source_name", "is_active", "is_enriched", "x_post_status", "linkedin_post_status"]],
             use_container_width=True,
         )
+
+    if not events_df.empty:
+        with st.expander("Raw Analytics Events"):
+            st.dataframe(
+                events_df[
+                    [
+                        "occurred_at",
+                        "event_name",
+                        "page",
+                        "locale",
+                        "page_type",
+                        "location",
+                        "surface_type",
+                        "source",
+                        "channel",
+                        "session_id",
+                    ]
+                ],
+                use_container_width=True,
+                hide_index=True,
+            )
 
     st.caption(f"Last refreshed: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
 

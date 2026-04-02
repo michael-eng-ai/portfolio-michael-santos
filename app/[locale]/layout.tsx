@@ -6,6 +6,7 @@ import "@/app/globals.css";
 import { Footer } from "@/components/footer";
 import { GoogleAnalyticsProvider } from "@/components/google-analytics";
 import { Header } from "@/components/header";
+import { RouteEngagementTracker } from "@/components/route-engagement-tracker";
 import { ScrollTracker } from "@/components/scroll-tracker";
 import { StructuredData } from "@/components/structured-data";
 import { buildPersonJsonLd, buildWebsiteJsonLd } from "@/lib/seo";
@@ -47,6 +48,7 @@ export default async function LocaleLayout({
           {children}
           <Footer locale={locale} />
         </div>
+        <RouteEngagementTracker />
         <ScrollTracker />
         <GoogleAnalyticsProvider />
         <Analytics />

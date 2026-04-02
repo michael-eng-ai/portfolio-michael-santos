@@ -1,0 +1,34 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#07111E"/>
+  <rect x="48" y="48" width="1504" height="804" rx="36" fill="url(#paint0_linear)"/>
+  <path d="M88 210C88 185.699 107.699 166 132 166H364C388.301 166 408 185.699 408 210V328C408 352.301 388.301 372 364 372H132C107.699 372 88 352.301 88 328V210Z" fill="#0F172A" fill-opacity="0.92"/>
+  <path d="M470 210C470 185.699 489.699 166 514 166H816C840.301 166 860 185.699 860 210V328C860 352.301 840.301 372 816 372H514C489.699 372 470 352.301 470 328V210Z" fill="#0F172A" fill-opacity="0.92"/>
+  <path d="M922 210C922 185.699 941.699 166 966 166H1288C1312.3 166 1332 185.699 1332 210V328C1332 352.301 1312.3 372 1288 372H966C941.699 372 922 352.301 922 328V210Z" fill="#0F172A" fill-opacity="0.92"/>
+  <path d="M258 372V462" stroke="#38BDF8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M666 372V462" stroke="#38BDF8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M1127 372V462" stroke="#38BDF8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M258 462H1127" stroke="#38BDF8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M695 462V546" stroke="#38BDF8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M517 546C517 521.699 536.699 502 561 502H829C853.301 502 873 521.699 873 546V684C873 708.301 853.301 728 829 728H561C536.699 728 517 708.301 517 684V546Z" fill="#0F172A" fill-opacity="0.92"/>
+  <circle cx="246" cy="244" r="18" fill="#22C55E"/>
+  <circle cx="294" cy="244" r="18" fill="#38BDF8"/>
+  <circle cx="342" cy="244" r="18" fill="#F59E0B"/>
+  <text x="128" y="292" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="48" font-weight="700">PostgreSQL WAL</text>
+  <text x="128" y="336" fill="#94A3B8" font-family="Arial, sans-serif" font-size="26">Operational change capture starts here</text>
+  <text x="510" y="266" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="56" font-weight="700">Debezium + Kafka</text>
+  <text x="510" y="314" fill="#94A3B8" font-family="Arial, sans-serif" font-size="26">CDC events published into an inspectable backbone</text>
+  <text x="958" y="266" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="56" font-weight="700">Python UPSERT</text>
+  <text x="958" y="314" fill="#94A3B8" font-family="Arial, sans-serif" font-size="26">Normalize envelopes, coerce payloads, apply safe writes</text>
+  <text x="565" y="586" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="58" font-weight="700">dbt bronze / silver / gold</text>
+  <text x="565" y="636" fill="#94A3B8" font-family="Arial, sans-serif" font-size="26">Analytics-ready layers plus Streamlit visibility</text>
+  <text x="104" y="110" fill="#93C5FD" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">REAL-TIME CDC ANALYTICS</text>
+  <text x="104" y="778" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="74" font-weight="700">Operational change to trusted analytics</text>
+  <text x="104" y="824" fill="#94A3B8" font-family="Arial, sans-serif" font-size="30">Transparent pipeline design over black-box freshness claims</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="98" y1="74" x2="1488" y2="824" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F1E36"/>
+      <stop offset="0.55" stop-color="#111827"/>
+      <stop offset="1" stop-color="#12243C"/>
+    </linearGradient>
+  </defs>
+</svg>

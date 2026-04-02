@@ -1,0 +1,16 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#09111C"/>
+  <rect x="52" y="52" width="1496" height="796" rx="40" fill="url(#paint0_linear)"/>
+  <text x="108" y="128" fill="#C4B5FD" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">ENGAGEMENT SIGNAL</text>
+  <text x="108" y="796" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="74" font-weight="700">APIs are turning community management into workflow design</text>
+  <text x="108" y="838" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="30">Publishing, feedback loops, and response automation are becoming data products too</text>
+  <rect x="166" y="248" width="1268" height="290" rx="34" fill="#0F172A" fill-opacity="0.86"/>
+  <text x="220" y="366" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="58" font-weight="700">Community systems are increasingly programmable business surfaces</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="88" y1="74" x2="1494" y2="830" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E1B4B"/>
+      <stop offset="0.58" stop-color="#111827"/>
+      <stop offset="1" stop-color="#0F2C36"/>
+    </linearGradient>
+  </defs>
+</svg>

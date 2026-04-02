@@ -84,6 +84,7 @@ Optional but recommended:
 - Add `DATABASE_URL` plus the `POSTGRES_*` variables to `.env.worker.local`
 - Deploy with `ENABLE_POSTGRES=1 ./ops/gcp/worker/deploy-to-vm.sh`
 - Run `pnpm db:shadow:sync` on the VM to copy `news` and `newsletter_subscribers`
+- The VM bootstrap now applies `news.sql`, `newsletter_subscribers.sql`, and `analytics_events.sql` automatically on first start
 - Run `pnpm db:shadow:verify` before any future cutover
 - For worker-first cutover, set `DATABASE_PROVIDER=postgres` and `SECONDARY_DATABASE_PROVIDER=supabase` in `.env.worker.local`
 - This keeps the worker writing to PostgreSQL while mirroring writes back to Supabase for the still-live Vercel site
@@ -257,6 +258,12 @@ ENABLE_TIMERS=1 ./ops/oci/deploy-to-vm.sh
 ### Auto PR Review
 
 `.github/workflows/auto-pr-review.yml` uses `pull_request_target` to access secrets. Claude Haiku reviews every PR diff and posts a comment. Safe because it only reads the diff via `gh pr diff`, never executes PR code.
+
+Implementation notes:
+- The workflow now passes the diff into the shell through `env`, which avoids quoting failures when the patch contains single quotes, backticks, or YAML snippets.
+- The Anthropic request body is assembled with `jq --arg`, not string interpolation, so JSON stays valid for large or multi-line diffs.
+- Bot-authored PRs are skipped with `github.event.pull_request.user.type != 'Bot'` to avoid noisy failures on automation branches.
+- GitHub `CI` and the Vercel preview deployment remain the actual build gates. `Auto PR Review` is advisory and should be debugged separately if it fails.
 
 ### Engagement Bots
 

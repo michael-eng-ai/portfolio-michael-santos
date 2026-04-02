@@ -1,0 +1,16 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#09121F"/>
+  <rect x="52" y="52" width="1496" height="796" rx="40" fill="url(#paint0_linear)"/>
+  <text x="108" y="128" fill="#BFDBFE" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">MARKET SIGNAL</text>
+  <text x="108" y="796" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="74" font-weight="700">Cloud platform moves worth tracking</text>
+  <text x="108" y="838" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="30">Infrastructure, governance, and delivery patterns reshaping data teams</text>
+  <rect x="112" y="236" width="1290" height="304" rx="34" fill="#0F172A" fill-opacity="0.84"/>
+  <text x="164" y="354" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="56" font-weight="700">Cloud platform decisions are now operating model decisions</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="88" y1="74" x2="1494" y2="830" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10243D"/>
+      <stop offset="0.6" stop-color="#111827"/>
+      <stop offset="1" stop-color="#0F2D3A"/>
+    </linearGradient>
+  </defs>
+</svg>

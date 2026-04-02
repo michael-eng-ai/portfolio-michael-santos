@@ -31,6 +31,14 @@ GitHub -> Site -> Newsletter -> LinkedIn/X
 
 ---
 
+## Current Runtime Boundary
+
+The production app is the Next.js App Router code under `app/`, `components/`, `lib/`, and `scripts/`.
+
+The `client/` directory is kept only as a legacy archive from an earlier Vite app and is not part of the current build, typecheck, or deploy path.
+
+---
+
 ## Architecture
 
 ```
@@ -54,7 +62,7 @@ app/
     articles/               # Article listing + detail pages
     news/                   # News listing + detail pages
     newsletter/             # Newsletter subscription
-    resume/                 # Resume/CV
+    resume/                 # Resume hub + printable HTML resume views
     contact/                # Contact page
   api/
     health/news/            # Supabase news health check (503 on fallback)
@@ -89,6 +97,8 @@ dashboard/                  # Streamlit analytics dashboard (Python)
   fetch_search_console.py   # GSC data collection script
   generate_password_hash.py # Helper to generate dashboard password hash
   requirements.txt          # Python dependencies
+
+client/                     # Legacy Vite app kept only for historical reference
 
 lib/
   content.ts                # Zod schemas + content loaders
@@ -227,6 +237,11 @@ LinkedIn API reply (max 3/run, 15-45s delay between)
 gh pr diff -> Claude Haiku reviews (correctness, security, performance)
           -> posts comment on PR
 ```
+
+Notes:
+- The workflow injects the diff through `env` and builds the Anthropic payload with `jq`, which prevents shell-quoting failures on multi-line patches.
+- Bot-authored PRs are skipped so automation branches do not create noisy review failures.
+- Build health still comes from `CI` plus the Vercel preview check; the review workflow is advisory.
 
 ### Health Check (every 5 min)
 

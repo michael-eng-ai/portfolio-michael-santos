@@ -1,22 +1,29 @@
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { Article } from "@/lib/content";
 import { Locale, copy, localePath } from "@/lib/site";
+import { TrackedLink } from "@/components/tracked-link";
 
 type ArticleCardProps = {
   article: Article;
   locale: Locale;
+  location?: string;
 };
 
-export function ArticleCard({ article, locale }: ArticleCardProps) {
+export function ArticleCard({
+  article,
+  locale,
+  location = "articles_index",
+}: ArticleCardProps) {
   const content = article.locales[locale];
   const excerpt = clampText(content.excerpt, editorialLimits.cardSummaryMax);
 
   return (
-    <Link
+    <TrackedLink
       href={localePath(locale, `/articles/${article.slug}`)}
+      eventName="content_card_click"
+      eventParams={{ content_type: "article", slug: article.slug, location, locale }}
       className="group bg-white p-8 transition-all duration-500 monolith-shadow hover:bg-gray-50 md:p-10"
     >
       <time className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">
@@ -29,6 +36,6 @@ export function ArticleCard({ article, locale }: ArticleCardProps) {
         {excerpt}
       </p>
       <ArrowRight size={20} aria-hidden="true" className="text-[var(--primary)] transition-transform group-hover:translate-x-2" />
-    </Link>
+    </TrackedLink>
   );
 }
