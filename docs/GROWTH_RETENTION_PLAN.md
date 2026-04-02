@@ -51,8 +51,6 @@ Increase:
 - Added an above-the-fold continuity journey on article, project, and news detail pages to expose the best next move earlier
 - Added a cross-format topic cluster on article, project, and news detail pages so visitors can keep the same theme while changing format
 
-## Remaining Work
-
 ### Phase 4 - Dashboard And Analysis Layer
 - Implemented internal event collection through `/api/analytics/collect`
 - Added database-backed event storage in `public.analytics_events`
@@ -84,6 +82,13 @@ Increase:
 - Review legacy `client/` footprint for cleanup or removal
 - Improved resume delivery beyond raw markdown with printable HTML resume routes
 - Refreshed `baseline-browser-mapping` so build validation stays quieter and easier to trust
+
+## Next Iteration
+
+- Monitor CTR improvements from meta title changes (baseline 2026-04-01: 116 impressions, position 6.8, CTR 0%)
+- Add X/LinkedIn engagement metrics to the Streamlit dashboard (replies sent, impressions)
+- Expand Tech Radar based on community usage data
+- A/B test entry-path section variants on the home page
 
 ## Definition Of Done For Growth Work
 
