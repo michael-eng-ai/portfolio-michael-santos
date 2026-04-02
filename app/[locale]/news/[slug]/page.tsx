@@ -5,8 +5,10 @@ import { ContentJourney, type ContentJourneyStep } from "@/components/content-jo
 import { EditorialCover } from "@/components/editorial-cover";
 import { RetentionPanel, type RetentionLink } from "@/components/retention-panel";
 import { StructuredData } from "@/components/structured-data";
+import { TopicCluster } from "@/components/topic-cluster";
 import { TrackedExternalLink } from "@/components/tracked-external-link";
 import { TrackedLink } from "@/components/tracked-link";
+import { getTopicClusterRecommendations } from "@/lib/content-recommendations";
 import { formatDisplayDate } from "@/lib/date";
 import { clampText, editorialLimits, sourceInitials } from "@/lib/editorial";
 import { getArticles, getNewsReferenceBySlug, getNewsReferences, getProjects } from "@/lib/content";
@@ -173,6 +175,11 @@ export default async function NewsDetailPage({
       targetType: "radar" as const,
     },
   ].slice(0, 3);
+  const topicClusterRecommendations = getTopicClusterRecommendations({
+    source: { type: "news", item },
+    articles,
+    projects,
+  });
 
   return (
     <main className="px-6 pb-20 pt-28 md:px-20">
@@ -301,6 +308,25 @@ export default async function NewsDetailPage({
           </section>
         </aside>
       </div>
+
+      <TopicCluster
+        locale={locale}
+        sourceType="news"
+        sourceSlug={item.slug}
+        eyebrow={copy(locale, "Topic cluster", "Cluster do tema")}
+        title={copy(
+          locale,
+          "Follow this signal into proof and strategy",
+          "Siga este sinal ate a prova e a estrategia",
+        )}
+        description={copy(
+          locale,
+          "Use the external trigger as the start of a deeper path, then keep exploring the same topic through implementation proof and a longer strategic frame.",
+          "Use o gatilho externo como inicio de um caminho mais profundo e continue explorando o mesmo tema por meio de prova de implementacao e de um enquadramento estrategico mais amplo.",
+        )}
+        location="news_topic_cluster"
+        recommendations={topicClusterRecommendations}
+      />
 
       <div className="mx-auto max-w-7xl">
         <RetentionPanel

@@ -28,6 +28,7 @@ Track enough behavior to answer:
   - `page_type`
   - `source_type`
   - `source_slug`
+  - `candidate_count`
 
 ### `scroll_depth`
 - Fires at `25`, `50`, `75`, `100`
@@ -77,6 +78,9 @@ Track enough behavior to answer:
   - `article_journey`
   - `news_journey`
   - `project_journey`
+  - `article_topic_cluster`
+  - `news_topic_cluster`
+  - `project_topic_cluster`
   - `retention_panel`
 
 ### `external_link_click`

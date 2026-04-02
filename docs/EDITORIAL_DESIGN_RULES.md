@@ -45,6 +45,7 @@ Keep the site visually premium, easy to scan, and consistent with a business-fac
   - single clear action
 - The home page should include a guided entry block that helps visitors self-select by intent
 - High-intent detail pages should include one early continuity block before the end-of-page retention panel
+- High-intent detail pages should include one mid-to-late cross-format cluster that keeps the reader on the same topic while changing format
 - High-intent pages should include one clear next-step block near the end of the experience
 
 ## Writing Rules
@@ -60,6 +61,7 @@ Keep the site visually premium, easy to scan, and consistent with a business-fac
   - newsletter signup
   - repeat-worthy asset discovery
 - Detail pages should also surface one "best next move" block earlier in the journey so recirculation does not depend only on footer behavior
+- Cross-format recommendation clusters should prefer explicit relations first, then shared tags, so the next move still feels editorially intentional
 
 ## High-Value Content Rules
 

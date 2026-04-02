@@ -6,8 +6,10 @@ import { EditorialCover } from "@/components/editorial-cover";
 import { MarkdownContent } from "@/components/markdown-content";
 import { RetentionPanel, type RetentionLink } from "@/components/retention-panel";
 import { StructuredData } from "@/components/structured-data";
+import { TopicCluster } from "@/components/topic-cluster";
 import { TrackedExternalLink } from "@/components/tracked-external-link";
 import { TrackedLink } from "@/components/tracked-link";
+import { getTopicClusterRecommendations } from "@/lib/content-recommendations";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { getArticles, getGithubRepoSnapshots, getGithubSnapshotForProject, getNewsReferences, getProjectBySlug, getProjects } from "@/lib/content";
 import { buildBreadcrumbJsonLd, buildPageMetadata, buildProjectJsonLd } from "@/lib/seo";
@@ -159,6 +161,12 @@ export default async function ProjectDetailPage({
       },
     );
   }
+
+  const topicClusterRecommendations = getTopicClusterRecommendations({
+    source: { type: "project", item: project },
+    articles,
+    news,
+  });
 
   return (
     <main className="px-6 pb-20 pt-28 md:px-20">
@@ -339,6 +347,25 @@ export default async function ProjectDetailPage({
           </section>
         </aside>
       </div>
+
+      <TopicCluster
+        locale={locale}
+        sourceType="project"
+        sourceSlug={project.slug}
+        eyebrow={copy(locale, "Topic cluster", "Cluster do tema")}
+        title={copy(
+          locale,
+          "Keep this case alive across strategy and market context",
+          "Mantenha este caso vivo entre estrategia e contexto de mercado",
+        )}
+        description={copy(
+          locale,
+          "Use the same theme in a new format so technical proof turns into a larger narrative with strategic context and current market movement.",
+          "Use o mesmo tema em um novo formato para que a prova tecnica vire uma narrativa maior com contexto estrategico e movimento atual de mercado.",
+        )}
+        location="project_topic_cluster"
+        recommendations={topicClusterRecommendations}
+      />
 
       <div className="mx-auto max-w-7xl">
         <RetentionPanel

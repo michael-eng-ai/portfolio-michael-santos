@@ -68,6 +68,9 @@ Provide one operational place to review:
   - article journey
   - news journey
   - project journey
+  - article topic cluster
+  - news topic cluster
+  - project topic cluster
   - end-of-page retention panels
 - Target-type mix to see whether people move toward:
   - proof
@@ -86,7 +89,7 @@ Provide one operational place to review:
 - Which page types are generating the strongest deep-read rate?
 - Which specific pages get views but poor recirculation?
 - Which entry path gets the best click-through from the home page?
-- Are the early journey blocks outperforming the end-of-page retention panels?
+- Are the early journey blocks and topic clusters outperforming the end-of-page retention panels?
 - Which newsletter source converts best?
 - Is PT or EN producing stronger conversion on similar surfaces?
 - Are repeat-worthy assets like `radar` creating enough engaged sessions?

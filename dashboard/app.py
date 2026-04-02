@@ -591,11 +591,22 @@ def render_retention_surface_performance(events_df: pd.DataFrame) -> None:
     if recent.empty:
         return
 
-    tracked_locations = ["article_journey", "news_journey", "project_journey", "retention_panel"]
+    tracked_locations = [
+        "article_journey",
+        "news_journey",
+        "project_journey",
+        "article_topic_cluster",
+        "news_topic_cluster",
+        "project_topic_cluster",
+        "retention_panel",
+    ]
     surface_labels = {
         "article_journey": "Article Journey",
         "news_journey": "News Journey",
         "project_journey": "Project Journey",
+        "article_topic_cluster": "Article Topic Cluster",
+        "news_topic_cluster": "News Topic Cluster",
+        "project_topic_cluster": "Project Topic Cluster",
         "article_retention_panel": "Article End Panel",
         "news_retention_panel": "News End Panel",
         "project_retention_panel": "Project End Panel",
@@ -609,7 +620,7 @@ def render_retention_surface_performance(events_df: pd.DataFrame) -> None:
     ].copy()
 
     if impressions.empty:
-        st.info("No journey or retention-panel impressions recorded yet.")
+        st.info("No journey, topic-cluster, or retention-panel impressions recorded yet.")
         return
 
     def resolve_surface_key(frame: pd.DataFrame) -> pd.Series:

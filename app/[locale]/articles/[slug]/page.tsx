@@ -6,7 +6,9 @@ import { EditorialCover } from "@/components/editorial-cover";
 import { MarkdownContent } from "@/components/markdown-content";
 import { RetentionPanel, type RetentionLink } from "@/components/retention-panel";
 import { StructuredData } from "@/components/structured-data";
+import { TopicCluster } from "@/components/topic-cluster";
 import { TrackedLink } from "@/components/tracked-link";
+import { getTopicClusterRecommendations } from "@/lib/content-recommendations";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { getArticleBySlug, getArticles, getNewsReferences, getProjects } from "@/lib/content";
 import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildPageMetadata } from "@/lib/seo";
@@ -163,6 +165,12 @@ export default async function ArticleDetailPage({
     );
   }
 
+  const topicClusterRecommendations = getTopicClusterRecommendations({
+    source: { type: "article", item: article },
+    projects,
+    news,
+  });
+
   return (
     <main className="px-6 pb-20 pt-28 md:px-20">
       <StructuredData
@@ -283,6 +291,25 @@ export default async function ArticleDetailPage({
           </section>
         </aside>
       </div>
+
+      <TopicCluster
+        locale={locale}
+        sourceType="article"
+        sourceSlug={article.slug}
+        eyebrow={copy(locale, "Topic cluster", "Cluster do tema")}
+        title={copy(
+          locale,
+          "Explore this theme across proof and live signals",
+          "Explore este tema entre prova e sinais vivos",
+        )}
+        description={copy(
+          locale,
+          "Stay on the same topic while changing format: move from strategic framing into implementation proof or a fresh market signal that keeps the session moving.",
+          "Permaneça no mesmo tema mudando apenas o formato: saia do enquadramento estrategico e avance para prova de implementacao ou para um sinal fresco de mercado que mantenha a sessao em movimento.",
+        )}
+        location="article_topic_cluster"
+        recommendations={topicClusterRecommendations}
+      />
 
       <div className="mx-auto max-w-7xl">
         <RetentionPanel

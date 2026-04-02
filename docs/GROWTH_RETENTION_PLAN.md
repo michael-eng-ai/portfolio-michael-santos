@@ -49,6 +49,7 @@ Increase:
   - radar page
 - Added a guided entry-path section on the home page so visitors can choose the right starting layer by intent
 - Added an above-the-fold continuity journey on article, project, and news detail pages to expose the best next move earlier
+- Added a cross-format topic cluster on article, project, and news detail pages so visitors can keep the same theme while changing format
 
 ## Remaining Work
 
@@ -88,6 +89,7 @@ Increase:
 
 - Every major page has a clear next step
 - Every major content surface emits analytics
+- Every high-intent detail page exposes at least one cross-format related-content block before the final newsletter panel
 - At least one repeat-worthy asset is discoverable from the main navigation
 - Newsletter is reachable from:
   - header
