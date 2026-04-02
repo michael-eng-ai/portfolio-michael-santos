@@ -264,7 +264,6 @@ Implementation notes:
 - The Anthropic request body is assembled with `jq --arg`, not string interpolation, so JSON stays valid for large or multi-line diffs.
 - Bot-authored PRs are skipped with `github.event.pull_request.user.type != 'Bot'` to avoid noisy failures on automation branches.
 - GitHub `CI` and the Vercel preview deployment remain the actual build gates. `Auto PR Review` is advisory and should be debugged separately if it fails.
-
 ### Engagement Bots
 
 **X Reply Bot** (`scripts/reply-to-x-mentions.ts`):

@@ -99,7 +99,6 @@ dashboard/                  # Streamlit analytics dashboard (Python)
   requirements.txt          # Python dependencies
 
 client/                     # Legacy Vite app kept only for historical reference
-
 lib/
   content.ts                # Zod schemas + content loaders
   news-delivery.ts          # Retry/DLQ field helpers for X + LinkedIn
@@ -242,7 +241,6 @@ Notes:
 - The workflow injects the diff through `env` and builds the Anthropic payload with `jq`, which prevents shell-quoting failures on multi-line patches.
 - Bot-authored PRs are skipped so automation branches do not create noisy review failures.
 - Build health still comes from `CI` plus the Vercel preview check; the review workflow is advisory.
-
 ### Health Check (every 5 min)
 
 **Timer**: `michael-health-check` on OCI VM
