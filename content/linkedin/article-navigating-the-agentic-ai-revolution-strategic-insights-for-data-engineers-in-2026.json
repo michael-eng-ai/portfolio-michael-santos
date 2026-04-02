@@ -1,0 +1,25 @@
+{
+  "slug": "article-navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026",
+  "sourceType": "article",
+  "sourceSlug": "navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026",
+  "status": "draft",
+  "generatedAt": "2026-04-01T11:24:01.986Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026",
+    "pt": "https://michael.business/pt/articles/navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "hook": "Navigating the Agentic AI Revolution: Strategic Insights for Data Engineers in 2026",
+      "body": "The 2026 Gartner predictions alongside NVIDIA’s GTC announcements highlight a pivotal shift toward agentic AI and inference-centric computing. This article explores the evolving role of data engineers in building scalable, real-time, and governed data infrastructure to meet these emerging demands.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Navegando na Revolução da IA Agente: Insights Estratégicos para Engenheiros de Dados em 2026",
+      "body": "As previsões da Gartner para 2026 e os anúncios da NVIDIA GTC indicam uma mudança crucial para IA agente e computação orientada à inferência. Este artigo explora o papel dos engenheiros de dados na construção de infraestrutura escalável, em tempo real e governada para atender a essas demandas.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "slug": "article-aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem",
+  "sourceType": "article",
+  "sourceSlug": "aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem",
+  "status": "draft",
+  "generatedAt": "2026-04-01T11:24:01.985Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem",
+    "pt": "https://michael.business/pt/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "hook": "AWS and NVIDIA on Bedrock: Why 80% of AI Engineering Is Still a Data Engineering Problem",
+      "body": "The AWS launch of NVIDIA Nemotron 3 Super on Amazon Bedrock confirms what data engineers have known for years: AI infrastructure runs on data pipelines. Here is what this means for your business.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "AWS e NVIDIA no Bedrock: Por que 80% da Engenharia de IA Ainda é Engenharia de Dados",
+      "body": "O lançamento da AWS com NVIDIA Nemotron 3 Super no Amazon Bedrock confirma o que engenheiros de dados sabem há anos: infraestrutura de IA roda sobre pipelines de dados. Veja o que isso significa para o seu negócio.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}

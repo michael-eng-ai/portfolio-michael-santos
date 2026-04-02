@@ -1,0 +1,25 @@
+{
+  "slug": "article-physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
+  "sourceType": "article",
+  "sourceSlug": "physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
+  "status": "draft",
+  "generatedAt": "2026-04-01T11:24:01.978Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
+    "pt": "https://michael.business/pt/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "Physical AI and IoT Data Engineering: Redefining Data Infrastructure in 2026",
+      "body": "Explore how AI agents generating 10x more physical data by 2029 transform architectures, engineering practices, and business outcomes.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Physical AI e Engenharia de Dados IoT: Redefinindo Infraestrutura em 2026",
+      "body": "Entenda como a explosão de dados físicos por agentes de IA até 2029 impacta arquiteturas, engenharia e resultados empresariais.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}

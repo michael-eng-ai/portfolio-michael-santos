@@ -1,0 +1,25 @@
+{
+  "slug": "article-o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao",
+  "sourceType": "article",
+  "sourceSlug": "o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao",
+  "status": "draft",
+  "generatedAt": "2026-04-01T11:24:01.984Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao",
+    "pt": "https://michael.business/pt/articles/o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "hook": "The Hidden Tax of AI: Why 87% of Projects Fail Before Reaching Production",
+      "body": "Inconsistent data consumes 12% of company revenue and sabotages AI projects. Discover how Data Engineering solves this bottleneck and turns AI initiatives into real business results.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "O Imposto Oculto da IA: Por Que 87% dos Projetos Falham Antes de Chegar à Produção",
+      "body": "Dados inconsistentes consomem 12% do faturamento das empresas e sabotam projetos de IA. Descubra como a Engenharia de Dados resolve esse gargalo e transforma iniciativas de IA em resultados reais de negócio.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}

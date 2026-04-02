@@ -1,0 +1,25 @@
+{
+  "slug": "article-gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering",
+  "sourceType": "article",
+  "sourceSlug": "gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering",
+  "status": "draft",
+  "generatedAt": "2026-04-01T11:24:01.980Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering",
+    "pt": "https://michael.business/pt/articles/gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "Gartner 2026 Predictions: Semantic Layers, Agentic AI, and the Evolution of Data Engineering",
+      "body": "Gartner’s 2026 predictions highlight the transformative impact of agentic AI and semantic layers on data engineering. This article explores practical implications for data pipelines, governance automation, and infrastructure, focusing on tools like dbt, Kafka, Airflow, Spark, and Apache Iceberg.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Previsões Gartner 2026: Camadas Semânticas, IA Agentiva e a Evolução da Engenharia de Dados",
+      "body": "As previsões do Gartner para 2026 destacam o impacto transformador da IA agentiva e das camadas semânticas na engenharia de dados. Este artigo aborda as implicações práticas para pipelines, automação da governança e infraestrutura, com foco em ferramentas como dbt, Kafka, Airflow, Spark e Apache Iceberg.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}

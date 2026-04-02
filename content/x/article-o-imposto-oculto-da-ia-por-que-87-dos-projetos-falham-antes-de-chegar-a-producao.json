@@ -1,0 +1,27 @@
+{
+  "slug": "article-o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao",
+  "sourceType": "article",
+  "sourceSlug": "o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao",
+  "status": "draft",
+  "generatedAt": "2026-04-01T11:24:02.820Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao",
+    "pt": "https://michael.business/pt/articles/o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "The Hidden Tax of AI: Why 87% of Projects Fail Before Reaching Production\n\nInconsistent data consumes 12% of company revenue and sabotages AI projects. Discov…\n\nhttps://michael.business/en/articles/o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "O Imposto Oculto da IA: Por Que 87% dos Projetos Falham Antes de Chegar à Produção\n\nDados inconsistentes consomem 12% do faturamento das empresas e sabotam pr…\n\nhttps://michael.business/pt/articles/o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    }
+  }
+}

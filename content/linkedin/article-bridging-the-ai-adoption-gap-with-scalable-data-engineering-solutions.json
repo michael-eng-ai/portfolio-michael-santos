@@ -1,0 +1,25 @@
+{
+  "slug": "article-bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions",
+  "sourceType": "article",
+  "sourceSlug": "bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions",
+  "status": "draft",
+  "generatedAt": "2026-04-01T11:24:01.983Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions",
+    "pt": "https://michael.business/pt/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "Bridging the AI Adoption Gap with Scalable Data Engineering Solutions",
+      "body": "Explore how the AI adoption gap and data infrastructure ROI challenges highlight the critical role of modern data engineering practices. Practical examples using Apache Airflow, dbt, Spark, Kafka, Snowflake, BigQuery, and Databricks illustrate how businesses can realize productivity gains and structural integration of AI.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Fechando a Lacuna na Adoção de IA com Soluções Escaláveis de Engenharia de Dados",
+      "body": "Entenda como a lacuna na adoção de IA e os desafios de ROI em infraestrutura de dados evidenciam o papel crucial da engenharia de dados moderna. Exemplos práticos com Apache Airflow, dbt, Spark, Kafka, Snowflake, BigQuery e Databricks mostram como empresas podem alcançar ganhos de produtividade e integrar IA estruturalmente.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}
