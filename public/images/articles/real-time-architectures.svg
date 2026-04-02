@@ -1,0 +1,21 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#09111D"/>
+  <rect x="52" y="52" width="1496" height="796" rx="42" fill="url(#paint0_linear)"/>
+  <text x="112" y="138" fill="#67E8F9" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">REAL-TIME ARCHITECTURE</text>
+  <text x="112" y="272" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="90" font-weight="700">Fresh + trusted + explainable</text>
+  <text x="112" y="354" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="42">CDC when the pain is stale analytics.</text>
+  <text x="112" y="412" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="42">Streaming API when the business needs current state.</text>
+  <circle cx="1190" cy="314" r="120" fill="#0F172A" fill-opacity="0.86" stroke="#22D3EE" stroke-opacity="0.48"/>
+  <circle cx="1040" cy="514" r="94" fill="#0F172A" fill-opacity="0.86" stroke="#34D399" stroke-opacity="0.48"/>
+  <circle cx="1324" cy="544" r="94" fill="#0F172A" fill-opacity="0.86" stroke="#F59E0B" stroke-opacity="0.48"/>
+  <text x="1116" y="324" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="42" font-weight="700">CDC</text>
+  <text x="968" y="524" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="38" font-weight="700">State</text>
+  <text x="1262" y="554" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="36" font-weight="700">API</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="88" y1="76" x2="1494" y2="830" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#11233A"/>
+      <stop offset="0.6" stop-color="#111827"/>
+      <stop offset="1" stop-color="#143239"/>
+    </linearGradient>
+  </defs>
+</svg>

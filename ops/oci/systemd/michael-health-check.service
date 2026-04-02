@@ -1,0 +1,20 @@
+[Unit]
+Description=Michael Business health check (keeps Supabase active + monitors site)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=michaelworker
+Group=michaelworker
+ExecStart=/usr/bin/bash -c '\
+  STATUS=$(curl -sf -o /dev/null -w "%%{http_code}" --max-time 10 https://michael.business/api/health); \
+  if [ "$STATUS" = "200" ]; then \
+    echo "OK: health check returned $STATUS"; \
+  else \
+    echo "WARN: health check returned $STATUS" >&2; \
+  fi'
+Nice=19
+
+[Install]
+WantedBy=multi-user.target

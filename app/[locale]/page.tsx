@@ -1,12 +1,14 @@
-import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
+import { EntryPaths } from "@/components/entry-paths";
+import { NewsCard } from "@/components/news-card";
 import { NewsletterForm } from "@/components/newsletter-form";
+import { TrackedLink } from "@/components/tracked-link";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { getArticles, getNewsReferences, getProjects } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
-import { Locale, copy, localePath, siteConfig } from "@/lib/site";
+import { Locale, copy, localePath } from "@/lib/site";
 
 export const revalidate = 600;
 
@@ -58,51 +60,161 @@ export default async function LocaleHomePage({
 
   const featuredProjects = projects.filter((project) => project.featured).slice(0, 3);
   const featuredArticles = articles.slice(0, 3);
+  const featuredNews = news.slice(0, 3);
+  const entryPaths = [
+    {
+      eyebrow: copy(locale, "Return visits", "Retorno recorrente"),
+      title: copy(locale, "Start with market signals", "Comece pelos sinais de mercado"),
+      description: copy(
+        locale,
+        "Use the news layer when you want fresh context, changing platform moves, and reasons to revisit weekly.",
+        "Use a camada de noticias quando quiser contexto fresco, movimento de plataformas e motivos para voltar semanalmente.",
+      ),
+      href: localePath(locale, "/news"),
+      target: "news",
+      targetType: "news" as const,
+      ctaLabel: copy(locale, "Open the signal feed", "Abrir o feed de sinais"),
+    },
+    {
+      eyebrow: copy(locale, "Strategy", "Estrategia"),
+      title: copy(locale, "Start with long-form insights", "Comece pelos insights aprofundados"),
+      description: copy(
+        locale,
+        "Go here when you need decision framing, tradeoffs, and a stronger story for stakeholders or hiring.",
+        "Va para ca quando precisar de enquadramento de decisao, tradeoffs e uma narrativa mais forte para stakeholders ou contratacao.",
+      ),
+      href: localePath(locale, "/articles"),
+      target: "articles",
+      targetType: "article" as const,
+      ctaLabel: copy(locale, "Read the strategic notes", "Ler as notas estrategicas"),
+    },
+    {
+      eyebrow: copy(locale, "Proof", "Prova"),
+      title: copy(locale, "Start with case studies", "Comece pelos casos de sucesso"),
+      description: copy(
+        locale,
+        "Jump straight into implementation proof, architecture choices, and business impact when you need evidence.",
+        "Vá direto para prova de implementacao, escolhas de arquitetura e impacto no negocio quando precisar de evidencia.",
+      ),
+      href: localePath(locale, "/projects"),
+      target: "projects",
+      targetType: "project" as const,
+      ctaLabel: copy(locale, "Browse the execution proof", "Ver a prova de execucao"),
+    },
+    {
+      eyebrow: copy(locale, "Retention", "Retencao"),
+      title: copy(locale, "Stay on the weekly loop", "Fique no loop semanal"),
+      description: copy(
+        locale,
+        "Choose the newsletter if you want the shortest path to repeat value without needing to remember to come back.",
+        "Escolha a newsletter se quiser o caminho mais curto para valor recorrente sem precisar lembrar de voltar.",
+      ),
+      href: localePath(locale, "/newsletter"),
+      target: "newsletter",
+      targetType: "newsletter" as const,
+      ctaLabel: copy(locale, "Get the weekly signal pack", "Receber o pacote semanal"),
+    },
+  ];
+  const proofStats = [
+    {
+      value: `${projects.length}`,
+      label: copy(locale, "Business cases", "Casos de negocio"),
+      description: copy(locale, "Open-source delivery proof", "Prova de entrega open source"),
+    },
+    {
+      value: `${articles.length}`,
+      label: copy(locale, "Long-form insights", "Analises aprofundadas"),
+      description: copy(locale, "Executive framing for technical work", "Enquadramento executivo para trabalho tecnico"),
+    },
+    {
+      value: `${news.length}`,
+      label: copy(locale, "Market signals", "Sinais de mercado"),
+      description: copy(locale, "Curated shifts worth watching", "Mudancas curadas que valem atencao"),
+    },
+    {
+      value: "2",
+      label: copy(locale, "Working languages", "Idiomas de trabalho"),
+      description: copy(locale, "English and Portuguese", "Ingles e Portugues"),
+    },
+  ];
 
   return (
     <main>
       {/* Hero */}
-      <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden px-6 pt-20 md:min-h-[85vh] md:px-20">
-        <Image
-          src="https://images.unsplash.com/photo-1639322537228-f710d846310a?w=1920&q=80&auto=format&fit=crop"
-          alt=""
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-gray-900/70 to-gray-900/90" />
-        <div className="relative z-10 max-w-4xl text-center">
-          <span className="mb-6 inline-block text-xs font-bold uppercase tracking-[0.3em] text-blue-400">
-            {copy(locale, "Data Engineering & AI Strategy", "Engenharia de Dados & Estrategia de IA")}
-          </span>
-          <h1 className="mb-4 text-4xl font-extrabold leading-[0.95] tracking-tighter text-white sm:text-5xl md:text-7xl lg:text-8xl">
-            {copy(locale, "Growth Starts", "O Crescimento")}
-            <br />
-            <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
-              {copy(locale, "With Your Data.", "Comeca Pelos Dados.")}
-            </span>
-          </h1>
-          <p className="mx-auto mb-10 max-w-xl text-lg font-light leading-relaxed text-gray-300 sm:text-xl">
-            {copy(
-              locale,
-              "Turn raw data into real-time decisions.",
-              "Transforme dados brutos em decisoes em tempo real.",
-            )}
-          </p>
-          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-5">
-            <Link
-              href={localePath(locale, "/projects")}
-              className="w-full rounded-full bg-white px-10 py-4 text-center text-base font-bold text-gray-900 transition hover:bg-gray-100 sm:w-auto sm:text-lg"
-            >
-              {copy(locale, "See How It Works", "Veja Como Funciona")}
-            </Link>
-            <Link
-              href={localePath(locale, "/articles")}
-              className="w-full rounded-full bg-white px-10 py-4 text-center text-base font-bold text-gray-900 transition hover:bg-gray-100 sm:w-auto sm:text-lg"
-            >
-              {copy(locale, "Read the Insights", "Leia os Insights")}
-            </Link>
+      <section className="relative overflow-hidden px-6 pb-20 pt-28 md:px-20 md:pb-24 md:pt-32">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_22%,rgba(37,99,235,0.22),transparent_28%),radial-gradient(circle_at_82%_14%,rgba(124,58,237,0.16),transparent_22%),linear-gradient(180deg,#f7fbff_0%,#eef5ff_42%,#ffffff_100%)]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--primary)]/30 to-transparent" />
+        <div className="relative mx-auto max-w-7xl">
+          <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+            <div className="max-w-3xl">
+              <span className="mb-6 inline-flex rounded-full border border-[var(--primary)]/15 bg-white/70 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.28em] text-[var(--primary)] shadow-sm backdrop-blur">
+                {copy(locale, "Data Engineering, AI Strategy, And Market Signals", "Engenharia de Dados, Estrategia de IA e Sinais de Mercado")}
+              </span>
+              <h1 className="text-4xl font-extrabold leading-[0.92] tracking-tighter text-gray-950 sm:text-5xl md:text-7xl">
+                {copy(locale, "From Market Pressure To", "Da Pressao de Mercado")}
+                <br />
+                <span className="gradient-text">
+                  {copy(locale, "Execution Proof.", "A Prova de Execucao.")}
+                </span>
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-gray-600 sm:text-xl">
+                {copy(
+                  locale,
+                  "Case studies, strategic writing, and curated signals that show how modern data and AI work turns into measurable business leverage.",
+                  "Casos, analises estrategicas e sinais curados que mostram como trabalho moderno de dados e IA vira alavancagem mensuravel de negocio.",
+                )}
+              </p>
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+                <TrackedLink
+                  href={localePath(locale, "/projects")}
+                  eventName="navigation_click"
+                  eventParams={{ location: "home_hero", target: "projects", locale }}
+                  className="inline-flex items-center justify-center rounded-full bg-gray-950 px-8 py-4 text-base font-bold text-white transition hover:bg-gray-800"
+                >
+                  {copy(locale, "View Case Studies", "Ver Casos")}
+                </TrackedLink>
+                <TrackedLink
+                  href={localePath(locale, "/radar")}
+                  eventName="navigation_click"
+                  eventParams={{ location: "home_hero", target: "radar", locale }}
+                  className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-8 py-4 text-base font-bold text-gray-900 transition hover:border-gray-400 hover:bg-gray-50"
+                >
+                  {copy(locale, "Explore Tech Radar", "Explorar Tech Radar")}
+                </TrackedLink>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm text-gray-600">
+                <TrackedLink
+                  href={localePath(locale, "/articles")}
+                  eventName="navigation_click"
+                  eventParams={{ location: "home_hero", target: "articles", locale }}
+                  className="inline-flex items-center gap-2 transition hover:text-[var(--primary)]"
+                >
+                  {copy(locale, "Read the latest insights", "Ler os insights mais recentes")}
+                  <ArrowRight size={14} />
+                </TrackedLink>
+                <TrackedLink
+                  href={localePath(locale, "/newsletter")}
+                  eventName="navigation_click"
+                  eventParams={{ location: "home_hero", target: "newsletter", locale }}
+                  className="inline-flex items-center gap-2 transition hover:text-[var(--primary)]"
+                >
+                  {copy(locale, "Get the weekly signal pack", "Receber o pacote semanal de sinais")}
+                  <ArrowRight size={14} />
+                </TrackedLink>
+              </div>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              {proofStats.map((stat) => (
+                <div key={stat.label} className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-[0_12px_40px_rgba(15,23,42,0.08)] backdrop-blur">
+                  <p className="text-4xl font-black tracking-tighter text-gray-950">{stat.value}</p>
+                  <p className="mt-3 text-sm font-bold uppercase tracking-[0.22em] text-gray-500">
+                    {stat.label}
+                  </p>
+                  <p className="mt-3 text-sm leading-6 text-gray-600">{stat.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -141,6 +253,56 @@ export default async function LocaleHomePage({
             <p className="mt-2 text-sm font-bold leading-relaxed text-gray-900">
               {copy(locale, "Code, architecture & docs on GitHub", "Codigo, arquitetura & docs no GitHub")}
             </p>
+          </div>
+        </div>
+      </section>
+
+      <EntryPaths
+        locale={locale}
+        eyebrow={copy(locale, "Choose your route", "Escolha sua rota")}
+        title={copy(locale, "Use The Site By Intent, Not By Chance", "Use o Site por Intencao, Nao por Acaso")}
+        description={copy(
+          locale,
+          "Different visitors need different entry points. Pick the layer that matches your goal now, then let the internal links move you toward proof, context, and repeat value.",
+          "Visitantes diferentes precisam de entradas diferentes. Escolha a camada que combina com seu objetivo agora e deixe os links internos levarem voce ate prova, contexto e retorno recorrente.",
+        )}
+        paths={entryPaths}
+      />
+
+      {/* Market Signals */}
+      <section className="px-6 py-24 md:px-20 md:py-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-3xl">
+              <p className="text-xs font-bold uppercase tracking-[0.3em] text-[var(--accent-mint)]">
+                {copy(locale, "Fresh context", "Contexto atual")}
+              </p>
+              <h2 className="mt-4 text-3xl font-extrabold uppercase tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
+                {copy(locale, "Signals Worth Returning For", "Sinais Que Valem o Retorno")}
+              </h2>
+              <p className="mt-4 text-lg leading-8 text-gray-600">
+                {copy(
+                  locale,
+                  "The latest references are translated into business context and linked back to concrete delivery patterns. This is the part of the site designed to earn repeat visits.",
+                  "As referencias mais recentes sao traduzidas em contexto de negocio e conectadas de volta a padroes concretos de entrega. Esta e a parte do site pensada para gerar retorno recorrente.",
+                )}
+              </p>
+            </div>
+            <TrackedLink
+              href={localePath(locale, "/news")}
+              eventName="navigation_click"
+              eventParams={{ location: "home_signals", target: "news", locale }}
+              className="group inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.24em] text-[var(--primary)]"
+            >
+              {copy(locale, "See all signals", "Ver todos os sinais")}
+              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+            </TrackedLink>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-3">
+            {featuredNews.map((item) => (
+              <NewsCard key={item.slug} item={item} locale={locale} location="home_signals" />
+            ))}
           </div>
         </div>
       </section>
@@ -191,13 +353,15 @@ export default async function LocaleHomePage({
                     <p className="mb-8 text-lg leading-relaxed text-gray-600">
                       {clampText(content.summary, 180)}
                     </p>
-                    <Link
+                    <TrackedLink
                       href={localePath(locale, `/projects/${project.slug}`)}
+                      eventName="content_card_click"
+                      eventParams={{ content_type: "project", slug: project.slug, location: "home_featured_cases", locale }}
                       className="inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.3em] text-gray-900 transition hover:text-[var(--primary)]"
                     >
                       {copy(locale, "Read Case Study", "Ver Caso de Sucesso")}
                       <ArrowRight size={14} className="text-[var(--primary)]" />
-                    </Link>
+                    </TrackedLink>
                   </div>
                 </div>
               );
@@ -222,13 +386,15 @@ export default async function LocaleHomePage({
                 )}
               </p>
             </div>
-            <Link
+            <TrackedLink
               href={localePath(locale, "/projects")}
+              eventName="navigation_click"
+              eventParams={{ location: "home_showcase", target: "projects", locale }}
               className="group flex items-center gap-3 border-b-2 border-[var(--primary)]/30 pb-2 text-xs font-bold uppercase tracking-[0.2em] text-[var(--primary)] transition-all hover:border-[var(--primary)]"
             >
               {copy(locale, "Full Portfolio", "Portfolio Completo")}
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-            </Link>
+            </TrackedLink>
           </div>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
@@ -255,13 +421,15 @@ export default async function LocaleHomePage({
                   <p className="mb-8 max-w-lg text-lg text-gray-300">
                     {clampText(featuredProjects[0].locales[locale].summary, 120)}
                   </p>
-                  <Link
+                  <TrackedLink
                     href={localePath(locale, `/projects/${featuredProjects[0].slug}`)}
+                    eventName="content_card_click"
+                    eventParams={{ content_type: "project", slug: featuredProjects[0].slug, location: "home_showcase", locale }}
                     className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-white transition hover:text-[var(--primary)]"
                   >
                     {copy(locale, "Read Case Study", "Ver Caso")}
                     <ArrowRight size={14} className="text-[var(--primary)]" />
-                  </Link>
+                  </TrackedLink>
                 </div>
               </div>
             )}
@@ -288,13 +456,15 @@ export default async function LocaleHomePage({
                   <p className="mb-8 text-lg text-gray-300">
                     {clampText(featuredProjects[1].locales[locale].summary, 80)}
                   </p>
-                  <Link
+                  <TrackedLink
                     href={localePath(locale, `/projects/${featuredProjects[1].slug}`)}
+                    eventName="content_card_click"
+                    eventParams={{ content_type: "project", slug: featuredProjects[1].slug, location: "home_showcase", locale }}
                     className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-white transition hover:text-[var(--primary)]"
                   >
                     {copy(locale, "Case Details", "Detalhes do Caso")}
                     <ArrowRight size={14} className="text-[var(--primary)]" />
-                  </Link>
+                  </TrackedLink>
                 </div>
               </div>
             )}
@@ -302,8 +472,90 @@ export default async function LocaleHomePage({
         </div>
       </section>
 
+      {/* Radar */}
+      <section className="section-deep px-6 py-24 md:px-20 md:py-28">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div className="max-w-2xl">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-[var(--accent-mint)]">
+              {copy(locale, "Opinionated asset", "Ativo opinativo")}
+            </p>
+            <h2 className="mt-4 text-3xl font-extrabold uppercase tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
+              {copy(locale, "A Strong Reason To Come Back", "Um Forte Motivo Para Voltar")}
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-gray-600">
+              {copy(
+                locale,
+                "The Tech Radar turns experience into a reusable decision tool. It is one of the easiest ways to increase repeat traffic because the value compounds as the market shifts.",
+                "O Tech Radar transforma experiencia em uma ferramenta reutilizavel de decisao. E uma das formas mais simples de aumentar retorno recorrente porque o valor cresce conforme o mercado muda.",
+              )}
+            </p>
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <TrackedLink
+                href={localePath(locale, "/radar")}
+                eventName="navigation_click"
+                eventParams={{ location: "home_radar", target: "radar", locale }}
+                className="inline-flex items-center justify-center rounded-full bg-white px-7 py-4 text-base font-bold text-gray-900 shadow-sm transition hover:bg-gray-50"
+              >
+                {copy(locale, "Open The Radar", "Abrir o Radar")}
+              </TrackedLink>
+              <TrackedLink
+                href={localePath(locale, "/newsletter")}
+                eventName="navigation_click"
+                eventParams={{ location: "home_radar", target: "newsletter", locale }}
+                className="inline-flex items-center justify-center rounded-full border border-gray-300 px-7 py-4 text-base font-bold text-gray-900 transition hover:border-gray-400 hover:bg-white"
+              >
+                {copy(locale, "Get Radar Updates", "Receber Atualizacoes do Radar")}
+              </TrackedLink>
+            </div>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="section-card rounded-3xl p-6">
+              <p className="text-sm font-bold uppercase tracking-[0.28em] text-gray-500">
+                {copy(locale, "Coverage", "Cobertura")}
+              </p>
+              <p className="mt-4 text-4xl font-black tracking-tighter text-gray-950">24</p>
+              <p className="mt-3 text-sm leading-6 text-gray-600">
+                {copy(locale, "Technologies across processing, storage, orchestration, and AI/ML.", "Tecnologias entre processamento, armazenamento, orquestracao e IA/ML.")}
+              </p>
+            </div>
+            <div className="section-card rounded-3xl p-6">
+              <p className="text-sm font-bold uppercase tracking-[0.28em] text-gray-500">
+                {copy(locale, "Decision model", "Modelo de decisao")}
+              </p>
+              <p className="mt-4 text-4xl font-black tracking-tighter text-gray-950">4x4</p>
+              <p className="mt-3 text-sm leading-6 text-gray-600">
+                {copy(locale, "Four quadrants and four rings to make tradeoffs visible faster.", "Quatro quadrantes e quatro aneis para tornar tradeoffs visiveis mais rapido.")}
+              </p>
+            </div>
+            <div className="section-card rounded-3xl p-6">
+              <p className="text-sm font-bold uppercase tracking-[0.28em] text-gray-500">
+                {copy(locale, "Use case", "Uso")}
+              </p>
+              <p className="mt-4 text-2xl font-black tracking-tight text-gray-950">
+                {copy(locale, "Planning and hiring", "Planejamento e contratacao")}
+              </p>
+              <p className="mt-3 text-sm leading-6 text-gray-600">
+                {copy(locale, "Useful for executive conversations, roadmap framing, and credibility building.", "Util para conversas executivas, enquadramento de roadmap e construcao de credibilidade.")}
+              </p>
+            </div>
+            <div className="section-card rounded-3xl p-6">
+              <p className="text-sm font-bold uppercase tracking-[0.28em] text-gray-500">
+                {copy(locale, "Retention play", "Alavanca de retorno")}
+              </p>
+              <p className="mt-4 text-2xl font-black tracking-tight text-gray-950">
+                {copy(locale, "Updated as the stack moves", "Atualizado conforme o stack muda")}
+              </p>
+              <p className="mt-3 text-sm leading-6 text-gray-600">
+                {copy(locale, "A living asset gives people a reason to revisit beyond one-off portfolio browsing.", "Um ativo vivo da ao visitante um motivo para revisitar alem da navegacao pontual de portfolio.")}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Intelligence Feed - Articles */}
-      <section className="section-deep px-6 py-24 md:px-20 md:py-32">
+      <section className="px-6 py-24 md:px-20 md:py-32">
         <div className="mx-auto max-w-7xl">
           <div className="mb-20 border-l-[6px] border-[var(--primary)] pl-10">
             <h2 className="text-3xl font-extrabold uppercase tracking-tight text-gray-900 sm:text-4xl">
@@ -322,9 +574,11 @@ export default async function LocaleHomePage({
             {featuredArticles.map((article) => {
               const content = article.locales[locale];
               return (
-                <Link
+                <TrackedLink
                   key={article.slug}
                   href={localePath(locale, `/articles/${article.slug}`)}
+                  eventName="content_card_click"
+                  eventParams={{ content_type: "article", slug: article.slug, location: "home_articles", locale }}
                   className="group cursor-pointer bg-white p-10 transition-all duration-500 monolith-shadow hover:bg-gray-50"
                 >
                   <time className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">
@@ -337,7 +591,7 @@ export default async function LocaleHomePage({
                     {clampText(content.excerpt, 120)}
                   </p>
                   <ArrowRight size={24} className="text-[var(--primary)] transition-transform group-hover:translate-x-2" />
-                </Link>
+                </TrackedLink>
               );
             })}
           </div>
@@ -347,7 +601,20 @@ export default async function LocaleHomePage({
       {/* Newsletter */}
       <section className="px-6 py-16 md:px-20">
         <div className="mx-auto max-w-7xl">
-          <NewsletterForm locale={locale} source="home-hero" />
+          <NewsletterForm
+            locale={locale}
+            source="home-main-cta"
+            title={copy(
+              locale,
+              "Get the weekly signal pack on data, AI, and digital leverage.",
+              "Receba o pacote semanal de sinais sobre dados, IA e alavancagem digital.",
+            )}
+            description={copy(
+              locale,
+              "One short note per week with the market shift, implementation pattern, and proof worth paying attention to next.",
+              "Uma nota curta por semana com a mudanca de mercado, o padrao de implementacao e a prova que vale acompanhar em seguida.",
+            )}
+          />
         </div>
       </section>
     </main>

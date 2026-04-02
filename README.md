@@ -22,11 +22,20 @@ GitHub -> Site -> Newsletter -> LinkedIn/X
 | Database | Supabase (PostgreSQL) |
 | Hosting | Vercel |
 | Email | Resend |
-| Analytics | Google Analytics 4, Vercel Analytics, Vercel Speed Insights |
-| AI | Claude API (Haiku -- news enrichment, trend briefings), OpenAI (article drafts) |
-| Social | X API v2 (Pay Per Use), LinkedIn API v2 |
+| Analytics | Google Analytics 4, Vercel Analytics, Vercel Speed Insights, Streamlit Dashboard |
+| AI | Claude API (Haiku -- news enrichment, trend briefings, engagement replies), OpenAI (article drafts) |
+| Social | X API v2 (Pay Per Use, auto-reply bot), LinkedIn API v2 (auto-reply bot) |
+| Infrastructure | OCI VM (ARM, 24GB RAM), nginx, Let's Encrypt, systemd timers |
 | SEO | Sitemap, RSS feed, IndexNow, JSON-LD structured data |
 | CI/CD | GitHub Actions, Vercel Git integration |
+
+---
+
+## Current Runtime Boundary
+
+The production app is the Next.js App Router code under `app/`, `components/`, `lib/`, and `scripts/`.
+
+The `client/` directory is kept only as a legacy archive from an earlier Vite app and is not part of the current build, typecheck, or deploy path.
 
 ---
 
@@ -53,7 +62,7 @@ app/
     articles/               # Article listing + detail pages
     news/                   # News listing + detail pages
     newsletter/             # Newsletter subscription
-    resume/                 # Resume/CV
+    resume/                 # Resume hub + printable HTML resume views
     contact/                # Contact page
   api/
     health/news/            # Supabase news health check (503 on fallback)
@@ -69,21 +78,42 @@ scripts/                    # Automation scripts (tsx)
   export-news-snapshot.ts   # Supabase -> content/generated/news.json
   enrich-news.ts            # Claude editorial analysis -> Supabase
   post-news-to-x.ts         # News -> X API
+  post-to-linkedin.ts       # News -> LinkedIn API
+  reply-to-x-mentions.ts    # Auto-reply X mentions with Claude
+  reply-to-linkedin-comments.ts  # Auto-reply LinkedIn comments with Claude
   generate-daily-trend-briefing.ts  # Google News + Claude -> article JSON + Supabase
   sync-github-projects.ts   # GitHub API -> generated/github-repos.json
   generateDailyArticle.ts   # OpenAI -> article JSON
   generate-linkedin-drafts.ts
   generate-x-drafts.ts
+  run-worker-task.ts        # Orchestrates multi-step worker cycles
   validate-content.ts       # Zod schema validation
 
+content/
+  radar.ts                  # Tech Radar data (24 technologies, 4 quadrants)
+
+dashboard/                  # Streamlit analytics dashboard (Python)
+  app.py                    # Main dashboard app (password-protected)
+  fetch_search_console.py   # GSC data collection script
+  generate_password_hash.py # Helper to generate dashboard password hash
+  requirements.txt          # Python dependencies
+
+client/                     # Legacy Vite app kept only for historical reference
 lib/
   content.ts                # Zod schemas + content loaders
   news-delivery.ts          # Retry/DLQ field helpers for X + LinkedIn
   news-utils.ts             # Stable slugs, tag detection, snapshots
   supabase.ts               # Supabase admin client
+  postgres.ts               # PostgreSQL connection pool
   seo.ts                    # SEO metadata builders
   tags.ts                   # Tag-to-hashtag mapping
   site.ts                   # i18n config
+
+ops/oci/                    # OCI VM infrastructure
+  deploy-to-vm.sh           # One-command deploy to OCI VM
+  setup-dashboard.sh        # First-time dashboard infra setup
+  nginx/dashboard.conf      # nginx reverse proxy config
+  systemd/                  # All systemd service/timer units
 ```
 
 ---
@@ -175,6 +205,51 @@ Draft JSON -> /api/linkedin/publish or /api/x/publish
            -> publishes via respective API
 ```
 
+### Engagement Bots (every 30 min)
+
+**Timer**: `michael-engagement-cycle` on OCI VM
+
+```
+X Mentions API -> filter (skip own, skip RTs)
+    |
+    v
+Claude Haiku generates contextual reply (<280 chars)
+    |
+    v
+X API v2 reply (max 5/run, 30-90s delay between)
+
+LinkedIn Social Actions API -> fetch comments on recent posts (7d)
+    |
+    v
+Claude Haiku generates professional reply (<500 chars)
+    |
+    v
+LinkedIn API reply (max 3/run, 15-45s delay between)
+```
+
+### Auto PR Review (on PR open)
+
+**Workflow**: `.github/workflows/auto-pr-review.yml`
+**Trigger**: `pull_request_target` (for secrets access)
+
+```
+gh pr diff -> Claude Haiku reviews (correctness, security, performance)
+          -> posts comment on PR
+```
+
+Notes:
+- The workflow injects the diff through `env` and builds the Anthropic payload with `jq`, which prevents shell-quoting failures on multi-line patches.
+- Bot-authored PRs are skipped so automation branches do not create noisy review failures.
+- Build health still comes from `CI` plus the Vercel preview check; the review workflow is advisory.
+### Health Check (every 5 min)
+
+**Timer**: `michael-health-check` on OCI VM
+
+```
+curl https://michael.business/api/health -> log OK/WARN
+(keeps Supabase connection warm to prevent free-tier pause)
+```
+
 ### CI Pipeline (on push/PR)
 
 **Workflow**: `.github/workflows/ci.yml`
@@ -182,6 +257,52 @@ Draft JSON -> /api/linkedin/publish or /api/x/publish
 ```
 Install -> Content validation -> Type check -> Next.js build
 ```
+
+---
+
+## Tech Radar
+
+Interactive technology assessment at `/radar` with 24 technologies across 4 quadrants:
+
+| Quadrant | Examples |
+|----------|---------|
+| Data Processing | Spark, dbt, Polars, DuckDB, Flink |
+| Storage & Query | Databricks, Snowflake, Iceberg, PostgreSQL, Supabase |
+| Orchestration & Ops | Airflow, Terraform, GitHub Actions, Docker, Kafka |
+| AI & ML | Claude API, RAG, MLflow, LangChain, Agentic AI |
+
+Each technology has an adoption ring (Adopt, Trial, Assess, Hold) and movement indicator. Data lives in `content/radar.ts`.
+
+---
+
+## Analytics Dashboard
+
+Private Streamlit dashboard at `https://analytics.michael.business`.
+
+**Authentication** (two layers):
+1. nginx basic auth (HTTPS + htpasswd)
+2. Streamlit password gate (SHA-256 hash via `DASHBOARD_PASSWORD_HASH` env var)
+
+**Metrics displayed**:
+- Content pipeline funnel and publishing timeline
+- Social delivery status (X + LinkedIn) with dead letter tracking
+- GitHub repository stats (stars, forks, commits)
+- Google Search Console (clicks, impressions, CTR, position, top queries/pages)
+- News source breakdown
+
+**Run locally**:
+```bash
+cd dashboard
+pip install -r requirements.txt
+DATABASE_URL="postgresql://..." DASHBOARD_PASSWORD_HASH="..." streamlit run app.py
+```
+
+**Fetch Search Console data**:
+```bash
+GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json python dashboard/fetch_search_console.py
+```
+
+See `DEPLOYMENT.md` for full setup instructions and credential locations.
 
 ---
 
@@ -356,6 +477,7 @@ pnpm build              # Full build (validate + Next.js)
 | X API (Pay Per Use) | ~$1-2 |
 | Resend | Free (100 emails/day) |
 | GoDaddy domain | ~$2/month |
+| OCI VM (Always Free) | Free |
 | **Total** | **~$5/month** |
 Apply [news_reliability.sql](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/supabase/news_reliability.sql) on existing environments to add:
 

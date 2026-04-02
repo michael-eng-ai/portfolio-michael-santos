@@ -1,0 +1,21 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#0A1020"/>
+  <rect x="60" y="60" width="1480" height="780" rx="42" fill="url(#paint0_linear)"/>
+  <text x="120" y="142" fill="#A7F3D0" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">INSIGHT</text>
+  <text x="120" y="270" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="86" font-weight="700">Three modernization patterns</text>
+  <text x="120" y="348" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="44">separate ownership</text>
+  <text x="120" y="408" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="44">treat transforms as software</text>
+  <text x="120" y="468" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="44">make freshness visible</text>
+  <rect x="980" y="208" width="420" height="420" rx="36" fill="#0F172A" fill-opacity="0.84" stroke="#34D399" stroke-opacity="0.4"/>
+  <text x="1030" y="314" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="56" font-weight="700">Pattern-first</text>
+  <text x="1030" y="388" fill="#94A3B8" font-family="Arial, sans-serif" font-size="30">Platform design is credible</text>
+  <text x="1030" y="432" fill="#94A3B8" font-family="Arial, sans-serif" font-size="30">when ownership, trust, and</text>
+  <text x="1030" y="476" fill="#94A3B8" font-family="Arial, sans-serif" font-size="30">business effect are visible.</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="88" y1="78" x2="1488" y2="826" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#12233C"/>
+      <stop offset="0.62" stop-color="#111827"/>
+      <stop offset="1" stop-color="#123425"/>
+    </linearGradient>
+  </defs>
+</svg>

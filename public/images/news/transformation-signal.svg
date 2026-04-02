@@ -1,0 +1,16 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#0A111D"/>
+  <rect x="52" y="52" width="1496" height="796" rx="40" fill="url(#paint0_linear)"/>
+  <text x="108" y="128" fill="#A7F3D0" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">TRANSFORMATION SIGNAL</text>
+  <text x="108" y="796" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="74" font-weight="700">Reliable transforms are strategic infrastructure</text>
+  <text x="108" y="838" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="30">dbt, repeatability, and governed workflow design keep moving toward the center</text>
+  <rect x="154" y="250" width="1292" height="288" rx="34" fill="#0F172A" fill-opacity="0.86"/>
+  <text x="214" y="366" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="58" font-weight="700">Transformation quality is no longer downstream cleanup</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="88" y1="74" x2="1494" y2="830" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#11342A"/>
+      <stop offset="0.58" stop-color="#111827"/>
+      <stop offset="1" stop-color="#0F2D39"/>
+    </linearGradient>
+  </defs>
+</svg>

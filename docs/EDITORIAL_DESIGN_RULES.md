@@ -43,6 +43,10 @@ Keep the site visually premium, easy to scan, and consistent with a business-fac
   - metadata
   - short narrative
   - single clear action
+- The home page should include a guided entry block that helps visitors self-select by intent
+- High-intent detail pages should include one early continuity block before the end-of-page retention panel
+- High-intent detail pages should include one mid-to-late cross-format cluster that keeps the reader on the same topic while changing format
+- High-intent pages should include one clear next-step block near the end of the experience
 
 ## Writing Rules
 
@@ -50,3 +54,25 @@ Keep the site visually premium, easy to scan, and consistent with a business-fac
 - Home page introduces the publication, not the hidden automation
 - Insights explain market pressure and business implications
 - Case studies explain business value first and technical proof second
+- News pages should connect external change to an internal proof path
+- Detail pages should end with one of:
+  - related implementation proof
+  - related strategic context
+  - newsletter signup
+  - repeat-worthy asset discovery
+- Detail pages should also surface one "best next move" block earlier in the journey so recirculation does not depend only on footer behavior
+- Cross-format recommendation clusters should prefer explicit relations first, then shared tags, so the next move still feels editorially intentional
+
+## High-Value Content Rules
+
+- Priority projects should include:
+  - business pressure
+  - implementation path
+  - explicit tradeoff
+  - production next step
+- Priority articles should include:
+  - one hook tied to business pressure
+  - one decision rule
+  - one concrete project proof
+  - one takeaway the reader can reuse
+- Covers for priority content should be ownable brand visuals, not generic stock photos

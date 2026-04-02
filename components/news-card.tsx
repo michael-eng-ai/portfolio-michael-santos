@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { clampText, editorialLimits, sourceInitials } from "@/lib/editorial";
@@ -6,13 +5,20 @@ import { formatDisplayDate } from "@/lib/date";
 import { NewsReference } from "@/lib/content";
 import { Locale, copy, localePath } from "@/lib/site";
 import { getTagLabel } from "@/lib/tags";
+import { TrackedExternalLink } from "@/components/tracked-external-link";
+import { TrackedLink } from "@/components/tracked-link";
 
 type NewsCardProps = {
   item: NewsReference;
   locale: Locale;
+  location?: string;
 };
 
-export function NewsCard({ item, locale }: NewsCardProps) {
+export function NewsCard({
+  item,
+  locale,
+  location = "news_index",
+}: NewsCardProps) {
   const content = item.locales[locale];
   const summary = clampText(content.summary, editorialLimits.newsSummaryMax);
 
@@ -35,16 +41,25 @@ export function NewsCard({ item, locale }: NewsCardProps) {
         {summary}
       </p>
       <div className="flex items-center gap-6">
-        <Link
+        <TrackedLink
           href={localePath(locale, `/news/${item.slug}`)}
+          eventName="content_card_click"
+          eventParams={{ content_type: "news", slug: item.slug, location, locale }}
           className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-gray-900 transition hover:text-[var(--primary)]"
         >
           {copy(locale, "Read Analysis", "Ler Analise")}
           <ArrowRight size={14} aria-hidden="true" className="text-[var(--primary)] transition-transform group-hover:translate-x-1" />
-        </Link>
-        <a href={item.sourceUrl} target="_blank" rel="noreferrer" className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 transition hover:text-gray-700">
+        </TrackedLink>
+        <TrackedExternalLink
+          href={item.sourceUrl}
+          target="_blank"
+          rel="noreferrer"
+          eventName="external_link_click"
+          eventParams={{ channel: "source", location: `${location}_source`, slug: item.slug }}
+          className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 transition hover:text-gray-700"
+        >
           {copy(locale, "Source", "Fonte")}
-        </a>
+        </TrackedExternalLink>
       </div>
     </article>
   );

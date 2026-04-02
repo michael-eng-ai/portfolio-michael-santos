@@ -2,7 +2,7 @@ import { spawn } from "node:child_process";
 
 import { getRequiredWriteDatabaseEnvKeys } from "@/lib/database";
 
-type WorkerTask = "news-cycle" | "daily-cycle";
+type WorkerTask = "news-cycle" | "daily-cycle" | "engagement-cycle";
 
 type Step = {
   label: string;
@@ -66,6 +66,30 @@ const tasks: Record<WorkerTask, Step[]> = {
       optional: true,
     },
   ],
+  "engagement-cycle": [
+    {
+      label: "Reply to X mentions",
+      script: "content:reply:x",
+      requiredEnv: [
+        "X_API_KEY",
+        "X_API_SECRET",
+        "X_ACCESS_TOKEN",
+        "X_ACCESS_TOKEN_SECRET",
+        "ANTHROPIC_API_KEY",
+      ],
+      optional: true,
+    },
+    {
+      label: "Reply to LinkedIn comments",
+      script: "content:reply:linkedin",
+      requiredEnv: [
+        "__WRITE_DATABASE__",
+        "LINKEDIN_ACCESS_TOKEN",
+        "ANTHROPIC_API_KEY",
+      ],
+      optional: true,
+    },
+  ],
 };
 
 function getMissingEnv(requiredEnv: string[]) {
@@ -98,7 +122,7 @@ async function main() {
   const taskName = process.argv[2] as WorkerTask | undefined;
 
   if (!taskName || !(taskName in tasks)) {
-    console.error("Usage: pnpm content:worker:news-cycle | pnpm content:worker:daily-cycle");
+    console.error("Usage: pnpm content:worker:news-cycle | pnpm content:worker:daily-cycle | pnpm content:worker:engagement-cycle");
     process.exit(1);
   }
 

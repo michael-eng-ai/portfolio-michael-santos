@@ -1,7 +1,8 @@
 import { ProjectCard } from "@/components/project-card";
+import { TrackedLink } from "@/components/tracked-link";
 import { getProjects } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
-import { Locale, copy } from "@/lib/site";
+import { Locale, copy, localePath } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -58,11 +59,29 @@ export default async function ProjectsPage({
               "Cada caso mostra como a intencao estrategica vira entrega tecnica, ajudando tomadores de decisao a enxergar a oportunidade e a prova por tras da execucao.",
             )}
           </p>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <TrackedLink
+              href={localePath(locale, "/newsletter")}
+              eventName="navigation_click"
+              eventParams={{ location: "projects_index", target: "newsletter", locale }}
+              className="inline-flex items-center justify-center rounded-full bg-gray-950 px-6 py-3 text-sm font-bold text-white transition hover:bg-gray-800"
+            >
+              {copy(locale, "Get the next case signal", "Receber o proximo sinal de caso")}
+            </TrackedLink>
+            <TrackedLink
+              href={localePath(locale, "/contact")}
+              eventName="navigation_click"
+              eventParams={{ location: "projects_index", target: "contact", locale }}
+              className="inline-flex items-center justify-center rounded-full border border-gray-300 px-6 py-3 text-sm font-bold text-gray-900 transition hover:border-gray-400 hover:bg-gray-50"
+            >
+              {copy(locale, "Discuss a similar problem", "Discutir um problema parecido")}
+            </TrackedLink>
+          </div>
         </div>
 
         <div className="grid gap-10 md:grid-cols-2">
           {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} locale={locale} />
+            <ProjectCard key={project.slug} project={project} locale={locale} location="projects_index" />
           ))}
         </div>
       </div>

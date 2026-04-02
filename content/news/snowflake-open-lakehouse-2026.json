@@ -3,7 +3,7 @@
   "publishedAt": "2026-02-18",
   "sourceName": "Snowflake",
   "sourceUrl": "https://www.snowflake.com/blog/",
-  "imageUrl": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&q=80",
+  "imageUrl": "/images/news/analytics-platform-signal.svg",
   "category": {"en": "Analytics Platforms", "pt": "Plataformas Analiticas"},
   "tags": ["snowflake", "cross-cloud", "warehouse"],
   "relatedProjectSlugs": ["azure-snowflake-pipeline"],

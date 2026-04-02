@@ -1,0 +1,12 @@
+[Unit]
+Description=Run Michael Business engagement cycle every 30 minutes
+
+[Timer]
+OnCalendar=*:0/30
+RandomizedDelaySec=10m
+AccuracySec=1m
+Persistent=true
+Unit=michael-engagement-cycle.service
+
+[Install]
+WantedBy=timers.target

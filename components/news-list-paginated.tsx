@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { NewsCard } from "@/components/news-card";
+import { trackEvent } from "@/lib/analytics";
 import { NewsReference } from "@/lib/content";
 import { Locale, copy } from "@/lib/site";
 
@@ -44,6 +45,10 @@ export function NewsListPaginated({
   const pageItems = filtered.slice(startIndex, startIndex + itemsPerPage);
 
   function handleCategoryChange(category: string) {
+    trackEvent("news_filter_change", {
+      locale,
+      category: category === ALL_CATEGORY ? "all" : category,
+    });
     setActiveCategory(category);
     setCurrentPage(1);
   }
@@ -97,7 +102,15 @@ export function NewsListPaginated({
           <button
             type="button"
             disabled={safeCurrentPage <= 1}
-            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            onClick={() => {
+              const nextPage = Math.max(1, safeCurrentPage - 1);
+              trackEvent("news_pagination_click", {
+                locale,
+                page: nextPage,
+                category: activeCategory === ALL_CATEGORY ? "all" : activeCategory,
+              });
+              setCurrentPage(nextPage);
+            }}
             className="min-h-[44px] rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-600 transition hover:bg-gray-50 disabled:opacity-40"
           >
             {copy(locale, "Previous", "Anterior")}
@@ -107,7 +120,14 @@ export function NewsListPaginated({
             <button
               key={page}
               type="button"
-              onClick={() => setCurrentPage(page)}
+              onClick={() => {
+                trackEvent("news_pagination_click", {
+                  locale,
+                  page,
+                  category: activeCategory === ALL_CATEGORY ? "all" : activeCategory,
+                });
+                setCurrentPage(page);
+              }}
               className={`min-h-[44px] min-w-[44px] rounded-lg px-3 py-2.5 text-sm font-medium transition ${
                 page === safeCurrentPage
                   ? "brand-button-primary"
@@ -121,7 +141,15 @@ export function NewsListPaginated({
           <button
             type="button"
             disabled={safeCurrentPage >= totalPages}
-            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            onClick={() => {
+              const nextPage = Math.min(totalPages, safeCurrentPage + 1);
+              trackEvent("news_pagination_click", {
+                locale,
+                page: nextPage,
+                category: activeCategory === ALL_CATEGORY ? "all" : activeCategory,
+              });
+              setCurrentPage(nextPage);
+            }}
             className="min-h-[44px] rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-600 transition hover:bg-gray-50 disabled:opacity-40"
           >
             {copy(locale, "Next", "Proxima")}

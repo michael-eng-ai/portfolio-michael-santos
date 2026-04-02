@@ -1,0 +1,16 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#0A111C"/>
+  <rect x="52" y="52" width="1496" height="796" rx="40" fill="url(#paint0_linear)"/>
+  <text x="108" y="128" fill="#FDE68A" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">LAKEHOUSE SIGNAL</text>
+  <text x="108" y="796" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="74" font-weight="700">Platform unification is still moving fast</text>
+  <text x="108" y="838" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="30">Lakehouse vendors keep collapsing storage, transformation, and AI workflows together</text>
+  <rect x="150" y="248" width="1300" height="274" rx="34" fill="#0F172A" fill-opacity="0.84"/>
+  <text x="206" y="360" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="56" font-weight="700">The platform story gets stronger when layers stay understandable</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="88" y1="74" x2="1494" y2="830" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3A250D"/>
+      <stop offset="0.58" stop-color="#111827"/>
+      <stop offset="1" stop-color="#122B37"/>
+    </linearGradient>
+  </defs>
+</svg>

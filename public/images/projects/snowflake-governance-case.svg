@@ -1,0 +1,25 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#0A1220"/>
+  <rect x="56" y="56" width="1488" height="788" rx="42" fill="url(#paint0_linear)"/>
+  <text x="112" y="126" fill="#BFDBFE" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">CROSS-CLOUD DELIVERY</text>
+  <text x="112" y="794" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="74" font-weight="700">Azure landing to Snowflake governance</text>
+  <text x="112" y="838" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="30">ADLS, Snowpipe, SQL refinement, and controlled infrastructure</text>
+  <circle cx="352" cy="410" r="132" fill="#0F172A" fill-opacity="0.9"/>
+  <circle cx="798" cy="410" r="132" fill="#0F172A" fill-opacity="0.9"/>
+  <circle cx="1244" cy="410" r="132" fill="#0F172A" fill-opacity="0.9"/>
+  <text x="258" y="402" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="46" font-weight="700">Azure</text>
+  <text x="240" y="454" fill="#94A3B8" font-family="Arial, sans-serif" font-size="24">ADLS landing zone</text>
+  <text x="688" y="402" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="46" font-weight="700">Snowpipe</text>
+  <text x="688" y="454" fill="#94A3B8" font-family="Arial, sans-serif" font-size="24">Managed ingestion path</text>
+  <text x="1160" y="402" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="46" font-weight="700">Snowflake</text>
+  <text x="1128" y="454" fill="#94A3B8" font-family="Arial, sans-serif" font-size="24">Governed warehouse layers</text>
+  <path d="M484 410H666" stroke="#60A5FA" stroke-width="10" stroke-linecap="round"/>
+  <path d="M930 410H1112" stroke="#60A5FA" stroke-width="10" stroke-linecap="round"/>
+  <defs>
+    <linearGradient id="paint0_linear" x1="88" y1="72" x2="1492" y2="830" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10243F"/>
+      <stop offset="0.58" stop-color="#111827"/>
+      <stop offset="1" stop-color="#0E2C3A"/>
+    </linearGradient>
+  </defs>
+</svg>

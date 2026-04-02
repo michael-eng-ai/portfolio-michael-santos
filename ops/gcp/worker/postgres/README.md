@@ -5,7 +5,7 @@ Arquivos para subir um PostgreSQL local na VM do GCP como banco sombra do projet
 ## Objetivo
 
 - manter o site em producao no Supabase
-- espelhar `news` e `newsletter_subscribers` em um PostgreSQL na VM
+- espelhar `news`, `newsletter_subscribers` e `analytics_events` em um PostgreSQL na VM
 - validar consistencia antes do cutover real
 
 ## Como funciona
@@ -16,9 +16,16 @@ Arquivos para subir um PostgreSQL local na VM do GCP como banco sombra do projet
 3. Na primeira inicializacao, o container aplica:
    - [news.sql](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/supabase/news.sql)
    - [newsletter_subscribers.sql](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/supabase/newsletter_subscribers.sql)
+   - [analytics_events.sql](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/supabase/analytics_events.sql)
 4. Depois disso, use os scripts:
    - `pnpm db:shadow:sync`
    - `pnpm db:shadow:verify`
+
+## Nota operacional sobre analytics
+
+- O bootstrap do PostgreSQL agora cria `public.analytics_events` automaticamente.
+- Isso evita que o dashboard novo fique sem dados quando o ambiente sombra for recriado.
+- No Supabase principal, o schema ainda precisa ser aplicado uma vez se a tabela ainda nao existir.
 
 ## Padrao sugerido para a VM
 

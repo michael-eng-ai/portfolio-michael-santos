@@ -60,6 +60,12 @@ jspm_packages/
 # TypeScript cache
 *.tsbuildinfo
 
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
 # Optional npm cache directory
 .npm
 
@@ -119,3 +125,18 @@ override.tf.json
 *.sqlite
 *.sqlite3
 .vercel
+
+# Dashboard data (fetched from APIs, not committed)
+dashboard/data/
+
+# Secrets and credentials (never commit)
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*-key.json
+*credentials*.json
+service-account*.json
+.htpasswd
+secrets/
