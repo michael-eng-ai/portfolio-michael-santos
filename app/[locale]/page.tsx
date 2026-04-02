@@ -115,28 +115,6 @@ export default async function LocaleHomePage({
       ctaLabel: copy(locale, "Get the weekly signal pack", "Receber o pacote semanal"),
     },
   ];
-  const proofStats = [
-    {
-      value: `${projects.length}`,
-      label: copy(locale, "Business cases", "Casos de negocio"),
-      description: copy(locale, "Open-source delivery proof", "Prova de entrega open source"),
-    },
-    {
-      value: `${articles.length}`,
-      label: copy(locale, "Long-form insights", "Analises aprofundadas"),
-      description: copy(locale, "Executive framing for technical work", "Enquadramento executivo para trabalho tecnico"),
-    },
-    {
-      value: `${news.length}`,
-      label: copy(locale, "Market signals", "Sinais de mercado"),
-      description: copy(locale, "Curated shifts worth watching", "Mudancas curadas que valem atencao"),
-    },
-    {
-      value: "2",
-      label: copy(locale, "Working languages", "Idiomas de trabalho"),
-      description: copy(locale, "English and Portuguese", "Ingles e Portugues"),
-    },
-  ];
 
   return (
     <main>
@@ -145,16 +123,15 @@ export default async function LocaleHomePage({
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_22%,rgba(37,99,235,0.22),transparent_28%),radial-gradient(circle_at_82%_14%,rgba(124,58,237,0.16),transparent_22%),linear-gradient(180deg,#f7fbff_0%,#eef5ff_42%,#ffffff_100%)]" />
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--primary)]/30 to-transparent" />
         <div className="relative mx-auto max-w-7xl">
-          <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
-            <div className="max-w-3xl">
+          <div className="mx-auto max-w-4xl text-center">
               <span className="mb-6 inline-flex rounded-full border border-[var(--primary)]/15 bg-white/70 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.28em] text-[var(--primary)] shadow-sm backdrop-blur">
                 {copy(locale, "Data Engineering, AI Strategy, And Market Signals", "Engenharia de Dados, Estrategia de IA e Sinais de Mercado")}
               </span>
               <h1 className="text-4xl font-extrabold leading-[0.92] tracking-tighter text-gray-950 sm:text-5xl md:text-7xl">
-                {copy(locale, "From Market Pressure To", "Da Pressao de Mercado")}
+                {copy(locale, "From Market Pressure To", "Da Pressao de Mercado ao")}
                 <br />
                 <span className="gradient-text">
-                  {copy(locale, "Execution Proof.", "A Prova de Execucao.")}
+                  {copy(locale, "Intelligent Growth.", "Crescimento Inteligente.")}
                 </span>
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-8 text-gray-600 sm:text-xl">
@@ -164,25 +141,25 @@ export default async function LocaleHomePage({
                   "Casos, analises estrategicas e sinais curados que mostram como trabalho moderno de dados e IA vira alavancagem mensuravel de negocio.",
                 )}
               </p>
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-5">
                 <TrackedLink
                   href={localePath(locale, "/projects")}
                   eventName="navigation_click"
                   eventParams={{ location: "home_hero", target: "projects", locale }}
-                  className="inline-flex items-center justify-center rounded-full bg-gray-950 px-8 py-4 text-base font-bold text-white transition hover:bg-gray-800"
+                  className="w-full rounded-full bg-white px-10 py-4 text-center text-base font-bold text-gray-900 shadow-sm transition hover:bg-gray-100 sm:w-auto sm:text-lg"
                 >
-                  {copy(locale, "View Case Studies", "Ver Casos")}
+                  {copy(locale, "See How It Works", "Veja Como Funciona")}
                 </TrackedLink>
                 <TrackedLink
                   href={localePath(locale, "/radar")}
                   eventName="navigation_click"
                   eventParams={{ location: "home_hero", target: "radar", locale }}
-                  className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-8 py-4 text-base font-bold text-gray-900 transition hover:border-gray-400 hover:bg-gray-50"
+                  className="w-full rounded-full bg-white px-10 py-4 text-center text-base font-bold text-gray-900 shadow-sm transition hover:bg-gray-100 sm:w-auto sm:text-lg"
                 >
                   {copy(locale, "Explore Tech Radar", "Explorar Tech Radar")}
                 </TrackedLink>
               </div>
-              <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm text-gray-600">
+              <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm text-gray-600">
                 <TrackedLink
                   href={localePath(locale, "/articles")}
                   eventName="navigation_click"
@@ -202,19 +179,6 @@ export default async function LocaleHomePage({
                   <ArrowRight size={14} />
                 </TrackedLink>
               </div>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              {proofStats.map((stat) => (
-                <div key={stat.label} className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-[0_12px_40px_rgba(15,23,42,0.08)] backdrop-blur">
-                  <p className="text-4xl font-black tracking-tighter text-gray-950">{stat.value}</p>
-                  <p className="mt-3 text-sm font-bold uppercase tracking-[0.22em] text-gray-500">
-                    {stat.label}
-                  </p>
-                  <p className="mt-3 text-sm leading-6 text-gray-600">{stat.description}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
