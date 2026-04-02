@@ -1,0 +1,27 @@
+{
+  "slug": "project-data-governance-quality-framework",
+  "sourceType": "project",
+  "sourceSlug": "data-governance-quality-framework",
+  "status": "draft",
+  "generatedAt": "2026-04-02T12:00:00.000Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/projects/data-governance-quality-framework",
+    "pt": "https://michael.business/pt/projects/data-governance-quality-framework",
+    "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Data Governance And Quality Framework\n\nAutomated quality gates at every pipeline boundary. Contract enforcement, freshness SLAs, and governance checks without slowing delivery.\n\nRead on site:\n\nhttps://michael.business/en/projects/data-governance-quality-framework",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Framework de Governanca e Qualidade de Dados\n\nGates de qualidade automatizados em cada fronteira do pipeline. Enforcement de contratos, SLAs de freshness e checks de governanca sem desacelerar a entrega.\n\nLeia no site:\n\nhttps://michael.business/pt/projects/data-governance-quality-framework",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
+      ]
+    }
+  }
+}

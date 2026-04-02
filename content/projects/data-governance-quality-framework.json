@@ -1,0 +1,57 @@
+{
+  "slug": "data-governance-quality-framework",
+  "featured": true,
+  "order": 7,
+  "imageUrl": "/images/projects/governance-quality-case.svg",
+  "stack": ["Python", "Great Expectations", "Soda", "dbt", "Airflow", "PostgreSQL", "Docker"],
+  "tags": ["governance", "data-quality", "analytics-engineering"],
+  "github": {
+    "owner": "michael-eng-ai",
+    "repo": "data-governance-quality-framework",
+    "url": "https://github.com/michael-eng-ai/data-governance-quality-framework"
+  },
+  "relatedArticleSlugs": ["governed-ai-analytics", "building-trustworthy-and-scalable-modern-data-platforms"],
+  "relatedNewsSlugs": [],
+  "locales": {
+    "en": {
+      "title": "Data Governance And Quality Framework",
+      "subtitle": "Automated data quality gates across the entire pipeline lifecycle",
+      "summary": "A production-grade framework that embeds data quality validation, contract enforcement, and governance checks into every layer of the data pipeline, from ingestion to mart delivery.",
+      "businessProblem": "Most data teams discover quality issues after dashboards break or business decisions go wrong. Manual checks do not scale, and silent failures erode trust in the data platform faster than any new feature can rebuild it.",
+      "technicalSolution": [
+        "Define data contracts with Great Expectations suites and Soda checks at ingestion, transformation, and delivery boundaries",
+        "Enforce schema evolution rules and freshness SLAs through dbt tests and custom macros",
+        "Orchestrate validation gates with Airflow so pipelines fail visibly before bad data propagates",
+        "Surface quality metrics in a governance dashboard that tracks coverage, pass rates, and SLA breaches over time"
+      ],
+      "architectureSummary": "Quality is not a separate layer but a constraint woven into every pipeline stage. Ingestion validates structure, dbt tests validate business rules, and Airflow gates prevent promotion of data that fails contract checks. A Postgres-backed dashboard gives the team visibility into quality trends without requiring a separate observability vendor.",
+      "impact": [
+        "Catches data issues at the source before they reach downstream consumers or dashboards",
+        "Makes data quality measurable with pass rates, freshness SLAs, and coverage metrics",
+        "Proves that governance can be automated into CI/CD without slowing delivery velocity",
+        "Reduces trust debt by making every contract violation visible to the team"
+      ],
+      "body": "## What this case proves\n\nGovernance does not have to be a bureaucratic layer that slows teams down. This framework shows that contract enforcement, quality validation, and freshness monitoring can live inside the same pipeline code that engineers already maintain.\n\n## Why that matters\n\nThe business cost of bad data is invisible until it is not. A wrong metric in a board deck, a duplicate customer in a CRM sync, a stale forecast that drives the wrong inventory decision. This framework makes those risks visible and preventable before they reach anyone who depends on the numbers.\n\n## Tradeoffs worth calling out\n\nAdding quality gates increases pipeline runtime. The design handles this by running validation in parallel where possible and failing fast at boundaries rather than checking everything at the end. The tradeoff is deliberate: slightly longer pipelines that you can trust versus faster pipelines that you cannot.\n\n## Practical takeaway\n\nIf your team treats data quality as an afterthought, this case shows how to embed it as a first-class pipeline concern without adopting an expensive vendor platform."
+    },
+    "pt": {
+      "title": "Framework de Governanca e Qualidade de Dados",
+      "subtitle": "Gates de qualidade automatizados em todo o ciclo de vida do pipeline",
+      "summary": "Um framework production-grade que embute validacao de qualidade, contratos de dados e checks de governanca em cada camada do pipeline, da ingestao a entrega de marts.",
+      "businessProblem": "A maioria dos times de dados descobre problemas de qualidade depois que dashboards quebram ou decisoes de negocio saem erradas. Checks manuais nao escalam, e falhas silenciosas corroem a confianca na plataforma de dados mais rapido do que qualquer feature nova consegue reconstruir.",
+      "technicalSolution": [
+        "Definir contratos de dados com suites Great Expectations e checks Soda nas fronteiras de ingestao, transformacao e entrega",
+        "Impor regras de evolucao de schema e SLAs de freshness via testes dbt e macros customizadas",
+        "Orquestrar gates de validacao com Airflow para que pipelines falhem visivelmente antes de dados ruins se propagarem",
+        "Exibir metricas de qualidade em um dashboard de governanca que rastreia cobertura, taxas de aprovacao e violacoes de SLA ao longo do tempo"
+      ],
+      "architectureSummary": "Qualidade nao e uma camada separada, mas uma restricao tecida em cada estagio do pipeline. Ingestao valida estrutura, testes dbt validam regras de negocio, e gates Airflow impedem a promocao de dados que falham nos checks de contrato. Um dashboard backed por Postgres da ao time visibilidade sobre tendencias de qualidade sem exigir um vendor de observabilidade separado.",
+      "impact": [
+        "Captura problemas de dados na origem antes de chegarem a consumidores downstream ou dashboards",
+        "Torna qualidade de dados mensuravel com taxas de aprovacao, SLAs de freshness e metricas de cobertura",
+        "Prova que governanca pode ser automatizada dentro de CI/CD sem desacelerar a velocidade de entrega",
+        "Reduz divida de confianca tornando cada violacao de contrato visivel para o time"
+      ],
+      "body": "## O que este caso prova\n\nGovernanca nao precisa ser uma camada burocratica que desacelera times. Este framework mostra que enforcement de contratos, validacao de qualidade e monitoramento de freshness podem viver dentro do mesmo codigo de pipeline que engenheiros ja mantem.\n\n## Por que isso importa\n\nO custo de negocio de dados ruins e invisivel ate que nao e. Uma metrica errada em um deck de board, um cliente duplicado em um sync de CRM, um forecast defasado que direciona a decisao errada de estoque. Este framework torna esses riscos visiveis e preveniveis antes de chegarem a qualquer pessoa que depende dos numeros.\n\n## Tradeoffs que valem ser expostos\n\nAdicionar gates de qualidade aumenta o runtime do pipeline. O design lida com isso rodando validacao em paralelo onde possivel e falhando rapido nas fronteiras ao inves de checar tudo no final. O tradeoff e deliberado: pipelines levemente mais longos em que voce pode confiar versus pipelines mais rapidos em que nao pode.\n\n## Takeaway pratico\n\nSe seu time trata qualidade de dados como um afterthought, este caso mostra como embuti-la como preocupacao de primeira classe no pipeline sem adotar um vendor caro."
+    }
+  }
+}

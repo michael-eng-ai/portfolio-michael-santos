@@ -1,0 +1,27 @@
+{
+  "slug": "project-rag-knowledge-base-pipeline",
+  "sourceType": "project",
+  "sourceSlug": "rag-knowledge-base-pipeline",
+  "status": "draft",
+  "generatedAt": "2026-04-02T12:00:00.000Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/projects/rag-knowledge-base-pipeline",
+    "pt": "https://michael.business/pt/projects/rag-knowledge-base-pipeline",
+    "proof": "https://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "RAG Knowledge Base Pipeline\n\nEnterprise document retrieval with pgvector, FastAPI, and Claude. Grounded answers with source citations, zero hallucination.\n\nRead on site:\n\nhttps://michael.business/en/projects/rag-knowledge-base-pipeline",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Pipeline RAG de Base de Conhecimento\n\nRecuperacao de documentos corporativos com pgvector, FastAPI e Claude. Respostas fundamentadas com citacoes de fonte, zero alucinacao.\n\nLeia no site:\n\nhttps://michael.business/pt/projects/rag-knowledge-base-pipeline",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
+      ]
+    }
+  }
+}

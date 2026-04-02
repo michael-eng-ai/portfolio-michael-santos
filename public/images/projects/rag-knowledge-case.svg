@@ -1,0 +1,29 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#07111E"/>
+  <rect x="48" y="48" width="1504" height="804" rx="36" fill="url(#g2)"/>
+  <rect x="120" y="200" width="400" height="300" rx="24" fill="#0F172A" fill-opacity="0.92"/>
+  <rect x="600" y="200" width="400" height="300" rx="24" fill="#0F172A" fill-opacity="0.92"/>
+  <rect x="1080" y="200" width="400" height="300" rx="24" fill="#0F172A" fill-opacity="0.92"/>
+  <path d="M520 350H600" stroke="#818CF8" stroke-width="6" stroke-linecap="round"/>
+  <path d="M1000 350H1080" stroke="#818CF8" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="220" cy="300" r="40" fill="#4F46E5" fill-opacity="0.3" stroke="#818CF8" stroke-width="4"/>
+  <text x="204" y="312" fill="#C7D2FE" font-family="Arial, sans-serif" font-size="32" font-weight="700">D</text>
+  <text x="290" y="310" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="36" font-weight="700">Ingest</text>
+  <text x="170" y="400" fill="#94A3B8" font-family="Arial, sans-serif" font-size="22">Chunk + Embed</text>
+  <circle cx="700" cy="300" r="40" fill="#4F46E5" fill-opacity="0.3" stroke="#818CF8" stroke-width="4"/>
+  <text x="684" y="312" fill="#C7D2FE" font-family="Arial, sans-serif" font-size="32" font-weight="700">V</text>
+  <text x="770" y="310" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="36" font-weight="700">Retrieve</text>
+  <text x="650" y="400" fill="#94A3B8" font-family="Arial, sans-serif" font-size="22">pgvector search</text>
+  <circle cx="1180" cy="300" r="40" fill="#4F46E5" fill-opacity="0.3" stroke="#818CF8" stroke-width="4"/>
+  <text x="1164" y="312" fill="#C7D2FE" font-family="Arial, sans-serif" font-size="32" font-weight="700">G</text>
+  <text x="1250" y="310" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="36" font-weight="700">Generate</text>
+  <text x="1130" y="400" fill="#94A3B8" font-family="Arial, sans-serif" font-size="22">Claude + citations</text>
+  <text x="104" y="110" fill="#A5B4FC" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">RAG KNOWLEDGE BASE</text>
+  <text x="104" y="778" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="74" font-weight="700">Grounded answers from your data</text>
+  <text x="104" y="824" fill="#94A3B8" font-family="Arial, sans-serif" font-size="30">Enterprise retrieval over generic hallucination</text>
+  <defs>
+    <linearGradient id="g2" x1="98" y1="74" x2="1488" y2="824" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E1B4B"/><stop offset="0.55" stop-color="#111827"/><stop offset="1" stop-color="#1E1B4B"/>
+    </linearGradient>
+  </defs>
+</svg>

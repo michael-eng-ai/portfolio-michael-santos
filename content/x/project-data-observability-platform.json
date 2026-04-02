@@ -1,0 +1,27 @@
+{
+  "slug": "project-data-observability-platform",
+  "sourceType": "project",
+  "sourceSlug": "data-observability-platform",
+  "status": "draft",
+  "generatedAt": "2026-04-02T12:00:00.000Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/projects/data-observability-platform",
+    "pt": "https://michael.business/pt/projects/data-observability-platform",
+    "proof": "https://github.com/michael-eng-ai/data-observability-platform"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Data Observability Platform\n\nOpen-source pipeline monitoring with anomaly detection, lineage tracking, and SLA alerting. See before it breaks.\n\nRead on site:\n\nhttps://michael.business/en/projects/data-observability-platform",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-observability-platform"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Plataforma de Observabilidade de Dados\n\nMonitoramento open-source de pipelines com deteccao de anomalias, rastreamento de linhagem e alertas de SLA. Veja antes de quebrar.\n\nLeia no site:\n\nhttps://michael.business/pt/projects/data-observability-platform",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-observability-platform"
+      ]
+    }
+  }
+}

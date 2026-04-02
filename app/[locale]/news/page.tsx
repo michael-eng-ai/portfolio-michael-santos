@@ -66,7 +66,7 @@ export default async function NewsPage({
               href={localePath(locale, "/radar")}
               eventName="navigation_click"
               eventParams={{ location: "news_index", target: "radar", locale }}
-              className="inline-flex items-center justify-center rounded-full bg-gray-950 px-6 py-3 text-sm font-bold text-white transition hover:bg-gray-800"
+              className="inline-flex items-center justify-center rounded-full bg-[var(--primary)] px-6 py-3 text-sm font-bold text-white transition hover:opacity-90"
             >
               {copy(locale, "Compare with the Tech Radar", "Comparar com o Tech Radar")}
             </TrackedLink>

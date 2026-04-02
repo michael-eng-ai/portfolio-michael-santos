@@ -1,0 +1,57 @@
+{
+  "slug": "rag-knowledge-base-pipeline",
+  "featured": true,
+  "order": 8,
+  "imageUrl": "/images/projects/rag-knowledge-case.svg",
+  "stack": ["Python", "LangChain", "pgvector", "PostgreSQL", "FastAPI", "Claude API", "Docker"],
+  "tags": ["rag", "genai", "llm", "api"],
+  "github": {
+    "owner": "michael-eng-ai",
+    "repo": "rag-knowledge-base-pipeline",
+    "url": "https://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
+  },
+  "relatedArticleSlugs": ["governed-ai-analytics", "from-news-to-data-product"],
+  "relatedNewsSlugs": [],
+  "locales": {
+    "en": {
+      "title": "RAG Knowledge Base Pipeline",
+      "subtitle": "Enterprise document retrieval with vector search and grounded LLM answers",
+      "summary": "A retrieval-augmented generation pipeline that ingests enterprise documents, chunks and embeds them into pgvector, and serves grounded answers through a FastAPI service backed by Claude.",
+      "businessProblem": "Enterprise knowledge is trapped in PDFs, Confluence pages, and Slack threads. Employees spend hours searching for answers that already exist somewhere in the organization. Generic LLMs hallucinate when asked domain-specific questions without access to internal context.",
+      "technicalSolution": [
+        "Ingest documents from multiple sources with format-aware chunking that preserves context boundaries",
+        "Generate embeddings and store them in pgvector with metadata filters for source, date, and topic",
+        "Serve a retrieval API through FastAPI that finds the most relevant chunks before sending context to Claude",
+        "Return grounded answers with source citations so users can verify every claim against the original document"
+      ],
+      "architectureSummary": "The pipeline separates ingestion, embedding, retrieval, and generation into distinct stages. PostgreSQL with pgvector handles both structured metadata and vector similarity search in a single database. FastAPI orchestrates the retrieval-then-generate pattern, and Claude produces answers that are grounded in retrieved context rather than parametric memory alone.",
+      "impact": [
+        "Reduces time-to-answer for internal knowledge queries from hours of searching to seconds of retrieval",
+        "Eliminates hallucination risk by grounding every answer in cited source documents",
+        "Proves that RAG can run on PostgreSQL without requiring a dedicated vector database vendor",
+        "Shows the full data engineering pipeline behind AI features that product teams often treat as a black box"
+      ],
+      "body": "## What this case proves\n\nRAG is not an AI feature. It is a data engineering problem disguised as an AI feature. The hard part is not calling an LLM. The hard part is building a pipeline that ingests messy enterprise documents, chunks them intelligently, embeds them consistently, retrieves the right context under latency constraints, and does all of that reliably in production.\n\n## Why that matters\n\nEvery company that adopts AI assistants will eventually need this pipeline. The difference between a demo that impresses and a product that ships is the engineering underneath: chunking strategy, embedding freshness, retrieval precision, and citation traceability.\n\n## Tradeoffs worth calling out\n\nUsing pgvector instead of a specialized vector database trades some query performance at extreme scale for operational simplicity. For most enterprise knowledge bases under a few million chunks, PostgreSQL handles both relational metadata and vector search without adding another system to the stack.\n\n## Practical takeaway\n\nIf your team is evaluating RAG, this case gives you a production-ready blueprint that separates concerns cleanly and avoids vendor lock-in on the vector layer."
+    },
+    "pt": {
+      "title": "Pipeline RAG de Base de Conhecimento",
+      "subtitle": "Recuperacao de documentos empresariais com busca vetorial e respostas fundamentadas por LLM",
+      "summary": "Um pipeline de geracao aumentada por recuperacao que ingere documentos corporativos, fragmenta e embede no pgvector, e serve respostas fundamentadas via FastAPI com Claude.",
+      "businessProblem": "Conhecimento corporativo esta preso em PDFs, paginas do Confluence e threads do Slack. Funcionarios gastam horas procurando respostas que ja existem em algum lugar da organizacao. LLMs genericos alucinam quando recebem perguntas especificas de dominio sem acesso ao contexto interno.",
+      "technicalSolution": [
+        "Ingerir documentos de multiplas fontes com chunking que preserva fronteiras de contexto",
+        "Gerar embeddings e armazenar no pgvector com filtros de metadados por fonte, data e topico",
+        "Servir uma API de recuperacao via FastAPI que encontra os chunks mais relevantes antes de enviar contexto ao Claude",
+        "Retornar respostas fundamentadas com citacoes de fonte para que usuarios possam verificar cada afirmacao contra o documento original"
+      ],
+      "architectureSummary": "O pipeline separa ingestao, embedding, recuperacao e geracao em estagios distintos. PostgreSQL com pgvector lida com metadados estruturados e busca vetorial em um unico banco. FastAPI orquestra o padrao retrieval-then-generate, e Claude produz respostas fundamentadas no contexto recuperado e nao apenas em memoria parametrica.",
+      "impact": [
+        "Reduz tempo de resposta para consultas de conhecimento interno de horas de busca para segundos de recuperacao",
+        "Elimina risco de alucinacao fundamentando cada resposta em documentos fonte citados",
+        "Prova que RAG pode rodar em PostgreSQL sem exigir um vendor dedicado de banco vetorial",
+        "Mostra o pipeline completo de engenharia de dados por tras de features de IA que times de produto frequentemente tratam como caixa preta"
+      ],
+      "body": "## O que este caso prova\n\nRAG nao e uma feature de IA. E um problema de engenharia de dados disfarçado de feature de IA. A parte dificil nao e chamar um LLM. A parte dificil e construir um pipeline que ingere documentos corporativos bagunçados, fragmenta de forma inteligente, embede consistentemente, recupera o contexto certo sob restricoes de latencia e faz tudo isso de forma confiavel em producao.\n\n## Por que isso importa\n\nToda empresa que adotar assistentes de IA vai precisar deste pipeline eventualmente. A diferenca entre um demo que impressiona e um produto que vai pra producao e a engenharia por baixo: estrategia de chunking, freshness de embeddings, precisao de recuperacao e rastreabilidade de citacoes.\n\n## Tradeoffs que valem ser expostos\n\nUsar pgvector ao inves de um banco vetorial especializado troca alguma performance de query em escala extrema por simplicidade operacional. Para a maioria das bases de conhecimento corporativas com menos de alguns milhoes de chunks, PostgreSQL lida com metadados relacionais e busca vetorial sem adicionar outro sistema a stack.\n\n## Takeaway pratico\n\nSe seu time esta avaliando RAG, este caso da um blueprint production-ready que separa responsabilidades de forma limpa e evita vendor lock-in na camada vetorial."
+    }
+  }
+}

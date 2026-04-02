@@ -134,7 +134,7 @@ export default async function LocaleHomePage({
                   {copy(locale, "Intelligent Growth.", "Crescimento Inteligente.")}
                 </span>
               </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-gray-600 sm:text-xl">
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600 sm:text-xl">
                 {copy(
                   locale,
                   "Case studies, strategic writing, and curated signals that show how modern data and AI work turns into measurable business leverage.",
@@ -146,7 +146,7 @@ export default async function LocaleHomePage({
                   href={localePath(locale, "/projects")}
                   eventName="navigation_click"
                   eventParams={{ location: "home_hero", target: "projects", locale }}
-                  className="w-full rounded-full bg-white px-10 py-4 text-center text-base font-bold text-gray-900 shadow-sm transition hover:bg-gray-100 sm:w-auto sm:text-lg"
+                  className="w-full rounded-full bg-[var(--primary)] px-10 py-4 text-center text-base font-bold text-white transition hover:opacity-90 sm:w-auto sm:text-lg"
                 >
                   {copy(locale, "See How It Works", "Veja Como Funciona")}
                 </TrackedLink>
@@ -154,7 +154,7 @@ export default async function LocaleHomePage({
                   href={localePath(locale, "/radar")}
                   eventName="navigation_click"
                   eventParams={{ location: "home_hero", target: "radar", locale }}
-                  className="w-full rounded-full bg-white px-10 py-4 text-center text-base font-bold text-gray-900 shadow-sm transition hover:bg-gray-100 sm:w-auto sm:text-lg"
+                  className="w-full rounded-full border border-gray-300 bg-white px-10 py-4 text-center text-base font-bold text-gray-900 transition hover:border-gray-400 hover:bg-gray-50 sm:w-auto sm:text-lg"
                 >
                   {copy(locale, "Explore Tech Radar", "Explorar Tech Radar")}
                 </TrackedLink>
