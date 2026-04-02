@@ -1,0 +1,27 @@
+{
+  "slug": "project-agentic-data-pipeline-mcp",
+  "sourceType": "project",
+  "sourceSlug": "agentic-data-pipeline-mcp",
+  "status": "draft",
+  "generatedAt": "2026-04-02T12:00:00.000Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/projects/agentic-data-pipeline-mcp",
+    "pt": "https://michael.business/pt/projects/agentic-data-pipeline-mcp",
+    "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Agentic Data Pipeline With MCP\n\nAutonomous pipeline orchestration where Claude-powered agents detect schema drift, fix quality failures, and route decisions through structured audit logs.\n\nRead on site:\n\nhttps://michael.business/en/projects/agentic-data-pipeline-mcp",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Pipeline de Dados Agentico com MCP\n\nOrquestracao autonoma onde agentes Claude detectam schema drift, corrigem falhas de qualidade e registram decisoes via logs de auditoria estruturados.\n\nLeia no site:\n\nhttps://michael.business/pt/projects/agentic-data-pipeline-mcp",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+      ]
+    }
+  }
+}

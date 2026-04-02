@@ -1,0 +1,25 @@
+{
+  "slug": "project-agentic-data-pipeline-mcp",
+  "sourceType": "project",
+  "sourceSlug": "agentic-data-pipeline-mcp",
+  "status": "draft",
+  "generatedAt": "2026-04-02T12:00:00.000Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/projects/agentic-data-pipeline-mcp",
+    "pt": "https://michael.business/pt/projects/agentic-data-pipeline-mcp",
+    "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+  },
+  "locales": {
+    "en": {
+      "hook": "Agentic Data Pipeline With MCP",
+      "body": "Autonomous pipeline orchestration where Claude-powered agents detect schema drift, fix quality failures, and route decisions through structured audit logs. The highest-value entry point for agentic AI is not a chatbot. It is an agent embedded at the point where your pipeline breaks most often.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Pipeline de Dados Agentico com MCP",
+      "body": "Orquestracao autonoma de pipeline onde agentes Claude detectam schema drift, corrigem falhas de qualidade e registram decisoes via logs de auditoria estruturados. O ponto de entrada de maior valor para IA agentica nao e um chatbot. E um agente embutido no ponto onde seu pipeline quebra mais frequentemente.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}

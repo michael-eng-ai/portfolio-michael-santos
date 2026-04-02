@@ -1,0 +1,31 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#07111E"/>
+  <rect x="48" y="48" width="1504" height="804" rx="36" fill="url(#g3)"/>
+  <circle cx="800" cy="320" r="100" fill="#0F172A" fill-opacity="0.92" stroke="#F59E0B" stroke-width="4"/>
+  <text x="752" y="310" fill="#FCD34D" font-family="Arial, sans-serif" font-size="42" font-weight="700">MCP</text>
+  <text x="755" y="354" fill="#94A3B8" font-family="Arial, sans-serif" font-size="22">Agent</text>
+  <rect x="200" y="240" width="300" height="160" rx="20" fill="#0F172A" fill-opacity="0.92"/>
+  <rect x="1100" y="240" width="300" height="160" rx="20" fill="#0F172A" fill-opacity="0.92"/>
+  <rect x="200" y="480" width="300" height="160" rx="20" fill="#0F172A" fill-opacity="0.92"/>
+  <rect x="1100" y="480" width="300" height="160" rx="20" fill="#0F172A" fill-opacity="0.92"/>
+  <path d="M500 320H700" stroke="#F59E0B" stroke-width="4" stroke-linecap="round"/>
+  <path d="M900 320H1100" stroke="#F59E0B" stroke-width="4" stroke-linecap="round"/>
+  <path d="M500 560H700" stroke="#F59E0B" stroke-width="4" stroke-linecap="round" stroke-dasharray="12 8"/>
+  <path d="M900 560H1100" stroke="#F59E0B" stroke-width="4" stroke-linecap="round" stroke-dasharray="12 8"/>
+  <text x="240" y="320" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="32" font-weight="700">Schema Drift</text>
+  <text x="240" y="360" fill="#94A3B8" font-family="Arial, sans-serif" font-size="22">Auto-detect + fix</text>
+  <text x="1140" y="320" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="32" font-weight="700">Quality Gate</text>
+  <text x="1140" y="360" fill="#94A3B8" font-family="Arial, sans-serif" font-size="22">Validate + reroute</text>
+  <text x="240" y="560" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="32" font-weight="700">Retry Logic</text>
+  <text x="240" y="600" fill="#94A3B8" font-family="Arial, sans-serif" font-size="22">Transient failures</text>
+  <text x="1140" y="560" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="32" font-weight="700">Audit Trail</text>
+  <text x="1140" y="600" fill="#94A3B8" font-family="Arial, sans-serif" font-size="22">Every decision logged</text>
+  <text x="104" y="110" fill="#FDE68A" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">AGENTIC DATA PIPELINE</text>
+  <text x="104" y="778" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="74" font-weight="700">Self-healing with guardrails</text>
+  <text x="104" y="824" fill="#94A3B8" font-family="Arial, sans-serif" font-size="30">Autonomous agents over reactive on-call firefighting</text>
+  <defs>
+    <linearGradient id="g3" x1="98" y1="74" x2="1488" y2="824" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2A1F0D"/><stop offset="0.55" stop-color="#111827"/><stop offset="1" stop-color="#2A1F0D"/>
+    </linearGradient>
+  </defs>
+</svg>

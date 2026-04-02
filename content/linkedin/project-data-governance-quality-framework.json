@@ -1,0 +1,25 @@
+{
+  "slug": "project-data-governance-quality-framework",
+  "sourceType": "project",
+  "sourceSlug": "data-governance-quality-framework",
+  "status": "draft",
+  "generatedAt": "2026-04-02T12:00:00.000Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/projects/data-governance-quality-framework",
+    "pt": "https://michael.business/pt/projects/data-governance-quality-framework",
+    "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
+  },
+  "locales": {
+    "en": {
+      "hook": "Data Governance And Quality Framework",
+      "body": "A production-grade framework that embeds data quality validation, contract enforcement, and governance checks into every pipeline layer. Built with Great Expectations, Soda, dbt, and Airflow.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Framework de Governanca e Qualidade de Dados",
+      "body": "Um framework production-grade que embute validacao de qualidade, contratos de dados e checks de governanca em cada camada do pipeline. Construido com Great Expectations, Soda, dbt e Airflow.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}

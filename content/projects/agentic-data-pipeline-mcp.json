@@ -1,0 +1,57 @@
+{
+  "slug": "agentic-data-pipeline-mcp",
+  "featured": true,
+  "order": 9,
+  "imageUrl": "/images/projects/agentic-pipeline-case.svg",
+  "stack": ["Python", "Claude API", "MCP", "Airflow", "PostgreSQL", "FastAPI", "Docker"],
+  "tags": ["agentic-ai", "ai", "platform-engineering", "genai"],
+  "github": {
+    "owner": "michael-eng-ai",
+    "repo": "agentic-data-pipeline-mcp",
+    "url": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+  },
+  "relatedArticleSlugs": ["navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026"],
+  "relatedNewsSlugs": [],
+  "locales": {
+    "en": {
+      "title": "Agentic Data Pipeline With MCP",
+      "subtitle": "Autonomous pipeline orchestration where AI agents handle schema drift, quality failures, and routing decisions",
+      "summary": "A next-generation data pipeline where Claude-powered agents connected via Model Context Protocol autonomously detect schema changes, fix data quality issues, reroute failed loads, and report decisions through structured audit logs.",
+      "businessProblem": "Traditional pipelines fail silently or require manual intervention when sources change schema, quality degrades, or downstream systems become unavailable. On-call engineers spend nights fixing issues that follow predictable patterns. The operational cost of reactive pipeline maintenance scales linearly with data source count.",
+      "technicalSolution": [
+        "Deploy MCP-connected agents that monitor pipeline health, detect schema drift, and propose fixes autonomously",
+        "Use Claude as the reasoning engine with tool-use capabilities to query metadata, run validation, and execute remediation",
+        "Implement guardrails that require human approval for destructive actions while allowing agents to handle routine fixes independently",
+        "Log every agent decision with full context in a structured audit trail for compliance and debugging"
+      ],
+      "architectureSummary": "Airflow orchestrates the pipeline stages, but MCP agents sit at decision points where failures typically require human intervention. When an agent detects an anomaly, it gathers context from multiple tools, reasons about the best fix, executes it within defined guardrails, and logs the full decision chain. The result is a pipeline that self-heals for routine issues and escalates intelligently for novel problems.",
+      "impact": [
+        "Reduces on-call incident volume by autonomously resolving predictable pipeline failures",
+        "Proves that agentic AI adds value when it is embedded at decision points, not bolted on as a chatbot",
+        "Shows the architectural pattern where agents operate within guardrails rather than with unlimited autonomy",
+        "Demonstrates MCP as a protocol for giving AI agents structured access to data infrastructure tools"
+      ],
+      "body": "## What this case proves\n\nAgentic AI for data engineering is not about replacing engineers. It is about giving autonomous agents the same context and tools that an on-call engineer would use, then letting them handle the repetitive pattern-matching work that burns out senior people.\n\n## Why that matters\n\nThe economics of data platform operations do not scale. Every new source, every new downstream consumer, every new SLA adds to the on-call burden. Agents that can detect, diagnose, and fix routine failures change that curve from linear to logarithmic.\n\n## Tradeoffs worth calling out\n\nAutonomy without guardrails is dangerous in data infrastructure. This design uses a tiered approval model: agents fix schema drift and retry transient failures independently, but they escalate destructive operations like table drops or backfill rewrites to a human. The guardrails are not a limitation. They are the feature.\n\n## Practical takeaway\n\nIf your team is exploring agentic AI, this case shows that the highest-value entry point is not a chatbot. It is an autonomous agent embedded at the exact point where your pipeline breaks most often, operating with structured tools and clear boundaries."
+    },
+    "pt": {
+      "title": "Pipeline de Dados Agentico com MCP",
+      "subtitle": "Orquestracao autonoma onde agentes IA lidam com schema drift, falhas de qualidade e decisoes de roteamento",
+      "summary": "Um pipeline de dados de proxima geracao onde agentes Claude conectados via Model Context Protocol detectam autonomamente mudancas de schema, corrigem problemas de qualidade, redirecionam cargas falhas e reportam decisoes via logs de auditoria estruturados.",
+      "businessProblem": "Pipelines tradicionais falham silenciosamente ou requerem intervencao manual quando fontes mudam schema, qualidade degrada, ou sistemas downstream ficam indisponiveis. Engenheiros de plantao gastam noites corrigindo problemas que seguem padroes previsiveis. O custo operacional de manutencao reativa escala linearmente com a quantidade de fontes.",
+      "technicalSolution": [
+        "Deployar agentes conectados via MCP que monitoram saude do pipeline, detectam schema drift e propoem fixes autonomamente",
+        "Usar Claude como motor de raciocinio com capacidades de tool-use para consultar metadados, rodar validacao e executar remediacao",
+        "Implementar guardrails que requerem aprovacao humana para acoes destrutivas enquanto permitem que agentes resolvam fixes rotineiros independentemente",
+        "Registrar cada decisao do agente com contexto completo em uma trilha de auditoria estruturada para compliance e debugging"
+      ],
+      "architectureSummary": "Airflow orquestra os estagios do pipeline, mas agentes MCP ficam nos pontos de decisao onde falhas tipicamente requerem intervencao humana. Quando um agente detecta uma anomalia, ele reune contexto de multiplas ferramentas, raciocina sobre o melhor fix, executa dentro de guardrails definidos e loga toda a cadeia de decisao. O resultado e um pipeline que se auto-cura para problemas rotineiros e escala inteligentemente para problemas novos.",
+      "impact": [
+        "Reduz volume de incidentes de plantao resolvendo autonomamente falhas previsiveis de pipeline",
+        "Prova que IA agentica agrega valor quando e embutida em pontos de decisao, nao acoplada como chatbot",
+        "Mostra o padrao arquitetural onde agentes operam dentro de guardrails ao inves de com autonomia ilimitada",
+        "Demonstra MCP como protocolo para dar a agentes IA acesso estruturado a ferramentas de infraestrutura de dados"
+      ],
+      "body": "## O que este caso prova\n\nIA agentica para engenharia de dados nao e sobre substituir engenheiros. E sobre dar a agentes autonomos o mesmo contexto e ferramentas que um engenheiro de plantao usaria, e deixar que eles cuidem do trabalho repetitivo de pattern-matching que esgota pessoas senior.\n\n## Por que isso importa\n\nA economia de operacoes de plataforma de dados nao escala. Cada nova fonte, cada novo consumidor downstream, cada novo SLA adiciona ao fardo do plantao. Agentes que conseguem detectar, diagnosticar e corrigir falhas rotineiras mudam essa curva de linear para logaritmica.\n\n## Tradeoffs que valem ser expostos\n\nAutonomia sem guardrails e perigosa em infraestrutura de dados. Este design usa um modelo de aprovacao em camadas: agentes corrigem schema drift e retentam falhas transientes independentemente, mas escalam operacoes destrutivas como drops de tabela ou rewrites de backfill para um humano. Os guardrails nao sao uma limitacao. Sao a feature.\n\n## Takeaway pratico\n\nSe seu time esta explorando IA agentica, este caso mostra que o ponto de entrada de maior valor nao e um chatbot. E um agente autonomo embutido no exato ponto onde seu pipeline quebra mais frequentemente, operando com ferramentas estruturadas e limites claros."
+    }
+  }
+}

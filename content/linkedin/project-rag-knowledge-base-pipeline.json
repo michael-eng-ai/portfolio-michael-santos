@@ -1,0 +1,25 @@
+{
+  "slug": "project-rag-knowledge-base-pipeline",
+  "sourceType": "project",
+  "sourceSlug": "rag-knowledge-base-pipeline",
+  "status": "draft",
+  "generatedAt": "2026-04-02T12:00:00.000Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/projects/rag-knowledge-base-pipeline",
+    "pt": "https://michael.business/pt/projects/rag-knowledge-base-pipeline",
+    "proof": "https://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
+  },
+  "locales": {
+    "en": {
+      "hook": "RAG Knowledge Base Pipeline",
+      "body": "Enterprise document retrieval pipeline with pgvector, FastAPI, and Claude that eliminates hallucination by grounding every answer in cited source documents. RAG is a data engineering problem disguised as an AI feature.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Pipeline RAG de Base de Conhecimento",
+      "body": "Pipeline de recuperacao de documentos corporativos com pgvector, FastAPI e Claude que elimina alucinacao fundamentando cada resposta em documentos fonte citados. RAG e um problema de engenharia de dados disfarçado de feature de IA.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}

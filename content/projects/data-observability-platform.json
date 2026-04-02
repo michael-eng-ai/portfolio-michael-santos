@@ -1,0 +1,57 @@
+{
+  "slug": "data-observability-platform",
+  "featured": true,
+  "order": 10,
+  "imageUrl": "/images/projects/observability-platform-case.svg",
+  "stack": ["Python", "dbt", "Airflow", "PostgreSQL", "Streamlit", "Great Expectations", "Docker"],
+  "tags": ["data-platform", "analytics-engineering", "governance"],
+  "github": {
+    "owner": "michael-eng-ai",
+    "repo": "data-observability-platform",
+    "url": "https://github.com/michael-eng-ai/data-observability-platform"
+  },
+  "relatedArticleSlugs": ["data-platform-modernization-patterns", "building-trustworthy-and-scalable-modern-data-platforms"],
+  "relatedNewsSlugs": [],
+  "locales": {
+    "en": {
+      "title": "Data Observability Platform",
+      "subtitle": "End-to-end pipeline monitoring with anomaly detection, lineage tracking, and SLA alerting",
+      "summary": "An open-source observability platform that monitors data freshness, volume anomalies, schema changes, and pipeline health across the entire data stack, with a Streamlit dashboard for real-time visibility.",
+      "businessProblem": "Data teams operate blind. They know when a pipeline job fails, but they do not know when data arrives late, volumes drift silently, or a schema change upstream breaks a downstream model three days later. By the time someone notices, the damage has already reached business reports.",
+      "technicalSolution": [
+        "Collect pipeline metadata from Airflow DAG runs, dbt model executions, and database statistics into a centralized observability store",
+        "Detect anomalies in data freshness, row volume, null rates, and schema drift using statistical baselines",
+        "Track end-to-end lineage from source ingestion through transformation to final dashboard consumption",
+        "Alert on SLA breaches with contextual information that helps engineers diagnose root cause in minutes instead of hours"
+      ],
+      "architectureSummary": "Every pipeline stage emits metadata into a PostgreSQL observability store. A Python service runs anomaly detection on freshness and volume baselines. dbt tests add quality signals at the transformation layer. Streamlit provides a unified dashboard where engineers can see pipeline health, trace lineage, and drill into anomalies without switching between Airflow UI, dbt docs, and database queries.",
+      "impact": [
+        "Gives data teams visibility into silent failures that traditional job monitoring completely misses",
+        "Reduces mean time to diagnosis from hours of log searching to minutes of dashboard inspection",
+        "Proves that data observability can be built with open-source tools instead of expensive vendor platforms",
+        "Creates a single pane of glass for pipeline health that stakeholders can understand without engineering context"
+      ],
+      "body": "## What this case proves\n\nData observability is not a vendor product. It is a discipline that can be built incrementally from metadata your pipelines already produce. The value is not in the dashboard itself but in the habit of measuring pipeline health the same way SREs measure application health.\n\n## Why that matters\n\nThe gap between job success and data correctness is where trust dies. A pipeline can succeed technically while delivering stale data, shifted distributions, or broken joins that downstream teams will not catch for days. Observability closes that gap by making invisible failures visible.\n\n## Tradeoffs worth calling out\n\nThis platform trades the polished UI and managed alerting of commercial tools for full control over detection logic and zero vendor cost. The tradeoff works well for teams with strong engineering culture. Teams that need managed alerting and automatic root cause analysis may still benefit from a vendor platform on top of this foundation.\n\n## Practical takeaway\n\nIf you are spending more than an hour per week investigating data incidents reactively, this platform pays for itself immediately by shifting you from reactive firefighting to proactive monitoring."
+    },
+    "pt": {
+      "title": "Plataforma de Observabilidade de Dados",
+      "subtitle": "Monitoramento end-to-end de pipelines com deteccao de anomalias, rastreamento de linhagem e alertas de SLA",
+      "summary": "Uma plataforma open-source de observabilidade que monitora freshness, anomalias de volume, mudancas de schema e saude de pipelines em toda a stack de dados, com dashboard Streamlit para visibilidade em tempo real.",
+      "businessProblem": "Times de dados operam no escuro. Sabem quando um job de pipeline falha, mas nao sabem quando dados chegam atrasados, volumes driftam silenciosamente, ou uma mudanca de schema upstream quebra um modelo downstream tres dias depois. Quando alguem percebe, o dano ja chegou aos relatorios de negocio.",
+      "technicalSolution": [
+        "Coletar metadados de pipeline de runs de DAGs Airflow, execucoes de modelos dbt e estatisticas de banco em um store centralizado de observabilidade",
+        "Detectar anomalias em freshness, volume de linhas, taxas de null e schema drift usando baselines estatisticos",
+        "Rastrear linhagem end-to-end da ingestao de fonte ate transformacao e consumo final em dashboard",
+        "Alertar sobre violacoes de SLA com informacao contextual que ajuda engenheiros a diagnosticar causa raiz em minutos ao inves de horas"
+      ],
+      "architectureSummary": "Cada estagio do pipeline emite metadados para um store de observabilidade em PostgreSQL. Um servico Python roda deteccao de anomalias em baselines de freshness e volume. Testes dbt adicionam sinais de qualidade na camada de transformacao. Streamlit fornece um dashboard unificado onde engenheiros podem ver saude do pipeline, rastrear linhagem e investigar anomalias sem alternar entre UI do Airflow, docs do dbt e queries de banco.",
+      "impact": [
+        "Da aos times de dados visibilidade sobre falhas silenciosas que monitoramento tradicional de jobs nao captura",
+        "Reduz tempo medio de diagnostico de horas de busca em logs para minutos de inspecao no dashboard",
+        "Prova que observabilidade de dados pode ser construida com ferramentas open-source ao inves de plataformas vendor caras",
+        "Cria um painel unico de saude de pipeline que stakeholders conseguem entender sem contexto de engenharia"
+      ],
+      "body": "## O que este caso prova\n\nObservabilidade de dados nao e um produto de vendor. E uma disciplina que pode ser construida incrementalmente a partir de metadados que seus pipelines ja produzem. O valor nao esta no dashboard em si, mas no habito de medir saude de pipeline da mesma forma que SREs medem saude de aplicacao.\n\n## Por que isso importa\n\nO gap entre sucesso do job e corretude dos dados e onde a confianca morre. Um pipeline pode ter sucesso tecnico enquanto entrega dados defasados, distribuicoes deslocadas ou joins quebrados que times downstream nao vao pegar por dias. Observabilidade fecha esse gap tornando falhas invisiveis em visiveis.\n\n## Tradeoffs que valem ser expostos\n\nEsta plataforma troca a UI polida e alertas gerenciados de ferramentas comerciais por controle total sobre logica de deteccao e zero custo de vendor. O tradeoff funciona bem para times com cultura forte de engenharia. Times que precisam de alertas gerenciados e analise automatica de causa raiz podem se beneficiar de uma plataforma vendor em cima desta fundacao.\n\n## Takeaway pratico\n\nSe voce gasta mais de uma hora por semana investigando incidentes de dados reativamente, esta plataforma se paga imediatamente mudando voce de apagar incendios reativos para monitoramento proativo."
+    }
+  }
+}
