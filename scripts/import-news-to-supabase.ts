@@ -10,6 +10,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { createClient } from "@supabase/supabase-js";
 import { newsSchema, generatedNewsFileSchema, type NewsReference } from "../lib/content";
+import { sanitizeNewsReference } from "../lib/news-utils";
 
 const contentRoot = path.join(process.cwd(), "content");
 
@@ -46,16 +47,18 @@ async function readGeneratedNews(): Promise<NewsReference[]> {
 }
 
 function toSupabaseRow(entry: NewsReference) {
+  const normalizedEntry = sanitizeNewsReference(entry);
+
   return {
-    slug: entry.slug,
-    published_at: entry.publishedAt,
-    source_name: entry.sourceName,
-    source_url: entry.sourceUrl,
-    image_url: entry.imageUrl ?? null,
-    category: entry.category ?? null,
-    tags: entry.tags,
-    related_project_slugs: entry.relatedProjectSlugs,
-    locales: entry.locales,
+    slug: normalizedEntry.slug,
+    published_at: normalizedEntry.publishedAt,
+    source_name: normalizedEntry.sourceName,
+    source_url: normalizedEntry.sourceUrl,
+    image_url: normalizedEntry.imageUrl ?? null,
+    category: normalizedEntry.category ?? null,
+    tags: normalizedEntry.tags,
+    related_project_slugs: normalizedEntry.relatedProjectSlugs,
+    locales: normalizedEntry.locales,
     is_active: true,
   };
 }

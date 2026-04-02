@@ -6,6 +6,7 @@ import Parser from "rss-parser";
 
 import { getRequiredWriteDatabaseEnvKeys, listActiveNewsRows, upsertNewsRows } from "@/lib/database";
 import { articleSchema, newsSchema } from "@/lib/content";
+import { resolveNewsImage } from "@/lib/editorial-images";
 import { writeNewsSnapshot } from "@/lib/news-utils";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
 
@@ -284,7 +285,13 @@ async function main(): Promise<void> {
     published_at: nowIso,
     source_name: "Daily Trend Briefing",
     source_url: sourceUrl,
-    image_url: null,
+    image_url: resolveNewsImage({
+      slug,
+      imageUrl: null,
+      sourceName: "Daily Trend Briefing",
+      tags: briefing.tags,
+      category: { en: "Trend Briefing", pt: "Briefing de Tendencias" },
+    }),
     category: { en: "Trend Briefing", pt: "Briefing de Tendencias" },
     tags: briefing.tags,
     related_project_slugs: [],

@@ -8,9 +8,20 @@ import { Locale, copy } from "@/lib/site";
 type NewsletterFormProps = {
   locale: Locale;
   source: string;
+  title?: string;
+  description?: string;
+  eyebrow?: string;
+  disclaimer?: string;
 };
 
-export function NewsletterForm({ locale, source }: NewsletterFormProps) {
+export function NewsletterForm({
+  locale,
+  source,
+  title,
+  description,
+  eyebrow,
+  disclaimer,
+}: NewsletterFormProps) {
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -77,15 +88,20 @@ export function NewsletterForm({ locale, source }: NewsletterFormProps) {
 
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-[var(--primary)]">
-            {copy(locale, "Newsletter", "Newsletter")}
+            {eyebrow ?? copy(locale, "Newsletter", "Newsletter")}
           </p>
           <h3 className="mt-2 text-2xl font-semibold text-gray-900">
-            {copy(
+            {title ?? copy(
               locale,
               "Receive curated intelligence on growth, efficiency, and digital strategy.",
               "Receba inteligencia curada sobre crescimento, eficiencia e estrategia digital.",
             )}
           </h3>
+          {description ? (
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-gray-600 sm:text-base">
+              {description}
+            </p>
+          ) : null}
         </div>
 
         <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
@@ -107,7 +123,7 @@ export function NewsletterForm({ locale, source }: NewsletterFormProps) {
         </div>
 
         <p className="text-sm text-gray-500">
-          {copy(
+          {disclaimer ?? copy(
             locale,
             "One email per week. No spam. Only high-signal content for decision-makers.",
             "Um email por semana. Sem spam. Apenas conteudo de alto sinal para tomadores de decisao.",

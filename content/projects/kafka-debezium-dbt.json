@@ -2,7 +2,7 @@
   "slug": "kafka-debezium-dbt",
   "featured": true,
   "order": 1,
-  "imageUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+  "imageUrl": "/images/projects/cdc-analytics-case.svg",
   "stack": ["PostgreSQL", "Debezium", "Kafka", "Python", "dbt", "Streamlit", "Docker"],
   "tags": ["cdc", "streaming", "analytics-engineering"],
   "github": {
@@ -33,40 +33,40 @@
     "en": {
       "title": "Real-Time CDC Analytics Pipeline",
       "subtitle": "From operational PostgreSQL changes to analytics-ready layers",
-      "summary": "How near real-time operational change data can become trusted analytical information without adding unnecessary platform complexity.",
-      "businessProblem": "Analytics teams often need fresher data from operational systems, but many solutions create lock-in, hide transformation logic, or become too heavy for smaller data teams. This project frames CDC as a business capability: move trusted operational changes into analytics quickly and transparently.",
+      "summary": "A runnable CDC stack that captures PostgreSQL WAL changes with Debezium, normalizes events in Python, and publishes analytics-ready bronze, silver, and gold layers with dbt and Streamlit.",
+      "businessProblem": "Operational teams needed fresher analytics without buying a heavy black-box ELT layer. The real risk was solving latency by adding a stack nobody could explain, test locally, or evolve safely once schemas changed.",
       "technicalSolution": [
-        "Capture PostgreSQL changes with Debezium and Kafka Connect",
-        "Normalize and upsert change events with a Python consumer",
-        "Model bronze, silver, and gold layers with dbt",
-        "Expose the pipeline through a lightweight dashboard"
+        "Capture row-level PostgreSQL WAL changes through Debezium and Kafka Connect",
+        "Normalize Debezium envelopes and apply safe UPSERT behavior in a Python consumer",
+        "Persist replicated records in a target PostgreSQL before modeling bronze, silver, and gold layers with dbt",
+        "Expose pipeline freshness and analytical outputs in a lightweight Streamlit dashboard"
       ],
-      "architectureSummary": "PostgreSQL emits changes, Kafka transports them, Python normalizes payloads, dbt shapes the warehouse layers, and Streamlit closes the loop for observability.",
+      "architectureSummary": "The flow is explicit end to end: PostgreSQL source -> Debezium -> Kafka -> Python consumer -> PostgreSQL target -> dbt -> Streamlit. That keeps CDC inspectable instead of magical, which is exactly the point of the case.",
       "impact": [
-        "Shows how to reduce time-to-analytics for operational data",
-        "Demonstrates a transparent CDC architecture for smaller teams",
-        "Connects ingestion, transformation, and visibility in one repeatable pattern"
+        "Turns CDC from an abstract idea into a runnable path from source database to business-facing dashboard",
+        "Shows the tradeoff between a transparent local-first architecture and heavier managed ELT products",
+        "Creates proof for roles that need streaming, dbt layering, and operational analytics in the same story"
       ],
-      "body": "## Why this case matters\n\nMany teams discuss real-time data, but what matters in practice is reliable movement from transactional systems to business-facing analytics. This case shows how CDC can be treated as an operational capability that reduces delay between event creation and decision making.\n\n## What an executive should notice\n\nThe value is not in Kafka or Debezium alone. The value is in making operational change data available faster, with clear ownership and transparent transformation logic."
+      "body": "## What this case proves\n\nThis is not a slide about streaming. It is a full path you can inspect, run, and explain in an interview or architecture review. The project captures PostgreSQL changes from WAL, publishes them into Kafka through Debezium, normalizes payloads in Python, and only then promotes the data into dbt layers that analytics teams can trust.\n\n## Why the design matters\n\nThe strongest decision in this repo is transparency. Instead of hiding transformation logic inside an opaque connector, the consumer owns coercion and UPSERT behavior. That makes the data movement easier to test, easier to reason about, and easier to extend when business rules change.\n\n## Tradeoffs worth calling out\n\nThe stack is intentionally local-first. It uses Docker Compose, a target PostgreSQL, and Streamlit so the operating pattern stays visible. That is great for proof and learning, but in production you would likely add schema registry, lag monitoring, stronger secret handling, and managed scheduling.\n\n## Practical takeaway\n\nIf the business problem is stale operational analytics, this case shows a credible middle path: fresher data without pretending every company needs a heavyweight platform from day one."
     },
     "pt": {
-      "title": "Pipeline Analítico de CDC em Tempo Real",
-      "subtitle": "Das mudanças no PostgreSQL operacional até camadas analíticas prontas",
-      "summary": "Como dados de mudanca operacional em quase tempo real podem virar informacao analitica confiavel sem adicionar complexidade desnecessaria de plataforma.",
-      "businessProblem": "Times de analytics precisam de dados mais frescos vindos dos sistemas operacionais, mas muitas soluções geram lock-in, escondem a lógica de transformação ou ficam pesadas demais para times menores. Este projeto trata CDC como capacidade de negócio: mover mudanças operacionais confiáveis para analytics de forma rápida e transparente.",
+      "title": "Pipeline Analitico de CDC em Tempo Real",
+      "subtitle": "Das mudancas no PostgreSQL operacional ate camadas analiticas prontas",
+      "summary": "Um stack de CDC executavel que captura mudancas do WAL do PostgreSQL com Debezium, normaliza eventos em Python e publica camadas bronze, silver e gold com dbt e Streamlit.",
+      "businessProblem": "Times operacionais precisavam de analytics mais fresco sem comprar uma camada pesada e opaca de ELT. O risco real era reduzir latencia adicionando um stack que ninguem conseguiria explicar, testar localmente ou evoluir com seguranca quando o schema mudasse.",
       "technicalSolution": [
-        "Captura de mudanças do PostgreSQL com Debezium e Kafka Connect",
-        "Normalização e upsert dos eventos com consumidor em Python",
-        "Modelagem das camadas bronze, silver e gold com dbt",
-        "Exposição do pipeline com dashboard leve"
+        "Captura de mudancas linha a linha do WAL do PostgreSQL com Debezium e Kafka Connect",
+        "Normalizacao dos envelopes do Debezium e aplicacao de UPSERT seguro em um consumidor Python",
+        "Persistencia dos registros replicados em um PostgreSQL alvo antes da modelagem bronze, silver e gold com dbt",
+        "Exposicao da frescura do pipeline e dos outputs analiticos em um dashboard leve com Streamlit"
       ],
-      "architectureSummary": "O PostgreSQL emite mudanças, o Kafka transporta os eventos, o Python normaliza os payloads, o dbt estrutura as camadas analíticas e o Streamlit fecha o ciclo de observabilidade.",
+      "architectureSummary": "O fluxo fica explicito de ponta a ponta: PostgreSQL origem -> Debezium -> Kafka -> consumidor Python -> PostgreSQL destino -> dbt -> Streamlit. Isso deixa o CDC inspecionavel em vez de magico, e esse e o valor central do caso.",
       "impact": [
-        "Mostra como reduzir o tempo entre evento operacional e analytics",
-        "Demonstra uma arquitetura de CDC transparente para times menores",
-        "Conecta ingestão, transformação e visibilidade em um padrão repetível"
+        "Transforma CDC de conceito abstrato em caminho executavel do banco de origem ate um dashboard de negocio",
+        "Mostra o tradeoff entre uma arquitetura transparente e local-first e alternativas gerenciadas mais pesadas",
+        "Cria prova para vagas e projetos que exigem streaming, camadas dbt e analytics operacional na mesma narrativa"
       ],
-      "body": "## Por que este caso importa\n\nMuitos times falam sobre dados em tempo real, mas o que importa na pratica e o movimento confiavel dos sistemas transacionais ate o consumo analitico. Este caso mostra como CDC pode ser tratado como capacidade operacional que reduz o atraso entre a criacao do evento e a tomada de decisao.\n\n## O que uma lideranca deve perceber\n\nO valor nao esta apenas em Kafka ou Debezium. O valor esta em disponibilizar dados operacionais mais rapido, com ownership claro e logica de transformacao transparente."
+      "body": "## O que este caso prova\n\nIsto nao e um slide sobre streaming. E um caminho completo que voce consegue inspecionar, executar e explicar em uma entrevista ou review de arquitetura. O projeto captura mudancas do PostgreSQL a partir do WAL, publica os eventos no Kafka via Debezium, normaliza payloads em Python e so depois promove os dados para camadas dbt em que analytics consegue confiar.\n\n## Por que o desenho importa\n\nA melhor decisao deste repo e a transparencia. Em vez de esconder a logica de transformacao dentro de um conector opaco, o consumidor assume coercao e UPSERT. Isso deixa a movimentacao mais facil de testar, de entender e de estender quando a regra de negocio muda.\n\n## Tradeoffs que valem destacar\n\nO stack e intencionalmente local-first. Usa Docker Compose, PostgreSQL destino e Streamlit para manter o padrao operacional visivel. Isso e excelente para prova e aprendizado, mas em producao o natural seria adicionar schema registry, monitoramento de lag, segredos mais fortes e agendamento gerenciado.\n\n## Takeaway pratico\n\nSe o problema de negocio e analytics operacional defasado, este caso mostra um caminho credivel: dados mais frescos sem fingir que toda empresa precisa de uma plataforma gigante no dia um."
     }
   }
 }

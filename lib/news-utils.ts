@@ -3,6 +3,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 
 import type { NewsReference } from "@/lib/content";
+import { resolveNewsImage } from "@/lib/editorial-images";
 
 const GENERATED_NEWS_SNAPSHOT_PATH = path.join(process.cwd(), "content", "generated", "news.json");
 
@@ -101,11 +102,27 @@ export function detectTags(sourceTags: string[], title: string, excerpt: string)
   return Array.from(detected).slice(0, 6);
 }
 
+export function sanitizeNewsReference(entry: NewsReference): NewsReference {
+  return {
+    ...entry,
+    imageUrl: resolveNewsImage({
+      slug: entry.slug,
+      imageUrl: entry.imageUrl,
+      tags: entry.tags,
+      category: entry.category ?? undefined,
+      sourceName: entry.sourceName,
+      relatedProjectSlugs: entry.relatedProjectSlugs,
+    }),
+  };
+}
+
 export async function writeNewsSnapshot(items: NewsReference[]) {
+  const sanitizedItems = items.map(sanitizeNewsReference);
+
   await fs.mkdir(path.dirname(GENERATED_NEWS_SNAPSHOT_PATH), { recursive: true });
   await fs.writeFile(
     GENERATED_NEWS_SNAPSHOT_PATH,
-    `${JSON.stringify({ syncedAt: new Date().toISOString(), items }, null, 2)}\n`,
+    `${JSON.stringify({ syncedAt: new Date().toISOString(), items: sanitizedItems }, null, 2)}\n`,
     "utf8",
   );
 }

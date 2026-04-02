@@ -13,10 +13,9 @@ concurrency:
 jobs:
   review:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
-    if: >-
-      github.event.pull_request.user.login != 'github-actions[bot]' &&
-      github.event.pull_request.user.login != 'dependabot[bot]'
+    if: github.event.pull_request.user.type != 'Bot'
 
     permissions:
       pull-requests: write
@@ -34,6 +33,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -euo pipefail
           DIFF=$(gh pr diff ${{ github.event.pull_request.number }} | head -c 8000)
           EOF_MARKER=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "diff<<${EOF_MARKER}" >> "$GITHUB_OUTPUT"
@@ -44,31 +44,39 @@ jobs:
         id: review
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DIFF_CONTENT: ${{ steps.diff.outputs.diff }}
         run: |
-          DIFF_CONTENT='${{ steps.diff.outputs.diff }}'
+          set -euo pipefail
 
-          PROMPT="Review this PR diff as a senior data engineer. Focus on: correctness, security, performance, TypeScript best practices. Be concise. Output format: list of findings with severity (critical/warning/info) and line references when possible.
+          PROMPT=$(cat <<EOF
+          Review this PR diff as a senior data engineer. Focus on: correctness, security, performance, TypeScript best practices. Be concise. Output format: list of findings with severity (critical/warning/info) and line references when possible.
 
           If the diff looks clean, say so briefly.
 
           DIFF:
-          ${DIFF_CONTENT}"
-
-          ESCAPED_PROMPT=$(echo "$PROMPT" | jq -Rs .)
+          ${DIFF_CONTENT}
+          EOF
+          )
 
           BODY=$(jq -n \
             --arg model "claude-haiku-4-5-20251001" \
+            --arg prompt "$PROMPT" \
             --argjson max_tokens 1024 \
-            --argjson messages "[{\"role\": \"user\", \"content\": ${ESCAPED_PROMPT}}]" \
-            '{model: $model, max_tokens: $max_tokens, messages: $messages}')
+            '{model: $model, max_tokens: $max_tokens, messages: [{role: "user", content: $prompt}]}')
 
-          RESPONSE=$(curl -s -X POST https://api.anthropic.com/v1/messages \
+          RESPONSE=$(curl -fsS -X POST https://api.anthropic.com/v1/messages \
             -H "Content-Type: application/json" \
             -H "x-api-key: ${ANTHROPIC_API_KEY}" \
             -H "anthropic-version: 2023-06-01" \
             -d "$BODY")
 
-          REVIEW=$(echo "$RESPONSE" | jq -r '.content[0].text // "Failed to generate review."')
+          REVIEW=$(echo "$RESPONSE" | jq -r '
+            if .error then
+              "Failed to generate review: " + (.error.message // "unknown API error")
+            else
+              (.content[0].text // "Failed to generate review.")
+            end
+          ')
 
           EOF_MARKER=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "review<<${EOF_MARKER}" >> "$GITHUB_OUTPUT"
@@ -78,15 +86,18 @@ jobs:
       - name: Post review comment
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REVIEW_BODY: ${{ steps.review.outputs.review }}
         run: |
-          COMMENT_BODY=$(cat <<'COMMENT_EOF'
+          set -euo pipefail
+
+          COMMENT_BODY=$(cat <<EOF
           **Claude Code Review**
 
-          ${{ steps.review.outputs.review }}
+          ${REVIEW_BODY}
 
           ---
           _Automated review by Claude Haiku. Not a substitute for human review._
-          COMMENT_EOF
+          EOF
           )
 
           gh pr comment ${{ github.event.pull_request.number }} --body "${COMMENT_BODY}"

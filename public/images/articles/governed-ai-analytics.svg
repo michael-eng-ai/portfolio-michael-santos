@@ -1,0 +1,17 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#09111C"/>
+  <rect x="54" y="54" width="1492" height="792" rx="40" fill="url(#paint0_linear)"/>
+  <text x="112" y="138" fill="#93C5FD" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">AI + ANALYTICS</text>
+  <text x="112" y="270" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="86" font-weight="700">Trust is the real AI bottleneck</text>
+  <text x="112" y="348" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="42">Governance, metadata, and retrieval quality decide whether the interface becomes product or demo.</text>
+  <rect x="1010" y="226" width="392" height="360" rx="34" fill="#0F172A" fill-opacity="0.86" stroke="#60A5FA" stroke-opacity="0.4"/>
+  <text x="1056" y="324" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="52" font-weight="700">Grounded answers</text>
+  <text x="1056" y="392" fill="#94A3B8" font-family="Arial, sans-serif" font-size="28">Reliable pipelines, governed docs, and traceable access patterns</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="90" y1="74" x2="1492" y2="828" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10253D"/>
+      <stop offset="0.58" stop-color="#111827"/>
+      <stop offset="1" stop-color="#122B36"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,17 +1,23 @@
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { Project } from "@/lib/content";
 import { Locale, copy, localePath } from "@/lib/site";
 import { getTagLabel } from "@/lib/tags";
+import { TrackedExternalLink } from "@/components/tracked-external-link";
+import { TrackedLink } from "@/components/tracked-link";
 
 type ProjectCardProps = {
   project: Project;
   locale: Locale;
+  location?: string;
 };
 
-export function ProjectCard({ project, locale }: ProjectCardProps) {
+export function ProjectCard({
+  project,
+  locale,
+  location = "projects_index",
+}: ProjectCardProps) {
   const content = project.locales[locale];
   const summary = clampText(content.summary, editorialLimits.cardSummaryMax);
 
@@ -36,16 +42,25 @@ export function ProjectCard({ project, locale }: ProjectCardProps) {
         ))}
       </div>
       <div className="flex items-center gap-6">
-        <Link
+        <TrackedLink
           href={localePath(locale, `/projects/${project.slug}`)}
+          eventName="content_card_click"
+          eventParams={{ content_type: "project", slug: project.slug, location, locale }}
           className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-gray-900 transition hover:text-[var(--primary)]"
         >
           {copy(locale, "Read Case Study", "Ver Caso")}
           <ArrowRight size={14} aria-hidden="true" className="text-[var(--primary)] transition-transform group-hover:translate-x-1" />
-        </Link>
-        <a href={project.github.url} target="_blank" rel="noreferrer" className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 transition hover:text-[var(--accent-mint)]">
+        </TrackedLink>
+        <TrackedExternalLink
+          href={project.github.url}
+          target="_blank"
+          rel="noreferrer"
+          eventName="external_link_click"
+          eventParams={{ channel: "github", location: `${location}_github`, slug: project.slug }}
+          className="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 transition hover:text-[var(--accent-mint)]"
+        >
           {copy(locale, "GitHub", "GitHub")}
-        </a>
+        </TrackedExternalLink>
       </div>
     </article>
   );

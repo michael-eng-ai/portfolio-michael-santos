@@ -70,3 +70,24 @@ export function localePath(locale: Locale, path = "") {
   const normalized = path.startsWith("/") ? path : `/${path}`;
   return `/${locale}${normalized === "/" ? "" : normalized}`;
 }
+
+export function resolveRequestLocale(input: {
+  acceptLanguage?: string | null;
+  preferredLocale?: string | null;
+}) {
+  if (input.preferredLocale && isLocale(input.preferredLocale)) {
+    return input.preferredLocale;
+  }
+
+  const acceptLanguage = input.acceptLanguage?.toLowerCase() ?? "";
+
+  if (acceptLanguage.includes("pt")) {
+    return "pt";
+  }
+
+  if (acceptLanguage.includes("en")) {
+    return "en";
+  }
+
+  return defaultLocale;
+}

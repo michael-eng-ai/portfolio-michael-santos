@@ -1,0 +1,29 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#09121E"/>
+  <rect x="48" y="48" width="1504" height="804" rx="40" fill="url(#paint0_linear)"/>
+  <text x="104" y="118" fill="#67E8F9" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">STREAMING RADAR API</text>
+  <text x="104" y="792" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="76" font-weight="700">From event stream to usable API</text>
+  <text x="104" y="838" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="30">Kafka for movement, Redis for state, FastAPI for low-latency delivery</text>
+  <circle cx="304" cy="430" r="118" fill="#0F172A" fill-opacity="0.92"/>
+  <circle cx="666" cy="430" r="118" fill="#0F172A" fill-opacity="0.92"/>
+  <circle cx="1028" cy="430" r="118" fill="#0F172A" fill-opacity="0.92"/>
+  <circle cx="1290" cy="430" r="118" fill="#0F172A" fill-opacity="0.92"/>
+  <path d="M422 430H548" stroke="#38BDF8" stroke-width="10" stroke-linecap="round"/>
+  <path d="M784 430H910" stroke="#38BDF8" stroke-width="10" stroke-linecap="round"/>
+  <path d="M1146 430H1172" stroke="#38BDF8" stroke-width="10" stroke-linecap="round"/>
+  <text x="224" y="418" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="44" font-weight="700">Producer</text>
+  <text x="243" y="470" fill="#94A3B8" font-family="Arial, sans-serif" font-size="24">Market events</text>
+  <text x="617" y="418" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="44" font-weight="700">Kafka</text>
+  <text x="576" y="470" fill="#94A3B8" font-family="Arial, sans-serif" font-size="24">Event backbone</text>
+  <text x="949" y="418" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="44" font-weight="700">Redis</text>
+  <text x="898" y="470" fill="#94A3B8" font-family="Arial, sans-serif" font-size="24">Low-latency state</text>
+  <text x="1226" y="418" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="44" font-weight="700">FastAPI</text>
+  <text x="1206" y="470" fill="#94A3B8" font-family="Arial, sans-serif" font-size="24">Serving interface</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="78" y1="72" x2="1496" y2="836" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F2035"/>
+      <stop offset="0.58" stop-color="#111827"/>
+      <stop offset="1" stop-color="#102C36"/>
+    </linearGradient>
+  </defs>
+</svg>

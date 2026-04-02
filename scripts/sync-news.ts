@@ -14,15 +14,34 @@ import {
 } from "@/lib/database";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { newsSchema, type NewsReference } from "@/lib/content";
-import { buildStableNewsSlug, detectTags, normalizePublishedAt, writeNewsSnapshot } from "@/lib/news-utils";
+import {
+  buildStableNewsSlug,
+  detectTags,
+  normalizePublishedAt,
+  sanitizeNewsReference,
+  writeNewsSnapshot,
+} from "@/lib/news-utils";
 import { chunkArray, fetchWithTimeout, toErrorMessage, withRetry } from "@/lib/runtime";
+
+function isValidAssetUrl(value: string) {
+  if (value.startsWith("/")) {
+    return true;
+  }
+
+  try {
+    new URL(value);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 const feedSourceSchema = z.object({
   slug: z.string().min(1),
   sourceName: z.string().min(1),
   homepageUrl: z.string().url(),
   feedUrl: z.string().url(),
-  defaultImageUrl: z.string().url().optional(),
+  defaultImageUrl: z.string().min(1).refine(isValidAssetUrl).optional(),
   category: z.object({ en: z.string().min(1), pt: z.string().min(1) }).optional(),
   tags: z.array(z.string().min(1)).default([]),
   relatedProjectSlugs: z.array(z.string().min(1)).default([]),
@@ -171,16 +190,18 @@ async function fetchFeed(source: FeedSource) {
 }
 
 function toNewsRow(entry: NewsReference, existing?: NewsRowRecord) {
+  const normalizedEntry = sanitizeNewsReference(entry);
+
   return {
-    slug: entry.slug,
-    published_at: entry.publishedAt,
-    source_name: entry.sourceName,
-    source_url: entry.sourceUrl,
-    image_url: entry.imageUrl ?? null,
-    category: entry.category ?? null,
-    tags: entry.tags,
-    related_project_slugs: entry.relatedProjectSlugs,
-    locales: entry.locales,
+    slug: normalizedEntry.slug,
+    published_at: normalizedEntry.publishedAt,
+    source_name: normalizedEntry.sourceName,
+    source_url: normalizedEntry.sourceUrl,
+    image_url: normalizedEntry.imageUrl ?? null,
+    category: normalizedEntry.category ?? null,
+    tags: normalizedEntry.tags,
+    related_project_slugs: normalizedEntry.relatedProjectSlugs,
+    locales: normalizedEntry.locales,
     editorial_analysis: existing?.editorial_analysis ?? null,
     is_active: existing?.is_active ?? true,
     posted_to_x_at: existing?.posted_to_x_at ?? null,

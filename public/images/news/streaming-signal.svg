@@ -1,0 +1,21 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#08111B"/>
+  <rect x="52" y="52" width="1496" height="796" rx="40" fill="url(#paint0_linear)"/>
+  <text x="108" y="128" fill="#67E8F9" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">STREAMING SIGNAL</text>
+  <text x="108" y="796" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="74" font-weight="700">Fresh data only matters when teams can trust the path</text>
+  <text x="108" y="838" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="30">Speed, governance, and low-latency serving are now one conversation</text>
+  <path d="M160 420H1440" stroke="#22D3EE" stroke-width="12" stroke-linecap="round" stroke-dasharray="18 18"/>
+  <circle cx="384" cy="420" r="64" fill="#0F172A"/>
+  <circle cx="800" cy="420" r="64" fill="#0F172A"/>
+  <circle cx="1216" cy="420" r="64" fill="#0F172A"/>
+  <text x="336" y="432" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="28" font-weight="700">CDC</text>
+  <text x="736" y="432" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="28" font-weight="700">Lag</text>
+  <text x="1146" y="432" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="28" font-weight="700">API</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="88" y1="74" x2="1494" y2="830" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10243B"/>
+      <stop offset="0.62" stop-color="#111827"/>
+      <stop offset="1" stop-color="#0D2F34"/>
+    </linearGradient>
+  </defs>
+</svg>

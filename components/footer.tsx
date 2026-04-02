@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { TrackedExternalLink } from "@/components/tracked-external-link";
+import { TrackedLink } from "@/components/tracked-link";
 import { Locale, copy, localePath, siteConfig } from "@/lib/site";
 
 type FooterProps = {
@@ -24,9 +25,16 @@ export function Footer({ locale }: FooterProps) {
               )}
             </p>
             <div className="flex gap-6">
-              <a href={siteConfig.githubUrl} target="_blank" rel="noreferrer" className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-[var(--accent-mint)]">
+              <TrackedExternalLink
+                href={siteConfig.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-[var(--accent-mint)]"
+                eventName="external_link_click"
+                eventParams={{ channel: "github", location: "footer" }}
+              >
                 GitHub
-              </a>
+              </TrackedExternalLink>
               <TrackedExternalLink
                 href={siteConfig.linkedinUrl}
                 target="_blank"
@@ -54,9 +62,10 @@ export function Footer({ locale }: FooterProps) {
                 {copy(locale, "Solutions", "Solucoes")}
               </h5>
               <ul className="space-y-5">
-                <li><Link href={localePath(locale, "/projects")} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">{copy(locale, "Business Cases", "Casos")}</Link></li>
-                <li><Link href={localePath(locale, "/articles")} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">{copy(locale, "Insights", "Insights")}</Link></li>
-                <li><Link href={localePath(locale, "/news")} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">{copy(locale, "News", "Noticias")}</Link></li>
+                <li><TrackedLink href={localePath(locale, "/projects")} eventName="navigation_click" eventParams={{ location: "footer", target: "projects", locale }} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">{copy(locale, "Business Cases", "Casos")}</TrackedLink></li>
+                <li><TrackedLink href={localePath(locale, "/articles")} eventName="navigation_click" eventParams={{ location: "footer", target: "articles", locale }} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">{copy(locale, "Insights", "Insights")}</TrackedLink></li>
+                <li><TrackedLink href={localePath(locale, "/news")} eventName="navigation_click" eventParams={{ location: "footer", target: "news", locale }} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">{copy(locale, "News", "Noticias")}</TrackedLink></li>
+                <li><TrackedLink href={localePath(locale, "/radar")} eventName="navigation_click" eventParams={{ location: "footer", target: "radar", locale }} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">{copy(locale, "Tech Radar", "Tech Radar")}</TrackedLink></li>
               </ul>
             </div>
             <div>
@@ -64,9 +73,9 @@ export function Footer({ locale }: FooterProps) {
                 {copy(locale, "Company", "Empresa")}
               </h5>
               <ul className="space-y-5">
-                <li><Link href={localePath(locale, "/resume")} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">{copy(locale, "Resume", "Curriculo")}</Link></li>
-                <li><Link href={localePath(locale, "/newsletter")} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">Newsletter</Link></li>
-                <li><Link href={localePath(locale, "/contact")} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">{copy(locale, "Contact", "Contato")}</Link></li>
+                <li><TrackedLink href={localePath(locale, "/resume")} eventName="navigation_click" eventParams={{ location: "footer", target: "resume", locale }} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">{copy(locale, "Resume", "Curriculo")}</TrackedLink></li>
+                <li><TrackedLink href={localePath(locale, "/newsletter")} eventName="navigation_click" eventParams={{ location: "footer", target: "newsletter", locale }} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">Newsletter</TrackedLink></li>
+                <li><TrackedLink href={localePath(locale, "/contact")} eventName="navigation_click" eventParams={{ location: "footer", target: "contact", locale }} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">{copy(locale, "Contact", "Contato")}</TrackedLink></li>
               </ul>
             </div>
             <div>
@@ -74,9 +83,9 @@ export function Footer({ locale }: FooterProps) {
                 {copy(locale, "Connect", "Conectar")}
               </h5>
               <ul className="space-y-5">
-                <li><a href={siteConfig.githubUrl} target="_blank" rel="noreferrer" className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">GitHub</a></li>
-                <li><a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer" className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">LinkedIn</a></li>
-                <li><a href={`mailto:${siteConfig.email}`} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900">Email</a></li>
+                <li><TrackedExternalLink href={siteConfig.githubUrl} target="_blank" rel="noreferrer" className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900" eventName="external_link_click" eventParams={{ channel: "github", location: "footer_connect" }}>GitHub</TrackedExternalLink></li>
+                <li><TrackedExternalLink href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer" className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900" eventName="contact_click" eventParams={{ channel: "linkedin", location: "footer_connect" }}>LinkedIn</TrackedExternalLink></li>
+                <li><TrackedExternalLink href={`mailto:${siteConfig.email}`} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900" eventName="contact_click" eventParams={{ channel: "email", location: "footer_connect" }}>Email</TrackedExternalLink></li>
               </ul>
             </div>
           </div>

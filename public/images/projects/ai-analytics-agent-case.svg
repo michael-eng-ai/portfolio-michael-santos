@@ -1,0 +1,25 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#09101A"/>
+  <rect x="52" y="52" width="1496" height="796" rx="40" fill="url(#paint0_linear)"/>
+  <text x="108" y="124" fill="#7DD3FC" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">AI DATA PRODUCT</text>
+  <text x="108" y="792" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="74" font-weight="700">Governed AI needs grounded data access</text>
+  <text x="108" y="836" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="30">Text-to-SQL, RAG, and warehouse context with a product-style interface</text>
+  <rect x="112" y="212" width="376" height="360" rx="30" fill="#0F172A" fill-opacity="0.9"/>
+  <rect x="560" y="212" width="376" height="360" rx="30" fill="#0F172A" fill-opacity="0.9"/>
+  <rect x="1008" y="212" width="376" height="360" rx="30" fill="#0F172A" fill-opacity="0.9"/>
+  <text x="152" y="294" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="48" font-weight="700">Intent router</text>
+  <text x="152" y="346" fill="#94A3B8" font-family="Arial, sans-serif" font-size="24">Question -> SQL path or knowledge path</text>
+  <text x="600" y="294" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="48" font-weight="700">Grounded context</text>
+  <text x="600" y="346" fill="#94A3B8" font-family="Arial, sans-serif" font-size="24">Warehouse data + documentation retrieval</text>
+  <text x="1048" y="294" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="48" font-weight="700">Business answer</text>
+  <text x="1048" y="346" fill="#94A3B8" font-family="Arial, sans-serif" font-size="24">Readable interface instead of raw tables</text>
+  <path d="M488 392H560" stroke="#38BDF8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M936 392H1008" stroke="#38BDF8" stroke-width="8" stroke-linecap="round"/>
+  <defs>
+    <linearGradient id="paint0_linear" x1="82" y1="72" x2="1490" y2="830" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F223A"/>
+      <stop offset="0.6" stop-color="#111827"/>
+      <stop offset="1" stop-color="#0F2C32"/>
+    </linearGradient>
+  </defs>
+</svg>

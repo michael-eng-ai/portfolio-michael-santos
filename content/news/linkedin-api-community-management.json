@@ -3,7 +3,7 @@
   "publishedAt": "2026-03-05",
   "sourceName": "Microsoft Learn",
   "sourceUrl": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review?view=li-lms-2025-10",
-  "imageUrl": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+  "imageUrl": "/images/news/community-automation-signal.svg",
   "category": {"en": "Cloud & AI", "pt": "Cloud e IA"},
   "tags": ["linkedin", "distribution", "api"],
   "relatedProjectSlugs": ["ai-data-analyst-bot"],

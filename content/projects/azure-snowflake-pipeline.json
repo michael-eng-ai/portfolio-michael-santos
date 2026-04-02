@@ -2,7 +2,7 @@
   "slug": "azure-snowflake-pipeline",
   "featured": false,
   "order": 4,
-  "imageUrl": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&q=80",
+  "imageUrl": "/images/projects/snowflake-governance-case.svg",
   "stack": ["Azure", "ADLS Gen2", "Snowflake", "Snowpipe", "Terraform", "Python", "SQL"],
   "tags": ["cross-cloud", "snowflake", "warehouse-ingestion"],
   "github": {

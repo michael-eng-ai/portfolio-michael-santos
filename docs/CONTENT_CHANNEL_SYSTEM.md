@@ -32,6 +32,7 @@ Each one has a different job:
   - who is affected
   - what the business pressure is
   - what kind of solution pattern addresses it
+  - what the next logical step is for the reader
 - Avoid:
   - excessive low-level implementation detail
   - sounding like internal engineering documentation
@@ -119,3 +120,35 @@ And it should keep them distinct:
 The site should feel like a serious publication or business-facing portfolio, not like a demo of the automation behind it.
 
 The orchestration layer stays behind the scenes.
+
+## Retention Guardrail
+
+Every important content surface should make continuation obvious.
+
+That can happen through:
+
+- related proof
+- related market context
+- newsletter subscription
+- a repeat-worthy asset like the Tech Radar
+
+But it should not happen through:
+
+- generic "read more" loops with no context
+- multiple competing CTAs with no priority
+- conversion blocks that interrupt the narrative too early
+
+## Proof Density Rule
+
+High-value projects and articles should not stop at good framing.
+
+They should include at least three of the following:
+
+- one concrete architecture path
+- one explicit tradeoff
+- one operational artifact or file path
+- one visible business effect
+- one production next step
+- one reason the reader should care now
+
+Use `docs/HIGH_VALUE_CONTENT_BRIEFS.md` as the working checklist for priority rewrites.

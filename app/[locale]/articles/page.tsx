@@ -1,7 +1,8 @@
 import { ArticleCard } from "@/components/article-card";
+import { TrackedLink } from "@/components/tracked-link";
 import { getArticles } from "@/lib/content";
 import { buildPageMetadata } from "@/lib/seo";
-import { Locale, copy } from "@/lib/site";
+import { Locale, copy, localePath } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -58,11 +59,29 @@ export default async function ArticlesPage({
               "Esses insights traduzem mudancas de tecnologia em linguagem estrategica para liderancas focadas em expansao, eficiencia e decisoes melhores.",
             )}
           </p>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <TrackedLink
+              href={localePath(locale, "/newsletter")}
+              eventName="navigation_click"
+              eventParams={{ location: "articles_index", target: "newsletter", locale }}
+              className="inline-flex items-center justify-center rounded-full bg-gray-950 px-6 py-3 text-sm font-bold text-white transition hover:bg-gray-800"
+            >
+              {copy(locale, "Get weekly insights", "Receber insights semanais")}
+            </TrackedLink>
+            <TrackedLink
+              href={localePath(locale, "/projects")}
+              eventName="navigation_click"
+              eventParams={{ location: "articles_index", target: "projects", locale }}
+              className="inline-flex items-center justify-center rounded-full border border-gray-300 px-6 py-3 text-sm font-bold text-gray-900 transition hover:border-gray-400 hover:bg-gray-50"
+            >
+              {copy(locale, "See implementation proof", "Ver prova de implementacao")}
+            </TrackedLink>
+          </div>
         </div>
 
         <div className="grid gap-10 md:grid-cols-2">
           {articles.map((article) => (
-            <ArticleCard key={article.slug} article={article} locale={locale} />
+            <ArticleCard key={article.slug} article={article} locale={locale} location="articles_index" />
           ))}
         </div>
       </div>

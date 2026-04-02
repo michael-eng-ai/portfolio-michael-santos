@@ -2,7 +2,7 @@
   "slug": "gcp-dbt-modern-data-stack",
   "featured": true,
   "order": 3,
-  "imageUrl": "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=800&q=80",
+  "imageUrl": "/images/projects/gcp-modern-stack-case.svg",
   "stack": ["GCP", "BigQuery", "Cloud Storage", "Python", "dbt", "Terraform", "GitHub Actions"],
   "tags": ["analytics-engineering", "dbt", "warehouse"],
   "github": {
@@ -16,40 +16,40 @@
     "en": {
       "title": "GCP Modern Data Stack",
       "subtitle": "Warehouse-oriented analytics engineering on BigQuery",
-      "summary": "A cloud-native analytics engineering project showing how Terraform, Python ingestion, dbt, and CI/CD work together in a repeatable GCP workflow.",
-      "businessProblem": "Analytics teams often inherit SQL logic scattered across tools and environments. That makes trust, testing, and iteration harder. This project turns analytics engineering into a repeatable product flow with clear data contracts and deployment patterns.",
+      "summary": "A cloud-native analytics workflow that provisions BigQuery and storage with Terraform, ingests market data with Python, and tests warehouse models with dbt and GitHub Actions.",
+      "businessProblem": "Warehouse work often decays into undocumented SQL and manual cloud setup. That slows onboarding, weakens trust in the numbers, and makes every model change feel riskier than it should.",
       "technicalSolution": [
-        "Provision storage and analytical resources with Terraform",
-        "Load source data with Python ingestion scripts",
-        "Transform and test business models in dbt",
-        "Use CI to validate changes before publishing"
+        "Provision GCP storage and BigQuery resources with Terraform",
+        "Extract and load market-style source data with Python into cloud storage and analytics layers",
+        "Model staging and mart transformations in dbt with tests around key assumptions",
+        "Use GitHub Actions to reinforce repeatable validation before changes move forward"
       ],
-      "architectureSummary": "Terraform provisions GCP resources, Python moves source data, dbt shapes the warehouse models, and GitHub Actions enforces repeatability.",
+      "architectureSummary": "Infrastructure, ingestion, modeling, and validation are all first-class parts of the same workflow. Terraform creates the base, Python handles extract and load, dbt shapes and tests the warehouse models, and CI closes the loop.",
       "impact": [
-        "Shows how analytics engineering becomes easier to scale when modeled as code",
-        "Strengthens the GitHub-to-site story with a business-friendly warehouse narrative",
-        "Creates reusable content for articles about analytics engineering and governance"
+        "Makes analytics engineering tangible from extract and load through tested marts on BigQuery",
+        "Shows the tradeoff between simple local credentials for demo speed and stronger identity patterns needed in production",
+        "Links infrastructure, ingestion, modeling, and CI/CD in one hiring-ready case instead of isolated snippets"
       ],
-      "body": "## From warehouse work to public narrative\n\nRecruiters and hiring managers rarely care about SQL files in isolation. They care about what the platform enables. This project turns warehouse transformation into a business-facing story about trust, repeatability, and analytical delivery.\n\n## Reuse across channels\n\nBecause the content model is structured, this project can be linked to both news references and derivative LinkedIn drafts with very little manual work."
+      "body": "## What this case proves\n\nThis repo treats analytics engineering as delivery, not as scattered SQL. You can trace the path from Terraform-managed cloud resources to Python-based extraction, from loaded source data to dbt staging and mart models, and from there to repeatable validation in GitHub Actions.\n\n## Why that matters\n\nThe business payoff is trust and speed. When warehouse resources, ingestion logic, and dbt tests live in one coherent flow, change becomes safer. That reduces the drag of undocumented transformations and gives downstream teams a clearer contract.\n\n## Tradeoffs worth calling out\n\nThe demo path keeps credentials and execution simple enough to run locally. That is useful for a portfolio project, but the production upgrade is obvious: workload identity, richer freshness coverage, environment separation, and deeper observability. The important part is that the repo already exposes where each of those concerns belongs.\n\n## Practical takeaway\n\nIf the goal is to show you can operate beyond SQL alone, this case works because it joins platform setup, ingestion, dbt modeling, and CI into one concrete warehouse story."
     },
     "pt": {
       "title": "Modern Data Stack na GCP",
       "subtitle": "Analytics engineering orientado a data warehouse no BigQuery",
-      "summary": "Um projeto cloud-native de analytics engineering mostrando como Terraform, ingestão em Python, dbt e CI/CD trabalham juntos em um fluxo repetível na GCP.",
-      "businessProblem": "Times de analytics muitas vezes herdam lógica SQL espalhada por ferramentas e ambientes. Isso dificulta confiança, testes e evolução. Este projeto transforma analytics engineering em um fluxo repetível de produto com contratos de dados e padrões claros de entrega.",
+      "summary": "Um workflow cloud-native de analytics que provisiona BigQuery e storage com Terraform, ingere dados de mercado com Python e testa modelos de warehouse com dbt e GitHub Actions.",
+      "businessProblem": "Trabalho de warehouse frequentemente vira SQL sem documentacao e setup manual de cloud. Isso atrasa onboarding, enfraquece a confianca nos numeros e faz cada mudanca de modelo parecer mais arriscada do que deveria.",
       "technicalSolution": [
-        "Provisionamento de storage e recursos analíticos com Terraform",
-        "Carga de dados de origem com scripts Python",
-        "Transformação e testes dos modelos de negócio no dbt",
-        "Uso de CI para validar mudanças antes da publicação"
+        "Provisionamento de storage GCP e recursos BigQuery com Terraform",
+        "Extracao e carga de dados de mercado com Python para cloud storage e camadas analiticas",
+        "Modelagem de staging e marts em dbt com testes sobre premissas importantes",
+        "Uso de GitHub Actions para reforcar validacao repetivel antes de avancar mudancas"
       ],
-      "architectureSummary": "O Terraform provisiona recursos na GCP, o Python move os dados de origem, o dbt estrutura os modelos do warehouse e o GitHub Actions garante repetibilidade.",
+      "architectureSummary": "Infraestrutura, ingestao, modelagem e validacao sao partes de um unico workflow. O Terraform cria a base, o Python cuida do extract and load, o dbt estrutura e testa os modelos e a CI fecha o ciclo.",
       "impact": [
-        "Mostra como analytics engineering escala melhor quando modelado como código",
-        "Fortalece a narrativa GitHub -> site com uma história de warehouse voltada ao negócio",
-        "Cria conteúdo reutilizável para artigos sobre analytics engineering e governança"
+        "Torna analytics engineering tangivel do extract and load ate marts testados em BigQuery",
+        "Mostra o tradeoff entre credenciais locais simples para velocidade de demo e padroes de identidade mais fortes para producao",
+        "Conecta infraestrutura, ingestao, modelagem e CI/CD em um unico caso pronto para entrevistas e conversas com clientes"
       ],
-      "body": "## Do trabalho de warehouse para narrativa pública\n\nRecrutadores e gestores dificilmente se importam com arquivos SQL isolados. Eles se importam com o que a plataforma permite. Este projeto transforma modelagem de warehouse em uma história voltada a confiança, repetibilidade e entrega analítica.\n\n## Reuso entre canais\n\nComo o modelo de conteúdo é estruturado, este projeto pode ser ligado a notícias do setor e a rascunhos de LinkedIn com pouco trabalho manual."
+      "body": "## O que este caso prova\n\nEste repo trata analytics engineering como entrega, nao como SQL espalhado. E possivel seguir o caminho dos recursos cloud gerenciados por Terraform ate a extracao em Python, dos dados carregados para modelos staging e mart em dbt e dai para uma validacao repetivel no GitHub Actions.\n\n## Por que isso importa\n\nO ganho de negocio e confianca com velocidade. Quando recursos de warehouse, logica de ingestao e testes dbt vivem no mesmo fluxo, mudar fica mais seguro. Isso reduz o custo de transformacoes nao documentadas e deixa o contrato com times consumidores mais claro.\n\n## Tradeoffs que valem ser expostos\n\nO caminho de demo mantem credenciais e execucao simples o suficiente para rodar localmente. Isso e util em um projeto de portfolio, mas o upgrade de producao e evidente: workload identity, cobertura maior de freshness, separacao de ambientes e observabilidade mais profunda. O importante e que o repo ja mostra onde cada uma dessas preocupacoes entra.\n\n## Takeaway pratico\n\nSe o objetivo e provar que voce opera para alem de SQL isolado, este caso funciona porque junta setup de plataforma, ingestao, modelagem dbt e CI em uma historia concreta de warehouse."
     }
   }
 }

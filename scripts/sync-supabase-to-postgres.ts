@@ -192,9 +192,11 @@ async function ensurePostgresSchema() {
   const pool = getPostgresPool();
   const newsSql = await readFile(path.join(process.cwd(), "supabase", "news.sql"), "utf8");
   const newsletterSql = await readFile(path.join(process.cwd(), "supabase", "newsletter_subscribers.sql"), "utf8");
+  const analyticsSql = await readFile(path.join(process.cwd(), "supabase", "analytics_events.sql"), "utf8");
 
   await pool.query(newsSql);
   await pool.query(newsletterSql);
+  await pool.query(analyticsSql);
 }
 
 async function main() {

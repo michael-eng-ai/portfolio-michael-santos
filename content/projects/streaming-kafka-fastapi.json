@@ -2,7 +2,7 @@
   "slug": "streaming-kafka-fastapi",
   "featured": true,
   "order": 5,
-  "imageUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
+  "imageUrl": "/images/projects/streaming-api-case.svg",
   "stack": ["Kafka", "Redis", "FastAPI", "Python", "Docker"],
   "tags": ["streaming", "event-driven", "api"],
   "github": {
@@ -16,40 +16,40 @@
     "en": {
       "title": "Streaming Radar API",
       "subtitle": "Event-driven serving path from Kafka to low-latency APIs",
-      "summary": "A project that translates event-driven architecture into a business-facing case about low-latency data delivery and real-time serving.",
-      "businessProblem": "Some data systems are valuable only if they deliver information while it still matters. That means the architecture has to connect ingestion, processing, state management, and serving with low latency and operational clarity.",
+      "summary": "An event-driven serving path where Kafka carries market-style events, Redis holds current state, and FastAPI exposes low-latency endpoints for live consumption.",
+      "businessProblem": "Some systems lose value the moment data arrives after the user decision. The challenge is not only consuming events fast; it is separating ingestion, state, and API delivery so the system stays explainable under pressure.",
       "technicalSolution": [
-        "Use Kafka as the streaming backbone",
-        "Process events through Python producer and consumer services",
-        "Keep serving state in Redis",
-        "Expose the latest state through FastAPI endpoints"
+        "Use Kafka and Zookeeper as the streaming backbone for producer and consumer services",
+        "Process incoming events through Python services that keep the event path explicit",
+        "Store low-latency serving state in Redis instead of recomputing every request",
+        "Expose the latest ticker and history through FastAPI and local Swagger endpoints"
       ],
-      "architectureSummary": "Streaming events move through Kafka, are transformed by Python services, stored in Redis, and exposed via FastAPI as a practical real-time serving path.",
+      "architectureSummary": "Producer -> Kafka -> consumer -> Redis -> FastAPI. The architecture is intentionally compact so the low-latency serving pattern stays visible, testable, and easy to explain.",
       "impact": [
-        "Supports a narrative around real-time decision systems",
-        "Shows how a GitHub project becomes a business case on the site",
-        "Creates material for articles and LinkedIn posts about event-driven delivery"
+        "Supports a business narrative around timely decisions rather than streaming for its own sake",
+        "Shows how event ingestion, state management, and API serving can be decoupled in a compact portfolio project",
+        "Creates reusable proof for discussions about low-latency delivery, monitoring, and operational responsiveness"
       ],
-      "body": "## Real-time as a business requirement\n\nThe project is framed around timeliness, not only technology. When the site talks about low-latency systems, this repository becomes the technical proof behind that claim.\n\n## Why it fits the platform\n\nThis is the kind of project that benefits from being connected to external references, because its value grows when it is placed inside a broader market conversation about streaming and operational responsiveness."
+      "body": "## What this case proves\n\nThis project shows a practical serving architecture for live data. Kafka carries the event stream, Python services keep the processing steps visible, Redis stores the latest state for fast lookup, and FastAPI turns that state into an interface a downstream app could consume immediately.\n\n## Why the separation matters\n\nA common mistake in real-time systems is to blur ingestion, transformation, and serving into one opaque service. This repo does the opposite. Each role stays small and observable, which makes the low-latency claim more credible.\n\n## Tradeoffs worth calling out\n\nThe system is intentionally compact and local-first. That keeps the learning curve low, but production would need stronger durability, replay strategy, auth, rate limiting, and lag monitoring. The point of the portfolio case is to make the architecture discussable, not to pretend the demo is already a managed platform.\n\n## Practical takeaway\n\nIf the business needs data while it still matters, this case helps explain how event streaming becomes a usable API instead of a queue no one outside engineering can benefit from."
     },
     "pt": {
       "title": "Streaming Radar API",
-      "subtitle": "Caminho orientado a eventos do Kafka até APIs de baixa latência",
-      "summary": "Um projeto que traduz arquitetura orientada a eventos em um caso de negócio sobre entrega de dados em baixa latência e serving em tempo real.",
-      "businessProblem": "Alguns sistemas de dados só têm valor se entregarem informação enquanto ela ainda importa. Isso exige uma arquitetura que conecte ingestão, processamento, gerenciamento de estado e serving com baixa latência e clareza operacional.",
+      "subtitle": "Caminho orientado a eventos do Kafka ate APIs de baixa latencia",
+      "summary": "Um caminho de serving orientado a eventos em que Kafka carrega eventos de mercado, Redis segura o estado atual e FastAPI expoe endpoints de baixa latencia para consumo vivo.",
+      "businessProblem": "Alguns sistemas perdem valor no momento em que os dados chegam depois da decisao do usuario. O desafio nao e apenas consumir eventos rapido; e separar ingestao, estado e entrega por API para que o sistema continue explicavel sob pressao.",
       "technicalSolution": [
-        "Uso do Kafka como backbone de streaming",
-        "Processamento dos eventos com serviços producer e consumer em Python",
-        "Manutenção do estado de serving no Redis",
-        "Exposição do estado mais recente por endpoints FastAPI"
+        "Uso de Kafka e Zookeeper como backbone de streaming para servicos producer e consumer",
+        "Processamento dos eventos por servicos Python que mantem o caminho do evento explicito",
+        "Armazenamento do estado de baixa latencia em Redis em vez de recomputar a cada requisicao",
+        "Exposicao do ticker mais recente e do historico via FastAPI e Swagger local"
       ],
-      "architectureSummary": "Os eventos passam pelo Kafka, são transformados por serviços Python, armazenados no Redis e expostos pelo FastAPI como caminho prático de serving em tempo real.",
+      "architectureSummary": "Producer -> Kafka -> consumer -> Redis -> FastAPI. A arquitetura e propositalmente compacta para manter o padrao de serving em baixa latencia visivel, testavel e facil de explicar.",
       "impact": [
-        "Sustenta uma narrativa sobre sistemas de decisão em tempo real",
-        "Mostra como um projeto no GitHub vira caso de negócio no site",
-        "Gera material para artigos e posts de LinkedIn sobre entrega orientada a eventos"
+        "Sustenta uma narrativa de negocio sobre decisoes no tempo certo em vez de streaming por si so",
+        "Mostra como ingestao de eventos, gerenciamento de estado e serving por API podem ser desacoplados em um projeto compacto",
+        "Gera prova reutilizavel para conversas sobre baixa latencia, monitoramento e capacidade de resposta operacional"
       ],
-      "body": "## Tempo real como requisito de negócio\n\nO projeto é apresentado a partir de oportunidade temporal, e não apenas de tecnologia. Quando o site fala sobre sistemas de baixa latência, este repositório vira a prova técnica por trás da narrativa.\n\n## Por que ele combina com a plataforma\n\nÉ o tipo de projeto que ganha valor quando conectado a referências externas, porque faz parte de uma conversa maior sobre streaming e capacidade de resposta operacional."
+      "body": "## O que este caso prova\n\nEste projeto mostra uma arquitetura pratica de serving para dados vivos. O Kafka carrega o stream de eventos, os servicos Python mantem as etapas de processamento visiveis, o Redis guarda o estado mais recente para busca rapida e o FastAPI transforma esse estado em uma interface que uma aplicacao poderia consumir imediatamente.\n\n## Por que a separacao importa\n\nUm erro comum em sistemas de tempo real e misturar ingestao, transformacao e serving em um unico servico opaco. Este repo faz o contrario. Cada papel fica pequeno e observavel, o que torna a promessa de baixa latencia muito mais crivel.\n\n## Tradeoffs que valem destacar\n\nO sistema e intencionalmente compacto e local-first. Isso reduz a curva de aprendizado, mas em producao seria necessario reforcar durabilidade, estrategia de replay, autenticacao, rate limiting e monitoramento de lag. O objetivo do caso de portfolio e tornar a arquitetura discutivel, nao fingir que a demo ja e uma plataforma gerenciada.\n\n## Takeaway pratico\n\nSe o negocio precisa de dados enquanto eles ainda importam, este caso ajuda a explicar como streaming vira uma API util em vez de apenas uma fila que ninguem fora da engenharia consegue aproveitar."
     }
   }
 }

@@ -3,7 +3,7 @@
   "publishedAt": "2026-03-01",
   "sourceName": "Databricks",
   "sourceUrl": "https://www.databricks.com/blog",
-  "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
+  "imageUrl": "/images/news/lakehouse-signal.svg",
   "category": {"en": "Cloud Platforms", "pt": "Plataformas Cloud"},
   "tags": ["lakehouse", "orchestration", "databricks"],
   "relatedProjectSlugs": ["aws-databricks-lakehouse"],

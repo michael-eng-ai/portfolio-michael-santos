@@ -83,10 +83,12 @@ export default async function ContactPage({
             </p>
           </TrackedExternalLink>
 
-          <a
+          <TrackedExternalLink
             href={siteConfig.githubUrl}
             target="_blank"
             rel="noreferrer"
+            eventName="external_link_click"
+            eventParams={{ channel: "github", location: "contact_page" }}
             className="group bg-white p-10 monolith-shadow transition-all duration-500 hover:bg-gray-50"
           >
             <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-emerald-50 text-[var(--accent-mint)] transition-colors group-hover:bg-emerald-100">
@@ -94,7 +96,7 @@ export default async function ContactPage({
             </div>
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">GitHub</p>
             <p className="mt-2 text-lg font-bold tracking-tight text-gray-900">michael-eng-ai</p>
-          </a>
+          </TrackedExternalLink>
 
           <TrackedExternalLink
             href={siteConfig.linkedinUrl}

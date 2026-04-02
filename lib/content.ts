@@ -8,11 +8,29 @@ import {
   getDatabaseProvider,
   listActiveNewsRows,
 } from "@/lib/database";
+import { resolveArticleImage, resolveNewsImage, resolveProjectImage } from "@/lib/editorial-images";
 import { toErrorMessage } from "@/lib/runtime";
 
 export const localizedTextSchema = z.object({
   en: z.string().min(1),
   pt: z.string().min(1),
+});
+
+function isValidAssetUrl(value: string) {
+  if (value.startsWith("/")) {
+    return true;
+  }
+
+  try {
+    new URL(value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export const assetUrlSchema = z.string().min(1).refine(isValidAssetUrl, {
+  message: "Expected an absolute URL or root-relative asset path",
 });
 
 const localizedProjectSchema = z.object({
@@ -75,7 +93,7 @@ export const projectSchema = z.object({
   slug: z.string().min(1),
   featured: z.boolean().default(false),
   order: z.number().int().default(999),
-  imageUrl: z.string().url().optional(),
+  imageUrl: assetUrlSchema.optional(),
   stack: z.array(z.string().min(1)).min(1),
   tags: z.array(z.string().min(1)).default([]),
   github: z.object({
@@ -96,7 +114,7 @@ export const articleSchema = z.object({
   slug: z.string().min(1),
   publishedAt: z.string().min(1),
   featured: z.boolean().default(false),
-  imageUrl: z.string().url().optional(),
+  imageUrl: assetUrlSchema.optional(),
   category: localizedTextSchema,
   tags: z.array(z.string().min(1)).default([]),
   readingMinutes: z.number().int().positive(),
@@ -114,7 +132,7 @@ export const newsSchema = z.object({
   publishedAt: z.string().min(1),
   sourceName: z.string().min(1),
   sourceUrl: z.string().url(),
-  imageUrl: z.string().url().nullable().optional(),
+  imageUrl: assetUrlSchema.nullable().optional(),
   category: localizedTextSchema.nullable().optional(),
   tags: z.array(z.string().min(1)).default([]),
   relatedProjectSlugs: z.array(z.string().min(1)).default([]),
@@ -130,7 +148,7 @@ export const newsFeedSourceSchema = z.object({
   sourceName: z.string().min(1),
   homepageUrl: z.string().url(),
   feedUrl: z.string().url(),
-  defaultImageUrl: z.string().url().optional(),
+  defaultImageUrl: assetUrlSchema.optional(),
   category: localizedTextSchema.optional(),
   tags: z.array(z.string().min(1)).default([]),
   relatedProjectSlugs: z.array(z.string().min(1)).default([]),
@@ -239,6 +257,44 @@ function sortNewsByPublishedAtDesc(entries: NewsReference[]) {
   return [...entries].sort((left, right) => right.publishedAt.localeCompare(left.publishedAt));
 }
 
+function hydrateProject(entry: Project): Project {
+  return {
+    ...entry,
+    imageUrl: resolveProjectImage({
+      slug: entry.slug,
+      imageUrl: entry.imageUrl,
+      tags: entry.tags,
+      stack: entry.stack,
+    }),
+  };
+}
+
+function hydrateArticle(entry: Article): Article {
+  return {
+    ...entry,
+    imageUrl: resolveArticleImage({
+      slug: entry.slug,
+      imageUrl: entry.imageUrl,
+      tags: entry.tags,
+      category: entry.category,
+    }),
+  };
+}
+
+function hydrateNews(entry: NewsReference): NewsReference {
+  return {
+    ...entry,
+    imageUrl: resolveNewsImage({
+      slug: entry.slug,
+      imageUrl: entry.imageUrl,
+      tags: entry.tags,
+      category: entry.category ?? undefined,
+      sourceName: entry.sourceName,
+      relatedProjectSlugs: entry.relatedProjectSlugs,
+    }),
+  };
+}
+
 async function readFallbackNewsReferences(): Promise<NewsReference[]> {
   const fallbackBySourceUrl = new Map<string, NewsReference>();
 
@@ -249,7 +305,7 @@ async function readFallbackNewsReferences(): Promise<NewsReference[]> {
     );
 
     for (const item of payload.items) {
-      fallbackBySourceUrl.set(item.sourceUrl, item);
+      fallbackBySourceUrl.set(item.sourceUrl, hydrateNews(item));
     }
   } catch {
     // Snapshot is optional.
@@ -258,7 +314,7 @@ async function readFallbackNewsReferences(): Promise<NewsReference[]> {
   try {
     const manualEntries = await readJsonCollection("news", newsSchema);
     for (const item of manualEntries) {
-      fallbackBySourceUrl.set(item.sourceUrl, item);
+      fallbackBySourceUrl.set(item.sourceUrl, hydrateNews(item));
     }
   } catch {
     // Manual fallback is optional too.
@@ -269,7 +325,7 @@ async function readFallbackNewsReferences(): Promise<NewsReference[]> {
 
 export async function getProjects() {
   const entries = await readJsonCollection("projects", projectSchema);
-  return entries.sort((left, right) => left.order - right.order);
+  return entries.map(hydrateProject).sort((left, right) => left.order - right.order);
 }
 
 export async function getProjectBySlug(slug: string) {
@@ -279,7 +335,7 @@ export async function getProjectBySlug(slug: string) {
 
 export async function getArticles() {
   const entries = await readJsonCollection("articles", articleSchema);
-  return entries.sort((left, right) => right.publishedAt.localeCompare(left.publishedAt));
+  return entries.map(hydrateArticle).sort((left, right) => right.publishedAt.localeCompare(left.publishedAt));
 }
 
 export async function getArticleBySlug(slug: string) {
@@ -288,7 +344,7 @@ export async function getArticleBySlug(slug: string) {
 }
 
 function mapSupabaseRowToNews(row: Record<string, unknown>): NewsReference {
-  return newsSchema.parse({
+  return hydrateNews(newsSchema.parse({
     slug: row.slug,
     publishedAt: row.published_at,
     sourceName: row.source_name,
@@ -299,7 +355,7 @@ function mapSupabaseRowToNews(row: Record<string, unknown>): NewsReference {
     relatedProjectSlugs: row.related_project_slugs,
     editorialAnalysis: row.editorial_analysis ?? null,
     locales: row.locales,
-  });
+  }));
 }
 
 export async function getNewsReferences(): Promise<NewsReference[]> {
