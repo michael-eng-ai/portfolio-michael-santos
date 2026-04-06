@@ -29,6 +29,22 @@ export async function fetchGithubRepoMetadata(project: Project): Promise<RepoSyn
   );
 
   if (!response.ok) {
+    if (response.status === 404) {
+      console.warn(`SKIPPED: repo ${project.github.owner}/${project.github.repo} not found (404)`);
+      return {
+        owner: project.github.owner,
+        repo: project.github.repo,
+        description: null,
+        homepage: null,
+        stars: 0,
+        forks: 0,
+        openIssues: 0,
+        topics: [],
+        defaultBranch: "main",
+        pushedAt: null,
+        updatedAt: null,
+      };
+    }
     throw new Error(
       `GitHub repo sync failed for ${project.github.owner}/${project.github.repo}: ${response.status}`,
     );
