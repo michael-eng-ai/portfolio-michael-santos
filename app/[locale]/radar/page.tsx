@@ -45,9 +45,9 @@ export default async function RadarPage({
   const locale = rawLocale as Locale;
 
   return (
-    <main className="container mx-auto max-w-6xl px-4 py-12">
+    <main className="container mx-auto max-w-6xl px-4 pb-20 pt-28 md:px-20">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-4xl">
+        <h1 className="mb-4 text-4xl font-extrabold uppercase tracking-tight text-gray-900 md:text-5xl">
           {copy(locale, "Data Engineering Tech Radar", "Tech Radar de Engenharia de Dados")}
         </h1>
         <p className="mt-3 text-lg text-zinc-600 dark:text-zinc-400">
