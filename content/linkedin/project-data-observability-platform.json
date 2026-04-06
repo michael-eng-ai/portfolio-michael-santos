@@ -3,7 +3,7 @@
   "sourceType": "project",
   "sourceSlug": "data-observability-platform",
   "status": "draft",
-  "generatedAt": "2026-04-02T12:00:00.000Z",
+  "generatedAt": "2026-04-06T19:52:47.128Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/projects/data-observability-platform",
@@ -13,12 +13,12 @@
   "locales": {
     "en": {
       "hook": "Data Observability Platform",
-      "body": "Open-source pipeline monitoring with anomaly detection, lineage tracking, and SLA alerting that replaces expensive vendor platforms. Data observability is not a vendor product. It is a discipline built from metadata your pipelines already produce.",
+      "body": "An open-source observability platform that monitors data freshness, volume anomalies, schema changes, and pipeline health across the entire data stack, with a Streamlit dashboard for real-time visibility.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
       "hook": "Plataforma de Observabilidade de Dados",
-      "body": "Monitoramento open-source de pipelines com deteccao de anomalias, rastreamento de linhagem e alertas de SLA que substitui plataformas vendor caras. Observabilidade de dados nao e um produto de vendor. E uma disciplina construida a partir de metadados que seus pipelines ja produzem.",
+      "body": "Uma plataforma open-source de observabilidade que monitora freshness, anomalias de volume, mudancas de schema e saude de pipelines em toda a stack de dados, com dashboard Streamlit para visibilidade em tempo real.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

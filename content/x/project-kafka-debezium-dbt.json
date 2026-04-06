@@ -3,7 +3,7 @@
   "sourceType": "project",
   "sourceSlug": "kafka-debezium-dbt",
   "status": "draft",
-  "generatedAt": "2026-04-01T11:24:02.825Z",
+  "generatedAt": "2026-04-06T19:52:47.901Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/projects/kafka-debezium-dbt",
@@ -13,13 +13,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Real-Time CDC Analytics Pipeline\n\nHow near real-time operational change data can become trusted analytical information without adding unnecessary platform complexity.\n\nRead on site:\n\nhttps://michael.business/en/projects/kafka-debezium-dbt",
+        "Real-Time CDC Analytics Pipeline\n\nA runnable CDC stack that captures PostgreSQL WAL changes with Debezium, normalizes events in Python, and publishes analytics-ready bronze, silver, and gold layers with dbt and Streamlit…\n\nhttps://michael.business/en/projects/kafka-debezium-dbt",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Pipeline Analítico de CDC em Tempo Real\n\nComo dados de mudanca operacional em quase tempo real podem virar informacao analitica confiavel sem adicionar complexidade desnecessaria de plataforma.\n\nLeia no site:\n\nhttps://michael.business/pt/projects/kafka-debezium-dbt",
+        "Pipeline Analitico de CDC em Tempo Real\n\nUm stack de CDC executavel que captura mudancas do WAL do PostgreSQL com Debezium, normaliza eventos em Python e publica camadas bronze, silver e gold com dbt e Streamlit.\n\nLeia n…\n\nhttps://michael.business/pt/projects/kafka-debezium-dbt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

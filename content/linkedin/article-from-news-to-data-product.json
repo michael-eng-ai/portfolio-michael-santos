@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "from-news-to-data-product",
   "status": "draft",
-  "generatedAt": "2026-04-01T11:24:01.990Z",
+  "generatedAt": "2026-04-06T19:52:47.123Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/from-news-to-data-product",
@@ -13,12 +13,12 @@
   "locales": {
     "en": {
       "hook": "Why Data Engineering And AI Only Matter When They Solve A Business Problem",
-      "body": "The market no longer rewards technical novelty alone. What matters is the ability to connect data and AI work to speed, cost, risk, revenue, and decision quality.",
+      "body": "A data or AI initiative becomes credible only when the reader can trace one line from market pressure to architecture choice to operational proof. Anything less feels like slideware.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
       "hook": "Por Que Engenharia de Dados e IA So Importam Quando Resolvem um Problema de Negocio",
-      "body": "O mercado nao recompensa mais apenas novidade tecnica. O que importa e a capacidade de conectar dados e IA a velocidade, custo, risco, receita e qualidade de decisao.",
+      "body": "Uma iniciativa de dados ou IA so fica crivel quando o leitor consegue seguir uma linha do problema de mercado ate a escolha de arquitetura e a prova operacional. Qualquer coisa abaixo disso parece slide.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

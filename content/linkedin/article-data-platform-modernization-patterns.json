@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "data-platform-modernization-patterns",
   "status": "draft",
-  "generatedAt": "2026-04-01T11:24:01.991Z",
+  "generatedAt": "2026-04-06T19:52:47.123Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/data-platform-modernization-patterns",
@@ -13,12 +13,12 @@
   "locales": {
     "en": {
       "hook": "Three Patterns Behind Modern Data Platform Delivery",
-      "body": "Across lakehouse, warehouse, and cross-cloud implementations, the winning pattern is not a single tool. It is the ability to connect platform design, governed data flow, and delivery clarity.",
+      "body": "The strongest modernization stories do three things well: separate platform responsibilities, make transformations auditable, and keep freshness visible to the business. Tools change. Those patterns compound.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "Tres Padrões Por Trás da Entrega de Plataformas Modernas de Dados",
-      "body": "Em implementações lakehouse, warehouse e cross-cloud, o padrão vencedor não é uma única ferramenta. É a capacidade de conectar desenho de plataforma, fluxo governado de dados e clareza na entrega.",
+      "hook": "Tres Padroes Por Tras da Entrega de Plataformas Modernas de Dados",
+      "body": "As melhores historias de modernizacao fazem tres coisas bem: separam responsabilidades da plataforma, tornam transformacoes auditaveis e deixam a frescura dos dados visivel para o negocio. Ferramentas mudam. Esses padroes acumulam.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

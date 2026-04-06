@@ -1,0 +1,25 @@
+{
+  "slug": "article-shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance",
+  "sourceType": "article",
+  "sourceSlug": "shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance",
+  "status": "draft",
+  "generatedAt": "2026-04-06T19:52:47.113Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance",
+    "pt": "https://michael.business/pt/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance",
+    "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
+  },
+  "locales": {
+    "en": {
+      "hook": "Shadow AI: Mitigating Hidden Data Risks with Data Engineering Governance",
+      "body": "Shadow AI—unauthorized AI tools used by employees—create hidden data risks. Learn how data engineering governance with tools like dbt and Great Expectations can secure AI adoption and improve data quality.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Shadow AI: Mitigando Riscos Ocultos de Dados com Governança em Engenharia de Dados",
+      "body": "Shadow AI—ferramentas de IA não autorizadas usadas por colaboradores—geram riscos ocultos. Saiba como a governança em engenharia de dados com dbt e Great Expectations protege a adoção de IA e melhora a qualidade dos dados.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}

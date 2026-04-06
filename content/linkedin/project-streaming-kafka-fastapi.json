@@ -3,7 +3,7 @@
   "sourceType": "project",
   "sourceSlug": "streaming-kafka-fastapi",
   "status": "draft",
-  "generatedAt": "2026-04-01T11:24:01.994Z",
+  "generatedAt": "2026-04-06T19:52:47.125Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/projects/streaming-kafka-fastapi",
@@ -13,12 +13,12 @@
   "locales": {
     "en": {
       "hook": "Streaming Radar API",
-      "body": "A project that translates event-driven architecture into a business-facing case about low-latency data delivery and real-time serving.",
+      "body": "An event-driven serving path where Kafka carries market-style events, Redis holds current state, and FastAPI exposes low-latency endpoints for live consumption.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
       "hook": "Streaming Radar API",
-      "body": "Um projeto que traduz arquitetura orientada a eventos em um caso de negócio sobre entrega de dados em baixa latência e serving em tempo real.",
+      "body": "Um caminho de serving orientado a eventos em que Kafka carrega eventos de mercado, Redis segura o estado atual e FastAPI expoe endpoints de baixa latencia para consumo vivo.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }
