@@ -1,0 +1,27 @@
+{
+  "slug": "article-data-contracts-the-key-to-reliable-pipelines-and-business-agility",
+  "sourceType": "article",
+  "sourceSlug": "data-contracts-the-key-to-reliable-pipelines-and-business-agility",
+  "status": "draft",
+  "generatedAt": "2026-04-06T19:52:47.893Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/data-contracts-the-key-to-reliable-pipelines-and-business-agility",
+    "pt": "https://michael.business/pt/articles/data-contracts-the-key-to-reliable-pipelines-and-business-agility",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Data Contracts: The Key to Reliable Pipelines and Business Agility\n\nDiscover how data contracts—formal agreements between data producers and consumers—are revolutionizing pi…\n\nhttps://michael.business/en/articles/data-contracts-the-key-to-reliable-pipelines-and-business-agility",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Contratos de Dados: A Chave para Pipelines Confiáveis e Agilidade Empresarial\n\nDescubra como contratos de dados — acordos formais entre produtores e consumidores — estão rev…\n\nhttps://michael.business/pt/articles/data-contracts-the-key-to-reliable-pipelines-and-business-agility",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    }
+  }
+}

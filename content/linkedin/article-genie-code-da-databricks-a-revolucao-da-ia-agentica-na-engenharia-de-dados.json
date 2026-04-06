@@ -1,0 +1,25 @@
+{
+  "slug": "article-genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados",
+  "sourceType": "article",
+  "sourceSlug": "genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados",
+  "status": "draft",
+  "generatedAt": "2026-04-06T19:52:47.116Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados",
+    "pt": "https://michael.business/pt/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "hook": "Databricks Genie Code: The Agentic AI Revolution in Data Engineering",
+      "body": "The arrival of Databricks Genie Code marks a new era for data engineering, boosting productivity and transforming governance with autonomous AI. Understand how this innovation impacts businesses, teams, and corporate data strategy.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Genie Code da Databricks: A Revolução da IA Agêntica na Engenharia de Dados",
+      "body": "A chegada do Genie Code da Databricks marca uma nova era para a engenharia de dados, potencializando a produtividade e transformando a governança com IA autônoma. Entenda como essa inovação impacta negócios, equipes e a estratégia de dados corporativos.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}

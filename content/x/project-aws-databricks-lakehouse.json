@@ -3,7 +3,7 @@
   "sourceType": "project",
   "sourceSlug": "aws-databricks-lakehouse",
   "status": "draft",
-  "generatedAt": "2026-04-01T11:24:02.826Z",
+  "generatedAt": "2026-04-06T19:52:47.901Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/projects/aws-databricks-lakehouse",
@@ -13,13 +13,13 @@
   "locales": {
     "en": {
       "posts": [
-        "AWS And Databricks Lakehouse\n\nA lakehouse portfolio case that connects raw event ingestion, medallion transformations, and infrastructure as code on AWS and Databricks.\n\nRead on site:\n\nhttps://michael.business/en/projects/aws-databricks-lakehouse",
+        "AWS And Databricks Lakehouse\n\nA lakehouse case that provisions AWS storage with Terraform, lands simulated event data in S3, and processes silver and gold Delta layers in Databricks with PySpark.\n\nRead on site:\n\nhttps://michael.business/en/projects/aws-databricks-lakehouse",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     },
     "pt": {
       "posts": [
-        "Lakehouse com AWS e Databricks\n\nUm caso de portfólio de lakehouse que conecta ingestão de eventos brutos, transformações em camadas medallion e infraestrutura como código em AWS e Databricks.\n\nLeia no site:\n\nhttps://michael.business/pt/projects/aws-databricks-lakehouse",
+        "Lakehouse com AWS e Databricks\n\nUm caso de lakehouse que provisiona storage AWS com Terraform, pousa eventos simulados em S3 e processa camadas silver e gold em Databricks com PySpark.\n\nLeia no site:\n\nhttps://michael.business/pt/projects/aws-databricks-lakehouse",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     }

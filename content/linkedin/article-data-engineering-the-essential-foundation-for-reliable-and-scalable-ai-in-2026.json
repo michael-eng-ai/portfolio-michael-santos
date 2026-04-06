@@ -1,0 +1,25 @@
+{
+  "slug": "article-data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026",
+  "sourceType": "article",
+  "sourceSlug": "data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026",
+  "status": "draft",
+  "generatedAt": "2026-04-06T19:52:47.115Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026",
+    "pt": "https://michael.business/pt/articles/data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026",
+    "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
+  },
+  "locales": {
+    "en": {
+      "hook": "Data Engineering: The Essential Foundation for Reliable and Scalable AI in 2026",
+      "body": "The biggest risk for AI today is not the lack of data, but the abundance of models without context and governance. Discover how data engineering addresses these critical challenges, ensuring AI that is reliable and aligned with business goals.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Engenharia de Dados: A Base Essencial para IA Confiável e Escalável em 2026",
+      "body": "O maior risco da IA hoje não é a falta de dados, mas o excesso de modelos sem contexto e governança. Descubra como a engenharia de dados resolve esses desafios críticos, garantindo IA confiável e alinhada aos negócios.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}
