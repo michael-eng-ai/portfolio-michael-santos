@@ -29,20 +29,20 @@ type NewsRow = Record<string, unknown> & {
 };
 
 function buildLinkedInPost(news: NewsRow): string {
-  const content = news.locales.en;
-  const url = `https://${SITE_HOST}/en/news/${news.slug}`;
+  const content = news.locales.pt;
+  const url = `https://${SITE_HOST}/pt/news/${news.slug}`;
 
-  const editorial = news.editorial_analysis?.en;
+  const editorial = news.editorial_analysis?.pt;
   const excerpt = editorial
-    ? editorial.split("\n\n")[0].slice(0, 280)
-    : content.summary.slice(0, 280);
+    ? editorial.split("\n\n")[0].slice(0, 350)
+    : content.summary.slice(0, 350);
 
   const hashtags = news.tags
     .slice(0, 4)
     .map((t) => `#${t.replace(/[\s-]/g, "")}`)
     .join(" ");
 
-  return `${content.title}\n\n${excerpt}\n\nRead the full analysis:\n${url}\n\n${hashtags} #DataEngineering`;
+  return `${content.title}\n\n${excerpt}\n\nLeia a analise completa:\n${url}\n\n${hashtags} #DataEngineering`;
 }
 
 async function postToLinkedIn(accessToken: string, authorUrn: string, text: string): Promise<string> {

@@ -36,13 +36,13 @@ type NewsRow = Record<string, unknown> & {
 
 const hookTemplates = [
   (title: string) => `${title}`,
-  (title: string) => `Worth reading: ${title}`,
-  (_title: string, source: string) => `${source} just dropped something worth your attention.`,
-  (title: string) => `Signal worth tracking: ${title}`,
-  (_title: string, source: string) => `Fresh from ${source} -- relevant for your data stack.`,
-  (title: string) => `If you missed this, catch up now: ${title}`,
-  (title: string) => `This one caught my attention: ${title}`,
-  (_title: string, source: string) => `New from ${source} -- bookmark this one.`,
+  (title: string) => `Hot take: ${title}`,
+  (title: string) => `This changes how we build pipelines: ${title}`,
+  (title: string) => `Data engineers need to pay attention to this: ${title}`,
+  (_title: string, source: string) => `${source} just shipped something that matters for production data teams.`,
+  (title: string) => `Unpopular opinion: ${title}`,
+  (title: string) => `The real story behind ${title}`,
+  (_title: string, source: string) => `${source} -- here's what it means for your data stack.`,
 ];
 
 function buildHashtags(tags: string[]): string {
