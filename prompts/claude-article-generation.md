@@ -72,3 +72,20 @@ Writing requirements:
 - English and Portuguese should be equivalent in meaning, not literal machine translation.
 - Each body should be useful as a standalone site article.
 - Prefer substance over hype.
+
+Depth and structure requirements:
+
+- Each body MUST be 1800-2500 words minimum. Short articles do not rank well on Google.
+- Use at least 5 markdown ## sections with clear, descriptive headings.
+- Include at least one concrete architecture description (components, data flow, tool choices).
+- Include at least one code snippet, SQL query, config example, or YAML fragment that the reader can reuse.
+- End with a "Practical Takeaway" section that gives the reader one actionable next step.
+- Titles MUST be in actionable SEO format: "How to...", "Why...", "X Ways to...", or "What ... Means for...". Never use vague or descriptive-only titles.
+- The Portuguese body must NOT contain accented characters (use "nao" not "nao", "codigo" not "codigo"). This is a project constraint for consistent rendering.
+
+Content quality requirements:
+
+- Reference specific tools and versions (e.g., "dbt 1.8+", "pgvector 0.7", "Great Expectations 0.18") rather than generic mentions.
+- When describing a pattern, explain WHY it works and WHAT tradeoff it accepts, not just WHAT it does.
+- Include at least one comparison or tradeoff analysis (e.g., "X vs Y: when to choose each").
+- If a related project has a GitHub URL, mention it as operational proof that the pattern works in practice.
