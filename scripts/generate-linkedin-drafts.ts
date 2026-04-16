@@ -39,12 +39,12 @@ function createDraftPayload({
       en: {
         hook: titleEn,
         body: excerptEn,
-        cta: "Read the full story on the site and use GitHub as the operational proof point."
+        cta: "Curious where your team lands on this — what's the biggest gap right now? Full write-up on the site, operational proof on GitHub."
       },
       pt: {
         hook: titlePt,
         body: excerptPt,
-        cta: "Leia a historia completa no site e use o GitHub como prova operacional."
+        cta: "Onde seu time se encaixa nisso — qual o maior gap hoje? Historia completa no site, prova operacional no GitHub."
       }
     }
   };

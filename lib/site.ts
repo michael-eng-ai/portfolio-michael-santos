@@ -25,7 +25,7 @@ export const siteConfig = {
   description:
     "Turning raw data into real-time decisions. Data pipelines, lakehouse architectures, and AI infrastructure that drive business growth.",
   url: "https://michael.business",
-  location: "Fortaleza, Brazil",
+  location: "João Pessoa, Brazil",
   email: "eng.michaelbarbosa@hotmail.com",
   linkedinUrl: "https://www.linkedin.com/in/michael-bs/",
   githubUrl: "https://github.com/michael-eng-ai",

@@ -1,0 +1,54 @@
+name: Social Auto Publish
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 12 * * *"
+
+concurrency:
+  group: social-auto-publish
+  cancel-in-progress: false
+
+jobs:
+  publish-next:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          package-manager-cache: false
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Publish next social draft
+        run: pnpm tsx scripts/auto-publish-next-social.ts
+        env:
+          SITE_URL: https://michael.business
+          LINKEDIN_PUBLISH_SECRET: ${{ secrets.LINKEDIN_PUBLISH_SECRET }}
+          X_PUBLISH_SECRET: ${{ secrets.X_PUBLISH_SECRET }}
+
+      - name: Commit publish status
+        run: |
+          if [ -n "$(git status --porcelain content/linkedin content/x)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add content/linkedin content/x
+            git commit -m "chore(social): mark published drafts [skip ci]"
+            git push
+          else
+            echo "No drafts were published; nothing to commit."
+          fi

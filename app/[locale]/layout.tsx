@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { Inter, Manrope } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -9,6 +10,7 @@ import { Header } from "@/components/header";
 import { RouteEngagementTracker } from "@/components/route-engagement-tracker";
 import { ScrollTracker } from "@/components/scroll-tracker";
 import { StructuredData } from "@/components/structured-data";
+import { isBotUserAgent } from "@/lib/bot-detection";
 import { buildPersonJsonLd, buildWebsiteJsonLd } from "@/lib/seo";
 import { isLocale, Locale, localeMetadata } from "@/lib/site";
 import { notFound } from "next/navigation";
@@ -38,6 +40,8 @@ export default async function LocaleLayout({
   }
 
   const locale: Locale = localeValue;
+  const requestHeaders = await headers();
+  const isBot = isBotUserAgent(requestHeaders.get("user-agent"));
 
   return (
     <html lang={localeMetadata[locale].bcp47}>
@@ -50,9 +54,9 @@ export default async function LocaleLayout({
         </div>
         <RouteEngagementTracker />
         <ScrollTracker />
-        <GoogleAnalyticsProvider />
-        <Analytics />
-        <SpeedInsights />
+        {!isBot && <GoogleAnalyticsProvider />}
+        {!isBot && <Analytics />}
+        {!isBot && <SpeedInsights />}
       </body>
     </html>
   );

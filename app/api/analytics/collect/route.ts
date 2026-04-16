@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+import { isBotUserAgent } from "@/lib/bot-detection";
 import { insertAnalyticsEvents } from "@/lib/database";
 
 const primitiveSchema = z.union([z.string().max(500), z.number(), z.boolean(), z.null()]);
@@ -28,6 +29,10 @@ function toNullableInteger(value: string | number | boolean | null | undefined) 
 
 export async function POST(request: Request) {
   try {
+    if (isBotUserAgent(request.headers.get("user-agent"))) {
+      return new NextResponse(null, { status: 204 });
+    }
+
     const rawPayload = await request.json();
     const parsed = requestSchema.parse(rawPayload);
     const events = Array.isArray(parsed) ? parsed : [parsed];
