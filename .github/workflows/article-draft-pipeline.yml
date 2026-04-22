@@ -23,9 +23,9 @@ jobs:
       - name: Check configuration
         id: config
         run: |
-          if [ -z "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
+          if [ -z "${{ secrets.KIMI_API_KEY }}" ] && [ -z "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
             echo "ready=false" >> "$GITHUB_OUTPUT"
-            echo "ANTHROPIC_API_KEY is not configured. Skipping article draft pipeline."
+            echo "Neither KIMI_API_KEY nor ANTHROPIC_API_KEY is configured. Skipping article draft pipeline."
           else
             echo "ready=true" >> "$GITHUB_OUTPUT"
           fi
@@ -53,7 +53,11 @@ jobs:
         if: steps.config.outputs.ready == 'true'
         run: pnpm content:generate:article
         env:
+          KIMI_API_KEY: ${{ secrets.KIMI_API_KEY }}
+          KIMI_BASE_URL: ${{ vars.KIMI_BASE_URL }}
+          KIMI_MODEL: ${{ vars.KIMI_MODEL }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
 
       - name: Regenerate LinkedIn drafts
         if: steps.config.outputs.ready == 'true'
@@ -92,4 +96,4 @@ jobs:
 
       - name: No automation run
         if: steps.config.outputs.ready != 'true'
-        run: echo "Article draft pipeline skipped because ANTHROPIC_API_KEY is not configured."
+        run: echo "Article draft pipeline skipped because neither KIMI_API_KEY nor ANTHROPIC_API_KEY is configured."
