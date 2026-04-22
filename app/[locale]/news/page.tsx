@@ -1,7 +1,12 @@
 import { NewsListPaginated } from "@/components/news-list-paginated";
+import { StructuredData } from "@/components/structured-data";
 import { TrackedLink } from "@/components/tracked-link";
 import { getNewsReferences } from "@/lib/content";
-import { buildPageMetadata } from "@/lib/seo";
+import {
+  buildBreadcrumbJsonLd,
+  buildItemListJsonLd,
+  buildPageMetadata,
+} from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 
 export const revalidate = 3600;
@@ -40,8 +45,39 @@ export default async function NewsPage({
   const locale = rawLocale as Locale;
   const news = await getNewsReferences();
 
+  const pageTitle = copy(
+    locale,
+    "Curated Market Signals For Data, AI, And Digital Strategy",
+    "Sinais de Mercado Curados Para Dados, IA e Estrategia Digital",
+  );
+  const pageDescription = copy(
+    locale,
+    "A filtered view of the external signals shaping investment, operating models, and platform strategy.",
+    "Uma visao filtrada dos sinais externos que moldam investimento, modelos operacionais e estrategia de plataforma.",
+  );
+
   return (
     <main className="px-6 pb-20 pt-28 md:px-20">
+      <StructuredData
+        data={[
+          buildItemListJsonLd({
+            locale,
+            name: pageTitle,
+            description: pageDescription,
+            path: "/news",
+            items: news.slice(0, 30).map((item) => ({
+              name: item.locales[locale].title,
+              path: `/news/${item.slug}`,
+              description: item.locales[locale].summary,
+              image: item.imageUrl ?? undefined,
+            })),
+          }),
+          buildBreadcrumbJsonLd(locale, [
+            { name: "Home", path: "/" },
+            { name: copy(locale, "Market Signals", "Sinais de Mercado") },
+          ]),
+        ]}
+      />
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 max-w-3xl">
           <h1 className="mb-4 text-4xl font-extrabold uppercase tracking-tight text-gray-900 md:text-5xl">

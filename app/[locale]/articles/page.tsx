@@ -1,7 +1,12 @@
 import { ArticleCard } from "@/components/article-card";
+import { StructuredData } from "@/components/structured-data";
 import { TrackedLink } from "@/components/tracked-link";
 import { getArticles } from "@/lib/content";
-import { buildPageMetadata } from "@/lib/seo";
+import {
+  buildBreadcrumbJsonLd,
+  buildItemListJsonLd,
+  buildPageMetadata,
+} from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 
 export async function generateMetadata({
@@ -38,8 +43,39 @@ export default async function ArticlesPage({
   const locale = rawLocale as Locale;
   const articles = await getArticles();
 
+  const pageTitle = copy(
+    locale,
+    "Insights On Data Engineering, AI, And Growth",
+    "Insights Sobre Engenharia de Dados, IA e Crescimento",
+  );
+  const pageDescription = copy(
+    locale,
+    "Long-form analysis that connects market pressure, technical execution, and measurable business outcomes.",
+    "Analises que conectam pressao de mercado, execucao tecnica e resultados de negocio mensuraveis.",
+  );
+
   return (
     <main className="px-6 pb-20 pt-28 md:px-20">
+      <StructuredData
+        data={[
+          buildItemListJsonLd({
+            locale,
+            name: pageTitle,
+            description: pageDescription,
+            path: "/articles",
+            items: articles.map((article) => ({
+              name: article.locales[locale].title,
+              path: `/articles/${article.slug}`,
+              description: article.locales[locale].excerpt,
+              image: article.imageUrl,
+            })),
+          }),
+          buildBreadcrumbJsonLd(locale, [
+            { name: "Home", path: "/" },
+            { name: copy(locale, "Insights", "Insights") },
+          ]),
+        ]}
+      />
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 border-l-[6px] border-[var(--primary)] pl-10">
           <h1 className="text-4xl font-extrabold uppercase tracking-tight text-gray-900 md:text-5xl">
