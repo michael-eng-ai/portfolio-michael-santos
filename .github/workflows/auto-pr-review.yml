@@ -33,8 +33,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -euo pipefail
-          DIFF=$(gh pr diff ${{ github.event.pull_request.number }} | head -c 8000)
+          set -uo pipefail
+          gh pr diff ${{ github.event.pull_request.number }} > /tmp/pr-diff.txt 2>/dev/null || true
+          DIFF=$(head -c 8000 /tmp/pr-diff.txt)
           EOF_MARKER=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "diff<<${EOF_MARKER}" >> "$GITHUB_OUTPUT"
           echo "${DIFF}" >> "$GITHUB_OUTPUT"
