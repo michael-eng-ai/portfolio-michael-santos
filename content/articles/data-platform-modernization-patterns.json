@@ -7,23 +7,32 @@
     "en": "Cloud Data Platforms",
     "pt": "Plataformas de Dados em Nuvem"
   },
-  "tags": ["lakehouse", "dbt", "snowflake", "terraform"],
+  "tags": [
+    "lakehouse",
+    "dbt",
+    "snowflake",
+    "terraform"
+  ],
   "readingMinutes": 8,
   "relatedProjectSlugs": [
     "aws-databricks-lakehouse",
     "gcp-dbt-modern-data-stack",
     "azure-snowflake-pipeline"
   ],
-  "relatedNewsSlugs": ["databricks-lakeflow-2026", "dbt-fusion-engine-2026", "snowflake-open-lakehouse-2026"],
+  "relatedNewsSlugs": [
+    "databricks-lakeflow-2026",
+    "dbt-fusion-engine-2026",
+    "snowflake-open-lakehouse-2026"
+  ],
   "locales": {
     "en": {
-      "title": "Three Patterns Behind Modern Data Platform Delivery",
-      "excerpt": "The strongest modernization stories do three things well: separate platform responsibilities, make transformations auditable, and keep freshness visible to the business. Tools change. Those patterns compound.",
+      "title": "Data Platform Modernization Patterns Beyond Tool Migration",
+      "excerpt": "Move beyond tool migration with data platform modernization patterns that separate responsibilities, ensure auditable transformations, and deliver reliable data freshness to the business.",
       "body": "## The mistake most teams make\n\nData platform modernization often gets pitched as a tool migration. That is usually too shallow. A better modernization story explains what gets cleaner, safer, and more reusable once the platform changes.\n\n## Pattern one: separate responsibilities before you scale them\n\nIn the `aws-databricks-lakehouse` case, storage, transformation, and analytical serving are not blended into one vague cloud layer. S3 owns the landing zone, Databricks owns the processing path, and Delta outputs mark the governed layers. That separation matters because it makes ownership visible.\n\nThe lesson is simple: if storage and compute are coupled from day one, every new use case becomes a negotiation about who owns the platform. Separation is not a buzzword. It is an operating model.\n\n## Pattern two: treat transformations as software, not hidden reporting logic\n\nThe `gcp-dbt-modern-data-stack` case is useful because it refuses to isolate SQL from the rest of delivery. Terraform provisions the warehouse foundation, Python moves source data, dbt shapes and tests the models, and GitHub Actions reinforces repeatability.\n\nThat combination turns trust into something operational. A business stakeholder does not need to read SQL to benefit from it. They benefit when the team can change models with less fear and more auditability.\n\n## Pattern three: make freshness visible where the business can feel it\n\nThe `kafka-debezium-dbt` case shows why modernization cannot stop at batch reliability. Sometimes the business pain is delay. In those situations, PostgreSQL WAL capture, Debezium, Kafka, Python normalization, dbt layering, and a visible Streamlit dashboard create a stronger story than a generic promise of real-time data.\n\nFreshness becomes meaningful when the operating path is explainable. Speed without visibility just creates a faster black box.\n\n## A useful decision rule\n\nIf a modernization proposal cannot answer these three questions clearly, it is probably still tool-first:\n\n1. Which layer owns ingestion, transformation, and serving?\n2. Where are trust and repeatability enforced?\n3. How does the business notice the difference?\n\n## What to do next\n\nUse projects and articles as paired proof. Show one architecture path, one tradeoff, and one business effect. That is how platform modernization stops sounding expensive and starts sounding credible."
     },
     "pt": {
-      "title": "Tres Padroes Por Tras da Entrega de Plataformas Modernas de Dados",
-      "excerpt": "As melhores historias de modernizacao fazem tres coisas bem: separam responsabilidades da plataforma, tornam transformacoes auditaveis e deixam a frescura dos dados visivel para o negocio. Ferramentas mudam. Esses padroes acumulam.",
+      "title": "Modernização de Plataforma de Dados: 3 Padrões Arquiteturais",
+      "excerpt": "Saia da migração de ferramentas com padrões de modernização de plataforma de dados que separam responsabilidades, garantem transformações auditáveis e entregam dados confiáveis ao negócio.",
       "body": "## O erro que a maioria dos times comete\n\nModernizacao de plataforma de dados costuma ser vendida como migracao de ferramenta. Quase sempre isso e raso demais. Uma historia melhor explica o que fica mais limpo, mais seguro e mais reutilizavel depois da mudanca.\n\n## Padrao um: separar responsabilidades antes de escalar\n\nNo caso `aws-databricks-lakehouse`, storage, transformacao e serving analitico nao aparecem misturados em uma camada vaga de cloud. O S3 assume a zona de pouso, o Databricks assume o processamento e os outputs Delta marcam as camadas governadas. Essa separacao importa porque deixa o ownership visivel.\n\nA licao e simples: se storage e compute nascem acoplados, cada novo caso de uso vira uma negociacao sobre quem controla a plataforma. Separacao nao e buzzword. E modelo operacional.\n\n## Padrao dois: tratar transformacao como software, nao como logica escondida de relatorio\n\nO caso `gcp-dbt-modern-data-stack` e util porque se recusa a isolar SQL do resto da entrega. Terraform provisiona a base do warehouse, Python move os dados de origem, dbt estrutura e testa os modelos, e GitHub Actions reforca a repetibilidade.\n\nEssa combinacao transforma confianca em algo operacional. Um stakeholder de negocio nao precisa ler SQL para se beneficiar disso. Ele se beneficia quando o time consegue mudar modelos com menos medo e mais auditabilidade.\n\n## Padrao tres: deixar a frescura visivel onde o negocio sente\n\nO caso `kafka-debezium-dbt` mostra por que modernizacao nao pode parar em confiabilidade batch. Em muitos cenarios a dor do negocio e atraso. Nesses casos, captura do WAL do PostgreSQL, Debezium, Kafka, normalizacao em Python, camadas dbt e um dashboard Streamlit visivel contam uma historia muito mais forte do que uma promessa generica de tempo real.\n\nFrescura so vira valor quando o caminho operacional e explicavel. Velocidade sem visibilidade so cria uma caixa-preta mais rapida.\n\n## Uma regra de decisao util\n\nSe uma proposta de modernizacao nao responde bem a estas tres perguntas, provavelmente ela ainda esta tool-first:\n\n1. Que camada assume ingestao, transformacao e serving?\n2. Onde confianca e repetibilidade sao garantidas?\n3. Como o negocio percebe a diferenca?\n\n## O que fazer a seguir\n\nUse projetos e artigos como prova combinada. Mostre um caminho arquitetural, um tradeoff e um efeito de negocio. E assim que modernizacao de plataforma para de soar cara e passa a soar crivel."
     }
   }

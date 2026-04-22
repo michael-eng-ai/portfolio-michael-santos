@@ -7,19 +7,28 @@
     "en": "AI And Analytics",
     "pt": "IA e Analytics"
   },
-  "tags": ["genai", "governance", "rag", "text-to-sql"],
+  "tags": [
+    "genai",
+    "governance",
+    "rag",
+    "text-to-sql"
+  ],
   "readingMinutes": 7,
-  "relatedProjectSlugs": ["ai-data-analyst-bot"],
-  "relatedNewsSlugs": ["linkedin-api-community-management"],
+  "relatedProjectSlugs": [
+    "ai-data-analyst-bot"
+  ],
+  "relatedNewsSlugs": [
+    "linkedin-api-community-management"
+  ],
   "locales": {
     "en": {
-      "title": "Why AI Analytics Still Depends On Strong Data Engineering",
-      "excerpt": "Text-to-SQL, retrieval, and AI copilots only become valuable when they sit on top of governed pipelines, trusted metadata, and well-structured delivery paths.",
+      "title": "Governed AI Analytics Requires Strong Data Engineering",
+      "excerpt": "Build governed AI analytics on contracts and metadata to turn text-to-SQL and copilots from demos into production products. Learn the engineering path to trustworthy AI.",
       "body": "## The market signal\n\nAI interfaces are everywhere, but the hard part is still trust. If data contracts, metadata, and retrieval strategy are weak, the interface becomes a demo instead of a product.\n\n## What leaders should pay attention to\n\nThe real conversation is not whether an AI interface exists. It is whether the underlying data foundation can support reliable answers, traceability, and governance.\n\n## Why this changes delivery priorities\n\nProjects like AI Data Analyst Bot show that modern data engineering is no longer only a back-office concern. It is now directly tied to whether an AI experience can become a credible business product."
     },
     "pt": {
-      "title": "Por Que Analytics com IA Ainda Depende de Boa Engenharia de Dados",
-      "excerpt": "Text-to-SQL, retrieval e copilotos de IA só geram valor quando estão sobre pipelines governados, metadados confiáveis e caminhos de entrega bem estruturados.",
+      "title": "Analytics com IA Precisa de Engenharia de Dados Governada",
+      "excerpt": "Interfaces de IA como text-to-SQL só viram produtos com pipelines governados e metadados. Descubra como engenharia de dados sólida coloca analytics com IA em produção com confiança.",
       "body": "## O sinal de mercado\n\nInterfaces de IA estao em toda parte, mas a parte dificil continua sendo confianca. Se contratos de dados, metadados e estrategia de retrieval forem fracos, a interface vira demo e nao produto.\n\n## O que liderancas devem observar\n\nA conversa real nao e se existe uma interface de IA. A conversa real e se a base de dados por tras dela suporta respostas confiaveis, rastreabilidade e governanca.\n\n## Por que isso muda prioridades de entrega\n\nProjetos como AI Data Analyst Bot mostram que a engenharia de dados moderna nao e mais apenas uma preocupacao de bastidor. Ela esta diretamente ligada a transformar uma experiencia com IA em produto de negocio crivel."
     }
   }
