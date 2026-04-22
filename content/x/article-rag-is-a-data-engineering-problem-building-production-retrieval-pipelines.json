@@ -1,0 +1,27 @@
+{
+  "slug": "article-rag-is-a-data-engineering-problem-building-production-retrieval-pipelines",
+  "sourceType": "article",
+  "sourceSlug": "rag-is-a-data-engineering-problem-building-production-retrieval-pipelines",
+  "status": "draft",
+  "generatedAt": "2026-04-22T13:30:47.863Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines",
+    "pt": "https://michael.business/pt/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines",
+    "proof": "https://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Why RAG Is a Data Engineering Problem (And How to Build Production Retrieval Pipelines)\n\nMost RAG failures are data pipeline failures. Learn how to build production…\n\nhttps://michael.business/en/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Por Que RAG e um Problema de Engenharia de Dados (E Como Construir Pipelines de Retrieval para Producao)\n\nA maioria das falhas de RAG sao falhas de pipeline de dados…\n\nhttps://michael.business/pt/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
+      ]
+    }
+  }
+}
