@@ -119,11 +119,11 @@ The article should connect a real market theme to one or more GitHub projects. R
 async function generateWithKimi(prompt: string): Promise<string> {
   const client = new OpenAI({
     apiKey: process.env.KIMI_API_KEY,
-    baseURL: process.env.KIMI_BASE_URL ?? DEFAULT_KIMI_BASE_URL,
+    baseURL: process.env.KIMI_BASE_URL || DEFAULT_KIMI_BASE_URL,
   });
 
   const completion = await client.chat.completions.create({
-    model: process.env.KIMI_MODEL ?? DEFAULT_KIMI_MODEL,
+    model: process.env.KIMI_MODEL || DEFAULT_KIMI_MODEL,
     max_tokens: KIMI_MAX_TOKENS,
     temperature: 1,
     response_format: { type: "json_object" },
