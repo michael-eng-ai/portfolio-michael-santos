@@ -2,11 +2,16 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 
 import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 
 import { getNewsReferences, getProjects } from "@/lib/content";
 
-const CLAUDE_MODEL = process.env.CLAUDE_CONTENT_MODEL ?? "claude-sonnet-4-5";
-const MAX_TOKENS = 4096;
+const DEFAULT_KIMI_BASE_URL = "https://api.moonshot.ai/v1";
+const DEFAULT_KIMI_MODEL = "kimi-k2.5";
+const DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-5";
+const KIMI_MAX_TOKENS = 16384;
+const ANTHROPIC_MAX_TOKENS = 4096;
+const ANTHROPIC_TEMPERATURE = 0.7;
 
 type ArticlePayload = {
   titleEn: string;
@@ -22,6 +27,27 @@ type ArticlePayload = {
   bodyEn: string;
   bodyPt: string;
 };
+
+type Provider = "kimi" | "anthropic";
+
+const SYSTEM_PROMPT =
+  "You write precise bilingual content for a data engineering portfolio site. Avoid hype. Keep it useful for recruiters and engineering managers. Respond with valid JSON only.";
+
+function resolveProvider(): Provider {
+  const explicit = process.env.LLM_PROVIDER?.toLowerCase();
+  if (explicit === "kimi" || explicit === "anthropic") {
+    return explicit;
+  }
+  if (process.env.KIMI_API_KEY) {
+    return "kimi";
+  }
+  if (process.env.ANTHROPIC_API_KEY) {
+    return "anthropic";
+  }
+  throw new Error(
+    "No LLM provider configured. Set KIMI_API_KEY or ANTHROPIC_API_KEY.",
+  );
+}
 
 function slugify(value: string) {
   return value
@@ -41,17 +67,17 @@ function extractJson(raw: string): string {
   const firstBrace = raw.indexOf("{");
   const lastBrace = raw.lastIndexOf("}");
   if (firstBrace === -1 || lastBrace === -1 || lastBrace <= firstBrace) {
-    throw new Error("Claude response did not contain a JSON object.");
+    throw new Error("LLM response did not contain a JSON object.");
   }
 
   return raw.slice(firstBrace, lastBrace + 1);
 }
 
-async function main() {
-  const client = new Anthropic();
-  const [projects, news] = await Promise.all([getProjects(), getNewsReferences()]);
-
-  const prompt = `
+function buildPrompt(
+  projects: Awaited<ReturnType<typeof getProjects>>,
+  news: Awaited<ReturnType<typeof getNewsReferences>>,
+): string {
+  return `
 You are generating a bilingual article draft for a senior data engineering portfolio platform.
 
 Use the following project references:
@@ -88,27 +114,62 @@ Return valid JSON with this shape:
 
 The article should connect a real market theme to one or more GitHub projects. Return only the JSON object, no commentary.
 `;
+}
+
+async function generateWithKimi(prompt: string): Promise<string> {
+  const client = new OpenAI({
+    apiKey: process.env.KIMI_API_KEY,
+    baseURL: process.env.KIMI_BASE_URL ?? DEFAULT_KIMI_BASE_URL,
+  });
+
+  const completion = await client.chat.completions.create({
+    model: process.env.KIMI_MODEL ?? DEFAULT_KIMI_MODEL,
+    max_tokens: KIMI_MAX_TOKENS,
+    temperature: 1,
+    response_format: { type: "json_object" },
+    messages: [
+      { role: "system", content: SYSTEM_PROMPT },
+      { role: "user", content: prompt },
+    ],
+  });
+
+  const content = completion.choices[0]?.message?.content;
+  if (!content) {
+    throw new Error("Kimi response did not contain text content.");
+  }
+  return content;
+}
+
+async function generateWithAnthropic(prompt: string): Promise<string> {
+  const client = new Anthropic();
 
   const response = await client.messages.create({
-    model: CLAUDE_MODEL,
-    max_tokens: MAX_TOKENS,
-    temperature: 0.7,
-    system:
-      "You write precise bilingual content for a data engineering portfolio site. Avoid hype. Keep it useful for recruiters and engineering managers. Respond with valid JSON only.",
-    messages: [
-      {
-        role: "user",
-        content: prompt,
-      },
-    ],
+    model: process.env.CLAUDE_CONTENT_MODEL ?? DEFAULT_CLAUDE_MODEL,
+    max_tokens: ANTHROPIC_MAX_TOKENS,
+    temperature: ANTHROPIC_TEMPERATURE,
+    system: SYSTEM_PROMPT,
+    messages: [{ role: "user", content: prompt }],
   });
 
   const textBlock = response.content.find((block) => block.type === "text");
   if (!textBlock || textBlock.type !== "text") {
-    throw new Error("Claude response did not contain text content.");
+    throw new Error("Anthropic response did not contain text content.");
   }
+  return textBlock.text;
+}
 
-  const payload = JSON.parse(extractJson(textBlock.text)) as ArticlePayload;
+async function main() {
+  const provider = resolveProvider();
+  const [projects, news] = await Promise.all([getProjects(), getNewsReferences()]);
+  const prompt = buildPrompt(projects, news);
+
+  console.log(`Generating article via provider=${provider}`);
+  const rawText =
+    provider === "kimi"
+      ? await generateWithKimi(prompt)
+      : await generateWithAnthropic(prompt);
+
+  const payload = JSON.parse(extractJson(rawText)) as ArticlePayload;
 
   const slug = slugify(payload.titleEn);
   const article = {

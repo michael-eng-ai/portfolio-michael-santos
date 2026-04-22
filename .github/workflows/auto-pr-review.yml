@@ -40,13 +40,14 @@ jobs:
           echo "${DIFF}" >> "$GITHUB_OUTPUT"
           echo "${EOF_MARKER}" >> "$GITHUB_OUTPUT"
 
-      - name: Review with Claude
+      - name: Review with LLM
         id: review
         env:
+          KIMI_API_KEY: ${{ secrets.KIMI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           DIFF_CONTENT: ${{ steps.diff.outputs.diff }}
         run: |
-          set -euo pipefail
+          set -uo pipefail
 
           PROMPT=$(cat <<EOF
           Review this PR diff as a senior data engineer. Focus on: correctness, security, performance, TypeScript best practices. Be concise. Output format: list of findings with severity (critical/warning/info) and line references when possible.
@@ -58,25 +59,48 @@ jobs:
           EOF
           )
 
-          BODY=$(jq -n \
-            --arg model "claude-haiku-4-5-20251001" \
-            --arg prompt "$PROMPT" \
-            --argjson max_tokens 1024 \
-            '{model: $model, max_tokens: $max_tokens, messages: [{role: "user", content: $prompt}]}')
+          if [ -n "${KIMI_API_KEY:-}" ]; then
+            BODY=$(jq -n \
+              --arg model "kimi-k2.5" \
+              --arg prompt "$PROMPT" \
+              --argjson max_tokens 8192 \
+              '{model: $model, max_tokens: $max_tokens, temperature: 1, messages: [{role: "system", content: "You are a senior code reviewer. Be direct and terse."}, {role: "user", content: $prompt}]}')
 
-          RESPONSE=$(curl -fsS -X POST https://api.anthropic.com/v1/messages \
-            -H "Content-Type: application/json" \
-            -H "x-api-key: ${ANTHROPIC_API_KEY}" \
-            -H "anthropic-version: 2023-06-01" \
-            -d "$BODY")
+            RESPONSE=$(curl -sS -X POST https://api.moonshot.ai/v1/chat/completions \
+              -H "Content-Type: application/json" \
+              -H "Authorization: Bearer ${KIMI_API_KEY}" \
+              -d "$BODY")
 
-          REVIEW=$(echo "$RESPONSE" | jq -r '
-            if .error then
-              "Failed to generate review: " + (.error.message // "unknown API error")
-            else
-              (.content[0].text // "Failed to generate review.")
-            end
-          ')
+            REVIEW=$(echo "$RESPONSE" | jq -r '
+              if .error then
+                "Failed to generate review (Kimi): " + (.error.message // "unknown API error")
+              else
+                (.choices[0].message.content // "Failed to generate review.")
+              end
+            ')
+          elif [ -n "${ANTHROPIC_API_KEY:-}" ]; then
+            BODY=$(jq -n \
+              --arg model "claude-haiku-4-5-20251001" \
+              --arg prompt "$PROMPT" \
+              --argjson max_tokens 1024 \
+              '{model: $model, max_tokens: $max_tokens, messages: [{role: "user", content: $prompt}]}')
+
+            RESPONSE=$(curl -sS -X POST https://api.anthropic.com/v1/messages \
+              -H "Content-Type: application/json" \
+              -H "x-api-key: ${ANTHROPIC_API_KEY}" \
+              -H "anthropic-version: 2023-06-01" \
+              -d "$BODY")
+
+            REVIEW=$(echo "$RESPONSE" | jq -r '
+              if .error then
+                "Failed to generate review (Anthropic): " + (.error.message // "unknown API error")
+              else
+                (.content[0].text // "Failed to generate review.")
+              end
+            ')
+          else
+            REVIEW="Auto PR review skipped: no LLM API key configured."
+          fi
 
           EOF_MARKER=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "review<<${EOF_MARKER}" >> "$GITHUB_OUTPUT"
