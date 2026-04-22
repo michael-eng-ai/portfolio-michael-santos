@@ -23,9 +23,9 @@ jobs:
       - name: Check configuration
         id: config
         run: |
-          if [ -z "${{ secrets.OPENAI_API_KEY }}" ]; then
+          if [ -z "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
             echo "ready=false" >> "$GITHUB_OUTPUT"
-            echo "OPENAI_API_KEY is not configured. Skipping article draft pipeline."
+            echo "ANTHROPIC_API_KEY is not configured. Skipping article draft pipeline."
           else
             echo "ready=true" >> "$GITHUB_OUTPUT"
           fi
@@ -53,7 +53,7 @@ jobs:
         if: steps.config.outputs.ready == 'true'
         run: pnpm content:generate:article
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Regenerate LinkedIn drafts
         if: steps.config.outputs.ready == 'true'
@@ -92,4 +92,4 @@ jobs:
 
       - name: No automation run
         if: steps.config.outputs.ready != 'true'
-        run: echo "Article draft pipeline skipped because OPENAI_API_KEY is not configured."
+        run: echo "Article draft pipeline skipped because ANTHROPIC_API_KEY is not configured."
