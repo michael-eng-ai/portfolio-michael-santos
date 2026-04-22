@@ -1,0 +1,25 @@
+{
+  "slug": "article-the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026",
+  "sourceType": "article",
+  "sourceSlug": "the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026",
+  "status": "draft",
+  "generatedAt": "2026-04-22T13:30:47.080Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026",
+    "pt": "https://michael.business/pt/articles/the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026",
+    "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+  },
+  "locales": {
+    "en": {
+      "hook": "The Era of Agentic AI in Data Engineering: How Autonomous Agents Are Transforming Pipelines in 2026",
+      "body": "Agentic AI is revolutionizing data engineering in 2026 by automating entire data pipelines with unprecedented efficiency. Databricks' Genie Code achieves a 77.1% task success rate, significantly outperforming existing coding agents and redefining governance and automation standards.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "A Era da IA Agêntica na Engenharia de Dados: Como Agentes Autônomos Estão Transformando Pipelines em 2026",
+      "body": "A IA agêntica está revolucionando a engenharia de dados em 2026, automatizando pipelines completos com eficiência inédita. O Genie Code da Databricks alcança 77,1% de sucesso em tarefas, superando agentes tradicionais e redefinindo governança e automação.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}
