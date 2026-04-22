@@ -9,7 +9,11 @@ import { Header } from "@/components/header";
 import { RouteEngagementTracker } from "@/components/route-engagement-tracker";
 import { ScrollTracker } from "@/components/scroll-tracker";
 import { StructuredData } from "@/components/structured-data";
-import { buildPersonJsonLd, buildWebsiteJsonLd } from "@/lib/seo";
+import {
+  buildOrganizationJsonLd,
+  buildPersonJsonLd,
+  buildWebsiteJsonLd,
+} from "@/lib/seo";
 import { isLocale, Locale, localeMetadata } from "@/lib/site";
 import { notFound } from "next/navigation";
 
@@ -42,7 +46,13 @@ export default async function LocaleLayout({
   return (
     <html lang={localeMetadata[locale].bcp47}>
       <body className={`${inter.variable} ${manrope.variable}`}>
-        <StructuredData data={[buildPersonJsonLd(), buildWebsiteJsonLd(locale)]} />
+        <StructuredData
+          data={[
+            buildPersonJsonLd(),
+            buildOrganizationJsonLd(),
+            buildWebsiteJsonLd(locale),
+          ]}
+        />
         <div className="app-shell">
           <Header locale={locale} />
           {children}

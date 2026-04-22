@@ -1,7 +1,12 @@
 import { ProjectCard } from "@/components/project-card";
+import { StructuredData } from "@/components/structured-data";
 import { TrackedLink } from "@/components/tracked-link";
 import { getProjects } from "@/lib/content";
-import { buildPageMetadata } from "@/lib/seo";
+import {
+  buildBreadcrumbJsonLd,
+  buildItemListJsonLd,
+  buildPageMetadata,
+} from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 
 export async function generateMetadata({
@@ -38,8 +43,39 @@ export default async function ProjectsPage({
   const locale = rawLocale as Locale;
   const projects = await getProjects();
 
+  const pageTitle = copy(
+    locale,
+    "Business Cases In Data Engineering And AI Delivery",
+    "Casos de Negocio em Engenharia de Dados e Entrega de IA",
+  );
+  const pageDescription = copy(
+    locale,
+    "Execution cases that show how strategy becomes technical delivery and measurable business impact.",
+    "Casos de execucao que mostram como a estrategia vira entrega tecnica e impacto de negocio mensuravel.",
+  );
+
   return (
     <main className="px-6 pb-20 pt-28 md:px-20">
+      <StructuredData
+        data={[
+          buildItemListJsonLd({
+            locale,
+            name: pageTitle,
+            description: pageDescription,
+            path: "/projects",
+            items: projects.map((project) => ({
+              name: project.locales[locale].title,
+              path: `/projects/${project.slug}`,
+              description: project.locales[locale].summary,
+              image: project.imageUrl,
+            })),
+          }),
+          buildBreadcrumbJsonLd(locale, [
+            { name: "Home", path: "/" },
+            { name: copy(locale, "Success Stories", "Casos de Sucesso") },
+          ]),
+        ]}
+      />
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 max-w-3xl">
           <h1 className="mb-4 text-4xl font-extrabold uppercase tracking-tight text-gray-900 md:text-5xl">

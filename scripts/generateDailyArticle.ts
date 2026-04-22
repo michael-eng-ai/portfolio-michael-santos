@@ -80,6 +80,33 @@ function buildPrompt(
   return `
 You are generating a bilingual article draft for a senior data engineering portfolio platform.
 
+SEO DISCIPLINE (non-negotiable — optimized for Google organic discovery on long-tail intents):
+
+1. TITLE (titleEn, titlePt):
+   - 50–65 characters including spaces. Must fit one SERP line.
+   - Front-load the primary long-tail keyword (what a senior data engineer or engineering manager would actually type into Google — e.g., "self-healing data pipeline with Claude MCP", "pgvector hybrid search production", "dbt Fusion vs SQLMesh").
+   - No clickbait. No "How I" / "The Ultimate Guide" unless it genuinely fits.
+   - Avoid competing for generic head terms like "data engineering" alone.
+
+2. EXCERPT (excerptEn, excerptPt):
+   - 140–160 characters. This becomes the meta description on SERP.
+   - Promise a specific outcome + include the primary keyword once.
+   - End with a concrete benefit, not a tease.
+
+3. BODY (bodyEn, bodyPt):
+   - Minimum 1400 words, maximum 2200 words in each language.
+   - First 100 characters of the body MUST contain the primary keyword naturally.
+   - Structure: intro paragraph (no heading) → four to six "## H2" sections → optional "### H3" subsections.
+   - Use H2 wording that a human would paste into Google (question-shaped or gap-shaped). Examples: "## When self-healing actually saves on-call hours", "## Why dbt Fusion changes the CDC migration math".
+   - Include at least one internal link: "[anchor](/articles/OTHER_SLUG)" pointing to an existing relevant article slug (pick from the news refs or recent articles section context). Use a descriptive anchor, never "click here".
+   - Include at least one project link: "[anchor](/projects/PROJECT_SLUG)" from the project references above.
+   - Include one technical code block (SQL, Python, or YAML) showing an implementation detail — not pseudocode.
+   - Avoid AI-telltale phrases: "In today's rapidly evolving landscape", "In the world of", "It is important to note that", "Furthermore", "Moreover".
+
+4. TAGS: 3–5 lowercase kebab-case tags that match how practitioners tag posts on dev.to or Medium (e.g., "agentic-ai", "pgvector", "dbt-fusion", not generic "technology" or "ai").
+
+5. RELATED LINKS: relatedProjectSlugs must reference slugs from the project list above. relatedNewsSlugs must reference slugs from the news list above. Never invent slugs.
+
 Use the following project references:
 ${projects
   .map(

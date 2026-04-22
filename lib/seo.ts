@@ -132,6 +132,65 @@ export function buildWebsiteJsonLd(locale: Locale): StructuredDataRecord {
       name: siteConfig.name,
       url: siteConfig.url,
     },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${localizedUrl(locale, "/articles")}?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  };
+}
+
+export function buildOrganizationJsonLd(): StructuredDataRecord {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    logo: absoluteUrl(siteConfig.defaultSocialImage),
+    email: siteConfig.email,
+    founder: {
+      "@type": "Person",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    sameAs: [siteConfig.linkedinUrl, siteConfig.githubUrl],
+  };
+}
+
+export function buildItemListJsonLd({
+  locale,
+  name,
+  description,
+  path,
+  items,
+}: {
+  locale: Locale;
+  name: string;
+  description: string;
+  path: string;
+  items: { name: string; path: string; description?: string; image?: string }[];
+}): StructuredDataRecord {
+  const url = localizedUrl(locale, path);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name,
+    description,
+    url,
+    inLanguage: localeMetadata[locale].bcp47,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: items.length,
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: localizedUrl(locale, item.path),
+        name: item.name,
+        ...(item.description ? { description: item.description } : {}),
+        ...(item.image ? { image: absoluteUrl(item.image) } : {}),
+      })),
+    },
   };
 }
 
