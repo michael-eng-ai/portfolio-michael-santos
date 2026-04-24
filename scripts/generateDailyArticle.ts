@@ -59,7 +59,10 @@ function slugify(value: string) {
 }
 
 function extractJson(raw: string): string {
-  const fenceMatch = raw.match(/```(?:json)?\s*([\s\S]+?)```/);
+  // Only match an explicit ```json fence. Plain ``` would also catch code
+  // blocks inside the article body (Python, SQL, YAML) and try to parse
+  // those as JSON, which fails.
+  const fenceMatch = raw.match(/```json\s*([\s\S]+?)```/i);
   if (fenceMatch) {
     return fenceMatch[1].trim();
   }

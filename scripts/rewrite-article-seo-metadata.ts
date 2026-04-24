@@ -68,7 +68,9 @@ Return valid JSON with exactly these four keys:
 }
 
 function extractJson(raw: string): string {
-  const fence = raw.match(/```(?:json)?\s*([\s\S]+?)```/);
+  // Only match explicit ```json fence; plain ``` would catch code blocks
+  // inside the article body (Python/SQL/YAML) and corrupt parsing.
+  const fence = raw.match(/```json\s*([\s\S]+?)```/i);
   if (fence) return fence[1].trim();
   const first = raw.indexOf("{");
   const last = raw.lastIndexOf("}");
