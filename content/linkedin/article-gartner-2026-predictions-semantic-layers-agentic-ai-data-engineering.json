@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.086Z",
+  "generatedAt": "2026-04-24T13:57:18.753Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering",
@@ -12,13 +12,13 @@
   },
   "locales": {
     "en": {
-      "hook": "Gartner 2026 Predictions: Semantic Layers, Agentic AI, and the Evolution of Data Engineering",
-      "body": "Gartner’s 2026 predictions highlight the transformative impact of agentic AI and semantic layers on data engineering. This article explores practical implications for data pipelines, governance automation, and infrastructure, focusing on tools like dbt, Kafka, Airflow, Spark, and Apache Iceberg.",
+      "hook": "Gartner 2026: Semantic Layers & Agentic AI for Data Engineering",
+      "body": "Gartner 2026 predictions reveal how semantic layers and agentic AI automate data pipelines. Explore practical strategies for governance and infrastructure using dbt, Kafka, and Iceberg.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "Previsões Gartner 2026: Camadas Semânticas, IA Agentiva e a Evolução da Engenharia de Dados",
-      "body": "As previsões do Gartner para 2026 destacam o impacto transformador da IA agentiva e das camadas semânticas na engenharia de dados. Este artigo aborda as implicações práticas para pipelines, automação da governança e infraestrutura, com foco em ferramentas como dbt, Kafka, Airflow, Spark e Apache Iceberg.",
+      "hook": "Previsões Gartner 2026: Camadas Semânticas e IA Agentiva",
+      "body": "Previsões Gartner 2026 mostram como camadas semânticas e IA agentiva automatizam pipelines. Aprenda estratégias práticas de governança e infraestrutura com dbt, Kafka e Iceberg.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

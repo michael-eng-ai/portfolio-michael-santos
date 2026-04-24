@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.867Z",
+  "generatedAt": "2026-04-24T13:57:19.542Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering",
@@ -13,13 +13,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Gartner 2026 Predictions: Semantic Layers, Agentic AI, and the Evolution of Data Engineering\n\nGartner’s 2026 predictions highlight the transformative impact of agentic AI…\n\nhttps://michael.business/en/articles/gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering",
+        "Gartner 2026: Semantic Layers & Agentic AI for Data Engineering\n\nGartner 2026 predictions reveal how semantic layers and agentic AI automate data pipelines. Explore pract…\n\nhttps://michael.business/en/articles/gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Previsões Gartner 2026: Camadas Semânticas, IA Agentiva e a Evolução da Engenharia de Dados\n\nAs previsões do Gartner para 2026 destacam o impacto transformador da IA agen…\n\nhttps://michael.business/pt/articles/gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering",
+        "Previsões Gartner 2026: Camadas Semânticas e IA Agentiva\n\nPrevisões Gartner 2026 mostram como camadas semânticas e IA agentiva automatizam pipelines. Aprenda estratégias…\n\nhttps://michael.business/pt/articles/gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

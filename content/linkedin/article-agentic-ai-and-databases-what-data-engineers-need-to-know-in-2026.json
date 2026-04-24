@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "agentic-ai-and-databases-what-data-engineers-need-to-know-in-2026",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.083Z",
+  "generatedAt": "2026-04-24T13:57:18.749Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/agentic-ai-and-databases-what-data-engineers-need-to-know-in-2026",
@@ -12,13 +12,13 @@
   },
   "locales": {
     "en": {
-      "hook": "Agentic AI and Databases: What Data Engineers Need to Know in 2026",
-      "body": "AI agents now create 4x more databases than humans. Discover what this means for data engineering and how companies can prepare for the agentic era.",
+      "hook": "Agentic Databases Explained: AI Creates 4x More DBs Than Engineers",
+      "body": "Agentic databases with sub-10-second lifespans now dominate Lakebase. Discover strategies to manage 1000x faster iteration cycles and reduce storage overhead in 2026.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "IA Agêntica e Bancos de Dados: O que Engenheiros de Dados Precisam Saber em 2026",
-      "body": "Agentes de IA já criam 4x mais bancos de dados que humanos. Descubra o que isso significa para a engenharia de dados e como as empresas podem se preparar.",
+      "hook": "Bancos de Dados Agênticos: IA Cria 4x Mais Que Engenheiros em 2026",
+      "body": "Bancos de dados agênticos com vida útil inferior a 10 segundos agora dominam o Lakebase. Aprenda a gerenciar ciclos de iteração 1000x mais rápidos e reduzir custos de infraestrutura.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

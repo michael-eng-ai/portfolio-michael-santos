@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.080Z",
+  "generatedAt": "2026-04-24T13:57:18.746Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap",
@@ -12,13 +12,13 @@
   },
   "locales": {
     "en": {
-      "hook": "Industrial AI and the Data Engineering Reimagining: Closing the $8.5 Trillion Gap",
-      "body": "The $8.5 trillion industrial AI opportunity is fundamentally constrained by data engineering maturity. Here is how modern data infrastructure must evolve to unlock it.",
+      "hook": "Industrial AI Data Engineering: Closing the $8.5T Gap",
+      "body": "Industrial AI adoption stalls without modern data engineering. Discover architecture patterns that unlock the $8.5 trillion opportunity and scale manufacturing analytics.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "IA Industrial e o Reimagining da Engenharia de Dados: Fechando a Lacuna de USD 8,5 Trilhões",
-      "body": "A oportunidade de USD 8,5 trilhões em IA industrial é limitada pela maturidade da engenharia de dados. Veja como a infraestrutura moderna de dados precisa evoluir para desbloqueá-la.",
+      "hook": "Engenharia de Dados para IA Industrial: Fechando Lacuna de US$ 8,5 Tri",
+      "body": "IA industrial exige engenharia de dados moderna. Conheça arquiteturas que desbloqueiam os US$ 8,5 trilhões em oportunidade e escalam a manufatura inteligente.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

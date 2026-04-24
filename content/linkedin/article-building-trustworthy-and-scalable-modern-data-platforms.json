@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "building-trustworthy-and-scalable-modern-data-platforms",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.090Z",
+  "generatedAt": "2026-04-24T13:57:18.757Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/building-trustworthy-and-scalable-modern-data-platforms",
@@ -12,13 +12,13 @@
   },
   "locales": {
     "en": {
-      "hook": "Building Trustworthy and Scalable Modern Data Platforms",
-      "body": "Exploring how reliable transformation layers and cross-cloud data engineering projects enable scalable, governed, and business-ready analytics platforms.",
+      "hook": "Scalable Data Platform Architecture: Engineering Patterns",
+      "body": "Explore how cross-cloud patterns and reliable transformation layers build scalable data platforms ensuring governance and accelerating analytics delivery.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "Construindo Plataformas de Dados Modernas Confiáveis e Escaláveis",
-      "body": "Explorando como camadas confiáveis de transformação e projetos de engenharia de dados multicloud possibilitam plataformas analíticas escaláveis, governadas e prontas para negócios.",
+      "hook": "Arquitetura de Plataforma de Dados Escalável: Padrões Multicloud",
+      "body": "Veja como camadas de transformação e padrões multicloud constroem plataformas de dados escaláveis que garantem governança e aceleram a tomada de decisões.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

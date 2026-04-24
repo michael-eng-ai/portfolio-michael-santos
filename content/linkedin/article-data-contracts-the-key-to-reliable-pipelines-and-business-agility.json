@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "data-contracts-the-key-to-reliable-pipelines-and-business-agility",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.085Z",
+  "generatedAt": "2026-04-24T13:57:18.751Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/data-contracts-the-key-to-reliable-pipelines-and-business-agility",
@@ -12,13 +12,13 @@
   },
   "locales": {
     "en": {
-      "hook": "Data Contracts: The Key to Reliable Pipelines and Business Agility",
-      "body": "Discover how data contracts—formal agreements between data producers and consumers—are revolutionizing pipeline reliability and enabling faster, safer data-driven decisions in 2026.",
+      "hook": "Data Contracts for Pipeline Reliability and Business Agility",
+      "body": "Implement data contracts to formalize agreements between producers and consumers, prevent breaking schema changes, and build pipelines that drive reliable business decisions.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "Contratos de Dados: A Chave para Pipelines Confiáveis e Agilidade Empresarial",
-      "body": "Descubra como contratos de dados — acordos formais entre produtores e consumidores — estão revolucionando a confiabilidade de pipelines e acelerando decisões orientadas a dados em 2026.",
+      "hook": "Contratos de Dados para Confiabilidade de Pipelines e Agilidade",
+      "body": "Implemente contratos de dados para formalizar acordos entre produtores e consumidores, evitar breaking changes e construir pipelines que impulsionam decisões de negócio confiáveis.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

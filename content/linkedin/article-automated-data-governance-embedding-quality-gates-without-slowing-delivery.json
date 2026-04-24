@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "automated-data-governance-embedding-quality-gates-without-slowing-delivery",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.081Z",
+  "generatedAt": "2026-04-24T13:57:18.747Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery",
@@ -12,13 +12,13 @@
   },
   "locales": {
     "en": {
-      "hook": "How to Automate Data Governance with Quality Gates That Do Not Slow Down Delivery",
-      "body": "A framework for embedding contract enforcement, freshness SLAs, and governance dashboards directly into your pipeline -- without becoming a bottleneck.",
+      "hook": "Automated Data Governance: Quality Gates Without the Bottleneck",
+      "body": "Implement automated data governance by embedding contract enforcement and freshness SLAs directly into pipelines. Enforce standards without becoming a bottleneck.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "Como Automatizar Governanca de Dados com Quality Gates que Nao Travam a Entrega",
-      "body": "Um framework para embutir contract enforcement, SLAs de freshness e dashboards de governanca diretamente no pipeline -- sem virar gargalo.",
+      "hook": "Governança de Dados Automatizada: Quality Gates Sem Gargalos",
+      "body": "Implemente governança de dados automatizada embutindo enforcement de contratos e SLAs de freshness nos pipelines. Garanta conformidade sem criar gargalos.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

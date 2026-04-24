@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "data-platform-modernization-patterns",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.091Z",
+  "generatedAt": "2026-04-24T13:57:18.758Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/data-platform-modernization-patterns",
@@ -12,13 +12,13 @@
   },
   "locales": {
     "en": {
-      "hook": "Three Patterns Behind Modern Data Platform Delivery",
-      "body": "The strongest modernization stories do three things well: separate platform responsibilities, make transformations auditable, and keep freshness visible to the business. Tools change. Those patterns compound.",
+      "hook": "Data Platform Modernization Patterns Beyond Tool Migration",
+      "body": "Move beyond tool migration with data platform modernization patterns that separate responsibilities, ensure auditable transformations, and deliver reliable data freshness to the business.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "Tres Padroes Por Tras da Entrega de Plataformas Modernas de Dados",
-      "body": "As melhores historias de modernizacao fazem tres coisas bem: separam responsabilidades da plataforma, tornam transformacoes auditaveis e deixam a frescura dos dados visivel para o negocio. Ferramentas mudam. Esses padroes acumulam.",
+      "hook": "Modernização de Plataforma de Dados: 3 Padrões Arquiteturais",
+      "body": "Saia da migração de ferramentas com padrões de modernização de plataforma de dados que separam responsabilidades, garantem transformações auditáveis e entregam dados confiáveis ao negócio.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

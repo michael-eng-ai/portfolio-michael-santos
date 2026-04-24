@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.860Z",
+  "generatedAt": "2026-04-24T13:57:19.535Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure",
@@ -13,13 +13,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Self-Healing Data Pipelines: The Business Case for Autonomous Data Infrastructure\n\nAgentic AI is eliminating the 3 AM pipeline failure call. Here is what self…\n\nhttps://michael.business/en/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure",
+        "Self-Healing Data Pipelines Cut Reactive Maintenance by 20%\n\nDeploy self-healing data pipelines to eliminate 3 AM alerts and reduce reactive maintenance by 20…\n\nhttps://michael.business/en/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Pipelines de Dados Auto-Curativos: O Caso de Negócio para Infraestrutura Autônoma\n\nA IA agêntica está eliminando a ligação de falha de pipeline às 3h da manhã…\n\nhttps://michael.business/pt/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure",
+        "Pipelines Auto-Curativos Reduzem Manutenção Reativa em 20%\n\nImplemente pipelines auto-curativos com IA agêntica para eliminar alertas às 3h e reduzir manutenç…\n\nhttps://michael.business/pt/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

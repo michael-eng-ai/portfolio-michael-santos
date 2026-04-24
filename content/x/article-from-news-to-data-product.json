@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "from-news-to-data-product",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.872Z",
+  "generatedAt": "2026-04-24T13:57:19.547Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/from-news-to-data-product",
@@ -13,13 +13,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Why Data Engineering And AI Only Matter When They Solve A Business Problem\n\nA data or AI initiative becomes credible only when the reader can trace one line from market pressure to architecture choice to operation…\n\nhttps://michael.business/en/articles/from-news-to-data-product",
+        "Data Engineering and AI Business Value: The Four-Part Test\n\nValidate data engineering and AI initiatives with the four-part credibility test. Connect market pressures to architecture and metrics, cutting slideware…\n\nhttps://michael.business/en/articles/from-news-to-data-product",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Por Que Engenharia de Dados e IA So Importam Quando Resolvem um Problema de Negocio\n\nUma iniciativa de dados ou IA so fica crivel quando o leitor consegue seguir uma linha do problema de mercado ate a escolha de a…\n\nhttps://michael.business/pt/articles/from-news-to-data-product",
+        "Engenharia de Dados e IA: Teste de 4 Partes para Credibilidade\n\nValide projetos de engenharia de dados e IA com o teste de quatro partes. Conecte pressões de mercado a arquitetura e métricas, eliminando o slidewar…\n\nhttps://michael.business/pt/articles/from-news-to-data-product",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

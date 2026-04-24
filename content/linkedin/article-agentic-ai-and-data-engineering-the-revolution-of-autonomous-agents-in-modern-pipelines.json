@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.090Z",
+  "generatedAt": "2026-04-24T13:57:18.757Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
@@ -12,13 +12,13 @@
   },
   "locales": {
     "en": {
-      "hook": "Agentic AI and Data Engineering: The Revolution of Autonomous Agents in Modern Pipelines",
-      "body": "In 2026, autonomous AI agents, or Agentic AI, are transforming data engineering by automating and optimizing complex pipelines. This article technically explores how this innovation impacts orchestration, self-healing, and transformation generation, offering practical cases, architectures, and strategic recommendations for technology leaders.",
+      "hook": "Agentic AI Data Engineering: Autonomous Pipeline Architecture",
+      "body": "See how Agentic AI builds self-healing data pipelines. Explore architectures that reduce manual work and accelerate production reliability for engineering teams.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "Agentic AI e Engenharia de Dados: A Revolução dos Agentes Autônomos em Pipelines Modernos",
-      "body": "Em 2026, agentes de IA autônomos, ou Agentic AI, estão transformando a engenharia de dados ao automatizar e otimizar pipelines complexos. Este artigo explora tecnicamente como essa inovação impacta orquestração, auto-reparo e geração de transformações, oferecendo casos práticos, arquiteturas e recomendações estratégicas para líderes de tecnologia.",
+      "hook": "Agentic AI na Engenharia de Dados: Pipelines Autônomos",
+      "body": "Veja como o Agentic AI viabiliza pipelines autônomos com auto-reparo. Conheça arquiteturas que reduzem intervenção manual e aceleram a entrega confiável em produção.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

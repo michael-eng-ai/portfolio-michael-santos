@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "data-platform-modernization-patterns",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.872Z",
+  "generatedAt": "2026-04-24T13:57:19.547Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/data-platform-modernization-patterns",
@@ -13,13 +13,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Three Patterns Behind Modern Data Platform Delivery\n\nThe strongest modernization stories do three things well: separate platform responsibilities, make transformations auditable, and keep freshness visi…\n\nhttps://michael.business/en/articles/data-platform-modernization-patterns",
+        "Data Platform Modernization Patterns Beyond Tool Migration\n\nMove beyond tool migration with data platform modernization patterns that separate responsibilities, ensure auditable transformations, and del…\n\nhttps://michael.business/en/articles/data-platform-modernization-patterns",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     },
     "pt": {
       "posts": [
-        "Tres Padroes Por Tras da Entrega de Plataformas Modernas de Dados\n\nAs melhores historias de modernizacao fazem tres coisas bem: separam responsabilidades da plataforma, tornam transformacoes auditaveis…\n\nhttps://michael.business/pt/articles/data-platform-modernization-patterns",
+        "Modernização de Plataforma de Dados: 3 Padrões Arquiteturais\n\nSaia da migração de ferramentas com padrões de modernização de plataforma de dados que separam responsabilidades, garantem transformações au…\n\nhttps://michael.business/pt/articles/data-platform-modernization-patterns",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     }

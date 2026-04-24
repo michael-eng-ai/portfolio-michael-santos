@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.860Z",
+  "generatedAt": "2026-04-24T13:57:19.535Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap",
@@ -13,13 +13,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Industrial AI and the Data Engineering Reimagining: Closing the $8.5 Trillion Gap\n\nThe $8.5 trillion industrial AI opportunity is fundamentally constrained by…\n\nhttps://michael.business/en/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap",
+        "Industrial AI Data Engineering: Closing the $8.5T Gap\n\nIndustrial AI adoption stalls without modern data engineering. Discover architecture patterns that unloc…\n\nhttps://michael.business/en/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     },
     "pt": {
       "posts": [
-        "IA Industrial e o Reimagining da Engenharia de Dados: Fechando a Lacuna de USD 8,5 Trilhões\n\nA oportunidade de USD 8,5 trilhões em IA industrial é limitada pel…\n\nhttps://michael.business/pt/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap",
+        "Engenharia de Dados para IA Industrial: Fechando Lacuna de US$ 8,5 Tri\n\nIA industrial exige engenharia de dados moderna. Conheça arquiteturas que desbloqueiam…\n\nhttps://michael.business/pt/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     }
