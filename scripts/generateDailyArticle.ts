@@ -7,7 +7,8 @@ import OpenAI from "openai";
 import { getNewsReferences, getProjects } from "@/lib/content";
 
 const DEFAULT_KIMI_BASE_URL = "https://api.moonshot.ai/v1";
-const DEFAULT_KIMI_MODEL = "kimi-k2.6";
+const DEFAULT_KIMI_MODEL = "kimi-k2-turbo-preview";
+const KIMI_REQUEST_TIMEOUT_MS = 10 * 60 * 1000;
 const DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-5";
 const KIMI_MAX_TOKENS = 16384;
 const ANTHROPIC_MAX_TOKENS = 4096;
@@ -150,6 +151,7 @@ async function generateWithKimi(prompt: string): Promise<string> {
   const client = new OpenAI({
     apiKey: process.env.KIMI_API_KEY,
     baseURL: process.env.KIMI_BASE_URL || DEFAULT_KIMI_BASE_URL,
+    timeout: KIMI_REQUEST_TIMEOUT_MS,
   });
 
   const completion = await client.chat.completions.create({
