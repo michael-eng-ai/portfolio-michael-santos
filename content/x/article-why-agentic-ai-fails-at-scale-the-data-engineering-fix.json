@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "why-agentic-ai-fails-at-scale-the-data-engineering-fix",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.865Z",
+  "generatedAt": "2026-04-24T13:57:19.540Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix",
@@ -13,13 +13,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Why Agentic AI Fails at Scale — The Data Engineering Fix\n\nMost companies struggle to scale agentic AI due to weak data foundations rather than AI model issues. This article explores ho…\n\nhttps://michael.business/en/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix",
+        "Scaling Agentic AI: Why Production Fails Without Data Engineering\n\nMost agentic AI pilots fail to reach production due to weak data pipelines, not models. Learn the data engineering pr…\n\nhttps://michael.business/en/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Por que a IA Agêntica Falha em Escala — O Papel da Engenharia de Dados\n\nA maioria das empresas tem dificuldade para escalar IA agêntica por causa de bases de dados frágeis, não por pro…\n\nhttps://michael.business/pt/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix",
+        "Por Que IA Agêntica Falha em Escala: O Problema é Engenharia de Dados\n\nA maioria dos pilotos de IA agêntica falham em produção por pipelines frágeis. Veja como a engenharia de dados vi…\n\nhttps://michael.business/pt/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

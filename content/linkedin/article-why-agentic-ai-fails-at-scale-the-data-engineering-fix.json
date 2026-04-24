@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "why-agentic-ai-fails-at-scale-the-data-engineering-fix",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.084Z",
+  "generatedAt": "2026-04-24T13:57:18.750Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix",
@@ -12,13 +12,13 @@
   },
   "locales": {
     "en": {
-      "hook": "Why Agentic AI Fails at Scale — The Data Engineering Fix",
-      "body": "Most companies struggle to scale agentic AI due to weak data foundations rather than AI model issues. This article explores how strategic data engineering practices unlock ROI and enable successful AI agent deployment.",
+      "hook": "Scaling Agentic AI: Why Production Fails Without Data Engineering",
+      "body": "Most agentic AI pilots fail to reach production due to weak data pipelines, not models. Learn the data engineering practices that enable sustainable scaling and proven ROI.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "Por que a IA Agêntica Falha em Escala — O Papel da Engenharia de Dados",
-      "body": "A maioria das empresas tem dificuldade para escalar IA agêntica por causa de bases de dados frágeis, não por problemas nos modelos de IA. Este artigo mostra como a engenharia de dados estratégica gera ROI e viabiliza o sucesso da IA agêntica.",
+      "hook": "Por Que IA Agêntica Falha em Escala: O Problema é Engenharia de Dados",
+      "body": "A maioria dos pilotos de IA agêntica falham em produção por pipelines frágeis. Veja como a engenharia de dados viabiliza escalabilidade sustentável e ROI mensurável.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

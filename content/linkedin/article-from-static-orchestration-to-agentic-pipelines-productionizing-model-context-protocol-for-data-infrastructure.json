@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.078Z",
+  "generatedAt": "2026-04-24T13:57:18.744Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure",
@@ -12,13 +12,13 @@
   },
   "locales": {
     "en": {
-      "hook": "From Static Orchestration to Agentic Pipelines: Productionizing Model Context Protocol for Data Infrastructure",
-      "body": "How MCP transforms data pipelines from scheduled scripts into autonomous systems that detect schema drift, enforce contracts, and heal failures without human intervention.",
+      "hook": "Agentic Data Pipelines: Productionizing MCP for Data Infrastructure",
+      "body": "Productionize Model Context Protocol to build agentic data pipelines that autonomously detect schema drift, enforce governance contracts, and eliminate 3 AM on-call interruptions.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "Da Orquestração Estática a Pipelines Agenticos: Productionizando o Model Context Protocol para Infraestrutura de Dados",
-      "body": "Como o MCP transforma pipelines de dados de scripts agendados em sistemas autônomos que detectam drift de schema, impõem contratos e corrigem falhas sem intervenção humana.",
+      "hook": "Pipelines Agenticos: Colocando MCP em Produção na Infraestrutura",
+      "body": "Transforme DAGs estáticos em pipelines agenticos productionizando o MCP para detectar schema drift, impor contratos e eliminar chamadas de emergência às 3h da manhã.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

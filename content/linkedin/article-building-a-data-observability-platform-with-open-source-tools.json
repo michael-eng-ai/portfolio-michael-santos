@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "building-a-data-observability-platform-with-open-source-tools",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.081Z",
+  "generatedAt": "2026-04-24T13:57:18.748Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/building-a-data-observability-platform-with-open-source-tools",
@@ -12,13 +12,13 @@
   },
   "locales": {
     "en": {
-      "hook": "How to Build a Data Observability Platform With Open-Source Tools (No Vendor Lock-In)",
-      "body": "Stop paying six figures for data observability. Learn how to build a production-grade platform using open-source tools for anomaly detection, lineage tracking, and SLA monitoring.",
+      "hook": "Data Observability Platform: Build With Open-Source Tools",
+      "body": "Learn to build a production-grade data observability platform with open-source tools for anomaly detection and lineage tracking. Cut infrastructure costs and avoid vendor lock-in.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "Como Construir uma Plataforma de Data Observability com Ferramentas Open-Source (Sem Vendor Lock-In)",
-      "body": "Pare de pagar fortunas por data observability. Aprenda a construir uma plataforma de producao usando ferramentas open-source para deteccao de anomalias, lineage tracking e monitoramento de SLA.",
+      "hook": "Plataforma de Data Observability com Ferramentas Open-Source",
+      "body": "Aprenda a construir uma plataforma de data observability open-source para detecção de anomalias e lineage. Reduz custos de infraestrutura e elimina vendor lock-in.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

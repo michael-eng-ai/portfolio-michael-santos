@@ -1,0 +1,27 @@
+{
+  "slug": "article-self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30",
+  "sourceType": "article",
+  "sourceSlug": "self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30",
+  "status": "draft",
+  "generatedAt": "2026-04-24T13:57:19.532Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30",
+    "pt": "https://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30",
+    "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Self-healing data pipeline with Claude MCP cuts on-call costs 30%\n\nSelf-healing data pipeline with Claude MCP detects schema drift, autofixes data quality rules, and reroutes…\n\nhttps://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Pipeline autossanável com Claude MCP reduz custos de plantão em 30%\n\nPipeline autossanável com Claude MCP detecta schema drift, corrige regras de qualidade e redireciona carg…\n\nhttps://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+      ]
+    }
+  }
+}

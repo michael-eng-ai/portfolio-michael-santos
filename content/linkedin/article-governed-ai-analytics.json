@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "governed-ai-analytics",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.091Z",
+  "generatedAt": "2026-04-24T13:57:18.758Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/governed-ai-analytics",
@@ -12,13 +12,13 @@
   },
   "locales": {
     "en": {
-      "hook": "Why AI Analytics Still Depends On Strong Data Engineering",
-      "body": "Text-to-SQL, retrieval, and AI copilots only become valuable when they sit on top of governed pipelines, trusted metadata, and well-structured delivery paths.",
+      "hook": "Governed AI Analytics Requires Strong Data Engineering",
+      "body": "Build governed AI analytics on contracts and metadata to turn text-to-SQL and copilots from demos into production products. Learn the engineering path to trustworthy AI.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "Por Que Analytics com IA Ainda Depende de Boa Engenharia de Dados",
-      "body": "Text-to-SQL, retrieval e copilotos de IA só geram valor quando estão sobre pipelines governados, metadados confiáveis e caminhos de entrega bem estruturados.",
+      "hook": "Analytics com IA Precisa de Engenharia de Dados Governada",
+      "body": "Interfaces de IA como text-to-SQL só viram produtos com pipelines governados e metadados. Descubra como engenharia de dados sólida coloca analytics com IA em produção com confiança.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

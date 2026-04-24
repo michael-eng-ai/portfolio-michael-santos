@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "from-news-to-data-product",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.090Z",
+  "generatedAt": "2026-04-24T13:57:18.758Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/from-news-to-data-product",
@@ -12,13 +12,13 @@
   },
   "locales": {
     "en": {
-      "hook": "Why Data Engineering And AI Only Matter When They Solve A Business Problem",
-      "body": "A data or AI initiative becomes credible only when the reader can trace one line from market pressure to architecture choice to operational proof. Anything less feels like slideware.",
+      "hook": "Data Engineering and AI Business Value: The Four-Part Test",
+      "body": "Validate data engineering and AI initiatives with the four-part credibility test. Connect market pressures to architecture and metrics, cutting slideware.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "Por Que Engenharia de Dados e IA So Importam Quando Resolvem um Problema de Negocio",
-      "body": "Uma iniciativa de dados ou IA so fica crivel quando o leitor consegue seguir uma linha do problema de mercado ate a escolha de arquitetura e a prova operacional. Qualquer coisa abaixo disso parece slide.",
+      "hook": "Engenharia de Dados e IA: Teste de 4 Partes para Credibilidade",
+      "body": "Valide projetos de engenharia de dados e IA com o teste de quatro partes. Conecte pressões de mercado a arquitetura e métricas, eliminando o slideware.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }

@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.867Z",
+  "generatedAt": "2026-04-24T13:57:19.542Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
@@ -13,13 +13,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Physical AI and IoT Data Engineering: Redefining Data Infrastructure in 2026\n\nExplore how AI agents generating 10x more physical data by 2029 transform architectur…\n\nhttps://michael.business/en/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
+        "Physical AI Data Engineering: Infrastructure for 10x IoT Growth\n\nPhysical AI data engineering strategies for managing 10x IoT data growth by 2029. Learn architectu…\n\nhttps://michael.business/en/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Physical AI e Engenharia de Dados IoT: Redefinindo Infraestrutura em 2026\n\nEntenda como a explosão de dados físicos por agentes de IA até 2029 impacta arquiteturas…\n\nhttps://michael.business/pt/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
+        "Engenharia de Dados para Physical AI: Infraestrutura IoT 2029\n\nEstratégias de engenharia de dados para Physical AI e crescimento 10x de dados IoT até 2029. Arquite…\n\nhttps://michael.business/pt/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

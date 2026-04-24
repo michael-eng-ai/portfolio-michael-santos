@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.866Z",
+  "generatedAt": "2026-04-24T13:57:19.541Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados",
@@ -13,13 +13,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Databricks Genie Code: The Agentic AI Revolution in Data Engineering\n\nThe arrival of Databricks Genie Code marks a new era for data engineering, boosting productivi…\n\nhttps://michael.business/en/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados",
+        "Databricks Genie Code: AI Agent for Data Engineering\n\nDiscover how Databricks Genie Code automates critical data pipeline tasks and governance, doubling coding succ…\n\nhttps://michael.business/en/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     },
     "pt": {
       "posts": [
-        "Genie Code da Databricks: A Revolução da IA Agêntica na Engenharia de Dados\n\nA chegada do Genie Code da Databricks marca uma nova era para a engenharia de dados, po…\n\nhttps://michael.business/pt/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados",
+        "Genie Code da Databricks: Agente de IA para Engenharia de Dados\n\nEntenda como o Genie Code da Databricks automatiza pipelines e governança de dados, dobrando a taxa…\n\nhttps://michael.business/pt/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     }

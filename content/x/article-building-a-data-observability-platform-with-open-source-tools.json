@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "building-a-data-observability-platform-with-open-source-tools",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.862Z",
+  "generatedAt": "2026-04-24T13:57:19.537Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/building-a-data-observability-platform-with-open-source-tools",
@@ -13,13 +13,13 @@
   "locales": {
     "en": {
       "posts": [
-        "How to Build a Data Observability Platform With Open-Source Tools (No Vendor Lock-In)\n\nStop paying six figures for data observability. Learn how to build a production-grade plat…\n\nhttps://michael.business/en/articles/building-a-data-observability-platform-with-open-source-tools",
+        "Data Observability Platform: Build With Open-Source Tools\n\nLearn to build a production-grade data observability platform with open-source tools for anomaly detection and lineage…\n\nhttps://michael.business/en/articles/building-a-data-observability-platform-with-open-source-tools",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-observability-platform"
       ]
     },
     "pt": {
       "posts": [
-        "Como Construir uma Plataforma de Data Observability com Ferramentas Open-Source (Sem Vendor Lock-In)\n\nPare de pagar fortunas por data observability. Aprenda a construir uma plat…\n\nhttps://michael.business/pt/articles/building-a-data-observability-platform-with-open-source-tools",
+        "Plataforma de Data Observability com Ferramentas Open-Source\n\nAprenda a construir uma plataforma de data observability open-source para detecção de anomalias e lineage. Reduz cu…\n\nhttps://michael.business/pt/articles/building-a-data-observability-platform-with-open-source-tools",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-observability-platform"
       ]
     }

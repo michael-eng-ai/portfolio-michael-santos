@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents",
   "status": "draft",
-  "generatedAt": "2026-04-22T13:30:47.082Z",
+  "generatedAt": "2026-04-24T13:57:18.749Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents",
@@ -12,13 +12,13 @@
   },
   "locales": {
     "en": {
-      "hook": "How to Build Self-Healing Data Pipelines with Claude MCP and Autonomous Agents",
-      "body": "A practical guide to building data pipelines that detect, diagnose, and fix issues autonomously using Claude MCP and tiered guardrails -- with a working open-source implementation.",
+      "hook": "Self-Healing Data Pipelines with Claude MCP and Agents",
+      "body": "Build self-healing data pipelines that autonomously detect schema changes and fix failures without 3 AM pages. Open-source implementation with Claude MCP included.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "Como Construir Data Pipelines que se Auto-Corrigem com Claude MCP e Agentes Autonomos",
-      "body": "Guia pratico para construir pipelines de dados que detectam, diagnosticam e corrigem problemas de forma autonoma usando Claude MCP e guardrails em camadas.",
+      "hook": "Pipelines de Dados Auto-Corrigíveis com Claude MCP e Agentes",
+      "body": "Implemente pipelines auto-corrigíveis com Claude MCP para detectar mudanças de schema e corrigir falhas. Reduza alertas 3h com guardrails e código open-source.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }
