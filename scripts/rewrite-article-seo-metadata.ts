@@ -4,7 +4,7 @@ import path from "node:path";
 import OpenAI from "openai";
 
 const DEFAULT_BASE_URL = "https://api.moonshot.ai/v1";
-const DEFAULT_MODEL = "kimi-k2.5";
+const DEFAULT_MODEL = "kimi-k2.6";
 
 type ArticleLocale = {
   title: string;
