@@ -7,7 +7,7 @@ import OpenAI from "openai";
 import { getNewsReferences, getProjects } from "@/lib/content";
 
 const DEFAULT_KIMI_BASE_URL = "https://api.moonshot.ai/v1";
-const DEFAULT_KIMI_MODEL = "kimi-k2.5";
+const DEFAULT_KIMI_MODEL = "kimi-k2.6";
 const DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-5";
 const KIMI_MAX_TOKENS = 16384;
 const ANTHROPIC_MAX_TOKENS = 4096;
