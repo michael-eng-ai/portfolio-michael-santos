@@ -1,3 +1,4 @@
+import { Type, type Schema } from "@google/genai";
 import { jsonrepair } from "jsonrepair";
 
 import {
@@ -7,6 +8,19 @@ import {
 } from "@/lib/database";
 import { generateText, resolveLlmProvider } from "@/lib/llm-text";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
+
+const ENRICHMENT_SCHEMA: Schema = {
+  type: Type.OBJECT,
+  properties: {
+    en: { type: Type.STRING },
+    pt: { type: Type.STRING },
+    seo_title_en: { type: Type.STRING },
+    seo_title_pt: { type: Type.STRING },
+    seo_description_en: { type: Type.STRING },
+    seo_description_pt: { type: Type.STRING },
+  },
+  required: ["en", "pt"],
+};
 
 const MAX_ITEMS_PER_RUN = 5;
 
@@ -129,7 +143,7 @@ async function main(): Promise<void> {
 
     try {
       const result = await withRetry(
-        () => generateText({ prompt, maxTokens: 1024 }),
+        () => generateText({ prompt, maxTokens: 1024, responseSchema: ENRICHMENT_SCHEMA }),
         {
           attempts: 3,
           delayMs: 1_500,

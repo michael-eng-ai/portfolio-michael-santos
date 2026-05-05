@@ -1,3 +1,4 @@
+import { Type, type Schema } from "@google/genai";
 import { jsonrepair } from "jsonrepair";
 
 import {
@@ -9,6 +10,14 @@ import { generateText, resolveLlmProvider } from "@/lib/llm-text";
 import { getSupabaseAdminClient } from "@/lib/supabase";
 import { queryPostgres } from "@/lib/postgres";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
+
+const CURATION_SCHEMA: Schema = {
+  type: Type.OBJECT,
+  properties: {
+    slugs: { type: Type.ARRAY, items: { type: Type.STRING } },
+  },
+  required: ["slugs"],
+};
 
 const MAX_CURATED_ITEMS = 5;
 
@@ -97,10 +106,10 @@ RULES:
 - Order from most important to least important
 - Do NOT add any slugs that are not in the list above
 
-FORMAT your response as a JSON array of slug strings:
-["slug-1", "slug-2", "slug-3", "slug-4", "slug-5"]
+FORMAT your response as a JSON object with a "slugs" key containing an array of slug strings:
+{"slugs": ["slug-1", "slug-2", "slug-3", "slug-4", "slug-5"]}
 
-Return ONLY the JSON array, no markdown fences or extra text.`;
+Return ONLY the JSON object, no markdown fences or extra text.`;
 }
 
 function parseCurationResponse(response: string): string[] {
@@ -112,11 +121,19 @@ function parseCurationResponse(response: string): string[] {
     parsed = JSON.parse(jsonrepair(cleaned));
   }
 
-  if (!Array.isArray(parsed)) {
-    throw new Error("Curation response is not an array");
+  // Accept either a raw array of slugs or an object with a "slugs" field.
+  // OpenAI-compat json_object mode (Groq) requires a root-level object so
+  // we ask for {"slugs": [...]} and unwrap here.
+  let candidates: unknown[];
+  if (Array.isArray(parsed)) {
+    candidates = parsed;
+  } else if (parsed && typeof parsed === "object" && Array.isArray((parsed as { slugs?: unknown }).slugs)) {
+    candidates = (parsed as { slugs: unknown[] }).slugs;
+  } else {
+    throw new Error("Curation response is not an array or object with slugs field");
   }
 
-  const slugs = parsed.filter((item): item is string => typeof item === "string");
+  const slugs = candidates.filter((item): item is string => typeof item === "string");
 
   if (slugs.length === 0) {
     throw new Error("Curation response returned zero valid slugs");
@@ -155,7 +172,7 @@ async function main(): Promise<void> {
   const prompt = buildCurationPrompt(todayNews);
 
   const result = await withRetry(
-    () => generateText({ prompt, maxTokens: 512 }),
+    () => generateText({ prompt, maxTokens: 512, responseSchema: CURATION_SCHEMA }),
     {
       attempts: 3,
       delayMs: 1_500,

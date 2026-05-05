@@ -49,7 +49,8 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          LLM_PROVIDER: groq
 
       - name: Curate top news for today
         if: vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
@@ -59,7 +60,8 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          LLM_PROVIDER: groq
 
       - name: Cleanup old news items
         if: vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
