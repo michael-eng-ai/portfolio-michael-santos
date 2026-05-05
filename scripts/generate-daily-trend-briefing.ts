@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
+import { Type, type Schema } from "@google/genai";
 import { jsonrepair } from "jsonrepair";
 import Parser from "rss-parser";
 
@@ -10,6 +11,25 @@ import { resolveNewsImage } from "@/lib/editorial-images";
 import { generateText, resolveLlmProvider } from "@/lib/llm-text";
 import { writeNewsSnapshot } from "@/lib/news-utils";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
+
+const BRIEFING_SCHEMA: Schema = {
+  type: Type.OBJECT,
+  properties: {
+    titleEn: { type: Type.STRING },
+    titlePt: { type: Type.STRING },
+    summaryEn: { type: Type.STRING },
+    summaryPt: { type: Type.STRING },
+    whyItMattersEn: { type: Type.STRING },
+    whyItMattersPt: { type: Type.STRING },
+    editorialEn: { type: Type.STRING },
+    editorialPt: { type: Type.STRING },
+    tags: { type: Type.ARRAY, items: { type: Type.STRING } },
+  },
+  required: [
+    "titleEn", "titlePt", "summaryEn", "summaryPt",
+    "whyItMattersEn", "whyItMattersPt", "editorialEn", "editorialPt", "tags",
+  ],
+};
 
 const SITE_HOST = "michael.business";
 const MIN_HEADLINES = 3;
@@ -258,7 +278,7 @@ async function main(): Promise<void> {
   const prompt = buildPrompt(headlines);
 
   const result = await withRetry(
-    () => generateText({ prompt, maxTokens: 2048 }),
+    () => generateText({ prompt, maxTokens: 2048, responseSchema: BRIEFING_SCHEMA }),
     {
       attempts: 3,
       delayMs: 1_500,

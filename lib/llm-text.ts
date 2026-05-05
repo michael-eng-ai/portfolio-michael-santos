@@ -1,10 +1,13 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, type Schema } from "@google/genai";
+import OpenAI from "openai";
 
 const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
 const DEFAULT_ANTHROPIC_MODEL = "claude-haiku-4-5-20251001";
+const DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile";
+const DEFAULT_GROQ_BASE_URL = "https://api.groq.com/openai/v1";
 
-export type LlmProvider = "gemini" | "anthropic";
+export type LlmProvider = "gemini" | "anthropic" | "groq";
 
 export type GenerateTextOptions = {
   prompt: string;
@@ -15,6 +18,13 @@ export type GenerateTextOptions = {
   provider?: LlmProvider;
   /** Override the model. Defaults: gemini-2.5-flash | claude-haiku-4-5-20251001 */
   model?: string;
+  /**
+   * Optional schema enforcement. When provided AND provider is "gemini",
+   * Gemini's responseSchema is used so the model is forced to emit
+   * schema-conforming JSON. Anthropic ignores this — provider-specific
+   * structured output isn't wired for Anthropic yet.
+   */
+  responseSchema?: Schema;
 };
 
 export type GenerateTextResult = {
@@ -34,15 +44,16 @@ export function resolveLlmProvider(override?: LlmProvider): LlmProvider {
   if (override) return override;
 
   const envProvider = process.env.LLM_PROVIDER?.toLowerCase();
-  if (envProvider === "gemini" || envProvider === "anthropic") {
+  if (envProvider === "gemini" || envProvider === "anthropic" || envProvider === "groq") {
     return envProvider;
   }
 
   if (process.env.GEMINI_API_KEY) return "gemini";
+  if (process.env.GROQ_API_KEY) return "groq";
   if (process.env.ANTHROPIC_API_KEY) return "anthropic";
 
   throw new Error(
-    "No LLM provider configured. Set GEMINI_API_KEY or ANTHROPIC_API_KEY (or LLM_PROVIDER=gemini|anthropic).",
+    "No LLM provider configured. Set GEMINI_API_KEY, GROQ_API_KEY or ANTHROPIC_API_KEY (or LLM_PROVIDER=gemini|groq|anthropic).",
   );
 }
 
@@ -65,6 +76,12 @@ async function generateWithGemini(
         : {}),
       ...(options.temperature !== undefined ? { temperature: options.temperature } : {}),
       ...(options.maxTokens !== undefined ? { maxOutputTokens: options.maxTokens } : {}),
+      ...(options.responseSchema
+        ? {
+            responseMimeType: "application/json",
+            responseSchema: options.responseSchema,
+          }
+        : {}),
     },
   });
 
@@ -73,6 +90,43 @@ async function generateWithGemini(
     throw new Error("Gemini response did not contain text content.");
   }
   return text;
+}
+
+async function generateWithGroq(
+  options: GenerateTextOptions,
+  model: string,
+): Promise<string> {
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) {
+    throw new Error("GROQ_API_KEY is not set; cannot use the Groq provider.");
+  }
+
+  const client = new OpenAI({
+    apiKey,
+    baseURL: process.env.GROQ_BASE_URL || DEFAULT_GROQ_BASE_URL,
+  });
+
+  const messages: { role: "system" | "user"; content: string }[] = [];
+  if (options.systemInstruction) {
+    messages.push({ role: "system", content: options.systemInstruction });
+  }
+  messages.push({ role: "user", content: options.prompt });
+
+  const completion = await client.chat.completions.create({
+    model,
+    max_tokens: options.maxTokens ?? 1024,
+    ...(options.temperature !== undefined ? { temperature: options.temperature } : {}),
+    ...(options.responseSchema
+      ? { response_format: { type: "json_object" } }
+      : {}),
+    messages,
+  });
+
+  const content = completion.choices[0]?.message?.content;
+  if (!content) {
+    throw new Error("Groq response did not contain text content.");
+  }
+  return content;
 }
 
 async function generateWithAnthropic(
@@ -109,12 +163,19 @@ export async function generateText(
 ): Promise<GenerateTextResult> {
   const provider = resolveLlmProvider(options.provider);
   const model =
-    options.model ?? (provider === "gemini" ? DEFAULT_GEMINI_MODEL : DEFAULT_ANTHROPIC_MODEL);
+    options.model ??
+    (provider === "gemini"
+      ? DEFAULT_GEMINI_MODEL
+      : provider === "groq"
+        ? DEFAULT_GROQ_MODEL
+        : DEFAULT_ANTHROPIC_MODEL);
 
   const text =
     provider === "gemini"
       ? await generateWithGemini(options, model)
-      : await generateWithAnthropic(options, model);
+      : provider === "groq"
+        ? await generateWithGroq(options, model)
+        : await generateWithAnthropic(options, model);
 
   return { text, provider, model };
 }
