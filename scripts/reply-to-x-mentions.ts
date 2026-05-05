@@ -1,9 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import Anthropic from "@anthropic-ai/sdk";
 import { TwitterApi } from "twitter-api-v2";
 
+import { generateText, resolveLlmProvider } from "@/lib/llm-text";
 import { toErrorMessage, withRetry, sleep } from "@/lib/runtime";
 
 const MAX_REPLIES_PER_RUN = 5;
@@ -66,17 +66,20 @@ async function main(): Promise<void> {
   const apiSecret = process.env.X_API_SECRET;
   const accessToken = process.env.X_ACCESS_TOKEN;
   const accessTokenSecret = process.env.X_ACCESS_TOKEN_SECRET;
-  const anthropicKey = process.env.ANTHROPIC_API_KEY;
 
   if (!apiKey || !apiSecret || !accessToken || !accessTokenSecret) {
     console.error("ERROR: X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET must be set");
     process.exit(1);
   }
 
-  if (!anthropicKey) {
-    console.error("ERROR: ANTHROPIC_API_KEY must be set");
+  let provider;
+  try {
+    provider = resolveLlmProvider();
+  } catch (error) {
+    console.error(`ERROR: ${toErrorMessage(error)}`);
     process.exit(1);
   }
+  console.log(`Using LLM provider: ${provider}`);
 
   const twitter = new TwitterApi({
     appKey: apiKey,
@@ -84,8 +87,6 @@ async function main(): Promise<void> {
     accessToken,
     accessSecret: accessTokenSecret,
   });
-
-  const anthropic = new Anthropic({ apiKey: anthropicKey });
 
   const lastMentionId = readLastMentionId();
   console.log(lastMentionId ? `Fetching mentions since ${lastMentionId}` : "Fetching recent mentions (first run)");
@@ -141,13 +142,8 @@ async function main(): Promise<void> {
     const prompt = buildReplyPrompt(mention.text);
 
     try {
-      const message = await withRetry(
-        () =>
-          anthropic.messages.create({
-            model: "claude-haiku-4-5-20251001",
-            max_tokens: 256,
-            messages: [{ role: "user", content: prompt }],
-          }),
+      const result = await withRetry(
+        () => generateText({ prompt, maxTokens: 256 }),
         {
           attempts: 3,
           delayMs: 1_500,
@@ -156,18 +152,12 @@ async function main(): Promise<void> {
             return msg.includes("rate") || msg.includes("overloaded") || msg.includes("timeout") || msg.includes("529");
           },
           onRetry: (error, attempt, nextDelayMs) => {
-            console.warn(`Retrying Claude reply generation for mention ${mention.id} after attempt ${attempt}: ${toErrorMessage(error)} (next in ${nextDelayMs}ms)`);
+            console.warn(`Retrying reply generation for mention ${mention.id} after attempt ${attempt}: ${toErrorMessage(error)} (next in ${nextDelayMs}ms)`);
           },
         },
       );
 
-      const textBlock = message.content.find((block) => block.type === "text");
-      if (!textBlock || textBlock.type !== "text") {
-        console.warn(`SKIPPED: mention ${mention.id} -- no text in Claude response`);
-        continue;
-      }
-
-      let replyText = textBlock.text.trim();
+      let replyText = result.text.trim();
 
       if (replyText.length > 280) {
         replyText = `${replyText.slice(0, 279).trimEnd()}…`;

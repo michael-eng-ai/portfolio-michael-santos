@@ -1,9 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import Anthropic from "@anthropic-ai/sdk";
-
 import { resolveLinkedinAuthorUrn } from "@/lib/linkedin-author";
+import { generateText, resolveLlmProvider } from "@/lib/llm-text";
 import { queryPostgres } from "@/lib/postgres";
 import { toErrorMessage, withRetry, sleep } from "@/lib/runtime";
 
@@ -158,17 +157,20 @@ async function getRecentLinkedInPosts(): Promise<Array<{ slug: string; linkedin_
 
 async function main(): Promise<void> {
   const accessToken = process.env.LINKEDIN_ACCESS_TOKEN;
-  const anthropicKey = process.env.ANTHROPIC_API_KEY;
 
   if (!accessToken) {
     console.error("ERROR: LINKEDIN_ACCESS_TOKEN must be set");
     process.exit(1);
   }
 
-  if (!anthropicKey) {
-    console.error("ERROR: ANTHROPIC_API_KEY must be set");
+  let provider;
+  try {
+    provider = resolveLlmProvider();
+  } catch (error) {
+    console.error(`ERROR: ${toErrorMessage(error)}`);
     process.exit(1);
   }
+  console.log(`Using LLM provider: ${provider}`);
 
   let author: ReturnType<typeof resolveLinkedinAuthorUrn>;
   try {
@@ -177,8 +179,6 @@ async function main(): Promise<void> {
     console.error("ERROR: LINKEDIN_PERSON_URN or LINKEDIN_ORGANIZATION_URN must be set");
     process.exit(1);
   }
-
-  const anthropic = new Anthropic({ apiKey: anthropicKey });
   const state = readRepliedComments();
   const repliedSet = new Set(state.repliedIds);
 
@@ -238,13 +238,8 @@ async function main(): Promise<void> {
       const prompt = buildReplyPrompt(comment.message.text, post.title);
 
       try {
-        const message = await withRetry(
-          () =>
-            anthropic.messages.create({
-              model: "claude-haiku-4-5-20251001",
-              max_tokens: 256,
-              messages: [{ role: "user", content: prompt }],
-            }),
+        const result = await withRetry(
+          () => generateText({ prompt, maxTokens: 256 }),
           {
             attempts: 3,
             delayMs: 1_500,
@@ -253,18 +248,12 @@ async function main(): Promise<void> {
               return msg.includes("rate") || msg.includes("overloaded") || msg.includes("timeout") || msg.includes("529");
             },
             onRetry: (error, attempt, nextDelayMs) => {
-              console.warn(`Retrying Claude reply for comment ${comment.id} after attempt ${attempt}: ${toErrorMessage(error)} (next in ${nextDelayMs}ms)`);
+              console.warn(`Retrying reply for comment ${comment.id} after attempt ${attempt}: ${toErrorMessage(error)} (next in ${nextDelayMs}ms)`);
             },
           },
         );
 
-        const textBlock = message.content.find((block) => block.type === "text");
-        if (!textBlock || textBlock.type !== "text") {
-          console.warn(`SKIPPED: comment ${comment.id} -- no text in Claude response`);
-          continue;
-        }
-
-        let replyText = textBlock.text.trim();
+        let replyText = result.text.trim();
         if (replyText.length > 500) {
           replyText = `${replyText.slice(0, 499).trimEnd()}…`;
           console.warn(`WARNING: reply truncated to 500 chars for comment ${comment.id}`);

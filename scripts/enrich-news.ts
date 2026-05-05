@@ -1,10 +1,11 @@
-import Anthropic from "@anthropic-ai/sdk";
+import { jsonrepair } from "jsonrepair";
 
 import {
   getRequiredWriteDatabaseEnvKeys,
   listUnenrichedNewsRows,
   updateNewsRowBySlug,
 } from "@/lib/database";
+import { generateText, resolveLlmProvider } from "@/lib/llm-text";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
 
 const MAX_ITEMS_PER_RUN = 5;
@@ -73,7 +74,12 @@ Return ONLY the JSON object, no markdown fences or extra text.`;
 
 function parseAnalysis(response: string): EditorialAnalysis {
   const cleaned = response.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
-  const parsed = JSON.parse(cleaned) as EditorialAnalysis;
+  let parsed: EditorialAnalysis;
+  try {
+    parsed = JSON.parse(cleaned) as EditorialAnalysis;
+  } catch {
+    parsed = JSON.parse(jsonrepair(cleaned)) as EditorialAnalysis;
+  }
 
   if (!parsed.en || !parsed.pt) {
     throw new Error("Missing en or pt field in editorial analysis");
@@ -90,7 +96,6 @@ function parseAnalysis(response: string): EditorialAnalysis {
 }
 
 async function main(): Promise<void> {
-  const anthropicKey = process.env.ANTHROPIC_API_KEY;
   const missingDatabaseEnv = getRequiredWriteDatabaseEnvKeys().filter((key) => !process.env[key]);
 
   if (missingDatabaseEnv.length > 0) {
@@ -98,12 +103,15 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  if (!anthropicKey) {
-    console.error("ERROR: ANTHROPIC_API_KEY must be set");
+  let provider;
+  try {
+    provider = resolveLlmProvider();
+  } catch (error) {
+    console.error(`ERROR: ${toErrorMessage(error)}`);
     process.exit(1);
   }
+  console.log(`Using LLM provider: ${provider}`);
 
-  const anthropic = new Anthropic({ apiKey: anthropicKey });
   const unenriched = await listUnenrichedNewsRows(MAX_ITEMS_PER_RUN);
 
   if (!unenriched || unenriched.length === 0) {
@@ -120,13 +128,8 @@ async function main(): Promise<void> {
     const prompt = buildPrompt(news);
 
     try {
-      const message = await withRetry(
-        () =>
-          anthropic.messages.create({
-            model: "claude-haiku-4-5-20251001",
-            max_tokens: 1024,
-            messages: [{ role: "user", content: prompt }],
-          }),
+      const result = await withRetry(
+        () => generateText({ prompt, maxTokens: 1024 }),
         {
           attempts: 3,
           delayMs: 1_500,
@@ -135,18 +138,12 @@ async function main(): Promise<void> {
             return message.includes("rate") || message.includes("overloaded") || message.includes("timeout") || message.includes("529");
           },
           onRetry: (error, attempt, nextDelayMs) => {
-            console.warn(`Retrying Claude enrichment for ${news.slug} after attempt ${attempt}: ${toErrorMessage(error)} (next in ${nextDelayMs}ms)`);
+            console.warn(`Retrying enrichment for ${news.slug} after attempt ${attempt}: ${toErrorMessage(error)} (next in ${nextDelayMs}ms)`);
           },
         },
       );
 
-      const textBlock = message.content.find((block) => block.type === "text");
-      if (!textBlock || textBlock.type !== "text") {
-        console.warn(`SKIPPED: ${news.slug} -- no text in response`);
-        continue;
-      }
-
-      const analysis = parseAnalysis(textBlock.text);
+      const analysis = parseAnalysis(result.text);
 
       await withRetry(
         () => updateNewsRowBySlug(news.slug, { editorial_analysis: analysis }),
