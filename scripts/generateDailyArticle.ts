@@ -2,6 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 
 import Anthropic from "@anthropic-ai/sdk";
+import { jsonrepair } from "jsonrepair";
 import OpenAI from "openai";
 
 import { getNewsReferences, getProjects } from "@/lib/content";
@@ -9,8 +10,12 @@ import { getNewsReferences, getProjects } from "@/lib/content";
 const DEFAULT_KIMI_BASE_URL = "https://api.moonshot.ai/v1";
 const DEFAULT_KIMI_MODEL = "kimi-k2-turbo-preview";
 const KIMI_REQUEST_TIMEOUT_MS = 10 * 60 * 1000;
+const DEFAULT_GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai";
+const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
+const GEMINI_REQUEST_TIMEOUT_MS = 10 * 60 * 1000;
 const DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-5";
 const KIMI_MAX_TOKENS = 16384;
+const GEMINI_MAX_TOKENS = 16384;
 const ANTHROPIC_MAX_TOKENS = 4096;
 const ANTHROPIC_TEMPERATURE = 0.7;
 
@@ -29,24 +34,27 @@ type ArticlePayload = {
   bodyPt: string;
 };
 
-type Provider = "kimi" | "anthropic";
+type Provider = "kimi" | "gemini" | "anthropic";
 
 const SYSTEM_PROMPT =
   "You write precise bilingual content for a data engineering portfolio site. Avoid hype. Keep it useful for recruiters and engineering managers. Respond with valid JSON only.";
 
 function resolveProvider(): Provider {
   const explicit = process.env.LLM_PROVIDER?.toLowerCase();
-  if (explicit === "kimi" || explicit === "anthropic") {
+  if (explicit === "kimi" || explicit === "gemini" || explicit === "anthropic") {
     return explicit;
   }
   if (process.env.KIMI_API_KEY) {
     return "kimi";
   }
+  if (process.env.GEMINI_API_KEY) {
+    return "gemini";
+  }
   if (process.env.ANTHROPIC_API_KEY) {
     return "anthropic";
   }
   throw new Error(
-    "No LLM provider configured. Set KIMI_API_KEY or ANTHROPIC_API_KEY.",
+    "No LLM provider configured. Set KIMI_API_KEY, GEMINI_API_KEY or ANTHROPIC_API_KEY.",
   );
 }
 
@@ -172,6 +180,31 @@ async function generateWithKimi(prompt: string): Promise<string> {
   return content;
 }
 
+async function generateWithGemini(prompt: string): Promise<string> {
+  const client = new OpenAI({
+    apiKey: process.env.GEMINI_API_KEY,
+    baseURL: process.env.GEMINI_BASE_URL || DEFAULT_GEMINI_BASE_URL,
+    timeout: GEMINI_REQUEST_TIMEOUT_MS,
+  });
+
+  const completion = await client.chat.completions.create({
+    model: process.env.GEMINI_MODEL || DEFAULT_GEMINI_MODEL,
+    max_tokens: GEMINI_MAX_TOKENS,
+    temperature: 1,
+    response_format: { type: "json_object" },
+    messages: [
+      { role: "system", content: SYSTEM_PROMPT },
+      { role: "user", content: prompt },
+    ],
+  });
+
+  const content = completion.choices[0]?.message?.content;
+  if (!content) {
+    throw new Error("Gemini response did not contain text content.");
+  }
+  return content;
+}
+
 async function generateWithAnthropic(prompt: string): Promise<string> {
   const client = new Anthropic();
 
@@ -199,9 +232,20 @@ async function main() {
   const rawText =
     provider === "kimi"
       ? await generateWithKimi(prompt)
-      : await generateWithAnthropic(prompt);
+      : provider === "gemini"
+        ? await generateWithGemini(prompt)
+        : await generateWithAnthropic(prompt);
 
-  const payload = JSON.parse(extractJson(rawText)) as ArticlePayload;
+  const jsonText = extractJson(rawText);
+  let payload: ArticlePayload;
+  try {
+    payload = JSON.parse(jsonText) as ArticlePayload;
+  } catch (parseError) {
+    console.warn(
+      `Direct JSON.parse failed (${(parseError as Error).message}); attempting jsonrepair fallback.`,
+    );
+    payload = JSON.parse(jsonrepair(jsonText)) as ArticlePayload;
+  }
 
   const slug = slugify(payload.titleEn);
   const article = {

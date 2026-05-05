@@ -23,9 +23,9 @@ jobs:
       - name: Check configuration
         id: config
         run: |
-          if [ -z "${{ secrets.KIMI_API_KEY }}" ] && [ -z "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
+          if [ -z "${{ secrets.KIMI_API_KEY }}" ] && [ -z "${{ secrets.GEMINI_API_KEY }}" ] && [ -z "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
             echo "ready=false" >> "$GITHUB_OUTPUT"
-            echo "Neither KIMI_API_KEY nor ANTHROPIC_API_KEY is configured. Skipping article draft pipeline."
+            echo "No LLM API key configured (KIMI_API_KEY, GEMINI_API_KEY, ANTHROPIC_API_KEY). Skipping article draft pipeline."
           else
             echo "ready=true" >> "$GITHUB_OUTPUT"
           fi
@@ -56,6 +56,9 @@ jobs:
           KIMI_API_KEY: ${{ secrets.KIMI_API_KEY }}
           KIMI_BASE_URL: ${{ vars.KIMI_BASE_URL }}
           KIMI_MODEL: ${{ vars.KIMI_MODEL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_BASE_URL: ${{ vars.GEMINI_BASE_URL }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
