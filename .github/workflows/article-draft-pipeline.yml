@@ -99,6 +99,16 @@ jobs:
             -f description='Validated automated article draft update' \
             -f target_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
+      - name: Enable auto-merge on generated article PR
+        if: steps.config.outputs.ready == 'true' && steps.create_article_pr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr merge ${{ steps.create_article_pr.outputs.pull-request-number }} \
+            --squash --delete-branch --auto || \
+          gh pr merge ${{ steps.create_article_pr.outputs.pull-request-number }} \
+            --squash --delete-branch
+
       - name: No automation run
         if: steps.config.outputs.ready != 'true'
         run: echo "Article draft pipeline skipped because neither KIMI_API_KEY nor ANTHROPIC_API_KEY is configured."
