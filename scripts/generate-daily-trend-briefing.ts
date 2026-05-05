@@ -1,12 +1,13 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
-import Anthropic from "@anthropic-ai/sdk";
+import { jsonrepair } from "jsonrepair";
 import Parser from "rss-parser";
 
 import { getRequiredWriteDatabaseEnvKeys, listActiveNewsRows, upsertNewsRows } from "@/lib/database";
 import { articleSchema, newsSchema } from "@/lib/content";
 import { resolveNewsImage } from "@/lib/editorial-images";
+import { generateText, resolveLlmProvider } from "@/lib/llm-text";
 import { writeNewsSnapshot } from "@/lib/news-utils";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
 
@@ -160,7 +161,12 @@ Return ONLY the JSON object, no markdown fences or extra text.`;
 
 function parseResponse(response: string): BriefingContent {
   const cleaned = response.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
-  const parsed = JSON.parse(cleaned) as BriefingContent;
+  let parsed: BriefingContent;
+  try {
+    parsed = JSON.parse(cleaned) as BriefingContent;
+  } catch {
+    parsed = JSON.parse(jsonrepair(cleaned)) as BriefingContent;
+  }
 
   const requiredFields: (keyof BriefingContent)[] = [
     "titleEn", "titlePt", "summaryEn", "summaryPt",
@@ -219,7 +225,6 @@ async function writeBriefingArticle(slug: string, briefing: BriefingContent, pub
 }
 
 async function main(): Promise<void> {
-  const anthropicKey = process.env.ANTHROPIC_API_KEY;
   const missingDatabaseEnv = getRequiredWriteDatabaseEnvKeys().filter((key) => !process.env[key]);
 
   if (missingDatabaseEnv.length > 0) {
@@ -227,10 +232,14 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  if (!anthropicKey) {
-    console.error("ERROR: ANTHROPIC_API_KEY must be set");
+  let provider;
+  try {
+    provider = resolveLlmProvider();
+  } catch (error) {
+    console.error(`ERROR: ${toErrorMessage(error)}`);
     process.exit(1);
   }
+  console.log(`Using LLM provider: ${provider}`);
 
   const keywordsPath = path.resolve(process.cwd(), "content/sources/trend-keywords.json");
   const keywordsRaw = await fs.readFile(keywordsPath, "utf-8");
@@ -246,16 +255,10 @@ async function main(): Promise<void> {
 
   console.log(`Collected ${headlines.length} trending headlines. Generating briefing...`);
 
-  const anthropic = new Anthropic({ apiKey: anthropicKey });
   const prompt = buildPrompt(headlines);
 
-  const message = await withRetry(
-    () =>
-      anthropic.messages.create({
-        model: "claude-haiku-4-5-20251001",
-        max_tokens: 2048,
-        messages: [{ role: "user", content: prompt }],
-      }),
+  const result = await withRetry(
+    () => generateText({ prompt, maxTokens: 2048 }),
     {
       attempts: 3,
       delayMs: 1_500,
@@ -266,13 +269,7 @@ async function main(): Promise<void> {
     },
   );
 
-  const textBlock = message.content.find((block) => block.type === "text");
-  if (!textBlock || textBlock.type !== "text") {
-    console.error("ERROR: no text in Claude response");
-    process.exit(1);
-  }
-
-  const briefing = parseResponse(textBlock.text);
+  const briefing = parseResponse(result.text);
   const slug = todaySlug();
   const sourceUrl = `https://${SITE_HOST}/en/news/${slug}`;
   const nowIso = new Date().toISOString();
