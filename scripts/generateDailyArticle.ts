@@ -2,6 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 
 import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenAI, Type } from "@google/genai";
 import { jsonrepair } from "jsonrepair";
 import OpenAI from "openai";
 
@@ -181,28 +182,71 @@ async function generateWithKimi(prompt: string): Promise<string> {
 }
 
 async function generateWithGemini(prompt: string): Promise<string> {
-  const client = new OpenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-    baseURL: process.env.GEMINI_BASE_URL || DEFAULT_GEMINI_BASE_URL,
-    timeout: GEMINI_REQUEST_TIMEOUT_MS,
-  });
+  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+  const stringField = { type: Type.STRING };
+  const stringArrayField = { type: Type.ARRAY, items: { type: Type.STRING } };
 
-  const completion = await client.chat.completions.create({
+  const response = await ai.models.generateContent({
     model: process.env.GEMINI_MODEL || DEFAULT_GEMINI_MODEL,
-    max_tokens: GEMINI_MAX_TOKENS,
-    temperature: 1,
-    response_format: { type: "json_object" },
-    messages: [
-      { role: "system", content: SYSTEM_PROMPT },
-      { role: "user", content: prompt },
-    ],
+    contents: prompt,
+    config: {
+      systemInstruction: SYSTEM_PROMPT,
+      temperature: 1,
+      maxOutputTokens: GEMINI_MAX_TOKENS,
+      responseMimeType: "application/json",
+      responseSchema: {
+        type: Type.OBJECT,
+        properties: {
+          titleEn: stringField,
+          titlePt: stringField,
+          excerptEn: stringField,
+          excerptPt: stringField,
+          categoryEn: stringField,
+          categoryPt: stringField,
+          tags: stringArrayField,
+          readingMinutes: { type: Type.INTEGER },
+          relatedProjectSlugs: stringArrayField,
+          relatedNewsSlugs: stringArrayField,
+          bodyEn: stringField,
+          bodyPt: stringField,
+        },
+        required: [
+          "titleEn",
+          "titlePt",
+          "excerptEn",
+          "excerptPt",
+          "categoryEn",
+          "categoryPt",
+          "tags",
+          "readingMinutes",
+          "relatedProjectSlugs",
+          "relatedNewsSlugs",
+          "bodyEn",
+          "bodyPt",
+        ],
+        propertyOrdering: [
+          "titleEn",
+          "titlePt",
+          "excerptEn",
+          "excerptPt",
+          "categoryEn",
+          "categoryPt",
+          "tags",
+          "readingMinutes",
+          "relatedProjectSlugs",
+          "relatedNewsSlugs",
+          "bodyEn",
+          "bodyPt",
+        ],
+      },
+    },
   });
 
-  const content = completion.choices[0]?.message?.content;
-  if (!content) {
+  const text = response.text;
+  if (!text) {
     throw new Error("Gemini response did not contain text content.");
   }
-  return content;
+  return text;
 }
 
 async function generateWithAnthropic(prompt: string): Promise<string> {
