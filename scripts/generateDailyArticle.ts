@@ -7,12 +7,14 @@ import { jsonrepair } from "jsonrepair";
 import OpenAI from "openai";
 
 import { getNewsReferences, getProjects } from "@/lib/content";
+import { generateCoverImage } from "@/lib/image-gen";
+import { toErrorMessage, withRetry } from "@/lib/runtime";
 
 const DEFAULT_KIMI_BASE_URL = "https://api.moonshot.ai/v1";
 const DEFAULT_KIMI_MODEL = "kimi-k2-turbo-preview";
 const KIMI_REQUEST_TIMEOUT_MS = 10 * 60 * 1000;
 const DEFAULT_GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai";
-const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
+const DEFAULT_GEMINI_MODEL = "gemini-flash-latest";
 const GEMINI_REQUEST_TIMEOUT_MS = 10 * 60 * 1000;
 const DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-5";
 const KIMI_MAX_TOKENS = 16384;
@@ -35,14 +37,22 @@ type ArticlePayload = {
   bodyPt: string;
 };
 
-type Provider = "kimi" | "gemini" | "anthropic";
+type Provider = "kimi" | "gemini" | "groq" | "anthropic";
+
+const DEFAULT_GROQ_BASE_URL = "https://api.groq.com/openai/v1";
+const DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile";
 
 const SYSTEM_PROMPT =
   "You write precise bilingual content for a data engineering portfolio site. Avoid hype. Keep it useful for recruiters and engineering managers. Respond with valid JSON only.";
 
 function resolveProvider(): Provider {
   const explicit = process.env.LLM_PROVIDER?.toLowerCase();
-  if (explicit === "kimi" || explicit === "gemini" || explicit === "anthropic") {
+  if (
+    explicit === "kimi" ||
+    explicit === "gemini" ||
+    explicit === "groq" ||
+    explicit === "anthropic"
+  ) {
     return explicit;
   }
   if (process.env.KIMI_API_KEY) {
@@ -51,11 +61,14 @@ function resolveProvider(): Provider {
   if (process.env.GEMINI_API_KEY) {
     return "gemini";
   }
+  if (process.env.GROQ_API_KEY) {
+    return "groq";
+  }
   if (process.env.ANTHROPIC_API_KEY) {
     return "anthropic";
   }
   throw new Error(
-    "No LLM provider configured. Set KIMI_API_KEY, GEMINI_API_KEY or ANTHROPIC_API_KEY.",
+    "No LLM provider configured. Set KIMI_API_KEY, GEMINI_API_KEY, GROQ_API_KEY, or ANTHROPIC_API_KEY.",
   );
 }
 
@@ -249,6 +262,30 @@ async function generateWithGemini(prompt: string): Promise<string> {
   return text;
 }
 
+async function generateWithGroq(prompt: string): Promise<string> {
+  const client = new OpenAI({
+    apiKey: process.env.GROQ_API_KEY,
+    baseURL: process.env.GROQ_BASE_URL || DEFAULT_GROQ_BASE_URL,
+  });
+
+  const completion = await client.chat.completions.create({
+    model: process.env.GROQ_MODEL || DEFAULT_GROQ_MODEL,
+    max_tokens: KIMI_MAX_TOKENS,
+    temperature: 1,
+    response_format: { type: "json_object" },
+    messages: [
+      { role: "system", content: SYSTEM_PROMPT },
+      { role: "user", content: prompt },
+    ],
+  });
+
+  const content = completion.choices[0]?.message?.content;
+  if (!content) {
+    throw new Error("Groq response did not contain text content.");
+  }
+  return content;
+}
+
 async function generateWithAnthropic(prompt: string): Promise<string> {
   const client = new Anthropic();
 
@@ -273,12 +310,40 @@ async function main() {
   const prompt = buildPrompt(projects, news);
 
   console.log(`Generating article via provider=${provider}`);
-  const rawText =
-    provider === "kimi"
-      ? await generateWithKimi(prompt)
-      : provider === "gemini"
-        ? await generateWithGemini(prompt)
-        : await generateWithAnthropic(prompt);
+  const generate = (): Promise<string> => {
+    switch (provider) {
+      case "kimi":
+        return generateWithKimi(prompt);
+      case "gemini":
+        return generateWithGemini(prompt);
+      case "groq":
+        return generateWithGroq(prompt);
+      case "anthropic":
+        return generateWithAnthropic(prompt);
+    }
+  };
+
+  const rawText = await withRetry(generate, {
+    attempts: 4,
+    delayMs: 8_000,
+    shouldRetry: (error) => {
+      const msg = toErrorMessage(error).toLowerCase();
+      return (
+        msg.includes("503") ||
+        msg.includes("unavailable") ||
+        msg.includes("overloaded") ||
+        msg.includes("rate") ||
+        msg.includes("timeout") ||
+        msg.includes("high demand") ||
+        msg.includes("529")
+      );
+    },
+    onRetry: (error, attempt, nextDelayMs) => {
+      console.warn(
+        `Article generation attempt ${attempt} failed (${toErrorMessage(error)}); retrying in ${nextDelayMs}ms`,
+      );
+    },
+  });
 
   const jsonText = extractJson(rawText);
   let payload: ArticlePayload;
@@ -292,10 +357,33 @@ async function main() {
   }
 
   const slug = slugify(payload.titleEn);
+
+  // Generate cover image (best-effort: article still ships if image fails).
+  let imageUrl: string | undefined;
+  if (process.env.GEMINI_API_KEY && process.env.SKIP_COVER_IMAGE !== "true") {
+    try {
+      const imagePrompt = `${payload.titleEn}. ${payload.excerptEn}. Tags: ${payload.tags.join(", ")}.`;
+      const cover = await generateCoverImage({ slug, prompt: imagePrompt });
+      imageUrl = cover.publicUrl;
+      console.log(
+        `Cover image generated via ${cover.model} (${(cover.bytes / 1024).toFixed(0)} KB) -> ${cover.publicUrl}`,
+      );
+    } catch (error) {
+      console.warn(
+        `Cover image generation failed (${(error as Error).message}); article will use the default social image.`,
+      );
+    }
+  } else if (process.env.SKIP_COVER_IMAGE === "true") {
+    console.log("SKIP_COVER_IMAGE=true; not generating a cover image.");
+  } else {
+    console.warn("GEMINI_API_KEY not set; skipping cover image generation.");
+  }
+
   const article = {
     slug,
     publishedAt: new Date().toISOString().slice(0, 10),
     featured: false,
+    ...(imageUrl ? { imageUrl } : {}),
     category: {
       en: payload.categoryEn,
       pt: payload.categoryPt,
