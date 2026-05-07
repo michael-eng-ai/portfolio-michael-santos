@@ -1,0 +1,27 @@
+{
+  "slug": "article-agentic-data-pipeline-with-claude-mcp-for-self-healing-etl",
+  "sourceType": "article",
+  "sourceSlug": "agentic-data-pipeline-with-claude-mcp-for-self-healing-etl",
+  "status": "draft",
+  "generatedAt": "2026-05-07T12:09:58.751Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing-etl",
+    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing-etl",
+    "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Agentic data pipeline with Claude MCP for self-healing ETL\n\nBuild an agentic data pipeline with Claude MCP to automate schema drift detection and recovery. Improve reliability and…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing-etl",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Pipeline de dados agêntico com Claude MCP para ETL auto-regenerativo\n\nConstrua um pipeline de dados agêntico com Claude MCP para automatizar a detecção de desvios de esquema. Melho…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing-etl",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+      ]
+    }
+  }
+}
