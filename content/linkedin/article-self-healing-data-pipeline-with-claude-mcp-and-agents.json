@@ -1,0 +1,25 @@
+{
+  "slug": "article-self-healing-data-pipeline-with-claude-mcp-and-agents",
+  "sourceType": "article",
+  "sourceSlug": "self-healing-data-pipeline-with-claude-mcp-and-agents",
+  "status": "draft",
+  "generatedAt": "2026-05-08T11:57:53.881Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-and-agents",
+    "pt": "https://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-and-agents",
+    "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+  },
+  "locales": {
+    "en": {
+      "hook": "Self-healing data pipeline with Claude MCP and agents",
+      "body": "Deploy a self-healing data pipeline with Claude MCP to automate error recovery. Reduce on-call incidents by implementing autonomous schema and quality fixes.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Pipeline de dados auto-regenerativo com Claude MCP",
+      "body": "Implemente um pipeline de dados auto-regenerativo com Claude MCP para automação de erros. Reduza incidentes de plantão com correções autônomas de esquema.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}
