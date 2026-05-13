@@ -32,13 +32,14 @@
     "content:worker:news-cycle": "tsx scripts/run-worker-task.ts news-cycle",
     "content:worker:daily-cycle": "tsx scripts/run-worker-task.ts daily-cycle",
     "content:worker:engagement-cycle": "tsx scripts/run-worker-task.ts engagement-cycle",
+    "content:worker:health": "tsx scripts/report-worker-health.ts",
+    "content:test:llm": "tsx scripts/test-llm-providers.ts",
     "content:local:automation": "tsx scripts/run-local-content-automation.ts",
     "content:pipeline": "pnpm content:sync:news && pnpm content:sync:github && pnpm content:linkedin && pnpm content:x && pnpm content:validate",
     "deploy": "vercel --prod",
     "deploy:preview": "vercel"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.80.0",
     "@google/genai": "^1.52.0",
     "@hookform/resolvers": "^5.2.2",
     "@next/third-parties": "^16.1.6",

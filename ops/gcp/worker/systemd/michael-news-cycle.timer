@@ -5,6 +5,7 @@ Description=Run Michael Business news cycle hourly
 OnCalendar=hourly
 RandomizedDelaySec=15m
 AccuracySec=1m
+FixedRandomDelay=true
 Persistent=true
 Unit=michael-news-cycle.service
 

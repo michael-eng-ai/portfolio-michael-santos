@@ -23,9 +23,9 @@ jobs:
       - name: Check configuration
         id: config
         run: |
-          if [ -z "${{ secrets.KIMI_API_KEY }}" ] && [ -z "${{ secrets.GEMINI_API_KEY }}" ] && [ -z "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
+          if [ -z "${{ secrets.KIMI_API_KEY }}" ] && [ -z "${{ secrets.GEMINI_API_KEY }}" ] && [ -z "${{ secrets.GROQ_API_KEY }}" ]; then
             echo "ready=false" >> "$GITHUB_OUTPUT"
-            echo "No LLM API key configured (KIMI_API_KEY, GEMINI_API_KEY, ANTHROPIC_API_KEY). Skipping article draft pipeline."
+            echo "No LLM API key configured (KIMI_API_KEY, GEMINI_API_KEY, GROQ_API_KEY). Skipping article draft pipeline."
           else
             echo "ready=true" >> "$GITHUB_OUTPUT"
           fi
@@ -59,7 +59,9 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_BASE_URL: ${{ vars.GEMINI_BASE_URL }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_BASE_URL: ${{ vars.GROQ_BASE_URL }}
+          GROQ_MODEL: ${{ vars.GROQ_MODEL }}
           LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -111,4 +113,4 @@ jobs:
 
       - name: No automation run
         if: steps.config.outputs.ready != 'true'
-        run: echo "Article draft pipeline skipped because neither KIMI_API_KEY nor ANTHROPIC_API_KEY is configured."
+        run: echo "Article draft pipeline skipped because no KIMI_API_KEY, GEMINI_API_KEY, or GROQ_API_KEY is configured."

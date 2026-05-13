@@ -45,7 +45,7 @@ jobs:
         id: review
         env:
           KIMI_API_KEY: ${{ secrets.KIMI_API_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           DIFF_CONTENT: ${{ steps.diff.outputs.diff }}
         run: |
           set -uo pipefail
@@ -79,24 +79,23 @@ jobs:
                 (.choices[0].message.content // "Failed to generate review.")
               end
             ')
-          elif [ -n "${ANTHROPIC_API_KEY:-}" ]; then
+          elif [ -n "${GROQ_API_KEY:-}" ]; then
             BODY=$(jq -n \
-              --arg model "claude-haiku-4-5-20251001" \
+              --arg model "llama-3.3-70b-versatile" \
               --arg prompt "$PROMPT" \
-              --argjson max_tokens 1024 \
-              '{model: $model, max_tokens: $max_tokens, messages: [{role: "user", content: $prompt}]}')
+              --argjson max_tokens 2048 \
+              '{model: $model, max_tokens: $max_tokens, temperature: 0.2, messages: [{role: "system", content: "You are a senior code reviewer. Be direct and terse."}, {role: "user", content: $prompt}]}')
 
-            RESPONSE=$(curl -sS -X POST https://api.anthropic.com/v1/messages \
+            RESPONSE=$(curl -sS -X POST https://api.groq.com/openai/v1/chat/completions \
               -H "Content-Type: application/json" \
-              -H "x-api-key: ${ANTHROPIC_API_KEY}" \
-              -H "anthropic-version: 2023-06-01" \
+              -H "Authorization: Bearer ${GROQ_API_KEY}" \
               -d "$BODY")
 
             REVIEW=$(echo "$RESPONSE" | jq -r '
               if .error then
-                "Failed to generate review (Anthropic): " + (.error.message // "unknown API error")
+                "Failed to generate review (Groq): " + (.error.message // "unknown API error")
               else
-                (.content[0].text // "Failed to generate review.")
+                (.choices[0].message.content // "Failed to generate review.")
               end
             ')
           else
@@ -116,12 +115,12 @@ jobs:
           set -euo pipefail
 
           COMMENT_BODY=$(cat <<EOF
-          **Claude Code Review**
+          **Automated Code Review**
 
           ${REVIEW_BODY}
 
           ---
-          _Automated review by Claude Haiku. Not a substitute for human review._
+          _Automated review by the configured LLM provider. Not a substitute for human review._
           EOF
           )
 

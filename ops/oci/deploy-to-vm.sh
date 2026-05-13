@@ -60,7 +60,6 @@ merged = {}
 allowed_keys = {
     "NEXT_PUBLIC_SITE_URL",
     "DATABASE_PROVIDER",
-    "SECONDARY_DATABASE_PROVIDER",
     "DATABASE_URL",
     "DATABASE_SSL",
     "POSTGRES_IMAGE",
@@ -69,10 +68,11 @@ allowed_keys = {
     "POSTGRES_USER",
     "POSTGRES_PASSWORD",
     "POSTGRES_PORT",
-    "SUPABASE_URL",
-    "SUPABASE_SERVICE_ROLE_KEY",
     "INDEXNOW_KEY",
-    "ANTHROPIC_API_KEY",
+    "LLM_PROVIDER",
+    "GEMINI_API_KEY",
+    "GROQ_API_KEY",
+    "GROQ_BASE_URL",
     "X_API_KEY",
     "X_API_SECRET",
     "X_ACCESS_TOKEN",
@@ -83,6 +83,8 @@ allowed_keys = {
     "DASHBOARD_PASSWORD_HASH",
     "GOOGLE_APPLICATION_CREDENTIALS",
     "GSC_SITE_URL",
+    "TELEGRAM_BOT_TOKEN_HERMES",
+    "TELEGRAM_HOME_CHAT_ID",
 }
 
 for path in inputs:
@@ -102,6 +104,12 @@ for path in inputs:
         elif key not in merged:
             merged[key] = value
 
+if not merged.get("LLM_PROVIDER"):
+    if merged.get("GROQ_API_KEY"):
+        merged["LLM_PROVIDER"] = "groq"
+    elif merged.get("GEMINI_API_KEY"):
+        merged["LLM_PROVIDER"] = "gemini"
+
 output.write_text("\n".join(f"{key}={value}" for key, value in merged.items()) + "\n")
 non_empty = sorted(key for key, value in merged.items() if value)
 print("  Merged:", ", ".join(non_empty) if non_empty else "none", file=sys.stderr)
@@ -117,6 +125,7 @@ set -euo pipefail
 
 # Directories
 mkdir -p "$REMOTE_APP_ROOT" "$REMOTE_APP_ROOT/run" "$REMOTE_ENV_DIR"
+usermod -aG systemd-journal michaelworker || true
 chown -R michaelworker:michaelworker "$REMOTE_APP_ROOT"
 chgrp michaelworker "$REMOTE_ENV_DIR"
 chmod 750 "$REMOTE_ENV_DIR"
@@ -137,6 +146,10 @@ install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/gcp/worker/systemd/michael-
 install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/gcp/worker/systemd/michael-daily-briefing.timer" /etc/systemd/system/
 install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/oci/systemd/michael-health-check.service" /etc/systemd/system/
 install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/oci/systemd/michael-health-check.timer" /etc/systemd/system/
+install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/oci/systemd/michael-engagement-cycle.service" /etc/systemd/system/
+install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/oci/systemd/michael-engagement-cycle.timer" /etc/systemd/system/
+install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/oci/systemd/michael-worker-health-report.service" /etc/systemd/system/
+install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/oci/systemd/michael-worker-health-report.timer" /etc/systemd/system/
 
 # Install dependencies
 sudo -u michaelworker bash -lc 'cd $REMOTE_REPO_DIR && pnpm install --frozen-lockfile 2>&1 | tail -5'
@@ -148,12 +161,13 @@ fi
 
 # Systemd
 systemctl daemon-reload
+systemctl reset-failed michael-news-cycle.service michael-daily-briefing.service michael-health-check.service michael-engagement-cycle.service michael-worker-health-report.service >/dev/null 2>&1 || true
 
 if [[ "$ENABLE_TIMERS" == "1" ]]; then
-  systemctl enable --now michael-news-cycle.timer michael-daily-briefing.timer michael-health-check.timer
+  systemctl enable --now michael-news-cycle.timer michael-daily-briefing.timer michael-health-check.timer michael-engagement-cycle.timer michael-worker-health-report.timer
   echo "Timers ENABLED"
 else
-  systemctl disable --now michael-news-cycle.timer michael-daily-briefing.timer michael-health-check.timer >/dev/null 2>&1 || true
+  systemctl disable --now michael-news-cycle.timer michael-daily-briefing.timer michael-health-check.timer michael-engagement-cycle.timer michael-worker-health-report.timer >/dev/null 2>&1 || true
   echo "Timers DISABLED"
 fi
 

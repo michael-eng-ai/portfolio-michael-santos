@@ -1,5 +1,5 @@
 [Unit]
-Description=Michael Business engagement cycle worker
+Description=Michael Business worker health report
 Wants=network-online.target
 After=network-online.target
 ConditionPathExists=/etc/michael-business/worker.env
@@ -12,10 +12,10 @@ User=michaelworker
 Group=michaelworker
 WorkingDirectory=/opt/michael-business/portfolio-michael-santos
 EnvironmentFile=/etc/michael-business/worker.env
-ExecStart=/usr/bin/flock -n /opt/michael-business/run/engagement-cycle.lock /usr/bin/env pnpm content:worker:engagement-cycle
-Nice=10
-TimeoutStartSec=20min
-SyslogIdentifier=michael-engagement-cycle
+ExecStart=/usr/bin/flock -n /opt/michael-business/run/worker-health-report.lock /usr/bin/env pnpm content:worker:health
+Nice=15
+TimeoutStartSec=2min
+SyslogIdentifier=michael-worker-health-report
 Restart=on-failure
 RestartSec=2min
 

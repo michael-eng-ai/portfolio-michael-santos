@@ -67,13 +67,12 @@ O deploy tenta montar `/etc/michael-business/worker.env` a partir de:
 3. `.env.worker.local`
 4. `EXTRA_ENV_FILE`, se informado
 
-Hoje isso cobre bem o sync com Supabase. Os passos opcionais de enrichment e social ficam em modo skip enquanto `ANTHROPIC_API_KEY`, `X_*` e `LINKEDIN_*` nao estiverem presentes.
+Na VM OCI do bot, o worker deve rodar como `DATABASE_PROVIDER=postgres` e usar apenas Gemini ou Groq para tarefas com LLM. Os passos opcionais de enrichment e social ficam em modo skip quando `GEMINI_API_KEY`/`GROQ_API_KEY`, `X_*` ou `LINKEDIN_*` nao estiverem presentes.
 
 As variaveis replicadas para a VM sao intencionalmente restritas a:
 
 - `NEXT_PUBLIC_SITE_URL`
 - `DATABASE_PROVIDER`
-- `SECONDARY_DATABASE_PROVIDER`
 - `DATABASE_URL`
 - `DATABASE_SSL`
 - `POSTGRES_IMAGE`
@@ -82,10 +81,11 @@ As variaveis replicadas para a VM sao intencionalmente restritas a:
 - `POSTGRES_USER`
 - `POSTGRES_PASSWORD`
 - `POSTGRES_PORT`
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
 - `INDEXNOW_KEY`
-- `ANTHROPIC_API_KEY`
+- `LLM_PROVIDER`
+- `GEMINI_API_KEY`
+- `GROQ_API_KEY`
+- `GROQ_BASE_URL`
 - `X_API_KEY`
 - `X_API_SECRET`
 - `X_ACCESS_TOKEN`
@@ -98,7 +98,7 @@ As variaveis replicadas para a VM sao intencionalmente restritas a:
 
 Use [`.env.worker.local.example`](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/.env.worker.local.example) como referencia e mantenha o arquivo real `.env.worker.local` fora do Git.
 
-## Como sincronizar e validar o banco sombra
+## Como sincronizar e validar o banco sombra legado
 
 ```bash
 gcloud compute ssh michael-news-worker-test --zone us-central1-a --project astute-veld-370221 --command='cd /opt/michael-business/portfolio-michael-santos && set -a && source /etc/michael-business/worker.env && set +a && pnpm db:shadow:sync'
@@ -106,17 +106,17 @@ gcloud compute ssh michael-news-worker-test --zone us-central1-a --project astut
 gcloud compute ssh michael-news-worker-test --zone us-central1-a --project astute-veld-370221 --command='cd /opt/michael-business/portfolio-michael-santos && set -a && source /etc/michael-business/worker.env && set +a && pnpm db:shadow:verify'
 ```
 
-Esse fluxo mantem o site e os workers apontando para Supabase enquanto o PostgreSQL na VM e validado com dados reais.
+Esse fluxo era usado durante a transicao Supabase -> PostgreSQL. Para a VM OCI atual do bot, mantenha o worker em PostgreSQL e nao configure Supabase como provider secundario.
 
 ## Modo de transicao do worker
 
-Para validar o worker em PostgreSQL sem tirar o site do ar:
+Para validar o worker em PostgreSQL sem tirar o site do ar no modo legado:
 
 - mantenha a Vercel lendo Supabase
 - configure na VM `DATABASE_PROVIDER=postgres`
 - configure na VM `SECONDARY_DATABASE_PROVIDER=supabase`
 
-Com isso, o worker passa a usar o PostgreSQL local como primario e espelha as escritas no Supabase. O site continua atualizado enquanto a virada completa nao acontece.
+No modo atual do bot, prefira nao espelhar no Supabase. Se um provider secundario existir, as escritas secundarias sao best-effort e nao devem derrubar o ciclo principal.
 
 ## Bloqueador para a virada da Vercel
 
@@ -132,7 +132,7 @@ Quando a VM assumir de vez os jobs horarios e diarios, pause os schedules equiva
 
 ## Transicao atual recomendada
 
-Enquanto `ANTHROPIC_API_KEY`, `X_*` e `LINKEDIN_*` ainda nao estiverem configurados na VM:
+Enquanto `GEMINI_API_KEY`/`GROQ_API_KEY`, `X_*` e `LINKEDIN_*` ainda nao estiverem configurados na VM:
 
 - a VM fica responsavel pelo `sync-news` horario
 - o GitHub Actions continua com enrichment e postagem social em [news-sync.yml](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/.github/workflows/news-sync.yml)

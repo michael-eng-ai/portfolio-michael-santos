@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
+import { getBotState, setBotState } from "@/lib/bot-state";
 import { resolveLinkedinAuthorUrn } from "@/lib/linkedin-author";
 import { generateText, resolveLlmProvider } from "@/lib/llm-text";
 import { queryPostgres } from "@/lib/postgres";
@@ -26,7 +27,7 @@ type RepliedCommentsState = {
   repliedIds: string[];
 };
 
-function readRepliedComments(): RepliedCommentsState {
+function readRepliedCommentsFromFile(): RepliedCommentsState {
   try {
     const content = fs.readFileSync(REPLIED_COMMENTS_FILE, "utf-8").trim();
     const parsed = JSON.parse(content) as RepliedCommentsState;
@@ -36,11 +37,22 @@ function readRepliedComments(): RepliedCommentsState {
   }
 }
 
-function saveRepliedComments(state: RepliedCommentsState): void {
+function saveRepliedCommentsToFile(state: RepliedCommentsState): void {
   const dir = path.dirname(REPLIED_COMMENTS_FILE);
   fs.mkdirSync(dir, { recursive: true });
   const trimmed = { repliedIds: state.repliedIds.slice(-500) };
   fs.writeFileSync(REPLIED_COMMENTS_FILE, JSON.stringify(trimmed, null, 2), "utf-8");
+}
+
+async function readRepliedComments(): Promise<RepliedCommentsState> {
+  const state = await getBotState<RepliedCommentsState>("linkedin.replied_comments");
+  return state ?? readRepliedCommentsFromFile();
+}
+
+async function saveRepliedComments(state: RepliedCommentsState): Promise<void> {
+  const trimmed = { repliedIds: state.repliedIds.slice(-500) };
+  await setBotState("linkedin.replied_comments", trimmed);
+  saveRepliedCommentsToFile(trimmed);
 }
 
 function randomDelay(): number {
@@ -179,7 +191,7 @@ async function main(): Promise<void> {
     console.error("ERROR: LINKEDIN_PERSON_URN or LINKEDIN_ORGANIZATION_URN must be set");
     process.exit(1);
   }
-  const state = readRepliedComments();
+  const state = await readRepliedComments();
   const repliedSet = new Set(state.repliedIds);
 
   const posts = await getRecentLinkedInPosts();
@@ -289,7 +301,7 @@ async function main(): Promise<void> {
     }
   }
 
-  saveRepliedComments({ repliedIds: [...repliedSet] });
+  await saveRepliedComments({ repliedIds: [...repliedSet] });
   console.log(`SUCCESS: ${totalReplied} LinkedIn comments replied to`);
 }
 

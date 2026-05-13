@@ -302,9 +302,18 @@ async function main() {
   const existingRowBySourceUrl = new Map<string, NewsRowRecord>();
   const primaryExistingRows = await getExistingNewsRowsBySourceUrls(sorted.map((item) => item.sourceUrl));
   const secondaryProvider = getSecondaryDatabaseProvider();
-  const secondaryExistingRows = secondaryProvider
-    ? await getExistingNewsRowsBySourceUrls(sorted.map((item) => item.sourceUrl), secondaryProvider)
-    : [];
+  let secondaryExistingRows: NewsRowRecord[] = [];
+
+  if (secondaryProvider) {
+    try {
+      secondaryExistingRows = await getExistingNewsRowsBySourceUrls(
+        sorted.map((item) => item.sourceUrl),
+        secondaryProvider,
+      );
+    } catch (error) {
+      console.warn(`[database] secondary provider read skipped during news sync: ${toErrorMessage(error)}`);
+    }
+  }
 
   for (const row of [...primaryExistingRows, ...secondaryExistingRows]) {
     existingRowBySourceUrl.set(row.source_url, {

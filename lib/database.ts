@@ -1,5 +1,6 @@
 import type { DeliveryChannel } from "@/lib/news-delivery";
 import { queryPostgres } from "@/lib/postgres";
+import { toErrorMessage } from "@/lib/runtime";
 import { getSupabaseAdminClient } from "@/lib/supabase";
 
 export type DatabaseProvider = "supabase" | "postgres";
@@ -180,6 +181,14 @@ export function getSecondaryDatabaseProvider(): DatabaseProvider | null {
   }
 
   return provider;
+}
+
+async function runSecondaryDatabaseWrite(action: string, fn: () => Promise<void>) {
+  try {
+    await fn();
+  } catch (error) {
+    console.warn(`[database] secondary provider write skipped for ${action}: ${toErrorMessage(error)}`);
+  }
 }
 
 function getRequiredDatabaseEnvKeys(provider: DatabaseProvider) {
@@ -506,7 +515,9 @@ export async function upsertNewsRows(rows: Array<Record<string, unknown>>) {
   const result = await upsertNewsRowsForProvider(primaryProvider, normalizedRows);
 
   if (secondaryProvider) {
-    await upsertNewsRowsForProvider(secondaryProvider, normalizedRows);
+    await runSecondaryDatabaseWrite("upsertNewsRows", async () => {
+      await upsertNewsRowsForProvider(secondaryProvider, normalizedRows);
+    });
   }
 
   return result;
@@ -634,7 +645,9 @@ export async function updateNewsRowBySlug(slug: string, patch: Record<string, un
   await updateNewsRowBySlugForProvider(primaryProvider, slug, patch);
 
   if (secondaryProvider) {
-    await updateNewsRowBySlugForProvider(secondaryProvider, slug, patch);
+    await runSecondaryDatabaseWrite("updateNewsRowBySlug", async () => {
+      await updateNewsRowBySlugForProvider(secondaryProvider, slug, patch);
+    });
   }
 }
 
@@ -677,7 +690,9 @@ export async function upsertNewsletterSubscriber(input: NewsletterSubscriberInse
   await upsertNewsletterSubscriberForProvider(primaryProvider, input);
 
   if (secondaryProvider) {
-    await upsertNewsletterSubscriberForProvider(secondaryProvider, input);
+    await runSecondaryDatabaseWrite("upsertNewsletterSubscriber", async () => {
+      await upsertNewsletterSubscriberForProvider(secondaryProvider, input);
+    });
   }
 }
 
@@ -792,6 +807,8 @@ export async function insertAnalyticsEvents(events: Array<Record<string, unknown
   await insertAnalyticsEventsForProvider(primaryProvider, normalizedEvents);
 
   if (secondaryProvider) {
-    await insertAnalyticsEventsForProvider(secondaryProvider, normalizedEvents);
+    await runSecondaryDatabaseWrite("insertAnalyticsEvents", async () => {
+      await insertAnalyticsEventsForProvider(secondaryProvider, normalizedEvents);
+    });
   }
 }

@@ -3,6 +3,7 @@ import path from "node:path";
 
 import { TwitterApi } from "twitter-api-v2";
 
+import { getBotState, setBotState } from "@/lib/bot-state";
 import { generateText, resolveLlmProvider } from "@/lib/llm-text";
 import { toErrorMessage, withRetry, sleep } from "@/lib/runtime";
 
@@ -20,7 +21,7 @@ type Mention = {
   referenced_tweets?: { type: string; id: string }[];
 };
 
-function readLastMentionId(): string | undefined {
+function readLastMentionIdFromFile(): string | undefined {
   try {
     const content = fs.readFileSync(LAST_MENTION_FILE, "utf-8").trim();
     return content || undefined;
@@ -29,10 +30,20 @@ function readLastMentionId(): string | undefined {
   }
 }
 
-function saveLastMentionId(mentionId: string): void {
+function saveLastMentionIdToFile(mentionId: string): void {
   const dir = path.dirname(LAST_MENTION_FILE);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(LAST_MENTION_FILE, mentionId, "utf-8");
+}
+
+async function readLastMentionId(): Promise<string | undefined> {
+  const state = await getBotState<{ mentionId?: string }>("x.last_mention");
+  return state?.mentionId ?? readLastMentionIdFromFile();
+}
+
+async function saveLastMentionId(mentionId: string): Promise<void> {
+  await setBotState("x.last_mention", { mentionId });
+  saveLastMentionIdToFile(mentionId);
 }
 
 function isRetweet(mention: Mention): boolean {
@@ -88,7 +99,7 @@ async function main(): Promise<void> {
     accessSecret: accessTokenSecret,
   });
 
-  const lastMentionId = readLastMentionId();
+  const lastMentionId = await readLastMentionId();
   console.log(lastMentionId ? `Fetching mentions since ${lastMentionId}` : "Fetching recent mentions (first run)");
 
   const mentionsResponse = await withRetry(
@@ -128,7 +139,7 @@ async function main(): Promise<void> {
   if (eligibleMentions.length === 0) {
     console.log("No eligible mentions to reply to (all filtered out).");
     if (mentions.length > 0) {
-      saveLastMentionId(mentions[0].id);
+      await saveLastMentionId(mentions[0].id);
     }
     return;
   }
@@ -199,7 +210,7 @@ async function main(): Promise<void> {
   }
 
   const latestMentionId = mentions[0].id;
-  saveLastMentionId(latestMentionId);
+  await saveLastMentionId(latestMentionId);
   console.log(`Saved last mention ID: ${latestMentionId}`);
 
   console.log(`SUCCESS: ${replied}/${eligibleMentions.length} mentions replied to`);

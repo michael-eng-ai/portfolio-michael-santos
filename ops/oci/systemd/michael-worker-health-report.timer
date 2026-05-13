@@ -1,0 +1,13 @@
+[Unit]
+Description=Run Michael Business worker health report every 15 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=15min
+RandomizedDelaySec=60
+FixedRandomDelay=true
+Persistent=true
+Unit=michael-worker-health-report.service
+
+[Install]
+WantedBy=timers.target

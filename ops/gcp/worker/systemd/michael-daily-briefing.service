@@ -3,6 +3,8 @@ Description=Michael Business daily trend briefing worker
 Wants=network-online.target
 After=network-online.target
 ConditionPathExists=/etc/michael-business/worker.env
+StartLimitIntervalSec=45min
+StartLimitBurst=3
 
 [Service]
 Type=oneshot
@@ -12,6 +14,10 @@ WorkingDirectory=/opt/michael-business/portfolio-michael-santos
 EnvironmentFile=/etc/michael-business/worker.env
 ExecStart=/usr/bin/flock -n /opt/michael-business/run/daily-briefing.lock /usr/bin/env pnpm content:worker:daily-cycle
 Nice=10
+TimeoutStartSec=30min
+SyslogIdentifier=michael-daily-briefing
+Restart=on-failure
+RestartSec=3min
 
 [Install]
 WantedBy=multi-user.target

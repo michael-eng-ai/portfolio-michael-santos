@@ -1,13 +1,11 @@
-import Anthropic from "@anthropic-ai/sdk";
 import { GoogleGenAI, type Schema } from "@google/genai";
 import OpenAI from "openai";
 
 const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
-const DEFAULT_ANTHROPIC_MODEL = "claude-haiku-4-5-20251001";
 const DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile";
 const DEFAULT_GROQ_BASE_URL = "https://api.groq.com/openai/v1";
 
-export type LlmProvider = "gemini" | "anthropic" | "groq";
+export type LlmProvider = "gemini" | "groq";
 
 export type GenerateTextOptions = {
   prompt: string;
@@ -16,13 +14,12 @@ export type GenerateTextOptions = {
   temperature?: number;
   /** Override automatic provider resolution. */
   provider?: LlmProvider;
-  /** Override the model. Defaults: gemini-2.5-flash | claude-haiku-4-5-20251001 */
+  /** Override the model. Defaults: gemini-2.5-flash | llama-3.3-70b-versatile */
   model?: string;
   /**
    * Optional schema enforcement. When provided AND provider is "gemini",
    * Gemini's responseSchema is used so the model is forced to emit
-   * schema-conforming JSON. Anthropic ignores this — provider-specific
-   * structured output isn't wired for Anthropic yet.
+   * schema-conforming JSON. Groq receives a JSON response-format hint.
    */
   responseSchema?: Schema;
 };
@@ -38,22 +35,58 @@ export type GenerateTextResult = {
  *   1. options.provider (explicit override)
  *   2. process.env.LLM_PROVIDER (deployment-time override)
  *   3. GEMINI_API_KEY presence
- *   4. ANTHROPIC_API_KEY presence
+ *   4. GROQ_API_KEY presence
  */
 export function resolveLlmProvider(override?: LlmProvider): LlmProvider {
   if (override) return override;
 
   const envProvider = process.env.LLM_PROVIDER?.toLowerCase();
-  if (envProvider === "gemini" || envProvider === "anthropic" || envProvider === "groq") {
+  if (envProvider === "gemini" || envProvider === "groq") {
     return envProvider;
+  }
+
+  if (envProvider === "anthropic") {
+    throw new Error("Unsupported LLM_PROVIDER. Set LLM_PROVIDER=gemini or LLM_PROVIDER=groq.");
   }
 
   if (process.env.GEMINI_API_KEY) return "gemini";
   if (process.env.GROQ_API_KEY) return "groq";
-  if (process.env.ANTHROPIC_API_KEY) return "anthropic";
 
   throw new Error(
-    "No LLM provider configured. Set GEMINI_API_KEY, GROQ_API_KEY or ANTHROPIC_API_KEY (or LLM_PROVIDER=gemini|groq|anthropic).",
+    "No LLM provider configured. Set GEMINI_API_KEY or GROQ_API_KEY (or LLM_PROVIDER=gemini|groq).",
+  );
+}
+
+function hasProviderKey(provider: LlmProvider): boolean {
+  return provider === "gemini"
+    ? Boolean(process.env.GEMINI_API_KEY)
+    : Boolean(process.env.GROQ_API_KEY);
+}
+
+function getProviderPlan(preferred: LlmProvider, allowFallback: boolean): LlmProvider[] {
+  const fallbackOrder: LlmProvider[] = ["gemini", "groq"];
+  const providers = allowFallback
+    ? [preferred, ...fallbackOrder.filter((provider) => provider !== preferred)]
+    : [preferred];
+
+  return providers.filter((provider) => hasProviderKey(provider));
+}
+
+function isFallbackEligibleError(error: unknown): boolean {
+  const message = error instanceof Error
+    ? `${error.name} ${error.message}`.toLowerCase()
+    : String(error).toLowerCase();
+
+  return (
+    message.includes("429") ||
+    message.includes("529") ||
+    message.includes("503") ||
+    message.includes("rate limit") ||
+    message.includes("quota") ||
+    message.includes("tokens per day") ||
+    message.includes("overloaded") ||
+    message.includes("timeout") ||
+    message.includes("unavailable")
   );
 }
 
@@ -86,10 +119,15 @@ async function generateWithGemini(
   });
 
   const text = response.text;
-  if (!text) {
+  const fallbackText = response.candidates?.[0]?.content?.parts
+    ?.map((part) => "text" in part ? part.text : "")
+    .filter(Boolean)
+    .join("");
+
+  if (!text && !fallbackText) {
     throw new Error("Gemini response did not contain text content.");
   }
-  return text;
+  return text ?? fallbackText ?? "";
 }
 
 async function generateWithGroq(
@@ -129,31 +167,6 @@ async function generateWithGroq(
   return content;
 }
 
-async function generateWithAnthropic(
-  options: GenerateTextOptions,
-  model: string,
-): Promise<string> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    throw new Error("ANTHROPIC_API_KEY is not set; cannot use the Anthropic provider.");
-  }
-
-  const anthropic = new Anthropic({ apiKey });
-  const message = await anthropic.messages.create({
-    model,
-    max_tokens: options.maxTokens ?? 1024,
-    ...(options.temperature !== undefined ? { temperature: options.temperature } : {}),
-    ...(options.systemInstruction ? { system: options.systemInstruction } : {}),
-    messages: [{ role: "user", content: options.prompt }],
-  });
-
-  const textBlock = message.content.find((block) => block.type === "text");
-  if (!textBlock || textBlock.type !== "text") {
-    throw new Error("Anthropic response did not contain text content.");
-  }
-  return textBlock.text;
-}
-
 /**
  * Single entry point for plain text generation across providers.
  * Returns the generated text alongside which provider/model handled it.
@@ -162,20 +175,33 @@ export async function generateText(
   options: GenerateTextOptions,
 ): Promise<GenerateTextResult> {
   const provider = resolveLlmProvider(options.provider);
-  const model =
-    options.model ??
-    (provider === "gemini"
-      ? DEFAULT_GEMINI_MODEL
-      : provider === "groq"
-        ? DEFAULT_GROQ_MODEL
-        : DEFAULT_ANTHROPIC_MODEL);
+  const providerPlan = getProviderPlan(provider, !options.provider && !options.model);
+  const errors: string[] = [];
 
-  const text =
-    provider === "gemini"
-      ? await generateWithGemini(options, model)
-      : provider === "groq"
-        ? await generateWithGroq(options, model)
-        : await generateWithAnthropic(options, model);
+  for (const targetProvider of providerPlan) {
+    const model =
+      options.model ??
+      (targetProvider === "gemini"
+        ? DEFAULT_GEMINI_MODEL
+        : DEFAULT_GROQ_MODEL);
 
-  return { text, provider, model };
+    try {
+      const text =
+        targetProvider === "gemini"
+          ? await generateWithGemini(options, model)
+          : await generateWithGroq(options, model);
+
+      return { text, provider: targetProvider, model };
+    } catch (error) {
+      errors.push(`${targetProvider}: ${error instanceof Error ? error.message : String(error)}`);
+
+      if (!isFallbackEligibleError(error)) {
+        throw error;
+      }
+
+      console.warn(`[llm] provider ${targetProvider} failed with a retryable error; trying fallback provider if available.`);
+    }
+  }
+
+  throw new Error(`All configured LLM providers failed. ${errors.join(" | ")}`);
 }

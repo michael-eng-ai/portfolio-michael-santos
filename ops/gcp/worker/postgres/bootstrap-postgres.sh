@@ -24,6 +24,45 @@ POSTGRES_RUNTIME_UID="${POSTGRES_RUNTIME_UID:-}"
 POSTGRES_RUNTIME_GID="${POSTGRES_RUNTIME_GID:-}"
 POSTGRES_INIT_DIR="${REPO_DIR}/ops/gcp/worker/postgres/init"
 
+use_running_container_env() {
+  local running_user
+  local running_db
+
+  running_user="$(docker exec "$POSTGRES_CONTAINER_NAME" printenv POSTGRES_USER 2>/dev/null || true)"
+  running_db="$(docker exec "$POSTGRES_CONTAINER_NAME" printenv POSTGRES_DB 2>/dev/null || true)"
+
+  if [[ -n "$running_user" ]]; then
+    POSTGRES_USER="$running_user"
+  fi
+
+  if [[ -n "$running_db" ]]; then
+    POSTGRES_DB="$running_db"
+  fi
+}
+
+apply_schema() {
+  local sql_file
+
+  use_running_container_env
+
+  for sql_file in \
+    "$REPO_DIR/supabase/news.sql" \
+    "$REPO_DIR/supabase/newsletter_subscribers.sql" \
+    "$REPO_DIR/supabase/analytics_events.sql"
+  do
+    if [[ ! -f "$sql_file" ]]; then
+      echo "Missing schema file: $sql_file" >&2
+      exit 1
+    fi
+
+    docker exec -i "$POSTGRES_CONTAINER_NAME" \
+      psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" \
+      < "$sql_file" >/dev/null
+  done
+
+  echo "PostgreSQL schemas are up to date."
+}
+
 if [[ -z "$POSTGRES_PASSWORD" ]]; then
   echo "POSTGRES_PASSWORD must be set in $ENV_FILE before bootstrapping PostgreSQL." >&2
   exit 1
@@ -59,6 +98,7 @@ chown -R "${POSTGRES_RUNTIME_UID}:${POSTGRES_RUNTIME_GID}" "$POSTGRES_DATA_DIR"
 
 if docker ps --format '{{.Names}}' | grep -qx "$POSTGRES_CONTAINER_NAME"; then
   echo "PostgreSQL container already running: $POSTGRES_CONTAINER_NAME"
+  apply_schema
   exit 0
 fi
 
@@ -81,6 +121,7 @@ fi
 for _ in $(seq 1 30); do
   if docker exec "$POSTGRES_CONTAINER_NAME" pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB" >/dev/null 2>&1; then
     echo "PostgreSQL container is ready on 127.0.0.1:${POSTGRES_PORT}"
+    apply_schema
     exit 0
   fi
 

@@ -87,5 +87,6 @@ Central index for all project documentation. Each document has a single responsi
 | `michael-news-cycle` | Hourly | RSS sync, enrich, curate, cleanup, post to X |
 | `michael-daily-briefing` | Daily 10:39 UTC | Trend briefing + LinkedIn post |
 | `michael-engagement-cycle` | Every 30 min | Reply to X mentions + LinkedIn comments |
-| `michael-health-check` | Every 5 min | Ping /api/health (keeps Supabase active) |
+| `michael-health-check` | Every 5 min | Ping /api/health |
+| `michael-worker-health-report` | Every 15 min | Record systemd and worker-run health |
 | `michael-dashboard` | Persistent | Streamlit analytics dashboard |

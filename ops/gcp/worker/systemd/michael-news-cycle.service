@@ -3,6 +3,8 @@ Description=Michael Business news cycle worker
 Wants=network-online.target
 After=network-online.target
 ConditionPathExists=/etc/michael-business/worker.env
+StartLimitIntervalSec=45min
+StartLimitBurst=3
 
 [Service]
 Type=oneshot
@@ -12,6 +14,10 @@ WorkingDirectory=/opt/michael-business/portfolio-michael-santos
 EnvironmentFile=/etc/michael-business/worker.env
 ExecStart=/usr/bin/flock -n /opt/michael-business/run/news-cycle.lock /usr/bin/env pnpm content:worker:news-cycle
 Nice=10
+TimeoutStartSec=30min
+SyslogIdentifier=michael-news-cycle
+Restart=on-failure
+RestartSec=3min
 
 [Install]
 WantedBy=multi-user.target

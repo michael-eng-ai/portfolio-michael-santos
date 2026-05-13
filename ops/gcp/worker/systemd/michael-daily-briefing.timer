@@ -5,6 +5,7 @@ Description=Run Michael Business daily trend briefing
 OnCalendar=*-*-* 10:23:00
 RandomizedDelaySec=20m
 AccuracySec=1m
+FixedRandomDelay=true
 Persistent=true
 Unit=michael-daily-briefing.service
 

@@ -5,6 +5,7 @@ Description=Run Michael Business engagement cycle every 30 minutes
 OnCalendar=*:0/30
 RandomizedDelaySec=10m
 AccuracySec=1m
+FixedRandomDelay=true
 Persistent=true
 Unit=michael-engagement-cycle.service
 

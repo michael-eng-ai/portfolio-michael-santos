@@ -1,6 +1,7 @@
 import { spawn } from "node:child_process";
 
 import { getRequiredWriteDatabaseEnvKeys } from "@/lib/database";
+import { recordWorkerRun, recordWorkerWarning, updateWorkerRun } from "@/lib/worker-observability";
 
 type WorkerTask = "news-cycle" | "daily-cycle" | "engagement-cycle";
 
@@ -19,15 +20,15 @@ const tasks: Record<WorkerTask, Step[]> = {
       requiredEnv: ["__WRITE_DATABASE__"],
     },
     {
-      label: "Enrich news with Claude",
+      label: "Enrich news with LLM",
       script: "content:enrich:news",
-      requiredEnv: ["__WRITE_DATABASE__", "ANTHROPIC_API_KEY"],
+      requiredEnv: ["__WRITE_DATABASE__", "__LLM__"],
       optional: true,
     },
     {
       label: "Curate top news for today",
       script: "content:curate:news",
-      requiredEnv: ["__WRITE_DATABASE__", "ANTHROPIC_API_KEY"],
+      requiredEnv: ["__WRITE_DATABASE__", "__LLM__"],
       optional: true,
     },
     {
@@ -53,7 +54,7 @@ const tasks: Record<WorkerTask, Step[]> = {
     {
       label: "Generate daily trend briefing",
       script: "content:daily:briefing",
-      requiredEnv: ["__WRITE_DATABASE__", "ANTHROPIC_API_KEY"],
+      requiredEnv: ["__WRITE_DATABASE__", "__LLM__"],
       optional: true,
     },
     {
@@ -75,7 +76,7 @@ const tasks: Record<WorkerTask, Step[]> = {
         "X_API_SECRET",
         "X_ACCESS_TOKEN",
         "X_ACCESS_TOKEN_SECRET",
-        "ANTHROPIC_API_KEY",
+        "__LLM__",
       ],
       optional: true,
     },
@@ -85,7 +86,7 @@ const tasks: Record<WorkerTask, Step[]> = {
       requiredEnv: [
         "__WRITE_DATABASE__",
         "LINKEDIN_ACCESS_TOKEN",
-        "ANTHROPIC_API_KEY",
+        "__LLM__",
       ],
       optional: true,
     },
@@ -93,9 +94,13 @@ const tasks: Record<WorkerTask, Step[]> = {
 };
 
 function getMissingEnv(requiredEnv: string[]) {
-  return requiredEnv.flatMap((key) =>
-    key.split(",").map((entry) => entry.trim()).filter((entry) => entry.length > 0 && !process.env[entry]),
-  );
+  return requiredEnv.flatMap((key) => {
+    if (key === "__LLM__") {
+      return process.env.GEMINI_API_KEY || process.env.GROQ_API_KEY ? [] : ["GEMINI_API_KEY or GROQ_API_KEY"];
+    }
+
+    return key.split(",").map((entry) => entry.trim()).filter((entry) => entry.length > 0 && !process.env[entry]);
+  });
 }
 
 function runPnpmScript(script: string) {
@@ -128,32 +133,59 @@ async function main() {
 
   const sharedDatabaseEnv = getRequiredWriteDatabaseEnvKeys();
   const pipeline = tasks[taskName];
+  const taskRunId = await recordWorkerRun({ task: taskName, status: "running" });
 
-  for (const step of pipeline) {
-    step.requiredEnv = step.requiredEnv.map((entry) =>
-      entry === "__WRITE_DATABASE__" ? sharedDatabaseEnv.join(",") : entry,
-    );
-  }
-
-  for (const step of pipeline) {
-    const missing = getMissingEnv(step.requiredEnv);
-
-    if (missing.length > 0) {
-      if (step.optional) {
-        console.log(`[worker] skipping "${step.label}" because env vars are missing: ${missing.join(", ")}`);
-        continue;
-      }
-
-      console.error(`[worker] cannot run "${step.label}". Missing env vars: ${missing.join(", ")}`);
-      process.exit(1);
+  try {
+    for (const step of pipeline) {
+      step.requiredEnv = step.requiredEnv.map((entry) =>
+        entry === "__WRITE_DATABASE__" ? sharedDatabaseEnv.join(",") : entry,
+      );
     }
 
-    console.log(`[worker] starting "${step.label}"`);
-    await runPnpmScript(step.script);
-    console.log(`[worker] finished "${step.label}"`);
-  }
+    for (const step of pipeline) {
+      const missing = getMissingEnv(step.requiredEnv);
 
-  console.log(`[worker] task "${taskName}" completed`);
+      if (missing.length > 0) {
+        if (step.optional) {
+          console.log(`[worker] skipping "${step.label}" because env vars are missing: ${missing.join(", ")}`);
+          continue;
+        }
+
+        console.error(`[worker] cannot run "${step.label}". Missing env vars: ${missing.join(", ")}`);
+        await updateWorkerRun(taskRunId, {
+          status: "failed",
+          error: new Error(`Missing env vars for ${step.label}: ${missing.join(", ")}`),
+        });
+        process.exit(1);
+      }
+
+      console.log(`[worker] starting "${step.label}"`);
+      const stepRunId = await recordWorkerRun({ task: taskName, step: step.label, status: "running" });
+
+      try {
+        await runPnpmScript(step.script);
+        await updateWorkerRun(stepRunId, { status: "success" });
+        console.log(`[worker] finished "${step.label}"`);
+      } catch (error) {
+        await updateWorkerRun(stepRunId, { status: "failed", error });
+        if (step.optional) {
+          await recordWorkerWarning(
+            taskName,
+            `Optional step "${step.label}" failed: ${error instanceof Error ? error.message : String(error)}`,
+          );
+          console.warn(`[worker] optional step "${step.label}" failed; continuing task`);
+          continue;
+        }
+        throw error;
+      }
+    }
+
+    await updateWorkerRun(taskRunId, { status: "success" });
+    console.log(`[worker] task "${taskName}" completed`);
+  } catch (error) {
+    await updateWorkerRun(taskRunId, { status: "failed", error });
+    throw error;
+  }
 }
 
 main().catch((error) => {

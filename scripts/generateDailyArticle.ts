@@ -1,7 +1,6 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
-import Anthropic from "@anthropic-ai/sdk";
 import { GoogleGenAI, Type } from "@google/genai";
 import { jsonrepair } from "jsonrepair";
 import OpenAI from "openai";
@@ -16,11 +15,8 @@ const KIMI_REQUEST_TIMEOUT_MS = 10 * 60 * 1000;
 const DEFAULT_GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai";
 const DEFAULT_GEMINI_MODEL = "gemini-flash-latest";
 const GEMINI_REQUEST_TIMEOUT_MS = 10 * 60 * 1000;
-const DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-5";
 const KIMI_MAX_TOKENS = 16384;
 const GEMINI_MAX_TOKENS = 16384;
-const ANTHROPIC_MAX_TOKENS = 4096;
-const ANTHROPIC_TEMPERATURE = 0.7;
 
 type ArticlePayload = {
   titleEn: string;
@@ -37,7 +33,7 @@ type ArticlePayload = {
   bodyPt: string;
 };
 
-type Provider = "kimi" | "gemini" | "groq" | "anthropic";
+type Provider = "kimi" | "gemini" | "groq";
 
 const DEFAULT_GROQ_BASE_URL = "https://api.groq.com/openai/v1";
 const DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile";
@@ -50,10 +46,12 @@ function resolveProvider(): Provider {
   if (
     explicit === "kimi" ||
     explicit === "gemini" ||
-    explicit === "groq" ||
-    explicit === "anthropic"
+    explicit === "groq"
   ) {
     return explicit;
+  }
+  if (explicit === "anthropic") {
+    throw new Error("Unsupported LLM_PROVIDER. Set LLM_PROVIDER=kimi, gemini, or groq.");
   }
   if (process.env.KIMI_API_KEY) {
     return "kimi";
@@ -64,12 +62,26 @@ function resolveProvider(): Provider {
   if (process.env.GROQ_API_KEY) {
     return "groq";
   }
-  if (process.env.ANTHROPIC_API_KEY) {
-    return "anthropic";
-  }
   throw new Error(
-    "No LLM provider configured. Set KIMI_API_KEY, GEMINI_API_KEY, GROQ_API_KEY, or ANTHROPIC_API_KEY.",
+    "No LLM provider configured. Set KIMI_API_KEY, GEMINI_API_KEY, or GROQ_API_KEY.",
   );
+}
+
+function hasProviderKey(provider: Provider): boolean {
+  switch (provider) {
+    case "kimi":
+      return Boolean(process.env.KIMI_API_KEY);
+    case "gemini":
+      return Boolean(process.env.GEMINI_API_KEY);
+    case "groq":
+      return Boolean(process.env.GROQ_API_KEY);
+  }
+}
+
+function getProviderPlan(primary: Provider): Provider[] {
+  const fallbackOrder: Provider[] = ["groq", "gemini", "kimi"];
+  return [primary, ...fallbackOrder.filter((provider) => provider !== primary)]
+    .filter((provider) => hasProviderKey(provider));
 }
 
 function slugify(value: string) {
@@ -97,6 +109,54 @@ function extractJson(raw: string): string {
   }
 
   return raw.slice(firstBrace, lastBrace + 1);
+}
+
+function getJsonCandidates(raw: string): string[] {
+  const extracted = extractJson(raw);
+  const candidates = [extracted];
+
+  // Gemini occasionally returns an object with escaped line breaks/quotes
+  // without wrapping it as a valid JSON string, e.g. \n{\n  \"title\": ...
+  if (extracted.includes("\\n") || extracted.includes('\\"')) {
+    candidates.push(
+      extracted
+        .replace(/\\r/g, "\r")
+        .replace(/\\n/g, "\n")
+        .replace(/\\t/g, "\t")
+        .replace(/\\"/g, '"'),
+    );
+  }
+
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    if (typeof parsed === "string" && parsed.trim().length > 0) {
+      candidates.push(extractJson(parsed));
+    }
+  } catch {
+    // Raw response is usually not a JSON string; ignore and try other forms.
+  }
+
+  return [...new Set(candidates.map((candidate) => candidate.trim()))];
+}
+
+function parseArticlePayload(rawText: string): ArticlePayload {
+  const errors: string[] = [];
+
+  for (const candidate of getJsonCandidates(rawText)) {
+    try {
+      return JSON.parse(candidate) as ArticlePayload;
+    } catch (parseError) {
+      errors.push(`JSON.parse: ${(parseError as Error).message}`);
+    }
+
+    try {
+      return JSON.parse(jsonrepair(candidate)) as ArticlePayload;
+    } catch (repairError) {
+      errors.push(`jsonrepair: ${(repairError as Error).message}`);
+    }
+  }
+
+  throw new Error(`Unable to parse article JSON payload. ${errors.join(" | ")}`);
 }
 
 function buildPrompt(
@@ -286,74 +346,68 @@ async function generateWithGroq(prompt: string): Promise<string> {
   return content;
 }
 
-async function generateWithAnthropic(prompt: string): Promise<string> {
-  const client = new Anthropic();
-
-  const response = await client.messages.create({
-    model: process.env.CLAUDE_CONTENT_MODEL ?? DEFAULT_CLAUDE_MODEL,
-    max_tokens: ANTHROPIC_MAX_TOKENS,
-    temperature: ANTHROPIC_TEMPERATURE,
-    system: SYSTEM_PROMPT,
-    messages: [{ role: "user", content: prompt }],
-  });
-
-  const textBlock = response.content.find((block) => block.type === "text");
-  if (!textBlock || textBlock.type !== "text") {
-    throw new Error("Anthropic response did not contain text content.");
-  }
-  return textBlock.text;
-}
-
 async function main() {
   const provider = resolveProvider();
   const [projects, news] = await Promise.all([getProjects(), getNewsReferences()]);
   const prompt = buildPrompt(projects, news);
 
-  console.log(`Generating article via provider=${provider}`);
-  const generate = (): Promise<string> => {
-    switch (provider) {
+  const generate = (targetProvider: Provider): Promise<string> => {
+    switch (targetProvider) {
       case "kimi":
         return generateWithKimi(prompt);
       case "gemini":
         return generateWithGemini(prompt);
       case "groq":
         return generateWithGroq(prompt);
-      case "anthropic":
-        return generateWithAnthropic(prompt);
     }
   };
 
-  const rawText = await withRetry(generate, {
-    attempts: 4,
-    delayMs: 8_000,
-    shouldRetry: (error) => {
-      const msg = toErrorMessage(error).toLowerCase();
-      return (
-        msg.includes("503") ||
-        msg.includes("unavailable") ||
-        msg.includes("overloaded") ||
-        msg.includes("rate") ||
-        msg.includes("timeout") ||
-        msg.includes("high demand") ||
-        msg.includes("529")
-      );
-    },
-    onRetry: (error, attempt, nextDelayMs) => {
-      console.warn(
-        `Article generation attempt ${attempt} failed (${toErrorMessage(error)}); retrying in ${nextDelayMs}ms`,
-      );
-    },
-  });
+  const providerPlan = getProviderPlan(provider);
+  if (providerPlan.length === 0) {
+    throw new Error(`Provider ${provider} was selected but its API key is not configured.`);
+  }
 
-  const jsonText = extractJson(rawText);
-  let payload: ArticlePayload;
-  try {
-    payload = JSON.parse(jsonText) as ArticlePayload;
-  } catch (parseError) {
-    console.warn(
-      `Direct JSON.parse failed (${(parseError as Error).message}); attempting jsonrepair fallback.`,
-    );
-    payload = JSON.parse(jsonrepair(jsonText)) as ArticlePayload;
+  let payload: ArticlePayload | null = null;
+  const providerErrors: string[] = [];
+
+  for (const targetProvider of providerPlan) {
+    console.log(`Generating article via provider=${targetProvider}`);
+
+    try {
+      payload = await withRetry(
+        async () => parseArticlePayload(await generate(targetProvider)),
+        {
+          attempts: 3,
+          delayMs: 8_000,
+          shouldRetry: (error) => {
+            const msg = toErrorMessage(error).toLowerCase();
+            return (
+              msg.includes("503") ||
+              msg.includes("unavailable") ||
+              msg.includes("overloaded") ||
+              msg.includes("rate") ||
+              msg.includes("timeout") ||
+              msg.includes("high demand") ||
+              msg.includes("529") ||
+              msg.includes("unable to parse article json payload")
+            );
+          },
+          onRetry: (error, attempt, nextDelayMs) => {
+            console.warn(
+              `Article generation attempt ${attempt} failed for provider=${targetProvider} (${toErrorMessage(error)}); retrying in ${nextDelayMs}ms`,
+            );
+          },
+        },
+      );
+      break;
+    } catch (error) {
+      providerErrors.push(`${targetProvider}: ${toErrorMessage(error)}`);
+      console.warn(`Provider ${targetProvider} failed; trying next configured provider if available.`);
+    }
+  }
+
+  if (!payload) {
+    throw new Error(`Article generation failed for all configured providers. ${providerErrors.join(" | ")}`);
   }
 
   const slug = slugify(payload.titleEn);

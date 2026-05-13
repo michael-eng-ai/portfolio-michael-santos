@@ -13,8 +13,13 @@ ExecStart=/usr/bin/bash -c '\
     echo "OK: health check returned $STATUS"; \
   else \
     echo "WARN: health check returned $STATUS" >&2; \
+    exit 1; \
   fi'
 Nice=19
+TimeoutStartSec=30s
+SyslogIdentifier=michael-health-check
+Restart=on-failure
+RestartSec=30s
 
 [Install]
 WantedBy=multi-user.target

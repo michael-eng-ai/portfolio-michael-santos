@@ -64,3 +64,27 @@ create trigger news_updated_at_trigger
   before update on public.news
   for each row
   execute function public.update_news_updated_at();
+
+create table if not exists public.bot_state (
+  key text primary key,
+  value jsonb not null,
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.worker_runs (
+  id bigserial primary key,
+  task text not null,
+  step text,
+  status text not null check (status in ('running', 'success', 'failed', 'warning', 'skipped')),
+  started_at timestamptz not null default now(),
+  finished_at timestamptz,
+  duration_ms integer,
+  error text,
+  metadata jsonb not null default '{}'::jsonb
+);
+
+create index if not exists worker_runs_task_started_idx
+  on public.worker_runs (task, started_at desc);
+
+create index if not exists worker_runs_status_started_idx
+  on public.worker_runs (status, started_at desc);

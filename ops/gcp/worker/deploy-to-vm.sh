@@ -63,7 +63,10 @@ allowed_keys = {
     "SUPABASE_URL",
     "SUPABASE_SERVICE_ROLE_KEY",
     "INDEXNOW_KEY",
-    "ANTHROPIC_API_KEY",
+    "LLM_PROVIDER",
+    "GEMINI_API_KEY",
+    "GROQ_API_KEY",
+    "GROQ_BASE_URL",
     "X_API_KEY",
     "X_API_SECRET",
     "X_ACCESS_TOKEN",
@@ -89,6 +92,12 @@ for path in inputs:
             merged[key] = value
         elif key not in merged:
             merged[key] = value
+
+if not merged.get("LLM_PROVIDER"):
+    if merged.get("GROQ_API_KEY"):
+        merged["LLM_PROVIDER"] = "groq"
+    elif merged.get("GEMINI_API_KEY"):
+        merged["LLM_PROVIDER"] = "gemini"
 
 output.write_text("\n".join(f"{key}={value}" for key, value in merged.items()) + "\n")
 non_empty = sorted(key for key, value in merged.items() if value)
