@@ -1,8 +1,8 @@
 [Unit]
-Description=Run Michael Business engagement cycle every 30 minutes
+Description=Run Michael Business engagement cycle hourly
 
 [Timer]
-OnCalendar=*:0/30
+OnCalendar=hourly
 RandomizedDelaySec=10m
 AccuracySec=1m
 FixedRandomDelay=true

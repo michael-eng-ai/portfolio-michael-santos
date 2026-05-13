@@ -15,6 +15,13 @@ import {
 } from "@/lib/news-delivery";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
 import { getTagHashtag, BROAD_HASHTAGS } from "@/lib/tags";
+import {
+  isXCreditsDepletedError,
+  markXCreditsDepleted,
+  recordXApiError,
+  reserveXApiRequest,
+  shouldSkipXDueToBillingGuard,
+} from "@/lib/x-billing-guard";
 
 const SITE_HOST = "michael.business";
 const MAX_POSTS_PER_RUN = 1;
@@ -102,6 +109,10 @@ async function main() {
     process.exit(1);
   }
 
+  if (await shouldSkipXDueToBillingGuard("post-news-to-x")) {
+    return;
+  }
+
   const twitter = new TwitterApi({
     appKey: apiKey,
     appSecret: apiSecret,
@@ -136,6 +147,10 @@ async function main() {
     const tweet = buildTweet(news, i);
     const nextAttemptCount = Number(news.x_attempt_count ?? 0) + 1;
 
+    if (!(await reserveXApiRequest(`post-news-to-x:${news.slug}`))) {
+      break;
+    }
+
     if (queueSupported) {
       try {
         await updateNewsRowBySlug(news.slug, buildDeliveryStartPatch("x", nextAttemptCount));
@@ -149,7 +164,7 @@ async function main() {
       const result = await withRetry(
         () => twitter.v2.tweet(tweet),
         {
-          attempts: 3,
+          attempts: 1,
           delayMs: 1_500,
           shouldRetry: (error) => {
             const message = toErrorMessage(error);
@@ -184,6 +199,12 @@ async function main() {
       const details = tweetError && typeof tweetError === "object" && "data" in tweetError
         ? JSON.stringify((tweetError as Record<string, unknown>).data)
         : "";
+
+      if (isXCreditsDepletedError(tweetError)) {
+        await markXCreditsDepleted(tweetError, `post-news-to-x:${news.slug}`);
+      } else {
+        await recordXApiError(tweetError, `post-news-to-x:${news.slug}`);
+      }
 
       if (queueSupported) {
         try {

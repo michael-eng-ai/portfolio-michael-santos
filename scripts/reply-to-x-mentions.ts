@@ -6,6 +6,13 @@ import { TwitterApi } from "twitter-api-v2";
 import { getBotState, setBotState } from "@/lib/bot-state";
 import { generateText, resolveLlmProvider } from "@/lib/llm-text";
 import { toErrorMessage, withRetry, sleep } from "@/lib/runtime";
+import {
+  isXCreditsDepletedError,
+  markXCreditsDepleted,
+  recordXApiError,
+  reserveXApiRequest,
+  shouldSkipXDueToBillingGuard,
+} from "@/lib/x-billing-guard";
 
 const MAX_REPLIES_PER_RUN = 5;
 const MIN_DELAY_MS = 30_000;
@@ -83,6 +90,10 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
+  if (await shouldSkipXDueToBillingGuard("reply-to-x-mentions")) {
+    return;
+  }
+
   let provider;
   try {
     provider = resolveLlmProvider();
@@ -102,25 +113,40 @@ async function main(): Promise<void> {
   const lastMentionId = await readLastMentionId();
   console.log(lastMentionId ? `Fetching mentions since ${lastMentionId}` : "Fetching recent mentions (first run)");
 
-  const mentionsResponse = await withRetry(
-    () =>
-      twitter.v2.userMentionTimeline(OWN_USER_ID, {
-        max_results: 20,
-        since_id: lastMentionId,
-        "tweet.fields": ["author_id", "referenced_tweets", "text"],
+  if (!(await reserveXApiRequest("reply-to-x-mentions:fetch-mentions"))) {
+    return;
+  }
+
+  let mentionsResponse;
+  try {
+    mentionsResponse = await withRetry(
+      () =>
+        twitter.v2.userMentionTimeline(OWN_USER_ID, {
+          max_results: 20,
+          since_id: lastMentionId,
+          "tweet.fields": ["author_id", "referenced_tweets", "text"],
       }),
-    {
-      attempts: 3,
-      delayMs: 2_000,
-      shouldRetry: (error) => {
-        const message = toErrorMessage(error);
-        return message.includes("429") || message.includes("503") || message.includes("timeout") || message.includes("ECONNRESET");
+      {
+        attempts: 1,
+        delayMs: 2_000,
+        shouldRetry: (error) => {
+          const message = toErrorMessage(error);
+          return message.includes("429") || message.includes("503") || message.includes("timeout") || message.includes("ECONNRESET");
+        },
+        onRetry: (error, attempt, nextDelayMs) => {
+          console.warn(`Retrying mentions fetch after attempt ${attempt}: ${toErrorMessage(error)} (next in ${nextDelayMs}ms)`);
+        },
       },
-      onRetry: (error, attempt, nextDelayMs) => {
-        console.warn(`Retrying mentions fetch after attempt ${attempt}: ${toErrorMessage(error)} (next in ${nextDelayMs}ms)`);
-      },
-    },
-  );
+    );
+  } catch (error) {
+    if (isXCreditsDepletedError(error)) {
+      await markXCreditsDepleted(error, "reply-to-x-mentions:fetch-mentions");
+      return;
+    }
+
+    await recordXApiError(error, "reply-to-x-mentions:fetch-mentions");
+    throw error;
+  }
 
   const mentions = (mentionsResponse.data?.data ?? []) as Mention[];
 
@@ -151,6 +177,7 @@ async function main(): Promise<void> {
   for (let i = 0; i < eligibleMentions.length; i++) {
     const mention = eligibleMentions[i];
     const prompt = buildReplyPrompt(mention.text);
+    let xReplyAttempted = false;
 
     try {
       const result = await withRetry(
@@ -175,11 +202,16 @@ async function main(): Promise<void> {
         console.warn(`WARNING: reply truncated to 280 chars for mention ${mention.id}`);
       }
 
+      if (!(await reserveXApiRequest(`reply-to-x-mentions:reply:${mention.id}`))) {
+        break;
+      }
+
+      xReplyAttempted = true;
       await withRetry(
         () =>
           twitter.v2.reply(replyText, mention.id),
         {
-          attempts: 3,
+          attempts: 1,
           delayMs: 2_000,
           shouldRetry: (error) => {
             const msg = toErrorMessage(error);
@@ -200,6 +232,15 @@ async function main(): Promise<void> {
         await sleep(delay);
       }
     } catch (replyError: unknown) {
+      if (isXCreditsDepletedError(replyError)) {
+        await markXCreditsDepleted(replyError, `reply-to-x-mentions:reply:${mention.id}`);
+        break;
+      }
+
+      if (xReplyAttempted) {
+        await recordXApiError(replyError, `reply-to-x-mentions:reply:${mention.id}`);
+      }
+
       const message = toErrorMessage(replyError);
       const details =
         replyError && typeof replyError === "object" && "data" in replyError
