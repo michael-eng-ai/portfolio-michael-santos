@@ -1,0 +1,27 @@
+{
+  "slug": "article-agentic-data-pipeline-with-claude-mcp-architecture-guide",
+  "sourceType": "article",
+  "sourceSlug": "agentic-data-pipeline-with-claude-mcp-architecture-guide",
+  "status": "draft",
+  "generatedAt": "2026-05-14T12:09:11.220Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-architecture-guide",
+    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-architecture-guide",
+    "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Agentic data pipeline with Claude MCP: Architecture guide\n\nImplement an agentic data pipeline with Claude MCP to automate schema recovery and data quality fixes. Reduce on-call fatig…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-architecture-guide",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Pipeline de dados agentic com Claude MCP: Guia técnico\n\nImplemente um pipeline de dados agentic com Claude MCP para automatizar a recuperação de esquemas. Reduza o cansaço do sobreav…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-architecture-guide",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+      ]
+    }
+  }
+}
