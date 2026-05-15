@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "self-healing-data-pipeline-with-claude-mcp-and-python",
   "status": "draft",
-  "generatedAt": "2026-05-14T12:09:10.456Z",
+  "generatedAt": "2026-05-15T12:17:21.385Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-and-python",
@@ -13,12 +13,12 @@
   "locales": {
     "en": {
       "hook": "Self-healing data pipeline with Claude MCP and Python",
-      "body": "Build a self-healing data pipeline with Claude MCP to automate error recovery and schema drift handling. Reduce on-call toil through agentic automation.",
+      "body": "Deploy a self-healing data pipeline with Claude MCP to automate error recovery and schema detection. Reduce on-call hours with autonomous agentic engineering.",
       "cta": "Read the full story on the site and use GitHub as the operational proof point."
     },
     "pt": {
-      "hook": "Pipeline de dados auto-regenerativo com Claude MCP e Python",
-      "body": "Crie um pipeline de dados auto-regenerativo com Claude MCP para automatizar recuperação de erros e drift de schema. Reduza o trabalho manual com agentes.",
+      "hook": "Pipeline de dados resiliente com Claude MCP e Python",
+      "body": "Implemente um pipeline de dados com Claude MCP para automatizar recuperação de erros e detecção de esquema. Reduza horas de sobreaviso com engenharia autônoma.",
       "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
     }
   }
