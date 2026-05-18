@@ -1,0 +1,25 @@
+{
+  "slug": "article-agentic-data-pipeline-with-mcp-implementing-self-healing",
+  "sourceType": "article",
+  "sourceSlug": "agentic-data-pipeline-with-mcp-implementing-self-healing",
+  "status": "draft",
+  "generatedAt": "2026-05-18T12:55:10.579Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-mcp-implementing-self-healing",
+    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-mcp-implementing-self-healing",
+    "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+  },
+  "locales": {
+    "en": {
+      "hook": "Agentic Data Pipeline with MCP: Implementing Self-Healing",
+      "body": "Implement an agentic data pipeline with MCP to automate schema drift detection and error recovery. Reduce operational overhead and manual on-call interventions.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Pipeline de Dados Agêntico com MCP: Erros Autônomos",
+      "body": "Implemente um pipeline de dados agêntico com MCP para automatizar detecção de drift de schema e recuperação de erros. Reduza carga operacional e intervenção manual.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}
