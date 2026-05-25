@@ -274,12 +274,23 @@ export async function markXCreditsDepleted(error: unknown, context: string): Pro
   const until = new Date(now.getTime() + cooldownHours() * 60 * 60 * 1000);
   const reason = describeError(error);
 
-  await setBotState(X_CREDITS_STATE_KEY, {
-    until: until.toISOString(),
-    lastSeenAt: now.toISOString(),
-    context,
-    reason,
-  } satisfies XCreditsDepletedState);
+  try {
+    await setBotState(X_CREDITS_STATE_KEY, {
+      until: until.toISOString(),
+      lastSeenAt: now.toISOString(),
+      context,
+      reason,
+    } satisfies XCreditsDepletedState);
 
-  console.warn(`X credits depleted during ${context}; pausing X API calls until ${until.toISOString()}`);
+    console.warn(`X credits depleted during ${context}; pausing X API calls until ${until.toISOString()}`);
+  } catch (persistError) {
+    // DB unavailable (typical in CI). The credits-depleted state cannot be
+    // persisted, but the caller already knows about the depletion. Log and
+    // continue so the publish loop can move on instead of crashing.
+    const message = persistError instanceof Error ? persistError.message : String(persistError);
+    console.warn(
+      `X billing guard could not persist credits-depleted state for ${context} (${message}). ` +
+      `Original X API error: ${reason}`,
+    );
+  }
 }
