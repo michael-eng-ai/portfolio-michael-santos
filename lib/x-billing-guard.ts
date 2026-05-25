@@ -127,7 +127,23 @@ async function isDateBlockActive<T extends { until?: string; reason?: string }>(
   context: string,
   label: string,
 ): Promise<boolean> {
-  const state = await getBotState<T>(key);
+  let state: T | null = null;
+  try {
+    state = await getBotState<T>(key);
+  } catch (error) {
+    // The billing guard relies on a Postgres bot_state table that only
+    // exists on the worker VM. CI runs of post-news-to-x don't have
+    // DATABASE_URL configured, so getBotState throws. Treat this as
+    // "no block recorded" rather than failing the whole publish step:
+    // the X API call itself will report the real billing error, and the
+    // next VM run will record the block.
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn(
+      `X billing guard could not read state for ${context} (${message}). ` +
+      "Proceeding without block — the X API will surface any real error.",
+    );
+    return false;
+  }
 
   if (!state?.until) {
     return false;
@@ -188,22 +204,33 @@ export async function reserveXApiRequest(context: string): Promise<boolean> {
     return false;
   }
 
-  const limit = dailyRequestLimit();
-  const state = await getUsageState();
+  try {
+    const limit = dailyRequestLimit();
+    const state = await getUsageState();
 
-  if (state.requests >= limit) {
-    await setBillingBlock(context, `daily X request limit reached (${state.requests}/${limit})`);
-    return false;
+    if (state.requests >= limit) {
+      await setBillingBlock(context, `daily X request limit reached (${state.requests}/${limit})`);
+      return false;
+    }
+
+    await setBotState(X_BILLING_USAGE_STATE_KEY, {
+      ...state,
+      requests: state.requests + 1,
+      lastContext: context,
+      updatedAt: new Date().toISOString(),
+    } satisfies XBillingUsageState);
+
+    return true;
+  } catch (error) {
+    // DB unavailable (typical in CI without DATABASE_URL). Allow the
+    // request through; the X API call itself is the source of truth.
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn(
+      `X billing guard could not reserve quota for ${context} (${message}). ` +
+      "Proceeding without quota tracking.",
+    );
+    return true;
   }
-
-  await setBotState(X_BILLING_USAGE_STATE_KEY, {
-    ...state,
-    requests: state.requests + 1,
-    lastContext: context,
-    updatedAt: new Date().toISOString(),
-  } satisfies XBillingUsageState);
-
-  return true;
 }
 
 export async function recordXApiError(error: unknown, context: string): Promise<void> {
@@ -211,24 +238,34 @@ export async function recordXApiError(error: unknown, context: string): Promise<
     return;
   }
 
-  if (isXCreditsDepletedError(error)) {
-    await markXCreditsDepleted(error, context);
-    return;
-  }
+  try {
+    if (isXCreditsDepletedError(error)) {
+      await markXCreditsDepleted(error, context);
+      return;
+    }
 
-  const limit = dailyErrorLimit();
-  const state = await getUsageState();
-  const nextErrors = state.errors + 1;
+    const limit = dailyErrorLimit();
+    const state = await getUsageState();
+    const nextErrors = state.errors + 1;
 
-  await setBotState(X_BILLING_USAGE_STATE_KEY, {
-    ...state,
-    errors: nextErrors,
-    lastContext: context,
-    updatedAt: new Date().toISOString(),
-  } satisfies XBillingUsageState);
+    await setBotState(X_BILLING_USAGE_STATE_KEY, {
+      ...state,
+      errors: nextErrors,
+      lastContext: context,
+      updatedAt: new Date().toISOString(),
+    } satisfies XBillingUsageState);
 
-  if (nextErrors >= limit) {
-    await setBillingBlock(context, `daily X error limit reached (${nextErrors}/${limit}): ${describeError(error)}`);
+    if (nextErrors >= limit) {
+      await setBillingBlock(context, `daily X error limit reached (${nextErrors}/${limit}): ${describeError(error)}`);
+    }
+  } catch (recordingError) {
+    // DB unavailable. Surface the recording failure but don't propagate
+    // (the caller already has its own error to handle).
+    const message = recordingError instanceof Error ? recordingError.message : String(recordingError);
+    console.warn(
+      `X billing guard could not record error for ${context} (${message}). ` +
+      "The original X API error is still propagated by the caller.",
+    );
   }
 }
 
