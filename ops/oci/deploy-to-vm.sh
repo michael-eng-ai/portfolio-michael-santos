@@ -39,7 +39,7 @@ echo ""
 echo "[1/5] Packing repository snapshot"
 export COPYFILE_DISABLE=1
 git -C "$LOCAL_REPO_DIR" ls-files -z --cached --others --exclude-standard \
-  | tar --null -czf "$TMP_ARCHIVE" -C "$LOCAL_REPO_DIR" --files-from -
+  | tar --no-xattrs --null -czf "$TMP_ARCHIVE" -C "$LOCAL_REPO_DIR" --files-from -
 echo "  Archive: $(du -h "$TMP_ARCHIVE" | cut -f1)"
 
 if [[ "$PULL_VERCEL_ENV" == "1" ]]; then
@@ -89,6 +89,8 @@ allowed_keys = {
     "GSC_SITE_URL",
     "TELEGRAM_BOT_TOKEN_HERMES",
     "TELEGRAM_HOME_CHAT_ID",
+    "TELEGRAM_POLL_TIMEOUT_SECONDS",
+    "TELEGRAM_CONFLICT_DELAY_SECONDS",
 }
 
 for path in inputs:
@@ -154,6 +156,7 @@ install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/oci/systemd/michael-engagem
 install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/oci/systemd/michael-engagement-cycle.timer" /etc/systemd/system/
 install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/oci/systemd/michael-worker-health-report.service" /etc/systemd/system/
 install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/oci/systemd/michael-worker-health-report.timer" /etc/systemd/system/
+install -o root -g root -m 644 "$REMOTE_REPO_DIR/ops/oci/systemd/michael-hermes-telegram-bot.service" /etc/systemd/system/
 
 # Install dependencies
 sudo -u michaelworker bash -lc 'cd $REMOTE_REPO_DIR && pnpm install --frozen-lockfile 2>&1 | tail -5'
@@ -165,13 +168,16 @@ fi
 
 # Systemd
 systemctl daemon-reload
-systemctl reset-failed michael-news-cycle.service michael-daily-briefing.service michael-health-check.service michael-engagement-cycle.service michael-worker-health-report.service >/dev/null 2>&1 || true
+systemctl reset-failed michael-news-cycle.service michael-daily-briefing.service michael-health-check.service michael-engagement-cycle.service michael-worker-health-report.service michael-hermes-telegram-bot.service >/dev/null 2>&1 || true
 
 if [[ "$ENABLE_TIMERS" == "1" ]]; then
   systemctl enable --now michael-news-cycle.timer michael-daily-briefing.timer michael-health-check.timer michael-engagement-cycle.timer michael-worker-health-report.timer
+  systemctl enable michael-hermes-telegram-bot.service
+  systemctl restart michael-hermes-telegram-bot.service
   echo "Timers ENABLED"
 else
   systemctl disable --now michael-news-cycle.timer michael-daily-briefing.timer michael-health-check.timer michael-engagement-cycle.timer michael-worker-health-report.timer >/dev/null 2>&1 || true
+  systemctl disable --now michael-hermes-telegram-bot.service >/dev/null 2>&1 || true
   echo "Timers DISABLED"
 fi
 

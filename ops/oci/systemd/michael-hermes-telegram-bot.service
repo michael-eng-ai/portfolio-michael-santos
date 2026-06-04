@@ -1,0 +1,22 @@
+[Unit]
+Description=Hermes Telegram LLM bot
+Wants=network-online.target
+After=network-online.target
+ConditionPathExists=/etc/michael-business/worker.env
+StartLimitIntervalSec=10min
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=michaelworker
+Group=michaelworker
+WorkingDirectory=/opt/michael-business/portfolio-michael-santos
+EnvironmentFile=/etc/michael-business/worker.env
+ExecStart=/usr/bin/env pnpm content:bot:telegram
+Restart=always
+RestartSec=10s
+TimeoutStartSec=60s
+SyslogIdentifier=michael-hermes-telegram-bot
+
+[Install]
+WantedBy=multi-user.target
