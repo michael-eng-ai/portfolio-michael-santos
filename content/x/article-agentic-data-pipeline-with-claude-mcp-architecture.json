@@ -3,7 +3,7 @@
   "sourceType": "article",
   "sourceSlug": "agentic-data-pipeline-with-claude-mcp-architecture",
   "status": "draft",
-  "generatedAt": "2026-06-05T12:27:09.544Z",
+  "generatedAt": "2026-06-08T12:57:29.641Z",
   "publishedUrl": null,
   "urls": {
     "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-architecture",
@@ -13,13 +13,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Agentic Data Pipeline with Claude MCP Architecture\n\nBuild an agentic data pipeline with Claude MCP to automate schema migration recovery and eliminate on-call alerts using runtime self-hea…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-architecture",
+        "Agentic data pipeline with Claude MCP architecture\n\nDeploy an agentic data pipeline with Claude MCP to resolve schema drift autonomously and eliminate manual recovery tasks on critical inf…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-architecture",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Pipeline de dados agentivo com Claude MCP e Python\n\nCrie um pipeline de dados agentivo com Claude MCP para automatizar migrações de esquemas e zerar alertas de plantão com auto-correção de…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-architecture",
+        "Pipeline de dados agente com Claude MCP em produção\n\nImplemente um pipeline de dados agente com Claude MCP para resolver schema drift e eliminar tarefas de recuperação manual em sua infrae…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-architecture",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }
