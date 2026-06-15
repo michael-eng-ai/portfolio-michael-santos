@@ -1,0 +1,25 @@
+{
+  "slug": "article-agentic-data-pipeline-with-mcp-architecture-patterns",
+  "sourceType": "article",
+  "sourceSlug": "agentic-data-pipeline-with-mcp-architecture-patterns",
+  "status": "draft",
+  "generatedAt": "2026-06-15T13:32:41.501Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-mcp-architecture-patterns",
+    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-mcp-architecture-patterns",
+    "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
+  },
+  "locales": {
+    "en": {
+      "hook": "agentic data pipeline with mcp architecture patterns",
+      "body": "Deploy a resilient agentic data pipeline with mcp to autonomously resolve schema drift and reduce engineering on-call hours by ninety percent.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "arquitetura real de pipeline de dados agentivo com mcp",
+      "body": "Implemente um pipeline de dados agentivo com mcp para resolver desvios de esquema de forma autonoma e reduzir horas de plantao de engenharia.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}
