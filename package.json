@@ -21,6 +21,7 @@
     "content:cleanup:news": "tsx scripts/cleanup-old-news.ts",
     "db:shadow:sync": "tsx scripts/sync-supabase-to-postgres.ts",
     "db:shadow:verify": "tsx scripts/verify-postgres-shadow.ts",
+    "db:cutover:check": "tsx scripts/check-postgres-ready.ts",
     "content:sync:github": "tsx scripts/sync-github-projects.ts",
     "content:linkedin": "tsx scripts/generate-linkedin-drafts.ts",
     "content:x": "tsx scripts/generate-x-drafts.ts",

@@ -95,7 +95,7 @@ Optional but recommended:
 
 ### Production cutover: Vercel -> VM PostgreSQL
 Use this when Supabase is restricted (for example `exceed_egress_quota`) and you want the live site to read from the VM PostgreSQL instead. Only proceed once the VM database is reachable from Vercel over a safe network path.
-1. Confirm the shadow database is healthy and in sync: run `pnpm db:shadow:verify` on the VM.
+1. Confirm the VM PostgreSQL is reachable and serving active news: run `pnpm db:cutover:check` (Postgres-only, works even while Supabase is restricted). When Supabase is still reachable, also run `pnpm db:shadow:verify` to confirm the two databases are in sync.
 2. In the Vercel project settings (Production environment), add:
    - `DATABASE_PROVIDER=postgres`
    - `DATABASE_URL=<postgres connection string reachable from Vercel>`
