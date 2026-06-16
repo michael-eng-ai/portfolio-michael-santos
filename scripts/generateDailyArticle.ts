@@ -5,7 +5,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { jsonrepair } from "jsonrepair";
 import OpenAI from "openai";
 
-import { getNewsReferences, getProjects } from "@/lib/content";
+import { getNewsReferences, getProjects, getArticles } from "@/lib/content";
 import { generateCoverImage } from "@/lib/image-gen";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
 
@@ -17,6 +17,16 @@ const DEFAULT_GEMINI_MODEL = "gemini-flash-latest";
 const GEMINI_REQUEST_TIMEOUT_MS = 10 * 60 * 1000;
 const KIMI_MAX_TOKENS = 16384;
 const GEMINI_MAX_TOKENS = 16384;
+
+// How many times to regenerate when the produced title duplicates or closely
+// paraphrases an already-published article. Above this, fail loudly instead of
+// publishing yet another near-duplicate.
+const MAX_NOVELTY_ATTEMPTS = 3;
+// Overlap-coefficient threshold (shared significant words / smaller title's
+// word count) above which two titles are treated as the same topic.
+const NOVELTY_SIMILARITY_THRESHOLD = 0.5;
+// How many recent titles to surface to the model as "do not repeat" context.
+const RECENT_TITLE_CONTEXT = 30;
 
 type ArticlePayload = {
   titleEn: string;
@@ -159,18 +169,102 @@ function parseArticlePayload(rawText: string): ArticlePayload {
   throw new Error(`Unable to parse article JSON payload. ${errors.join(" | ")}`);
 }
 
+// Words ignored when comparing titles for topical overlap: articles,
+// prepositions, and year tokens that recur regardless of subject.
+const TITLE_STOPWORDS = new Set([
+  "the", "a", "an", "and", "or", "for", "with", "without", "your", "you", "our", "of", "to", "in",
+  "on", "at", "by", "from", "how", "why", "what", "when", "where", "is", "are", "be", "that", "this",
+  "into", "as", "it", "its", "de", "da", "do", "para", "com", "sem", "os", "as", "um", "uma", "na",
+  "no", "em", "por", "que", "2024", "2025", "2026", "2027",
+]);
+
+function significantWords(title: string): Set<string> {
+  return new Set(
+    title
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9\s]/g, " ")
+      .split(/\s+/)
+      .filter((word) => word.length >= 4 && !TITLE_STOPWORDS.has(word)),
+  );
+}
+
+function titleSimilarity(left: string, right: string): number {
+  const a = significantWords(left);
+  const b = significantWords(right);
+  if (a.size === 0 || b.size === 0) {
+    return 0;
+  }
+
+  let shared = 0;
+  for (const word of a) {
+    if (b.has(word)) {
+      shared += 1;
+    }
+  }
+
+  return shared / Math.min(a.size, b.size);
+}
+
+function findSimilarTitle(candidate: string, existing: string[]): string | null {
+  for (const title of existing) {
+    if (titleSimilarity(candidate, title) >= NOVELTY_SIMILARITY_THRESHOLD) {
+      return title;
+    }
+  }
+  return null;
+}
+
+// Significant words that recur across many recent titles — i.e., the themes the
+// catalogue is already saturated with, which the model should steer away from.
+function overCoveredThemes(titles: string[], minCount = 3, limit = 6): string[] {
+  const counts = new Map<string, number>();
+  for (const title of titles) {
+    for (const word of significantWords(title)) {
+      counts.set(word, (counts.get(word) ?? 0) + 1);
+    }
+  }
+
+  return [...counts.entries()]
+    .filter(([, count]) => count >= minCount)
+    .sort((left, right) => right[1] - left[1])
+    .slice(0, limit)
+    .map(([word, count]) => `${word} (${count}×)`);
+}
+
 function buildPrompt(
   projects: Awaited<ReturnType<typeof getProjects>>,
   news: Awaited<ReturnType<typeof getNewsReferences>>,
+  recentArticles: Awaited<ReturnType<typeof getArticles>>,
+  avoidTitles: string[],
 ): string {
+  const publishedTitles = recentArticles
+    .slice(0, RECENT_TITLE_CONTEXT)
+    .map((article) => `- ${article.locales.en.title}`)
+    .join("\n");
+  const saturatedThemes = overCoveredThemes(
+    recentArticles.map((article) => article.locales.en.title),
+  );
+
   return `
 You are generating a bilingual article draft for a senior data engineering portfolio platform.
+
+NOVELTY & ATTENTION (highest priority — the catalogue already has 50+ articles and readers churn on repetition):
+   - Choose a primary topic CLEARLY DISTINCT from every entry in "ALREADY PUBLISHED" below. Do not duplicate, paraphrase, re-angle, or reuse the same primary keyword as any of them.
+   - Do NOT default to "self-healing data pipelines", "Claude MCP", or "agentic pipelines" — those are already over-covered.${saturatedThemes.length ? ` The most saturated keywords right now are: ${saturatedThemes.join(", ")}. Do not lead with these.` : ""}
+   - Vary the title structure every run; never reuse a fixed template. Do not append "in 2026"/"in 2025" as a crutch — only include a year when the claim is genuinely time-bound, and never on consecutive articles.
+   - Avoid recycled stat-hooks ("X% of companies/projects fail/use AI"). Use at most one such framing, and only with a specific, cited number.
+   - Pick a fresh entry angle for the body (incident postmortem, benchmark, migration story, architecture trade-off, cost analysis, hands-on build) that differs from recent articles.${avoidTitles.length ? `\n   - REJECTED THIS RUN as too similar — pick something clearly different from these too:\n${avoidTitles.map((title) => `     - ${title}`).join("\n")}` : ""}
+
+ALREADY PUBLISHED — must not be duplicated or paraphrased (most recent first):
+${publishedTitles || "- (none yet)"}
 
 SEO DISCIPLINE (non-negotiable — optimized for Google organic discovery on long-tail intents):
 
 1. TITLE (titleEn, titlePt):
    - 50–65 characters including spaces. Must fit one SERP line.
-   - Front-load the primary long-tail keyword (what a senior data engineer or engineering manager would actually type into Google — e.g., "self-healing data pipeline with Claude MCP", "pgvector hybrid search production", "dbt Fusion vs SQLMesh").
+   - Front-load the primary long-tail keyword a senior data engineer or engineering manager would actually type into Google. The keyword must NOT appear in the ALREADY PUBLISHED list above. (Illustrative formats only — do not copy: "pgvector hybrid search production", "dbt Fusion vs SQLMesh CDC".)
    - No clickbait. No "How I" / "The Ultimate Guide" unless it genuinely fits.
    - Avoid competing for generic head terms like "data engineering" alone.
 
@@ -183,7 +277,7 @@ SEO DISCIPLINE (non-negotiable — optimized for Google organic discovery on lon
    - Minimum 1400 words, maximum 2200 words in each language.
    - First 100 characters of the body MUST contain the primary keyword naturally.
    - Structure: intro paragraph (no heading) → four to six "## H2" sections → optional "### H3" subsections.
-   - Use H2 wording that a human would paste into Google (question-shaped or gap-shaped). Examples: "## When self-healing actually saves on-call hours", "## Why dbt Fusion changes the CDC migration math".
+   - Use H2 wording that a human would paste into Google (question-shaped or gap-shaped), tailored to this article's specific topic rather than a recycled example.
    - Include at least one internal link: "[anchor](/articles/OTHER_SLUG)" pointing to an existing relevant article slug (pick from the news refs or recent articles section context). Use a descriptive anchor, never "click here".
    - Include at least one project link: "[anchor](/projects/PROJECT_SLUG)" from the project references above.
    - Include one technical code block (SQL, Python, or YAML) showing an implementation detail — not pseudocode.
@@ -346,11 +440,7 @@ async function generateWithGroq(prompt: string): Promise<string> {
   return content;
 }
 
-async function main() {
-  const provider = resolveProvider();
-  const [projects, news] = await Promise.all([getProjects(), getNewsReferences()]);
-  const prompt = buildPrompt(projects, news);
-
+async function generatePayload(prompt: string, providerPlan: Provider[]): Promise<ArticlePayload> {
   const generate = (targetProvider: Provider): Promise<string> => {
     switch (targetProvider) {
       case "kimi":
@@ -362,19 +452,13 @@ async function main() {
     }
   };
 
-  const providerPlan = getProviderPlan(provider);
-  if (providerPlan.length === 0) {
-    throw new Error(`Provider ${provider} was selected but its API key is not configured.`);
-  }
-
-  let payload: ArticlePayload | null = null;
   const providerErrors: string[] = [];
 
   for (const targetProvider of providerPlan) {
     console.log(`Generating article via provider=${targetProvider}`);
 
     try {
-      payload = await withRetry(
+      return await withRetry(
         async () => parseArticlePayload(await generate(targetProvider)),
         {
           attempts: 3,
@@ -399,18 +483,64 @@ async function main() {
           },
         },
       );
-      break;
     } catch (error) {
       providerErrors.push(`${targetProvider}: ${toErrorMessage(error)}`);
       console.warn(`Provider ${targetProvider} failed; trying next configured provider if available.`);
     }
   }
 
-  if (!payload) {
-    throw new Error(`Article generation failed for all configured providers. ${providerErrors.join(" | ")}`);
+  throw new Error(`Article generation failed for all configured providers. ${providerErrors.join(" | ")}`);
+}
+
+async function main() {
+  const provider = resolveProvider();
+  const [projects, news, recentArticles] = await Promise.all([
+    getProjects(),
+    getNewsReferences(),
+    getArticles(),
+  ]);
+
+  const providerPlan = getProviderPlan(provider);
+  if (providerPlan.length === 0) {
+    throw new Error(`Provider ${provider} was selected but its API key is not configured.`);
   }
 
-  const slug = slugify(payload.titleEn);
+  const existingTitles = recentArticles.map((article) => article.locales.en.title);
+  const existingSlugs = new Set(recentArticles.map((article) => article.slug));
+
+  // Generate, then reject-and-retry if the model produced a title that
+  // duplicates or closely paraphrases something already in the catalogue.
+  // Each rejected title is fed back into the prompt to steer the next attempt.
+  const avoidTitles: string[] = [];
+  let payload: ArticlePayload | null = null;
+  let slug = "";
+
+  for (let attempt = 1; attempt <= MAX_NOVELTY_ATTEMPTS; attempt += 1) {
+    const prompt = buildPrompt(projects, news, recentArticles, avoidTitles);
+    const candidate = await generatePayload(prompt, providerPlan);
+    const candidateSlug = slugify(candidate.titleEn);
+    const similarTo = findSimilarTitle(candidate.titleEn, existingTitles);
+
+    if (!existingSlugs.has(candidateSlug) && !similarTo) {
+      payload = candidate;
+      slug = candidateSlug;
+      break;
+    }
+
+    const reason = existingSlugs.has(candidateSlug)
+      ? `slug "${candidateSlug}" already exists`
+      : `title too similar to existing "${similarTo}"`;
+    console.warn(
+      `Novelty check failed (attempt ${attempt}/${MAX_NOVELTY_ATTEMPTS}): ${reason}. Regenerating with a stronger anti-repetition hint.`,
+    );
+    avoidTitles.push(candidate.titleEn);
+  }
+
+  if (!payload) {
+    throw new Error(
+      `Could not generate a sufficiently novel article after ${MAX_NOVELTY_ATTEMPTS} attempts. Rejected: ${avoidTitles.join(" | ")}`,
+    );
+  }
 
   // Generate cover image (best-effort: article still ships if image fails).
   let imageUrl: string | undefined;

@@ -1,0 +1,50 @@
+name: LLM Health Check
+
+# Manual-only: verifies each configured LLM provider (Gemini, Groq) is reachable
+# and returns a correct response. Reports model + latency per provider in the
+# job summary. No schedule, so it never sends recurring failure emails.
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: llm-health-check
+  cancel-in-progress: true
+
+jobs:
+  test-llm-providers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          package-manager-cache: false
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Test LLM providers
+        id: test
+        run: pnpm content:test:llm | tee llm-health.json
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+
+      - name: Publish results to job summary
+        if: always()
+        run: |
+          {
+            echo "## LLM Health Check"
+            echo ""
+            echo '```json'
+            cat llm-health.json 2>/dev/null || echo "No output captured."
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
