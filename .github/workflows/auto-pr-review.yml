@@ -46,6 +46,7 @@ jobs:
         env:
           KIMI_API_KEY: ${{ secrets.KIMI_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           DIFF_CONTENT: ${{ steps.diff.outputs.diff }}
         run: |
           set -uo pipefail
@@ -60,52 +61,61 @@ jobs:
           EOF
           )
 
-          if [ -n "${KIMI_API_KEY:-}" ]; then
-            BODY=$(jq -n \
-              --arg model "kimi-k2.5" \
+          REVIEW=""
+          PROVIDER_USED=""
+
+          # Call an OpenAI-compatible chat endpoint. On API error or empty
+          # content, return non-zero so the caller falls through to the next
+          # provider instead of giving up (a suspended/rate-limited account
+          # like Kimi out of balance must not block the whole review).
+          try_provider() {
+            local name="$1" url="$2" model="$3" key="$4" max_tokens="$5" temp="$6"
+            [ -z "$key" ] && return 1
+
+            local body resp content
+            body=$(jq -n \
+              --arg model "$model" \
               --arg prompt "$PROMPT" \
-              --argjson max_tokens 8192 \
-              '{model: $model, max_tokens: $max_tokens, temperature: 1, messages: [{role: "system", content: "You are a senior code reviewer. Be direct and terse."}, {role: "user", content: $prompt}]}')
+              --argjson max_tokens "$max_tokens" \
+              --argjson temp "$temp" \
+              '{model: $model, max_tokens: $max_tokens, temperature: $temp, messages: [{role: "system", content: "You are a senior code reviewer. Be direct and terse."}, {role: "user", content: $prompt}]}')
 
-            RESPONSE=$(curl -sS -X POST https://api.moonshot.ai/v1/chat/completions \
+            resp=$(curl -sS -X POST "$url" \
               -H "Content-Type: application/json" \
-              -H "Authorization: Bearer ${KIMI_API_KEY}" \
-              -d "$BODY")
+              -H "Authorization: Bearer ${key}" \
+              -d "$body")
 
-            REVIEW=$(echo "$RESPONSE" | jq -r '
-              if .error then
-                "Failed to generate review (Kimi): " + (.error.message // "unknown API error")
-              else
-                (.choices[0].message.content // "Failed to generate review.")
-              end
-            ')
-          elif [ -n "${GROQ_API_KEY:-}" ]; then
-            BODY=$(jq -n \
-              --arg model "llama-3.3-70b-versatile" \
-              --arg prompt "$PROMPT" \
-              --argjson max_tokens 2048 \
-              '{model: $model, max_tokens: $max_tokens, temperature: 0.2, messages: [{role: "system", content: "You are a senior code reviewer. Be direct and terse."}, {role: "user", content: $prompt}]}')
+            if echo "$resp" | jq -e '.error' >/dev/null 2>&1; then
+              echo "[auto-review] ${name} failed: $(echo "$resp" | jq -r '.error.message // "unknown error"')" >&2
+              return 1
+            fi
 
-            RESPONSE=$(curl -sS -X POST https://api.groq.com/openai/v1/chat/completions \
-              -H "Content-Type: application/json" \
-              -H "Authorization: Bearer ${GROQ_API_KEY}" \
-              -d "$BODY")
+            content=$(echo "$resp" | jq -r '.choices[0].message.content // empty')
+            if [ -z "$content" ]; then
+              echo "[auto-review] ${name} returned no content" >&2
+              return 1
+            fi
 
-            REVIEW=$(echo "$RESPONSE" | jq -r '
-              if .error then
-                "Failed to generate review (Groq): " + (.error.message // "unknown API error")
-              else
-                (.choices[0].message.content // "Failed to generate review.")
-              end
-            ')
-          else
-            REVIEW="Auto PR review skipped: no LLM API key configured."
+            REVIEW="$content"
+            PROVIDER_USED="$name"
+            return 0
+          }
+
+          try_provider "Kimi" "https://api.moonshot.ai/v1/chat/completions" "kimi-k2.5" "${KIMI_API_KEY:-}" 8192 1 \
+            || try_provider "Groq" "https://api.groq.com/openai/v1/chat/completions" "llama-3.3-70b-versatile" "${GROQ_API_KEY:-}" 2048 0.2 \
+            || try_provider "Gemini" "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions" "gemini-flash-latest" "${GEMINI_API_KEY:-}" 2048 0.4 \
+            || true
+
+          if [ -z "$REVIEW" ]; then
+            REVIEW="Auto PR review skipped: no LLM provider returned a review (check KIMI/GROQ/GEMINI keys and account billing)."
+            PROVIDER_USED="none"
           fi
 
           EOF_MARKER=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "review<<${EOF_MARKER}" >> "$GITHUB_OUTPUT"
           echo "${REVIEW}" >> "$GITHUB_OUTPUT"
           echo "${EOF_MARKER}" >> "$GITHUB_OUTPUT"
+          echo "provider=${PROVIDER_USED}" >> "$GITHUB_OUTPUT"
 
       - name: Post review comment
         env:

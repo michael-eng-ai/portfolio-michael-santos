@@ -93,6 +93,30 @@ Optional but recommended:
 - Do not point Vercel to the VM PostgreSQL until the database is reachable from Vercel with a safe network path
 - The shadow database guide lives in [ops/gcp/worker/postgres/README.md](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/ops/gcp/worker/postgres/README.md)
 
+### Production cutover: Vercel -> VM PostgreSQL
+Use this when Supabase is restricted (for example `exceed_egress_quota`) and you want the live site to read from the VM PostgreSQL instead. Only proceed once the VM database is reachable from Vercel over a safe network path.
+1. Confirm the VM PostgreSQL is reachable and serving active news: run `pnpm db:cutover:check` (Postgres-only, works even while Supabase is restricted). When Supabase is still reachable, also run `pnpm db:shadow:verify` to confirm the two databases are in sync.
+2. In the Vercel project settings (Production environment), add:
+   - `DATABASE_PROVIDER=postgres`
+   - `DATABASE_URL=<postgres connection string reachable from Vercel>`
+   - `DATABASE_SSL=require` (set when the VM enforces TLS)
+   - Optional during transition: `SECONDARY_DATABASE_PROVIDER=supabase` to keep mirroring writes once Supabase is restored.
+3. Redeploy production (Vercel Git integration redeploy, or `pnpm exec vercel --prod`).
+4. Verify `https://michael.business/api/health/news` returns `{"ok":true,"source":"postgres",...}`.
+5. To roll back, remove `DATABASE_PROVIDER`/`DATABASE_URL` (provider defaults to `supabase`) and redeploy.
+
+The application code already routes every read/write through the selected provider (`lib/database.ts`), so no code change is needed for the cutover — it is purely an environment-variable switch.
+
+### Reducing database egress (cache)
+The full active `news` table is read by the home page and every news/article/project detail page. To keep that from multiplying database egress (the cause of the Supabase quota trip), `lib/content.ts` wraps the news read in a shared `unstable_cache` (cross-request) plus React `cache` (per-render dedup). The full table is fetched at most once per cache window globally instead of once per rendered path.
+- Tune the window with the `NEWS_CACHE_TTL_SECONDS` environment variable (default `600` seconds).
+- The data cache is tagged `news`; the worker/pipeline writes from a separate process, so refreshed content appears on the site after the TTL window rather than instantly.
+
+### Uptime monitoring
+- `.github/workflows/uptime-check.yml` probes `/en` and `/api/health/news` every 15 minutes and fails the run when the site is down or the news feed is degraded (serving fallback), which triggers GitHub's standard failure notification.
+- Override the target with a repository variable `SITE_URL` (defaults to `https://michael.business`).
+- This complements an external monitor (UptimeRobot or similar) pointed at the same `/api/health/news` endpoint.
+
 ### GitHub sync and LinkedIn drafts
 - The scheduled workflow runs `pnpm content:sync:github`
 - It then runs `pnpm content:linkedin`

@@ -45,6 +45,9 @@ jobs:
         if: vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
         run: pnpm content:enrich:news
         env:
+          DATABASE_PROVIDER: postgres
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_SSL: ${{ secrets.DATABASE_SSL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -55,6 +58,9 @@ jobs:
         if: vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
         run: pnpm content:curate:news
         env:
+          DATABASE_PROVIDER: postgres
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_SSL: ${{ secrets.DATABASE_SSL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -65,6 +71,9 @@ jobs:
         if: vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
         run: pnpm content:cleanup:news
         env:
+          DATABASE_PROVIDER: postgres
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_SSL: ${{ secrets.DATABASE_SSL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
 
@@ -72,6 +81,9 @@ jobs:
         if: vars.VM_OWNS_X_POSTING != 'true'
         run: pnpm content:post:x
         env:
+          DATABASE_PROVIDER: postgres
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_SSL: ${{ secrets.DATABASE_SSL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           X_API_KEY: ${{ secrets.X_API_KEY }}
@@ -88,7 +100,7 @@ jobs:
             echo "- RSS sync is expected to be handled by the VM worker during the cutover."
             echo "- Check the workflow logs for the failing step."
             echo "- Verify \`/api/health/news\` on the site."
-            echo "- Confirm Supabase and social credentials are still valid."
+            echo "- Confirm DATABASE_URL (VM PostgreSQL) is reachable and social credentials are still valid."
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Create failure issue

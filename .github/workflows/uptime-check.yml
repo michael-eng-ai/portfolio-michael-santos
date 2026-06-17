@@ -1,0 +1,64 @@
+name: Uptime Check
+
+# Pings the live site and the news-backend health endpoint on a schedule.
+# A failed run triggers GitHub's standard workflow-failure notification, so the
+# owner is alerted when the site is down OR when the news feed silently falls
+# back to static content (e.g. the Supabase egress quota being exceeded).
+#
+# Override the target without editing this file by setting a repository
+# variable named SITE_URL (Settings -> Secrets and variables -> Actions -> Variables).
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Every 15 minutes. GitHub may delay scheduled runs under load.
+    - cron: "*/15 * * * *"
+
+concurrency:
+  group: uptime-check
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    env:
+      SITE_URL: ${{ vars.SITE_URL || 'https://michael.business' }}
+
+    steps:
+      - name: Probe homepage
+        run: |
+          set -euo pipefail
+          url="${SITE_URL%/}/en"
+          echo "Checking homepage: $url"
+          code="$(curl -sS -o /dev/null -w '%{http_code}' -L --max-time 25 --retry 2 --retry-delay 5 "$url")"
+          echo "HTTP $code"
+          if [ "$code" != "200" ]; then
+            echo "::error title=Site down::Homepage $url returned HTTP $code (expected 200)"
+            exit 1
+          fi
+          echo "Homepage is up."
+
+      - name: Probe news backend health
+        run: |
+          set -euo pipefail
+          url="${SITE_URL%/}/api/health/news"
+          echo "Checking news health: $url"
+          body="$(mktemp)"
+          code="$(curl -sS -o "$body" -w '%{http_code}' -L --max-time 25 --retry 2 --retry-delay 5 "$url" || true)"
+          echo "HTTP $code"
+          echo "Body: $(cat "$body")"
+
+          ok="$(jq -r '.ok // false' "$body" 2>/dev/null || echo false)"
+          source="$(jq -r '.source // "unknown"' "$body" 2>/dev/null || echo unknown)"
+          error="$(jq -r '.error // ""' "$body" 2>/dev/null || echo '')"
+
+          if [ "$code" = "200" ] && [ "$ok" = "true" ]; then
+            echo "News backend healthy (source: $source)."
+            exit 0
+          fi
+
+          echo "::error title=News feed degraded::Health endpoint returned HTTP $code, ok=$ok, source=$source. ${error}"
+          echo "The site is serving fallback content instead of fresh news — the database backend is unreachable."
+          exit 1

@@ -1,10 +1,11 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { unstable_cache } from "next/cache";
+import { cache } from "react";
 import { z } from "zod";
 
 import {
   getActiveNewsPresence,
-  getActiveNewsRowBySlug,
   getDatabaseProvider,
   listActiveNewsRows,
 } from "@/lib/database";
@@ -358,7 +359,7 @@ function mapSupabaseRowToNews(row: Record<string, unknown>): NewsReference {
   }));
 }
 
-export async function getNewsReferences(): Promise<NewsReference[]> {
+async function fetchNewsReferencesFromSource(): Promise<NewsReference[]> {
   try {
     const results: NewsReference[] = [];
     for (const row of await listActiveNewsRows()) {
@@ -384,20 +385,38 @@ export async function getNewsReferences(): Promise<NewsReference[]> {
   }
 }
 
+// The full active news table is read by every page (home, each news/article/project
+// detail). Pulling it once per render multiplies database egress and is what tripped
+// the Supabase egress quota. Wrap the source read in two cache layers:
+//  - `unstable_cache` shares one result across all requests/paths for NEWS_CACHE_TTL,
+//    so the full table is fetched at most once per window globally instead of per path.
+//  - React `cache` deduplicates the repeated calls within a single render pass.
+// Override the window with NEWS_CACHE_TTL_SECONDS (defaults to 600s / 10 min).
+const NEWS_CACHE_TTL_SECONDS =
+  Number.parseInt(process.env.NEWS_CACHE_TTL_SECONDS ?? "", 10) || 600;
+
+const loadNewsReferences = cache(
+  unstable_cache(fetchNewsReferencesFromSource, ["news-references"], {
+    revalidate: NEWS_CACHE_TTL_SECONDS,
+    tags: ["news"],
+  }),
+);
+
+export async function getNewsReferences(): Promise<NewsReference[]> {
+  return loadNewsReferences();
+}
+
 export async function getNewsReferenceBySlug(slug: string): Promise<NewsReference | null> {
-  try {
-    const data = await getActiveNewsRowBySlug(slug);
+  // Reuse the cached active-news list (same `is_active = true` set) so a detail view
+  // does not issue an extra single-row query and inflate database egress.
+  const cached = (await getNewsReferences()).find((entry) => entry.slug === slug);
 
-    if (!data) {
-      const fallbackEntries = await readFallbackNewsReferences();
-      return fallbackEntries.find((entry) => entry.slug === slug) ?? null;
-    }
-
-    return mapSupabaseRowToNews(data);
-  } catch {
-    const fallbackEntries = await readFallbackNewsReferences();
-    return fallbackEntries.find((entry) => entry.slug === slug) ?? null;
+  if (cached) {
+    return cached;
   }
+
+  const fallbackEntries = await readFallbackNewsReferences();
+  return fallbackEntries.find((entry) => entry.slug === slug) ?? null;
 }
 
 export async function getNewsHealthStatus() {
