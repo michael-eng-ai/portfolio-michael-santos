@@ -3,7 +3,7 @@ name: Uptime Check
 # Pings the live site and the news-backend health endpoint on a schedule.
 # A failed run triggers GitHub's standard workflow-failure notification, so the
 # owner is alerted when the site is down OR when the news feed silently falls
-# back to static content (e.g. the Supabase egress quota being exceeded).
+# back to static content (e.g. the PostgreSQL database being unreachable).
 #
 # Override the target without editing this file by setting a repository
 # variable named SITE_URL (Settings -> Secrets and variables -> Actions -> Variables).

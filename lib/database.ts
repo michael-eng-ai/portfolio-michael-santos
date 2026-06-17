@@ -1,9 +1,6 @@
 import type { DeliveryChannel } from "@/lib/news-delivery";
 import { queryPostgres } from "@/lib/postgres";
 import { toErrorMessage } from "@/lib/runtime";
-import { getSupabaseAdminClient } from "@/lib/supabase";
-
-export type DatabaseProvider = "supabase" | "postgres";
 
 export type NewsRowRecord = Record<string, unknown> & {
   slug: string;
@@ -89,24 +86,6 @@ const NEWS_COLUMNS = [
   "updated_at",
 ] as const;
 
-const LEGACY_SUPABASE_NEWS_COLUMNS = [
-  "slug",
-  "published_at",
-  "source_name",
-  "source_url",
-  "image_url",
-  "category",
-  "tags",
-  "related_project_slugs",
-  "locales",
-  "editorial_analysis",
-  "is_active",
-  "posted_to_x_at",
-  "posted_to_linkedin_at",
-  "created_at",
-  "updated_at",
-] as const;
-
 function requireString(value: unknown, field: string) {
   if (typeof value !== "string" || value.trim().length === 0) {
     throw new Error(`Missing required news field: ${field}`);
@@ -159,51 +138,14 @@ function toOptionalTimestampString(value: unknown) {
   return null;
 }
 
-function parseDatabaseProvider(raw: string | undefined): DatabaseProvider | null {
-  const normalized = raw?.trim().toLowerCase();
-
-  if (normalized === "supabase" || normalized === "postgres") {
-    return normalized;
-  }
-
-  return null;
-}
-
-export function getDatabaseProvider(): DatabaseProvider {
-  return parseDatabaseProvider(process.env.DATABASE_PROVIDER) ?? "supabase";
-}
-
-export function getSecondaryDatabaseProvider(): DatabaseProvider | null {
-  const provider = parseDatabaseProvider(process.env.SECONDARY_DATABASE_PROVIDER);
-
-  if (!provider || provider === getDatabaseProvider()) {
-    return null;
-  }
-
-  return provider;
-}
-
-async function runSecondaryDatabaseWrite(action: string, fn: () => Promise<void>) {
-  try {
-    await fn();
-  } catch (error) {
-    console.warn(`[database] secondary provider write skipped for ${action}: ${toErrorMessage(error)}`);
-  }
-}
-
-function getRequiredDatabaseEnvKeys(provider: DatabaseProvider) {
-  return provider === "postgres" ? ["DATABASE_URL"] : ["SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"];
-}
-
+// The database is PostgreSQL only. These helpers describe the environment the
+// reads/writes need so callers can fail fast with a clear message.
 export function getRequiredPrimaryDatabaseEnvKeys() {
-  return getRequiredDatabaseEnvKeys(getDatabaseProvider());
+  return ["DATABASE_URL"];
 }
 
 export function getRequiredWriteDatabaseEnvKeys() {
-  return [...new Set([
-    ...getRequiredPrimaryDatabaseEnvKeys(),
-    ...(getSecondaryDatabaseProvider() ? getRequiredDatabaseEnvKeys(getSecondaryDatabaseProvider() as DatabaseProvider) : []),
-  ])];
+  return ["DATABASE_URL"];
 }
 
 function normalizeNewsRow(row: Record<string, unknown>): NewsRowRecord {
@@ -303,74 +245,14 @@ function buildUpdateNewsBySlugQuery(slug: string, patch: Record<string, unknown>
   };
 }
 
-function isSupabaseMissingColumnError(error: unknown) {
-  if (!(error instanceof Error)) {
-    return false;
-  }
-
-  return error.message.includes("Could not find the '") && error.message.includes("' column of 'news'");
-}
-
-function stripUnsupportedSupabaseNewsRow(row: NewsRowRecord) {
-  return Object.fromEntries(
-    LEGACY_SUPABASE_NEWS_COLUMNS.map((column) => [column, row[column] ?? null]),
-  ) as Record<string, unknown>;
-}
-
-function stripUnsupportedSupabaseNewsPatch(patch: Record<string, unknown>) {
-  return Object.fromEntries(
-    Object.entries(patch).filter(([column]) =>
-      (LEGACY_SUPABASE_NEWS_COLUMNS as readonly string[]).includes(column),
-    ),
-  );
-}
-
-async function listActiveNewsRowsFromSupabase() {
-  const supabase = getSupabaseAdminClient();
-  const { data, error } = await supabase
-    .from("news")
-    .select("*")
-    .eq("is_active", true)
-    .order("published_at", { ascending: false });
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return (data ?? []).map((row) => normalizeNewsRow(row as Record<string, unknown>));
-}
-
-async function listActiveNewsRowsFromPostgres() {
+export async function listActiveNewsRows() {
   const { rows } = await queryPostgres<NewsRowRecord>(
     "select * from public.news where is_active = true order by published_at desc",
   );
   return rows.map((row) => normalizeNewsRow(row));
 }
 
-export async function listActiveNewsRows() {
-  return getDatabaseProvider() === "postgres"
-    ? listActiveNewsRowsFromPostgres()
-    : listActiveNewsRowsFromSupabase();
-}
-
-async function getActiveNewsRowBySlugFromSupabase(slug: string) {
-  const supabase = getSupabaseAdminClient();
-  const { data, error } = await supabase
-    .from("news")
-    .select("*")
-    .eq("slug", slug)
-    .eq("is_active", true)
-    .limit(1)
-    .maybeSingle();
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data ? normalizeNewsRow(data as Record<string, unknown>) : null;
-}
-
-async function getActiveNewsRowBySlugFromPostgres(slug: string) {
+export async function getActiveNewsRowBySlug(slug: string) {
   const { rows } = await queryPostgres<NewsRowRecord>(
     "select * from public.news where slug = $1 and is_active = true limit 1",
     [slug],
@@ -378,55 +260,18 @@ async function getActiveNewsRowBySlugFromPostgres(slug: string) {
   return rows[0] ? normalizeNewsRow(rows[0]) : null;
 }
 
-export async function getActiveNewsRowBySlug(slug: string) {
-  return getDatabaseProvider() === "postgres"
-    ? getActiveNewsRowBySlugFromPostgres(slug)
-    : getActiveNewsRowBySlugFromSupabase(slug);
-}
-
 export async function getActiveNewsSampleRow() {
-  if (getDatabaseProvider() === "postgres") {
-    const { rows } = await queryPostgres<NewsRowRecord>(
-      "select * from public.news where is_active = true limit 1",
-    );
-    return rows[0] ? normalizeNewsRow(rows[0]) : null;
-  }
-
-  const supabase = getSupabaseAdminClient();
-  const { data, error } = await supabase
-    .from("news")
-    .select("*")
-    .eq("is_active", true)
-    .limit(1);
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  const row = (data ?? [])[0];
-  return row ? normalizeNewsRow(row as Record<string, unknown>) : null;
+  const { rows } = await queryPostgres<NewsRowRecord>(
+    "select * from public.news where is_active = true limit 1",
+  );
+  return rows[0] ? normalizeNewsRow(rows[0]) : null;
 }
 
 export async function getActiveNewsPresence() {
-  if (getDatabaseProvider() === "postgres") {
-    const { rows } = await queryPostgres<{ slug: string }>(
-      "select slug from public.news where is_active = true limit 1",
-    );
-    return rows.length;
-  }
-
-  const supabase = getSupabaseAdminClient();
-  const { data, error } = await supabase
-    .from("news")
-    .select("slug")
-    .eq("is_active", true)
-    .limit(1);
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data?.length ?? 0;
+  const { rows } = await queryPostgres<{ slug: string }>(
+    "select slug from public.news where is_active = true limit 1",
+  );
+  return rows.length;
 }
 
 export async function getExistingNewsSlugsBySourceUrls(sourceUrls: string[]) {
@@ -434,74 +279,16 @@ export async function getExistingNewsSlugsBySourceUrls(sourceUrls: string[]) {
   return rows.map((row) => ({ source_url: row.source_url, slug: row.slug }));
 }
 
-export async function getExistingNewsRowsBySourceUrls(
-  sourceUrls: string[],
-  provider: DatabaseProvider = getDatabaseProvider(),
-) {
+export async function getExistingNewsRowsBySourceUrls(sourceUrls: string[]) {
   if (sourceUrls.length === 0) {
     return [] as NewsRowRecord[];
   }
 
-  if (provider === "postgres") {
-    const { rows } = await queryPostgres<NewsRowRecord>(
-      "select * from public.news where source_url = any($1::text[])",
-      [sourceUrls],
-    );
-    return rows.map((row) => normalizeNewsRow(row));
-  }
-
-  const supabase = getSupabaseAdminClient();
-  const { data, error } = await supabase
-    .from("news")
-    .select("*")
-    .in("source_url", sourceUrls);
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return (data ?? []).map((row) => normalizeNewsRow(row as Record<string, unknown>));
-}
-
-async function upsertNewsRowsForProvider(provider: DatabaseProvider, rows: NewsRowRecord[]) {
-  if (provider === "postgres") {
-    const query = buildBulkUpsertQuery(
-      "news",
-      NEWS_COLUMNS,
-      rows,
-      ["source_url"],
-      NEWS_COLUMNS.filter((column) => column !== "created_at"),
-    );
-
-    const { rows: result } = await queryPostgres<NewsRowRecord>(query.text, query.values);
-    return result.map((row) => normalizeNewsRow(row));
-  }
-
-  const supabase = getSupabaseAdminClient();
-  const { data, error } = await supabase
-    .from("news")
-    .upsert(rows, { onConflict: "source_url" })
-    .select("*");
-
-  if (error) {
-    if (isSupabaseMissingColumnError(new Error(error.message))) {
-      const legacyRows = rows.map(stripUnsupportedSupabaseNewsRow);
-      const fallback = await supabase
-        .from("news")
-        .upsert(legacyRows, { onConflict: "source_url" })
-        .select("*");
-
-      if (fallback.error) {
-        throw new Error(fallback.error.message);
-      }
-
-      return (fallback.data ?? []).map((row) => normalizeNewsRow(row as Record<string, unknown>));
-    }
-
-    throw new Error(error.message);
-  }
-
-  return (data ?? []).map((row) => normalizeNewsRow(row as Record<string, unknown>));
+  const { rows } = await queryPostgres<NewsRowRecord>(
+    "select * from public.news where source_url = any($1::text[])",
+    [sourceUrls],
+  );
+  return rows.map((row) => normalizeNewsRow(row));
 }
 
 export async function upsertNewsRows(rows: Array<Record<string, unknown>>) {
@@ -510,42 +297,24 @@ export async function upsertNewsRows(rows: Array<Record<string, unknown>>) {
   }
 
   const normalizedRows = rows.map((row) => normalizeNewsRow(row));
-  const primaryProvider = getDatabaseProvider();
-  const secondaryProvider = getSecondaryDatabaseProvider();
-  const result = await upsertNewsRowsForProvider(primaryProvider, normalizedRows);
+  const query = buildBulkUpsertQuery(
+    "news",
+    NEWS_COLUMNS,
+    normalizedRows,
+    ["source_url"],
+    NEWS_COLUMNS.filter((column) => column !== "created_at"),
+  );
 
-  if (secondaryProvider) {
-    await runSecondaryDatabaseWrite("upsertNewsRows", async () => {
-      await upsertNewsRowsForProvider(secondaryProvider, normalizedRows);
-    });
-  }
-
-  return result;
+  const { rows: result } = await queryPostgres<NewsRowRecord>(query.text, query.values);
+  return result.map((row) => normalizeNewsRow(row));
 }
 
 export async function listUnenrichedNewsRows(limit: number) {
-  if (getDatabaseProvider() === "postgres") {
-    const { rows } = await queryPostgres<NewsRowRecord>(
-      "select * from public.news where editorial_analysis is null and is_active = true order by published_at asc limit $1",
-      [limit],
-    );
-    return rows.map((row) => normalizeNewsRow(row));
-  }
-
-  const supabase = getSupabaseAdminClient();
-  const { data, error } = await supabase
-    .from("news")
-    .select("*")
-    .is("editorial_analysis", null)
-    .eq("is_active", true)
-    .order("published_at", { ascending: true })
-    .limit(limit);
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return (data ?? []).map((row) => normalizeNewsRow(row as Record<string, unknown>));
+  const { rows } = await queryPostgres<NewsRowRecord>(
+    "select * from public.news where editorial_analysis is null and is_active = true order by published_at asc limit $1",
+    [limit],
+  );
+  return rows.map((row) => normalizeNewsRow(row));
 }
 
 export async function listPendingNewsRowsForDelivery(
@@ -555,144 +324,49 @@ export async function listPendingNewsRowsForDelivery(
 ) {
   const postedField = channel === "x" ? "posted_to_x_at" : "posted_to_linkedin_at";
   const requireEditorial = options?.requireEditorial ?? false;
+  const editorialClause = requireEditorial ? "and editorial_analysis is not null" : "";
 
-  if (getDatabaseProvider() === "postgres") {
-    const values: unknown[] = [fetchLimit];
-    const editorialClause = requireEditorial ? "and editorial_analysis is not null" : "";
-    const { rows } = await queryPostgres<NewsRowRecord>(
-      `
-        select *
-        from public.news
-        where is_active = true
-          and ${postedField} is null
-          ${editorialClause}
-        order by published_at asc
-        limit $1
-      `,
-      values,
-    );
-    return rows.map((row) => normalizeNewsRow(row));
-  }
-
-  const supabase = getSupabaseAdminClient();
-  let query = supabase
-    .from("news")
-    .select("*")
-    .eq("is_active", true)
-    .is(postedField, null)
-    .order("published_at", { ascending: true })
-    .limit(fetchLimit);
-
-  if (requireEditorial) {
-    query = query.not("editorial_analysis", "is", null);
-  }
-
-  const { data, error } = await query;
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return (data ?? []).map((row) => normalizeNewsRow(row as Record<string, unknown>));
-}
-
-async function updateNewsRowBySlugForProvider(provider: DatabaseProvider, slug: string, patch: Record<string, unknown>) {
-  if (provider === "postgres") {
-    const query = buildUpdateNewsBySlugQuery(slug, patch);
-
-    if (!query) {
-      return;
-    }
-
-    await queryPostgres(query.text, query.values);
-    return;
-  }
-
-  const supabase = getSupabaseAdminClient();
-  const { error } = await supabase
-    .from("news")
-    .update(patch)
-    .eq("slug", slug);
-
-  if (error) {
-    if (isSupabaseMissingColumnError(new Error(error.message))) {
-      const fallbackPatch = stripUnsupportedSupabaseNewsPatch(patch);
-
-      if (Object.keys(fallbackPatch).length === 0) {
-        return;
-      }
-
-      const fallback = await supabase
-        .from("news")
-        .update(fallbackPatch)
-        .eq("slug", slug);
-
-      if (fallback.error) {
-        throw new Error(fallback.error.message);
-      }
-
-      return;
-    }
-
-    throw new Error(error.message);
-  }
+  const { rows } = await queryPostgres<NewsRowRecord>(
+    `
+      select *
+      from public.news
+      where is_active = true
+        and ${postedField} is null
+        ${editorialClause}
+      order by published_at asc
+      limit $1
+    `,
+    [fetchLimit],
+  );
+  return rows.map((row) => normalizeNewsRow(row));
 }
 
 export async function updateNewsRowBySlug(slug: string, patch: Record<string, unknown>) {
-  const primaryProvider = getDatabaseProvider();
-  const secondaryProvider = getSecondaryDatabaseProvider();
+  const query = buildUpdateNewsBySlugQuery(slug, patch);
 
-  await updateNewsRowBySlugForProvider(primaryProvider, slug, patch);
-
-  if (secondaryProvider) {
-    await runSecondaryDatabaseWrite("updateNewsRowBySlug", async () => {
-      await updateNewsRowBySlugForProvider(secondaryProvider, slug, patch);
-    });
-  }
-}
-
-async function upsertNewsletterSubscriberForProvider(provider: DatabaseProvider, input: NewsletterSubscriberInsert) {
-  if (provider === "postgres") {
-    const { rows } = await queryPostgres(
-      `
-        insert into public.newsletter_subscribers (email, locale, source, consented_at)
-        values ($1, $2, $3, $4)
-        on conflict (email) do update
-        set locale = excluded.locale,
-            source = excluded.source,
-            consented_at = excluded.consented_at
-        returning email
-      `,
-      [input.email, input.locale, input.source, input.consented_at],
-    );
-
-    if (rows.length === 0) {
-      throw new Error("Failed to upsert newsletter subscriber in PostgreSQL.");
-    }
-
+  if (!query) {
     return;
   }
 
-  const supabase = getSupabaseAdminClient();
-  const { error } = await supabase
-    .from("newsletter_subscribers")
-    .upsert(input, { onConflict: "email" });
-
-  if (error) {
-    throw new Error(error.message);
-  }
+  await queryPostgres(query.text, query.values);
 }
 
 export async function upsertNewsletterSubscriber(input: NewsletterSubscriberInsert) {
-  const primaryProvider = getDatabaseProvider();
-  const secondaryProvider = getSecondaryDatabaseProvider();
+  const { rows } = await queryPostgres(
+    `
+      insert into public.newsletter_subscribers (email, locale, source, consented_at)
+      values ($1, $2, $3, $4)
+      on conflict (email) do update
+      set locale = excluded.locale,
+          source = excluded.source,
+          consented_at = excluded.consented_at
+      returning email
+    `,
+    [input.email, input.locale, input.source, input.consented_at],
+  );
 
-  await upsertNewsletterSubscriberForProvider(primaryProvider, input);
-
-  if (secondaryProvider) {
-    await runSecondaryDatabaseWrite("upsertNewsletterSubscriber", async () => {
-      await upsertNewsletterSubscriberForProvider(secondaryProvider, input);
-    });
+  if (rows.length === 0) {
+    throw new Error("Failed to upsert newsletter subscriber in PostgreSQL.");
   }
 }
 
@@ -739,41 +413,40 @@ function normalizeAnalyticsEvent(input: Record<string, unknown>): AnalyticsEvent
   };
 }
 
-async function insertAnalyticsEventsForProvider(
-  provider: DatabaseProvider,
-  events: AnalyticsEventInsert[],
-) {
+export async function insertAnalyticsEvents(events: Array<Record<string, unknown>>) {
   if (events.length === 0) {
     return;
   }
 
-  if (provider === "postgres") {
-    const columns = [
-      "event_id",
-      "event_name",
-      "session_id",
-      "occurred_at",
-      "page",
-      "locale",
-      "page_type",
-      "source_type",
-      "source_slug",
-      "target_type",
-      "target_slug",
-      "location",
-      "depth",
-      "metadata",
-    ] as const;
-    const values: unknown[] = [];
-    const tuples = events.map((event, rowIndex) => {
-      const placeholders = columns.map((column, columnIndex) => {
-        values.push(event[column]);
-        return `$${rowIndex * columns.length + columnIndex + 1}`;
-      });
+  const normalizedEvents = events.map((event) => normalizeAnalyticsEvent(event));
+  const columns = [
+    "event_id",
+    "event_name",
+    "session_id",
+    "occurred_at",
+    "page",
+    "locale",
+    "page_type",
+    "source_type",
+    "source_slug",
+    "target_type",
+    "target_slug",
+    "location",
+    "depth",
+    "metadata",
+  ] as const;
 
-      return `(${placeholders.join(", ")})`;
+  const values: unknown[] = [];
+  const tuples = normalizedEvents.map((event, rowIndex) => {
+    const placeholders = columns.map((column, columnIndex) => {
+      values.push(event[column]);
+      return `$${rowIndex * columns.length + columnIndex + 1}`;
     });
 
+    return `(${placeholders.join(", ")})`;
+  });
+
+  try {
     await queryPostgres(
       `
         insert into public.analytics_events (${columns.join(", ")})
@@ -782,33 +455,7 @@ async function insertAnalyticsEventsForProvider(
       `,
       values,
     );
-    return;
-  }
-
-  const supabase = getSupabaseAdminClient();
-  const { error } = await supabase
-    .from("analytics_events")
-    .upsert(events, { onConflict: "event_id", ignoreDuplicates: true });
-
-  if (error) {
-    throw new Error(error.message);
-  }
-}
-
-export async function insertAnalyticsEvents(events: Array<Record<string, unknown>>) {
-  if (events.length === 0) {
-    return;
-  }
-
-  const normalizedEvents = events.map((event) => normalizeAnalyticsEvent(event));
-  const primaryProvider = getDatabaseProvider();
-  const secondaryProvider = getSecondaryDatabaseProvider();
-
-  await insertAnalyticsEventsForProvider(primaryProvider, normalizedEvents);
-
-  if (secondaryProvider) {
-    await runSecondaryDatabaseWrite("insertAnalyticsEvents", async () => {
-      await insertAnalyticsEventsForProvider(secondaryProvider, normalizedEvents);
-    });
+  } catch (error) {
+    throw new Error(toErrorMessage(error));
   }
 }

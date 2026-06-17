@@ -37,6 +37,4 @@ jobs:
           DATABASE_PROVIDER: postgres
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DATABASE_SSL: ${{ secrets.DATABASE_SSL }}
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}

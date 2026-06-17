@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { getDatabaseProvider } from "@/lib/database";
-import { getSupabaseAdminClient } from "@/lib/supabase";
+import { queryPostgres } from "@/lib/postgres";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -25,7 +24,7 @@ type HealthCheck = {
 };
 
 export async function GET() {
-  const provider = getDatabaseProvider();
+  const provider = "postgres";
   const timestamp = new Date().toISOString();
 
   let databaseOk = false;
@@ -34,82 +33,61 @@ export async function GET() {
   let databaseError: string | undefined;
 
   try {
-    const supabase = getSupabaseAdminClient();
-
     const [newsResult, socialResult] = await Promise.all([
-      supabase
-        .from("news")
-        .select("is_active, editorial_analysis, updated_at", { count: "exact" }),
-      supabase
-        .from("news")
-        .select(
-          "posted_to_x_at, posted_to_linkedin_at, x_post_status, linkedin_post_status, updated_at",
-        )
-        .eq("is_active", true),
+      queryPostgres<{
+        total: number;
+        active: number;
+        enriched: number;
+        last_sync: string | null;
+      }>(
+        `
+          select
+            count(*)::int as total,
+            count(*) filter (where is_active = true)::int as active,
+            count(*) filter (where editorial_analysis is not null)::int as enriched,
+            max(updated_at)::text as last_sync
+          from public.news
+        `,
+      ),
+      queryPostgres<{
+        x_last_post: string | null;
+        linkedin_last_post: string | null;
+        x_dead_letter: number;
+        linkedin_dead_letter: number;
+      }>(
+        `
+          select
+            max(posted_to_x_at)::text as x_last_post,
+            max(posted_to_linkedin_at)::text as linkedin_last_post,
+            count(*) filter (where x_post_status = 'dead_letter')::int as x_dead_letter,
+            count(*) filter (where linkedin_post_status = 'dead_letter')::int as linkedin_dead_letter
+          from public.news
+          where is_active = true
+        `,
+      ),
     ]);
-
-    if (newsResult.error) {
-      throw new Error(newsResult.error.message);
-    }
 
     databaseOk = true;
 
-    const newsRows = newsResult.data ?? [];
-    const totalCount = newsResult.count ?? newsRows.length;
-    const activeCount = newsRows.filter(
-      (row) => row.is_active === true,
-    ).length;
-    const enrichedCount = newsRows.filter(
-      (row) => row.editorial_analysis !== null,
-    ).length;
-
-    const timestamps = newsRows
-      .map((row) => row.updated_at as string | null)
-      .filter(Boolean)
-      .sort()
-      .reverse();
-
+    const news = newsResult.rows[0];
     newsCheck = {
-      total: totalCount,
-      active: activeCount,
-      enriched: enrichedCount,
-      lastSync: timestamps[0] ?? null,
+      total: news?.total ?? 0,
+      active: news?.active ?? 0,
+      enriched: news?.enriched ?? 0,
+      lastSync: news?.last_sync ?? null,
     };
 
-    if (!socialResult.error) {
-      const socialRows = socialResult.data ?? [];
-
-      const xPosts = socialRows
-        .map((row) => row.posted_to_x_at as string | null)
-        .filter(Boolean)
-        .sort()
-        .reverse();
-
-      const linkedinPosts = socialRows
-        .map((row) => row.posted_to_linkedin_at as string | null)
-        .filter(Boolean)
-        .sort()
-        .reverse();
-
-      const xDeadLetterCount = socialRows.filter(
-        (row) => row.x_post_status === "dead_letter",
-      ).length;
-
-      const linkedinDeadLetterCount = socialRows.filter(
-        (row) => row.linkedin_post_status === "dead_letter",
-      ).length;
-
-      socialCheck = {
-        x: {
-          lastPost: xPosts[0] ?? null,
-          deadLetter: xDeadLetterCount,
-        },
-        linkedin: {
-          lastPost: linkedinPosts[0] ?? null,
-          deadLetter: linkedinDeadLetterCount,
-        },
-      };
-    }
+    const social = socialResult.rows[0];
+    socialCheck = {
+      x: {
+        lastPost: social?.x_last_post ?? null,
+        deadLetter: social?.x_dead_letter ?? 0,
+      },
+      linkedin: {
+        lastPost: social?.linkedin_last_post ?? null,
+        deadLetter: social?.linkedin_dead_letter ?? 0,
+      },
+    };
   } catch (error) {
     databaseError =
       error instanceof Error ? error.message : "Unknown database error";

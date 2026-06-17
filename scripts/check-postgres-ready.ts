@@ -1,11 +1,8 @@
 // Standalone readiness check for the VM PostgreSQL target.
 //
-// Unlike `db:shadow:verify` (which compares Postgres against Supabase and
-// therefore needs Supabase reachable), this script only touches the
-// PostgreSQL database configured via DATABASE_URL. Run it before flipping
-// Vercel to `DATABASE_PROVIDER=postgres` to confirm the VM is reachable and
-// serving active news — useful precisely when Supabase is restricted and the
-// shadow comparison cannot run.
+// PostgreSQL is the only database. This script connects via DATABASE_URL and
+// confirms the VM is reachable and serving active news — run it before pointing
+// Vercel / the workflows at a new database, or to debug an empty news feed.
 //
 //   DATABASE_URL=postgres://... [DATABASE_SSL=require] pnpm db:cutover:check
 
@@ -42,7 +39,7 @@ async function main() {
 
     if (summary.active_count === 0) {
       throw new Error(
-        "PostgreSQL is reachable but has no active news rows. Run `pnpm db:shadow:sync` before cutover.",
+        "PostgreSQL is reachable but has no active news rows. Run `pnpm content:sync:news` to populate it.",
       );
     }
 
