@@ -1,5 +1,5 @@
 [Unit]
-Description=Michael Business health check (keeps Supabase active + monitors site)
+Description=Michael Business health check (monitors site + keeps PostgreSQL warm)
 Wants=network-online.target
 After=network-online.target
 

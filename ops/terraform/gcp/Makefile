@@ -58,8 +58,12 @@ status: ## Show timer status
 		--zone $(ZONE) \
 		--command 'sudo systemctl list-timers michael-*'
 
-sync-shadow: ## Sync and verify PostgreSQL shadow
+sync-shadow: ## Check the PostgreSQL database is reachable and has active news
+	# TODO: this recipe invoked scripts/sync-supabase-to-postgres.ts and
+	# scripts/verify-postgres-shadow.ts, which were deleted with Supabase. The
+	# Postgres-only replacement is `pnpm db:cutover:check` (scripts/check-postgres-ready.ts),
+	# wired below. Confirm before relying on this target.
 	gcloud compute ssh $(INSTANCE) \
 		--project $(PROJECT_ID) \
 		--zone $(ZONE) \
-		--command 'cd /opt/michael-business/portfolio-michael-santos && sudo -u michaelworker pnpm exec tsx scripts/sync-supabase-to-postgres.ts && sudo -u michaelworker pnpm exec tsx scripts/verify-postgres-shadow.ts'
+		--command 'cd /opt/michael-business/portfolio-michael-santos && sudo -u michaelworker pnpm db:cutover:check'

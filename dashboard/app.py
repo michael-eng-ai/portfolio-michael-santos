@@ -304,7 +304,8 @@ def render_engagement_kpis(events_df: pd.DataFrame) -> None:
 
     if events_df.empty:
         st.info(
-            "No internal analytics events found yet. Apply `supabase/analytics_events.sql` "
+            "No internal analytics events found yet. Apply the analytics schema "
+            "(`analytics_events.sql`, bootstrapped by `ops/gcp/worker/postgres/`) "
             "and browse the site to start collecting engagement data."
         )
         return

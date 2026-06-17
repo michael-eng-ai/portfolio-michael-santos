@@ -19,8 +19,7 @@ Provide one operational place to review:
 
 ### Storage
 - SQL schema: `supabase/analytics_events.sql`
-- Writes go through the shared database abstraction in `lib/database.ts`
-- If a secondary database provider is configured, events are written there too
+- Writes go through the PostgreSQL connection pool in `lib/postgres.ts`
 
 ### Visualization
 - The Streamlit dashboard reads `public.analytics_events`
@@ -28,10 +27,9 @@ Provide one operational place to review:
 
 ## Required Setup
 
-1. Apply `supabase/analytics_events.sql` to the active database.
-2. If you use the Postgres shadow, rerun the shadow bootstrap sync so the table exists there too.
-3. Open the site and generate a few events by browsing pages and submitting test interactions.
-4. Open the dashboard and verify the new engagement sections populate.
+1. Apply `supabase/analytics_events.sql` to the PostgreSQL database (the VM bootstrap applies it automatically on first start).
+2. Open the site and generate a few events by browsing pages and submitting test interactions.
+3. Open the dashboard and verify the new engagement sections populate.
 
 ## Dashboard Sections
 

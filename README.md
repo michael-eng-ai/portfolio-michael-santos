@@ -6,7 +6,7 @@ Bilingual (EN/PT) content platform that closes the loop:
 GitHub -> Site -> Newsletter -> LinkedIn/X
          ^                        |
          |    AI Enrichment        |
-         +---- Supabase ----------+
+         +---- PostgreSQL --------+
 ```
 
 **Live**: [michael.business](https://michael.business)
@@ -19,7 +19,7 @@ GitHub -> Site -> Newsletter -> LinkedIn/X
 |-------|-----------|
 | Framework | Next.js 16 (App Router), React 19, TypeScript |
 | Styling | Tailwind CSS 4, Radix UI |
-| Database | Supabase (PostgreSQL) |
+| Database | PostgreSQL (`DATABASE_URL`) |
 | Hosting | Vercel |
 | Email | Resend |
 | Analytics | Google Analytics 4, Vercel Analytics, Vercel Speed Insights, Streamlit Dashboard |
@@ -45,7 +45,7 @@ The `client/` directory is kept only as a legacy archive from an earlier Vite ap
 content/                    # Git-based content (source of truth)
   projects/*.json           # Business case studies (bilingual)
   articles/*.json           # Long-form articles (bilingual)
-  news/*.json               # Reference copies from Supabase
+  news/*.json               # Reference copies from PostgreSQL
   linkedin/*.json           # LinkedIn draft payloads
   x/*.json                  # X (Twitter) draft payloads
   sources/
@@ -65,7 +65,7 @@ app/
     resume/                 # Resume hub + printable HTML resume views
     contact/                # Contact page
   api/
-    health/news/            # Supabase news health check (503 on fallback)
+    health/news/            # PostgreSQL news health check (503 on fallback)
     newsletter/subscribe/   # Newsletter subscription endpoint
     linkedin/publish/       # Protected LinkedIn publishing
     x/publish/              # Protected X publishing
@@ -74,14 +74,14 @@ app/
   feed.xml/                 # RSS feed (articles)
 
 scripts/                    # Automation scripts (tsx)
-  sync-news.ts              # RSS feeds -> Supabase
-  export-news-snapshot.ts   # Supabase -> content/generated/news.json
-  enrich-news.ts            # Claude editorial analysis -> Supabase
+  sync-news.ts              # RSS feeds -> PostgreSQL
+  export-news-snapshot.ts   # PostgreSQL -> content/generated/news.json
+  enrich-news.ts            # Claude editorial analysis -> PostgreSQL
   post-news-to-x.ts         # News -> X API
   post-to-linkedin.ts       # News -> LinkedIn API
   reply-to-x-mentions.ts    # Auto-reply X mentions with Claude
   reply-to-linkedin-comments.ts  # Auto-reply LinkedIn comments with Claude
-  generate-daily-trend-briefing.ts  # Google News + Claude -> article JSON + Supabase
+  generate-daily-trend-briefing.ts  # Google News + Claude -> article JSON + PostgreSQL
   sync-github-projects.ts   # GitHub API -> generated/github-repos.json
   generateDailyArticle.ts   # OpenAI -> article JSON
   generate-linkedin-drafts.ts
@@ -103,8 +103,7 @@ lib/
   content.ts                # Zod schemas + content loaders
   news-delivery.ts          # Retry/DLQ field helpers for X + LinkedIn
   news-utils.ts             # Stable slugs, tag detection, snapshots
-  supabase.ts               # Supabase admin client
-  postgres.ts               # PostgreSQL connection pool
+  postgres.ts               # PostgreSQL connection pool (the only DB client)
   seo.ts                    # SEO metadata builders
   tags.ts                   # Tag-to-hashtag mapping
   site.ts                   # i18n config
@@ -129,7 +128,7 @@ ops/oci/                    # OCI VM infrastructure
 RSS Feeds (18 sources)
     |
     v
-sync-news.ts -----> Supabase (upsert by source_url)
+sync-news.ts -----> PostgreSQL (upsert by source_url)
     |                    |
     |                    v
     |              IndexNow notification
@@ -165,7 +164,7 @@ Claude Haiku synthesizes 2-3 key themes
 content/articles/daily-trend-briefing-YYYY-MM-DD.json
     |
     v
-Supabase news table (distribution cache)
+PostgreSQL news table (distribution cache)
 ```
 
 ### Content Pipeline (weekdays)
@@ -247,7 +246,7 @@ Notes:
 
 ```
 curl https://michael.business/api/health -> log OK/WARN
-(keeps Supabase connection warm to prevent free-tier pause)
+(monitors the site and keeps the PostgreSQL connection warm)
 ```
 
 ### CI Pipeline (on push/PR)
@@ -340,12 +339,8 @@ Or via workflow: `.github/workflows/deploy-vercel.yml`
 | `NEXT_PUBLIC_SITE_URL` | Site URL (https://michael.business) |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Google Analytics 4 ID |
 | `GOOGLE_SITE_VERIFICATION` | Google Search Console token |
-| `DATABASE_PROVIDER` | `supabase` or `postgres` during cutover work |
-| `SECONDARY_DATABASE_PROVIDER` | Optional mirror target during database cutover (`supabase`) |
-| `DATABASE_URL` | PostgreSQL connection string for the VM shadow database |
+| `DATABASE_URL` | PostgreSQL connection string (the only database config) |
 | `DATABASE_SSL` | Optional SSL mode for PostgreSQL (`require`) |
-| `SUPABASE_URL` | Supabase project URL |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase admin key |
 | `RESEND_API_KEY` | Resend email delivery |
 | `NEWSLETTER_FROM_EMAIL` | Sender email for newsletters |
 | `ANTHROPIC_API_KEY` | Claude API for enrichment/briefings |
@@ -369,7 +364,7 @@ Or via workflow: `.github/workflows/deploy-vercel.yml`
 
 ```bash
 cp .env.example .env.local
-# Fill in SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY minimum
+# Fill in DATABASE_URL (and DATABASE_SSL=require if your server enforces TLS) minimum
 pnpm install
 pnpm dev
 ```
@@ -396,13 +391,12 @@ pnpm content:local:automation -- --topic "topic"  # Full local pipeline
 ### Sync and distribute
 
 ```bash
-pnpm content:sync:news        # RSS -> Supabase
-pnpm content:export:news-snapshot  # Supabase -> content/generated/news.json
-pnpm content:enrich:news      # Claude analysis -> Supabase
-pnpm db:shadow:sync           # Supabase -> PostgreSQL shadow database
-pnpm db:shadow:verify         # Compare Supabase and PostgreSQL shadow
+pnpm content:sync:news        # RSS -> PostgreSQL
+pnpm content:export:news-snapshot  # PostgreSQL -> content/generated/news.json
+pnpm content:enrich:news      # Claude analysis -> PostgreSQL
+pnpm db:cutover:check         # Verify PostgreSQL is reachable and has active news
 pnpm content:post:x           # News -> X
-pnpm content:daily:briefing   # Google News + Claude -> Supabase
+pnpm content:daily:briefing   # Google News + Claude -> PostgreSQL
 pnpm content:sync:github      # GitHub API -> generated/
 pnpm content:linkedin          # Generate LinkedIn drafts
 pnpm content:x                # Generate X drafts
@@ -435,7 +429,7 @@ pnpm build              # Full build (validate + Next.js)
 
 ---
 
-## Supabase Tables
+## PostgreSQL Tables
 
 ### news
 
@@ -470,7 +464,7 @@ pnpm build              # Full build (validate + Next.js)
 | Service | Monthly Cost |
 |---------|-------------|
 | Vercel (Hobby) | Free |
-| Supabase (Free tier) | Free |
+| PostgreSQL (on OCI VM) | Free |
 | Vercel Analytics | Free (50k events/month) |
 | Google Analytics | Free |
 | Claude API (Haiku) | ~$0.15 |
@@ -479,13 +473,13 @@ pnpm build              # Full build (validate + Next.js)
 | GoDaddy domain | ~$2/month |
 | OCI VM (Always Free) | Free |
 | **Total** | **~$5/month** |
-Apply [news_reliability.sql](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/supabase/news_reliability.sql) on existing environments to add:
+Apply [news_reliability.sql](supabase/news_reliability.sql) on existing environments to add:
 
 - full `published_at` timestamps
 - per-channel retry/DLQ fields for X and LinkedIn
 - external post IDs
 - delivery indexes
 
-The site now exposes [app/api/health/news/route.ts](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/app/api/health/news/route.ts), which returns `503` when Supabase is unavailable and the app is serving the fallback snapshot instead.
+The site now exposes [app/api/health/news/route.ts](app/api/health/news/route.ts), which returns `503` when PostgreSQL is unavailable and the app is serving the fallback snapshot instead.
 
-For the VM database migration, start with `DATABASE_PROVIDER=supabase` while you validate the shadow PostgreSQL flow documented in [ops/gcp/worker/postgres/README.md](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/ops/gcp/worker/postgres/README.md) and [docs/GCP_WORKER_RUNBOOK.md](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/docs/GCP_WORKER_RUNBOOK.md). When the worker is ready to move first, use `DATABASE_PROVIDER=postgres` together with `SECONDARY_DATABASE_PROVIDER=supabase` so writes are mirrored back to the site's current source of truth during the transition.
+PostgreSQL (via `DATABASE_URL`) is the only database. Set `DATABASE_URL` (and `DATABASE_SSL=require` if the server enforces TLS), run `pnpm db:cutover:check` to confirm the database is reachable and serving active news, then deploy. Database setup details live in [ops/gcp/worker/postgres/README.md](ops/gcp/worker/postgres/README.md) and [docs/GCP_WORKER_RUNBOOK.md](docs/GCP_WORKER_RUNBOOK.md).

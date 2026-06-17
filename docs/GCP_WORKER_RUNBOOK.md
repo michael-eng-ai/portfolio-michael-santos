@@ -13,7 +13,7 @@ Mover o pipeline stateful de noticias para a VM do GCP sem depender do schedule 
 - deploy script para publicar o snapshot atual do repositorio na VM
 - timers do systemd para o ciclo horario e o briefing diario
 - `.env.worker.local` como registro local das variaveis do worker
-- bootstrap opcional de PostgreSQL local para shadow database
+- bootstrap opcional de PostgreSQL local na VM
 
 ## Status atual
 
@@ -26,19 +26,19 @@ Mover o pipeline stateful de noticias para a VM do GCP sem depender do schedule 
 - o deploy agora filtra apenas as variaveis necessarias para o worker antes de enviar o env para a VM
 - o deploy agora consegue subir um PostgreSQL local com `ENABLE_POSTGRES=1`
 - o bootstrap do PostgreSQL detecta o UID/GID do usuario `postgres` da imagem para evitar drift de permissao no volume
-- existem scripts para sincronizar `Supabase -> PostgreSQL` e verificar consistencia antes do cutover
+- `pnpm db:cutover:check` verifica se o PostgreSQL esta acessivel e tem noticias ativas
 
 ## Como publicar o worker na VM
 
 ```bash
-cd /Users/michaelsantos/Documents/GitHub/portfolio-michael-santos
+cd portfolio-michael-santos
 ENABLE_TIMERS=0 ./ops/gcp/worker/deploy-to-vm.sh
 ```
 
-## Como subir o PostgreSQL sombra
+## Como subir o PostgreSQL na VM
 
 ```bash
-cd /Users/michaelsantos/Documents/GitHub/portfolio-michael-santos
+cd portfolio-michael-santos
 ENABLE_TIMERS=0 ENABLE_POSTGRES=1 ./ops/gcp/worker/deploy-to-vm.sh
 ```
 
@@ -54,7 +54,7 @@ gcloud compute ssh michael-news-worker-test --zone us-central1-a --project astut
 ## Como habilitar os timers
 
 ```bash
-cd /Users/michaelsantos/Documents/GitHub/portfolio-michael-santos
+cd portfolio-michael-santos
 ENABLE_TIMERS=1 ./ops/gcp/worker/deploy-to-vm.sh
 ```
 
@@ -67,12 +67,11 @@ O deploy tenta montar `/etc/michael-business/worker.env` a partir de:
 3. `.env.worker.local`
 4. `EXTRA_ENV_FILE`, se informado
 
-Na VM OCI do bot, o worker deve rodar como `DATABASE_PROVIDER=postgres` e usar apenas Gemini ou Groq para tarefas com LLM. Os passos opcionais de enrichment e social ficam em modo skip quando `GEMINI_API_KEY`/`GROQ_API_KEY`, `X_*` ou `LINKEDIN_*` nao estiverem presentes.
+Na VM OCI do bot, o worker usa PostgreSQL via `DATABASE_URL` e apenas Gemini ou Groq para tarefas com LLM. Os passos opcionais de enrichment e social ficam em modo skip quando `GEMINI_API_KEY`/`GROQ_API_KEY`, `X_*` ou `LINKEDIN_*` nao estiverem presentes.
 
 As variaveis replicadas para a VM sao intencionalmente restritas a:
 
 - `NEXT_PUBLIC_SITE_URL`
-- `DATABASE_PROVIDER`
 - `DATABASE_URL`
 - `DATABASE_SSL`
 - `POSTGRES_IMAGE`
@@ -96,27 +95,15 @@ As variaveis replicadas para a VM sao intencionalmente restritas a:
 
 ## Registro local recomendado
 
-Use [`.env.worker.local.example`](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/.env.worker.local.example) como referencia e mantenha o arquivo real `.env.worker.local` fora do Git.
+Use [`.env.worker.local.example`](../.env.worker.local.example) como referencia e mantenha o arquivo real `.env.worker.local` fora do Git.
 
-## Como sincronizar e validar o banco sombra legado
+## Como verificar o banco
 
 ```bash
-gcloud compute ssh michael-news-worker-test --zone us-central1-a --project astute-veld-370221 --command='cd /opt/michael-business/portfolio-michael-santos && set -a && source /etc/michael-business/worker.env && set +a && pnpm db:shadow:sync'
-
-gcloud compute ssh michael-news-worker-test --zone us-central1-a --project astute-veld-370221 --command='cd /opt/michael-business/portfolio-michael-santos && set -a && source /etc/michael-business/worker.env && set +a && pnpm db:shadow:verify'
+gcloud compute ssh michael-news-worker-test --zone us-central1-a --project astute-veld-370221 --command='cd /opt/michael-business/portfolio-michael-santos && set -a && source /etc/michael-business/worker.env && set +a && pnpm db:cutover:check'
 ```
 
-Esse fluxo era usado durante a transicao Supabase -> PostgreSQL. Para a VM OCI atual do bot, mantenha o worker em PostgreSQL e nao configure Supabase como provider secundario.
-
-## Modo de transicao do worker
-
-Para validar o worker em PostgreSQL sem tirar o site do ar no modo legado:
-
-- mantenha a Vercel lendo Supabase
-- configure na VM `DATABASE_PROVIDER=postgres`
-- configure na VM `SECONDARY_DATABASE_PROVIDER=supabase`
-
-No modo atual do bot, prefira nao espelhar no Supabase. Se um provider secundario existir, as escritas secundarias sao best-effort e nao devem derrubar o ciclo principal.
+`pnpm db:cutover:check` confirma que o PostgreSQL esta acessivel e tem noticias ativas. Use `pnpm content:sync:news` para popular a tabela de noticias.
 
 ## Bloqueador para a virada da Vercel
 

@@ -26,12 +26,8 @@ Set these repository secrets only if you want to keep the manual GitHub Actions 
 
 Optional but recommended:
 
-- `DATABASE_PROVIDER`
-- `SECONDARY_DATABASE_PROVIDER`
 - `DATABASE_URL`
 - `DATABASE_SSL`
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
 - `RESEND_API_KEY`
 - `NEWSLETTER_FROM_EMAIL`
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID`
@@ -75,40 +71,35 @@ Optional but recommended:
 - After merge, Vercel deploys the refreshed news automatically from `main`
 
 ### News reliability package
-- Apply [news_reliability.sql](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/supabase/news_reliability.sql) on the existing Supabase project
+- Apply [news_reliability.sql](supabase/news_reliability.sql) on the PostgreSQL database
 - Export a fresh fallback snapshot with `pnpm content:export:news-snapshot`
 - Monitor `https://michael.business/api/health/news` from UptimeRobot or another uptime service
 
-### VM shadow PostgreSQL
-- Keep production on Supabase while the VM PostgreSQL is validated
+### VM PostgreSQL
+- PostgreSQL (via `DATABASE_URL`) is the only database
 - Add `DATABASE_URL` plus the `POSTGRES_*` variables to `.env.worker.local`
 - Deploy with `ENABLE_POSTGRES=1 ./ops/gcp/worker/deploy-to-vm.sh`
-- Run `pnpm db:shadow:sync` on the VM to copy `news` and `newsletter_subscribers`
-- The VM bootstrap now applies `news.sql`, `newsletter_subscribers.sql`, and `analytics_events.sql` automatically on first start
-- Run `pnpm db:shadow:verify` before any future cutover
-- For worker-first cutover, set `DATABASE_PROVIDER=postgres` and `SECONDARY_DATABASE_PROVIDER=supabase` in `.env.worker.local`
-- This keeps the worker writing to PostgreSQL while mirroring writes back to Supabase for the still-live Vercel site
-- During the current transition, let the VM own hourly RSS sync and keep `.github/workflows/news-sync.yml` only for enrichment + X posting until social/API secrets are moved to the VM
+- The VM bootstrap applies `news.sql`, `newsletter_subscribers.sql`, and `analytics_events.sql` automatically on first start
+- Populate the news table with `pnpm content:sync:news`
+- Run `pnpm db:cutover:check` to confirm PostgreSQL is reachable and serving active news
+- Let the VM own hourly RSS sync and keep `.github/workflows/news-sync.yml` only for enrichment + X posting until social/API secrets are moved to the VM
 - Once the VM receives the matching secrets, set the GitHub repository variables `VM_OWNS_NEWS_ENRICHMENT`, `VM_OWNS_X_POSTING`, `VM_OWNS_DAILY_BRIEFING`, and `VM_OWNS_LINKEDIN_POSTING` to `true`
 - Do not point Vercel to the VM PostgreSQL until the database is reachable from Vercel with a safe network path
-- The shadow database guide lives in [ops/gcp/worker/postgres/README.md](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/ops/gcp/worker/postgres/README.md)
+- The database guide lives in [ops/gcp/worker/postgres/README.md](ops/gcp/worker/postgres/README.md)
 
-### Production cutover: Vercel -> VM PostgreSQL
-Use this when Supabase is restricted (for example `exceed_egress_quota`) and you want the live site to read from the VM PostgreSQL instead. Only proceed once the VM database is reachable from Vercel over a safe network path.
-1. Confirm the VM PostgreSQL is reachable and serving active news: run `pnpm db:cutover:check` (Postgres-only, works even while Supabase is restricted). When Supabase is still reachable, also run `pnpm db:shadow:verify` to confirm the two databases are in sync.
+### Production: point Vercel at PostgreSQL
+Set the production database via environment variables. Only proceed once the database is reachable from Vercel over a safe network path.
+1. Confirm PostgreSQL is reachable and serving active news: run `pnpm db:cutover:check`.
 2. In the Vercel project settings (Production environment), add:
-   - `DATABASE_PROVIDER=postgres`
    - `DATABASE_URL=<postgres connection string reachable from Vercel>`
-   - `DATABASE_SSL=require` (set when the VM enforces TLS)
-   - Optional during transition: `SECONDARY_DATABASE_PROVIDER=supabase` to keep mirroring writes once Supabase is restored.
+   - `DATABASE_SSL=require` (set when the server enforces TLS)
 3. Redeploy production (Vercel Git integration redeploy, or `pnpm exec vercel --prod`).
 4. Verify `https://michael.business/api/health/news` returns `{"ok":true,"source":"postgres",...}`.
-5. To roll back, remove `DATABASE_PROVIDER`/`DATABASE_URL` (provider defaults to `supabase`) and redeploy.
 
-The application code already routes every read/write through the selected provider (`lib/database.ts`), so no code change is needed for the cutover — it is purely an environment-variable switch.
+The application code routes every read/write through `lib/postgres.ts`, so no code change is needed — it is purely an environment-variable switch.
 
 ### Reducing database egress (cache)
-The full active `news` table is read by the home page and every news/article/project detail page. To keep that from multiplying database egress (the cause of the Supabase quota trip), `lib/content.ts` wraps the news read in a shared `unstable_cache` (cross-request) plus React `cache` (per-render dedup). The full table is fetched at most once per cache window globally instead of once per rendered path.
+The full active `news` table is read by the home page and every news/article/project detail page. To keep that from multiplying database egress, `lib/content.ts` wraps the news read in a shared `unstable_cache` (cross-request) plus React `cache` (per-render dedup). The full table is fetched at most once per cache window globally instead of once per rendered path.
 - Tune the window with the `NEWS_CACHE_TTL_SECONDS` environment variable (default `600` seconds).
 - The data cache is tagged `news`; the worker/pipeline writes from a separate process, so refreshed content appears on the site after the TTL window rather than instantly.
 
@@ -139,7 +130,7 @@ The full active `news` table is read by the home page and every news/article/pro
 
 ### Newsletter backend
 - Create the subscriber table using `supabase/newsletter_subscribers.sql`
-- Add `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`
+- Add `DATABASE_URL` (and `DATABASE_SSL=require` if the server enforces TLS)
 - Add Resend credentials if you want welcome emails enabled
 
 ### Google Analytics 4
@@ -255,7 +246,7 @@ Se preferir zero manutenção de DNS no futuro, uma alternativa é manter o dom�
 - Project pages render localized content correctly
 - Article and news pages open correctly on refresh and direct access
 - Resume download works
-- Newsletter subscription returns success with configured Supabase credentials
+- Newsletter subscription returns success with a configured `DATABASE_URL`
 - Contact links open LinkedIn, GitHub, and email correctly
 - RSS feed is available at `/feed.xml`
 - Sitemap is available at `/sitemap.xml`
@@ -276,7 +267,7 @@ ENABLE_TIMERS=1 ./ops/oci/deploy-to-vm.sh
 | `michael-news-cycle` | Hourly | RSS sync, enrich, curate, cleanup, post to X |
 | `michael-daily-briefing` | Daily 10:39 UTC | Trend briefing + LinkedIn post |
 | `michael-engagement-cycle` | Every 30 min | Reply to X mentions + LinkedIn comments |
-| `michael-health-check` | Every 5 min | Ping `/api/health` (keeps Supabase active) |
+| `michael-health-check` | Every 5 min | Ping `/api/health` (monitors site, keeps PostgreSQL warm) |
 | `michael-dashboard` | Persistent | Streamlit analytics dashboard |
 
 ### Auto PR Review
