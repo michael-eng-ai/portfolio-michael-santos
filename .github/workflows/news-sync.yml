@@ -45,17 +45,23 @@ jobs:
         id: guard
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
         run: |
           if [ -n "${DATABASE_URL:-}" ]; then
             echo "db_ready=true" >> "$GITHUB_OUTPUT"
+            echo "db_provider=postgres" >> "$GITHUB_OUTPUT"
+          elif [ -n "${SUPABASE_URL:-}" ]; then
+            echo "db_ready=true" >> "$GITHUB_OUTPUT"
+            echo "db_provider=supabase" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Using Supabase fallback::DATABASE_URL is not set; falling back to Supabase (DATABASE_PROVIDER=supabase) for news enrichment/publication."
           else
             echo "db_ready=false" >> "$GITHUB_OUTPUT"
-            echo "::warning title=Database not configured::DATABASE_URL secret is not set; skipping news enrichment/publication. Add it under Settings -> Secrets and variables -> Actions to resume."
+            echo "::warning title=Database not configured::Neither DATABASE_URL nor SUPABASE_URL is set; skipping news enrichment/publication. Add one under Settings -> Secrets and variables -> Actions to resume."
             {
               echo "## Skipped: database not configured"
               echo ""
-              echo "\`DATABASE_URL\` is not set, so the news enrichment/publication steps were skipped instead of failing."
-              echo "Add the \`DATABASE_URL\` secret (VM PostgreSQL connection string) to resume automatic news processing."
+              echo "Neither \`DATABASE_URL\` nor \`SUPABASE_URL\` is set, so the news enrichment/publication steps were skipped instead of failing."
+              echo "Add the \`DATABASE_URL\` secret (VM PostgreSQL connection string) or the \`SUPABASE_URL\` secret to resume automatic news processing."
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 
@@ -63,7 +69,7 @@ jobs:
         if: steps.guard.outputs.db_ready == 'true' && vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
         run: pnpm content:enrich:news
         env:
-          DATABASE_PROVIDER: postgres
+          DATABASE_PROVIDER: ${{ steps.guard.outputs.db_provider }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DATABASE_SSL: ${{ secrets.DATABASE_SSL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -76,7 +82,7 @@ jobs:
         if: steps.guard.outputs.db_ready == 'true' && vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
         run: pnpm content:curate:news
         env:
-          DATABASE_PROVIDER: postgres
+          DATABASE_PROVIDER: ${{ steps.guard.outputs.db_provider }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DATABASE_SSL: ${{ secrets.DATABASE_SSL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -89,7 +95,7 @@ jobs:
         if: steps.guard.outputs.db_ready == 'true' && vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
         run: pnpm content:cleanup:news
         env:
-          DATABASE_PROVIDER: postgres
+          DATABASE_PROVIDER: ${{ steps.guard.outputs.db_provider }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DATABASE_SSL: ${{ secrets.DATABASE_SSL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -99,7 +105,7 @@ jobs:
         if: steps.guard.outputs.db_ready == 'true' && vars.VM_OWNS_X_POSTING != 'true'
         run: pnpm content:post:x
         env:
-          DATABASE_PROVIDER: postgres
+          DATABASE_PROVIDER: ${{ steps.guard.outputs.db_provider }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DATABASE_SSL: ${{ secrets.DATABASE_SSL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
