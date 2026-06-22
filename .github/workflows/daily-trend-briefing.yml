@@ -40,8 +40,26 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Check database configuration
+        id: guard
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          if [ -n "${DATABASE_URL:-}" ]; then
+            echo "db_ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "db_ready=false" >> "$GITHUB_OUTPUT"
+            echo "::warning title=Database not configured::DATABASE_URL secret is not set; skipping the daily briefing. Add it under Settings -> Secrets and variables -> Actions to resume."
+            {
+              echo "## Skipped: database not configured"
+              echo ""
+              echo "\`DATABASE_URL\` is not set, so the daily briefing steps were skipped instead of failing."
+              echo "Add the \`DATABASE_URL\` secret (VM PostgreSQL connection string) to resume the daily briefing."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Generate daily trend briefing
-        if: vars.VM_OWNS_DAILY_BRIEFING != 'true'
+        if: steps.guard.outputs.db_ready == 'true' && vars.VM_OWNS_DAILY_BRIEFING != 'true'
         run: pnpm content:daily:briefing
         env:
           DATABASE_PROVIDER: postgres
@@ -54,7 +72,7 @@ jobs:
           LLM_PROVIDER: groq
 
       - name: Post latest article to LinkedIn
-        if: vars.VM_OWNS_LINKEDIN_POSTING != 'true'
+        if: steps.guard.outputs.db_ready == 'true' && vars.VM_OWNS_LINKEDIN_POSTING != 'true'
         run: pnpm content:post:linkedin
         env:
           DATABASE_PROVIDER: postgres
