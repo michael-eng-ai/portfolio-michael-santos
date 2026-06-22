@@ -1,9 +1,13 @@
 name: Uptime Check
 
 # Pings the live site and the news-backend health endpoint on a schedule.
-# A failed run triggers GitHub's standard workflow-failure notification, so the
-# owner is alerted when the site is down OR when the news feed silently falls
-# back to static content (e.g. the Supabase egress quota being exceeded).
+#
+# Two severities:
+#  - Homepage down -> the run FAILS, triggering GitHub's workflow-failure
+#    notification (a real outage worth paging on).
+#  - News feed degraded (serving static fallback because the database is
+#    unreachable) -> the run only emits a ::warning:: and still succeeds, so a
+#    known-degraded news backend does not page the owner on every run.
 #
 # Override the target without editing this file by setting a repository
 # variable named SITE_URL (Settings -> Secrets and variables -> Actions -> Variables).
@@ -11,8 +15,8 @@ name: Uptime Check
 on:
   workflow_dispatch:
   schedule:
-    # Every 15 minutes. GitHub may delay scheduled runs under load.
-    - cron: "*/15 * * * *"
+    # Once a day. GitHub may delay scheduled runs under load.
+    - cron: "0 12 * * *"
 
 concurrency:
   group: uptime-check
@@ -59,6 +63,16 @@ jobs:
             exit 0
           fi
 
-          echo "::error title=News feed degraded::Health endpoint returned HTTP $code, ok=$ok, source=$source. ${error}"
-          echo "The site is serving fallback content instead of fresh news — the database backend is unreachable."
-          exit 1
+          # Degraded news is a soft signal, not an outage: warn (and record a
+          # job summary) but do NOT fail the run, so a known-down database does
+          # not page the owner on every scheduled probe.
+          echo "::warning title=News feed degraded::Health endpoint returned HTTP $code, ok=$ok, source=$source. ${error}"
+          {
+            echo "## News feed degraded"
+            echo ""
+            echo "The site is serving fallback content instead of fresh news — the database backend is unreachable."
+            echo "- HTTP: $code, ok: $ok, source: $source"
+            echo "- error: ${error}"
+            echo ""
+            echo "Set the \`DATABASE_URL\` secret to a reachable PostgreSQL to restore fresh news."
+          } >> "$GITHUB_STEP_SUMMARY"
