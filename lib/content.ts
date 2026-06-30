@@ -412,6 +412,7 @@ export async function getNewsReferences(): Promise<NewsReference[]> {
     // source so those scripts keep working; the cache layer still applies
     // during normal server rendering.
     if (error instanceof Error && error.message.includes("incrementalCache")) {
+      console.warn("[content] getNewsReferences called outside the Next.js cache; using uncached source.");
       return fetchNewsReferencesFromSource();
     }
 
