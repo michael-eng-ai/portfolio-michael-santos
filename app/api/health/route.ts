@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { getDatabaseProvider } from "@/lib/database";
+import { toErrorMessage } from "@/lib/runtime";
 import { getSupabaseAdminClient } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
@@ -111,8 +112,10 @@ export async function GET() {
       };
     }
   } catch (error) {
-    databaseError =
-      error instanceof Error ? error.message : "Unknown database error";
+    // Log the real reason server-side; expose only a generic category to the
+    // unauthenticated caller so driver/connection details are not leaked.
+    console.error("Health database check failed:", toErrorMessage(error));
+    databaseError = "Database unavailable";
   }
 
   const health: HealthCheck = {

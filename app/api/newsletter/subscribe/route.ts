@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { subscribeToNewsletter } from "@/lib/newsletter";
+import { toErrorMessage } from "@/lib/runtime";
 
 const requestSchema = z.object({
   email: z.string().email(),
@@ -36,7 +37,7 @@ export async function POST(request: Request) {
       message: payload.locale === "pt" ? "Inscricao concluida." : "Subscription completed.",
     });
   } catch (error) {
-    console.error("Newsletter subscription failed", error);
+    console.error("Newsletter subscription failed:", toErrorMessage(error));
 
     return NextResponse.json(
       {
