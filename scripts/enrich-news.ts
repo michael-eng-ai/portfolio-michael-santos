@@ -136,6 +136,7 @@ async function main(): Promise<void> {
   console.log(`Found ${unenriched.length} news items to enrich`);
 
   let enriched = 0;
+  let failed = 0;
 
   for (const row of unenriched) {
     const news = row as unknown as NewsRow;
@@ -172,11 +173,21 @@ async function main(): Promise<void> {
       enriched += 1;
     } catch (enrichError: unknown) {
       const message = toErrorMessage(enrichError);
+      failed += 1;
       console.warn(`SKIPPED: ${news.slug} -- ${message}`);
     }
   }
 
   console.log(`SUCCESS: ${enriched}/${unenriched.length} news items enriched`);
+  console.log(
+    `[enrich] summary ${JSON.stringify({
+      provider,
+      fetched: unenriched.length,
+      enriched,
+      failed,
+      mayHaveMore: unenriched.length === MAX_ITEMS_PER_RUN,
+    })}`,
+  );
 }
 
 main().catch((error) => {

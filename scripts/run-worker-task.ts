@@ -134,6 +134,7 @@ async function main() {
   const sharedDatabaseEnv = getRequiredWriteDatabaseEnvKeys();
   const pipeline = tasks[taskName];
   const taskRunId = await recordWorkerRun({ task: taskName, status: "running" });
+  const stepOutcomes: Array<{ step: string; status: "succeeded" | "skipped" | "failed" }> = [];
 
   try {
     for (const step of pipeline) {
@@ -148,15 +149,13 @@ async function main() {
       if (missing.length > 0) {
         if (step.optional) {
           console.log(`[worker] skipping "${step.label}" because env vars are missing: ${missing.join(", ")}`);
+          stepOutcomes.push({ step: step.label, status: "skipped" });
           continue;
         }
 
         console.error(`[worker] cannot run "${step.label}". Missing env vars: ${missing.join(", ")}`);
-        await updateWorkerRun(taskRunId, {
-          status: "failed",
-          error: new Error(`Missing env vars for ${step.label}: ${missing.join(", ")}`),
-        });
-        process.exit(1);
+        stepOutcomes.push({ step: step.label, status: "failed" });
+        throw new Error(`Missing env vars for ${step.label}: ${missing.join(", ")}`);
       }
 
       console.log(`[worker] starting "${step.label}"`);
@@ -165,9 +164,11 @@ async function main() {
       try {
         await runPnpmScript(step.script);
         await updateWorkerRun(stepRunId, { status: "success" });
+        stepOutcomes.push({ step: step.label, status: "succeeded" });
         console.log(`[worker] finished "${step.label}"`);
       } catch (error) {
         await updateWorkerRun(stepRunId, { status: "failed", error });
+        stepOutcomes.push({ step: step.label, status: "failed" });
         if (step.optional) {
           await recordWorkerWarning(
             taskName,
@@ -185,6 +186,21 @@ async function main() {
   } catch (error) {
     await updateWorkerRun(taskRunId, { status: "failed", error });
     throw error;
+  } finally {
+    // Always emit a machine-readable summary to the systemd journal so a
+    // degraded cycle (e.g. every optional step failing while the task still
+    // exits 0) is visible even when the database observability layer is down.
+    const failedSteps = stepOutcomes.filter((outcome) => outcome.status === "failed");
+    console.log(
+      `[worker] summary ${JSON.stringify({
+        task: taskName,
+        succeeded: stepOutcomes.filter((outcome) => outcome.status === "succeeded").length,
+        skipped: stepOutcomes.filter((outcome) => outcome.status === "skipped").length,
+        failed: failedSteps.length,
+        failedSteps: failedSteps.map((outcome) => outcome.step),
+        steps: stepOutcomes,
+      })}`,
+    );
   }
 }
 
