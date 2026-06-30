@@ -136,7 +136,7 @@ export function TopicCluster({
     >
       <div className="max-w-3xl">
         <div className="flex items-center gap-3 text-[var(--primary)]">
-          <Sparkles size={18} />
+          <Sparkles aria-hidden="true" size={18} />
           <p className="text-xs font-bold uppercase tracking-[0.3em]">{eyebrow}</p>
         </div>
         <h2 className="mt-4 text-2xl font-semibold tracking-tight text-gray-950 sm:text-3xl">
@@ -176,7 +176,7 @@ export function TopicCluster({
                   </span>
                 </div>
                 <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-gray-50 text-[var(--primary)]">
-                  <Icon size={18} />
+                  <Icon aria-hidden="true" size={18} />
                 </span>
               </div>
 
@@ -202,7 +202,7 @@ export function TopicCluster({
 
               <div className="mt-6 flex items-center gap-3 border-t border-gray-100 pt-4 text-xs font-bold uppercase tracking-[0.24em] text-[var(--primary)]">
                 {copy(locale, "Open this next", "Abrir em seguida")}
-                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                <ArrowRight aria-hidden="true" size={16} className="transition-transform group-hover:translate-x-1" />
               </div>
             </TrackedLink>
           );

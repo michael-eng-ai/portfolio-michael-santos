@@ -88,7 +88,7 @@ export function EntryPaths({
                     </h3>
                   </div>
                   <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-gray-200 bg-gray-50 text-[var(--primary)]">
-                    <Icon size={18} />
+                    <Icon aria-hidden="true" size={18} />
                   </span>
                 </div>
 
@@ -98,7 +98,7 @@ export function EntryPaths({
 
                 <div className="mt-6 flex items-center gap-3 border-t border-gray-100 pt-4 text-xs font-bold uppercase tracking-[0.24em] text-[var(--primary)]">
                   {path.ctaLabel}
-                  <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                  <ArrowRight aria-hidden="true" size={16} className="transition-transform group-hover:translate-x-1" />
                 </div>
               </TrackedLink>
             );
