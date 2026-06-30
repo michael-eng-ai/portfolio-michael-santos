@@ -1,6 +1,7 @@
 import { TwitterApi } from "twitter-api-v2";
 
 import {
+  claimDeliveryRow,
   getActiveNewsSampleRow,
   getRequiredWriteDatabaseEnvKeys,
   listPendingNewsRowsForDelivery,
@@ -8,7 +9,6 @@ import {
 } from "@/lib/database";
 import {
   buildDeliveryFailurePatch,
-  buildDeliveryStartPatch,
   buildDeliverySuccessPatch,
   selectDueDeliveryRows,
   supportsDeliveryQueue,
@@ -152,10 +152,15 @@ async function main() {
     }
 
     if (queueSupported) {
+      let claimed = false;
       try {
-        await updateNewsRowBySlug(news.slug, buildDeliveryStartPatch("x", nextAttemptCount));
+        claimed = await claimDeliveryRow("x", news.slug, nextAttemptCount);
       } catch (startError) {
-        console.warn(`SKIPPED: ${news.slug} -- failed to mark X delivery attempt: ${toErrorMessage(startError)}`);
+        console.warn(`SKIPPED: ${news.slug} -- failed to claim X delivery attempt: ${toErrorMessage(startError)}`);
+        continue;
+      }
+      if (!claimed) {
+        console.log(`SKIPPED: ${news.slug} -- X delivery already claimed by another run`);
         continue;
       }
     }

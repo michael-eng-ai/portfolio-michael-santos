@@ -33,7 +33,7 @@ const DELIVERY_FIELDS: Record<DeliveryChannel, DeliveryFieldMap> = {
 };
 
 const MAX_DELIVERY_ATTEMPTS = 5;
-const STALE_PUBLISHING_MS = 2 * 60 * 60 * 1000;
+export const STALE_PUBLISHING_MS = 2 * 60 * 60 * 1000;
 
 export function getDeliveryFieldMap(channel: DeliveryChannel) {
   return DELIVERY_FIELDS[channel];
@@ -114,22 +114,6 @@ export function selectDueDeliveryRows<T extends Record<string, unknown>>(
       return leftPublishedAt - rightPublishedAt;
     })
     .slice(0, limit);
-}
-
-export function buildDeliveryStartPatch(
-  channel: DeliveryChannel,
-  attemptCount: number,
-  nowIso = new Date().toISOString(),
-) {
-  const fields = getDeliveryFieldMap(channel);
-
-  return {
-    [fields.attemptCount]: attemptCount,
-    [fields.lastAttemptAt]: nowIso,
-    [fields.nextRetryAt]: null,
-    [fields.lastError]: null,
-    [fields.status]: "publishing",
-  };
 }
 
 function getBackoffDelayMs(attemptCount: number) {

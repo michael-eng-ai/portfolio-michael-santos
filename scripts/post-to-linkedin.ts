@@ -1,4 +1,5 @@
 import {
+  claimDeliveryRow,
   getActiveNewsSampleRow,
   getRequiredWriteDatabaseEnvKeys,
   listPendingNewsRowsForDelivery,
@@ -6,7 +7,7 @@ import {
 } from "@/lib/database";
 import { resolveLinkedinAuthorUrn } from "@/lib/linkedin-author";
 import {
-  buildDeliveryFailurePatch, buildDeliveryStartPatch, buildDeliverySuccessPatch, selectDueDeliveryRows, supportsDeliveryQueue,
+  buildDeliveryFailurePatch, buildDeliverySuccessPatch, selectDueDeliveryRows, supportsDeliveryQueue,
 } from "@/lib/news-delivery";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
 
@@ -161,10 +162,15 @@ async function main(): Promise<void> {
     const nextAttemptCount = Number(article.linkedin_attempt_count ?? 0) + 1;
 
     if (queueSupported) {
+      let claimed = false;
       try {
-        await updateNewsRowBySlug(article.slug, buildDeliveryStartPatch("linkedin", nextAttemptCount));
+        claimed = await claimDeliveryRow("linkedin", article.slug, nextAttemptCount);
       } catch (startError) {
-        console.warn(`SKIPPED: ${article.slug} -- failed to mark LinkedIn delivery attempt: ${toErrorMessage(startError)}`);
+        console.warn(`SKIPPED: ${article.slug} -- failed to claim LinkedIn delivery attempt: ${toErrorMessage(startError)}`);
+        continue;
+      }
+      if (!claimed) {
+        console.log(`SKIPPED: ${article.slug} -- LinkedIn delivery already claimed by another run`);
         continue;
       }
     }
