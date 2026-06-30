@@ -140,3 +140,6 @@ dashboard/data/
 service-account*.json
 .htpasswd
 secrets/
+
+# Claude Code agent worktrees and local artifacts
+.claude/
