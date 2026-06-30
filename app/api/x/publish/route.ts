@@ -5,11 +5,14 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { xDraftSchema } from "@/lib/content";
+import { toErrorMessage } from "@/lib/runtime";
 import { isLocale } from "@/lib/site";
 import { publishXDraft } from "@/lib/x";
 
 const requestSchema = z.object({
-  slug: z.string().min(1),
+  // Constrain to the kebab-case slug shape so the value can never traverse out
+  // of content/x/ when joined into a file path below.
+  slug: z.string().min(1).max(200).regex(/^[a-z0-9-]+$/, "slug must be kebab-case"),
   locale: z.string().optional(),
 });
 
@@ -39,12 +42,16 @@ export async function POST(request: Request) {
       result,
     });
   } catch (error) {
+    // Log the detail server-side; return a generic message so internal paths
+    // and driver errors are not exposed to the caller.
+    console.error("X publish failed:", toErrorMessage(error));
+    const isValidationError = error instanceof z.ZodError;
     return NextResponse.json(
       {
         success: false,
-        message: error instanceof Error ? error.message : "X publishing failed.",
+        message: isValidationError ? "Invalid request." : "X publishing failed.",
       },
-      { status: 400 },
+      { status: isValidationError ? 400 : 500 },
     );
   }
 }

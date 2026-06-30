@@ -6,10 +6,13 @@ import { z } from "zod";
 
 import { linkedinDraftSchema } from "@/lib/content";
 import { publishLinkedinDraft } from "@/lib/linkedin";
+import { toErrorMessage } from "@/lib/runtime";
 import { isLocale } from "@/lib/site";
 
 const requestSchema = z.object({
-  slug: z.string().min(1),
+  // Constrain to the kebab-case slug shape so the value can never traverse out
+  // of content/linkedin/ when joined into a file path below.
+  slug: z.string().min(1).max(200).regex(/^[a-z0-9-]+$/, "slug must be kebab-case"),
   locale: z.string().optional(),
 });
 
@@ -39,12 +42,16 @@ export async function POST(request: Request) {
       result,
     });
   } catch (error) {
+    // Log the detail server-side; return a generic message so internal paths
+    // and driver errors are not exposed to the caller.
+    console.error("LinkedIn publish failed:", toErrorMessage(error));
+    const isValidationError = error instanceof z.ZodError;
     return NextResponse.json(
       {
         success: false,
-        message: error instanceof Error ? error.message : "LinkedIn publishing failed.",
+        message: isValidationError ? "Invalid request." : "LinkedIn publishing failed.",
       },
-      { status: 400 },
+      { status: isValidationError ? 400 : 500 },
     );
   }
 }
