@@ -10,6 +10,9 @@ concurrency:
   group: llm-health-check
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   test-llm-providers:
     runs-on: ubuntu-latest
