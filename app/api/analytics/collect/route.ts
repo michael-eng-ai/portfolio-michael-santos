@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { insertAnalyticsEvents } from "@/lib/database";
+import { toErrorMessage } from "@/lib/runtime";
 
 const primitiveSchema = z.union([z.string().max(500), z.number(), z.boolean(), z.null()]);
 
@@ -53,7 +54,7 @@ export async function POST(request: Request) {
 
     return new NextResponse(null, { status: 204 });
   } catch (error) {
-    console.error("Analytics collect failed", error);
+    console.error("Analytics collect failed:", toErrorMessage(error));
 
     return NextResponse.json(
       {
