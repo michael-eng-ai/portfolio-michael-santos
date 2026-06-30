@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { subscribeToNewsletter } from "@/lib/newsletter";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { toErrorMessage } from "@/lib/runtime";
 
 const requestSchema = z.object({
@@ -13,6 +14,17 @@ const requestSchema = z.object({
 
 export async function POST(request: Request) {
   let locale: "en" | "pt" = "en";
+
+  const rate = await checkRateLimit(`newsletter:${getClientIp(request)}`, {
+    limit: 5,
+    windowSeconds: 60,
+  });
+  if (!rate.ok) {
+    return NextResponse.json(
+      { success: false, message: "Too many requests. Please try again shortly." },
+      { status: 429 },
+    );
+  }
 
   try {
     const rawPayload = await request.json();

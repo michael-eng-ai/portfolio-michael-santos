@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { insertAnalyticsEvents } from "@/lib/database";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { toErrorMessage } from "@/lib/runtime";
 
 const primitiveSchema = z.union([z.string().max(500), z.number(), z.boolean(), z.null()]);
@@ -28,6 +29,14 @@ function toNullableInteger(value: string | number | boolean | null | undefined) 
 }
 
 export async function POST(request: Request) {
+  const rate = await checkRateLimit(`analytics:${getClientIp(request)}`, {
+    limit: 100,
+    windowSeconds: 60,
+  });
+  if (!rate.ok) {
+    return new NextResponse(null, { status: 429 });
+  }
+
   try {
     const rawPayload = await request.json();
     const parsed = requestSchema.parse(rawPayload);
