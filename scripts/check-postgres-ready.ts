@@ -1,11 +1,7 @@
 // Standalone readiness check for the VM PostgreSQL target.
 //
-// Unlike `db:shadow:verify` (which compares Postgres against Supabase and
-// therefore needs Supabase reachable), this script only touches the
-// PostgreSQL database configured via DATABASE_URL. Run it before flipping
-// Vercel to `DATABASE_PROVIDER=postgres` to confirm the VM is reachable and
-// serving active news — useful precisely when Supabase is restricted and the
-// shadow comparison cannot run.
+// This script touches the PostgreSQL database configured via DATABASE_URL.
+// Run it to confirm the VM is reachable and serving active news.
 //
 //   DATABASE_URL=postgres://... [DATABASE_SSL=require] pnpm db:cutover:check
 
