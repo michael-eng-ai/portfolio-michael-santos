@@ -167,7 +167,7 @@ export default async function LocaleHomePage({
                   className="inline-flex items-center gap-2 transition hover:text-[var(--primary)]"
                 >
                   {copy(locale, "Read the latest insights", "Ler os insights mais recentes")}
-                  <ArrowRight size={14} />
+                  <ArrowRight aria-hidden="true" size={14} />
                 </TrackedLink>
                 <TrackedLink
                   href={localePath(locale, "/newsletter")}
@@ -176,7 +176,7 @@ export default async function LocaleHomePage({
                   className="inline-flex items-center gap-2 transition hover:text-[var(--primary)]"
                 >
                   {copy(locale, "Get the weekly signal pack", "Receber o pacote semanal de sinais")}
-                  <ArrowRight size={14} />
+                  <ArrowRight aria-hidden="true" size={14} />
                 </TrackedLink>
               </div>
           </div>
@@ -259,7 +259,7 @@ export default async function LocaleHomePage({
               className="group inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.24em] text-[var(--primary)]"
             >
               {copy(locale, "See all signals", "Ver todos os sinais")}
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              <ArrowRight aria-hidden="true" size={16} className="transition-transform group-hover:translate-x-1" />
             </TrackedLink>
           </div>
 
@@ -324,7 +324,7 @@ export default async function LocaleHomePage({
                       className="inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.3em] text-gray-900 transition hover:text-[var(--primary)]"
                     >
                       {copy(locale, "Read Case Study", "Ver Caso de Sucesso")}
-                      <ArrowRight size={14} className="text-[var(--primary)]" />
+                      <ArrowRight aria-hidden="true" size={14} className="text-[var(--primary)]" />
                     </TrackedLink>
                   </div>
                 </div>
@@ -357,7 +357,7 @@ export default async function LocaleHomePage({
               className="group flex items-center gap-3 border-b-2 border-[var(--primary)]/30 pb-2 text-xs font-bold uppercase tracking-[0.2em] text-[var(--primary)] transition-all hover:border-[var(--primary)]"
             >
               {copy(locale, "Full Portfolio", "Portfolio Completo")}
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              <ArrowRight aria-hidden="true" size={16} className="transition-transform group-hover:translate-x-1" />
             </TrackedLink>
           </div>
 
@@ -392,7 +392,7 @@ export default async function LocaleHomePage({
                     className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-white transition hover:text-[var(--primary)]"
                   >
                     {copy(locale, "Read Case Study", "Ver Caso")}
-                    <ArrowRight size={14} className="text-[var(--primary)]" />
+                    <ArrowRight aria-hidden="true" size={14} className="text-[var(--primary)]" />
                   </TrackedLink>
                 </div>
               </div>
@@ -427,7 +427,7 @@ export default async function LocaleHomePage({
                     className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-white transition hover:text-[var(--primary)]"
                   >
                     {copy(locale, "Case Details", "Detalhes do Caso")}
-                    <ArrowRight size={14} className="text-[var(--primary)]" />
+                    <ArrowRight aria-hidden="true" size={14} className="text-[var(--primary)]" />
                   </TrackedLink>
                 </div>
               </div>
@@ -554,7 +554,7 @@ export default async function LocaleHomePage({
                   <p className="mb-10 font-light leading-relaxed text-gray-500">
                     {clampText(content.excerpt, 120)}
                   </p>
-                  <ArrowRight size={24} className="text-[var(--primary)] transition-transform group-hover:translate-x-2" />
+                  <ArrowRight aria-hidden="true" size={24} className="text-[var(--primary)] transition-transform group-hover:translate-x-2" />
                 </TrackedLink>
               );
             })}

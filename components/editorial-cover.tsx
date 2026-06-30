@@ -53,7 +53,7 @@ export function EditorialCover({
         <div className="flex items-center justify-between gap-4">
           <span className="editorial-cover__eyebrow">{eyebrow}</span>
           <span className="editorial-cover__icon">
-            <Icon size={18} />
+            <Icon aria-hidden="true" size={18} />
           </span>
         </div>
         <div className="space-y-3">

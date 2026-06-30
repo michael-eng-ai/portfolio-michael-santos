@@ -56,7 +56,7 @@ export function RetentionPanel({
     >
       <div className="section-card rounded-2xl p-6 sm:p-8">
         <div className="flex items-center gap-3 text-[var(--primary)]">
-          <Sparkles size={18} />
+          <Sparkles aria-hidden="true" size={18} />
           <p className="text-xs font-bold uppercase tracking-[0.28em]">
             Continue reading
           </p>
@@ -91,7 +91,7 @@ export function RetentionPanel({
                     {link.description}
                   </p>
                 </div>
-                <ArrowRight
+                <ArrowRight aria-hidden="true"
                   size={18}
                   className="mt-1 shrink-0 text-[var(--primary)] transition-transform group-hover:translate-x-1"
                 />

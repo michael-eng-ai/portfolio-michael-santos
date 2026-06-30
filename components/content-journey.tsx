@@ -101,7 +101,7 @@ export function ContentJourney({
                   </h3>
                 </div>
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-gray-200 bg-gray-50 text-[var(--primary)]">
-                  <Icon size={18} />
+                  <Icon aria-hidden="true" size={18} />
                 </span>
               </div>
 
@@ -115,7 +115,7 @@ export function ContentJourney({
                     ? copy(locale, "You are here", "Voce esta aqui")
                     : (step.ctaLabel ?? copy(locale, "Open next step", "Abrir proximo passo"))}
                 </span>
-                <ArrowRight
+                <ArrowRight aria-hidden="true"
                   size={16}
                   className={`text-[var(--primary)] transition-transform ${step.current ? "" : "group-hover:translate-x-1"}`}
                 />

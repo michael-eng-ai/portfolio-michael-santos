@@ -75,7 +75,7 @@ export default async function ContactPage({
             eventParams={{ channel: "email", location: "contact_page" }}
           >
             <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-blue-50 text-[var(--primary)] transition-colors group-hover:bg-blue-100">
-              <Mail size={28} />
+              <Mail aria-hidden="true" size={28} />
             </div>
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Email</p>
             <p className="mt-2 text-lg font-bold tracking-tight text-gray-900 break-all">
@@ -92,7 +92,7 @@ export default async function ContactPage({
             className="group bg-white p-10 monolith-shadow transition-all duration-500 hover:bg-gray-50"
           >
             <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-emerald-50 text-[var(--accent-mint)] transition-colors group-hover:bg-emerald-100">
-              <Github size={28} />
+              <Github aria-hidden="true" size={28} />
             </div>
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">GitHub</p>
             <p className="mt-2 text-lg font-bold tracking-tight text-gray-900">michael-eng-ai</p>
@@ -107,7 +107,7 @@ export default async function ContactPage({
             eventParams={{ channel: "linkedin", location: "contact_page" }}
           >
             <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-purple-50 text-[var(--accent)] transition-colors group-hover:bg-purple-100">
-              <Linkedin size={28} />
+              <Linkedin aria-hidden="true" size={28} />
             </div>
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">LinkedIn</p>
             <p className="mt-2 text-lg font-bold tracking-tight text-gray-900">michael-bs</p>

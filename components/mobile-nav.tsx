@@ -79,7 +79,7 @@ export function MobileNav({ locale }: MobileNavProps) {
         aria-controls="mobile-navigation"
         className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 transition hover:bg-gray-50"
       >
-        {open ? <X size={20} /> : <Menu size={20} />}
+        {open ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}
       </button>
 
       {mounted && panel && createPortal(panel, document.body)}
