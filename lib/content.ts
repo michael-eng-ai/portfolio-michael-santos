@@ -403,7 +403,21 @@ const loadNewsReferences = cache(
 );
 
 export async function getNewsReferences(): Promise<NewsReference[]> {
-  return loadNewsReferences();
+  try {
+    return await loadNewsReferences();
+  } catch (error) {
+    // Next's `unstable_cache` throws "Invariant: incrementalCache missing" when
+    // invoked outside the Next.js server runtime — e.g. from a standalone tsx
+    // content script (generateDailyArticle, etc.). Fall back to the uncached
+    // source so those scripts keep working; the cache layer still applies
+    // during normal server rendering.
+    if (error instanceof Error && error.message.includes("incrementalCache")) {
+      console.warn("[content] getNewsReferences called outside the Next.js cache; using uncached source.");
+      return fetchNewsReferencesFromSource();
+    }
+
+    throw error;
+  }
 }
 
 export async function getNewsReferenceBySlug(slug: string): Promise<NewsReference | null> {
