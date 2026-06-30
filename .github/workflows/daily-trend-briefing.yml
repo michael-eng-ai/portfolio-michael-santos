@@ -9,6 +9,10 @@ concurrency:
   group: daily-trend-briefing
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   generate-briefing:
     runs-on: ubuntu-latest
@@ -106,7 +110,6 @@ jobs:
         run: |
           gh issue create \
             --title "[pipeline] ${{ github.workflow }} failed" \
-            --body "Workflow: ${{ github.workflow }}\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\nRef: ${{ github.ref }}" \
-            --label "pipeline-failure" || true
+            --body "Workflow: ${{ github.workflow }}\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\nRef: ${{ github.ref }}" || true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -29,6 +29,9 @@ concurrency:
   group: social-distribution-${{ inputs.slug }}-${{ inputs.locale }}-${{ inputs.channel }}
   cancel-in-progress: false
 
+permissions:
+  contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest

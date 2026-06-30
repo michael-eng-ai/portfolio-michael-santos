@@ -22,6 +22,9 @@ concurrency:
   group: uptime-check
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   probe:
     runs-on: ubuntu-latest

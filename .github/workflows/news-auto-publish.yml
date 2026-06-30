@@ -9,6 +9,9 @@ concurrency:
   group: auto-sync-news
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   sync-news:
     runs-on: ubuntu-latest
