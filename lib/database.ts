@@ -1,4 +1,4 @@
-import type { DeliveryChannel } from "@/lib/news-delivery";
+import { getDeliveryFieldMap, STALE_PUBLISHING_MS, type DeliveryChannel } from "@/lib/news-delivery";
 import { queryPostgres } from "@/lib/postgres";
 import { toErrorMessage } from "@/lib/runtime";
 import { getSupabaseAdminClient } from "@/lib/supabase";
@@ -594,6 +594,74 @@ export async function listPendingNewsRowsForDelivery(
   }
 
   return (data ?? []).map((row) => normalizeNewsRow(row as Record<string, unknown>));
+}
+
+/**
+ * Atomically claim one delivery row for posting, transitioning it to
+ * "publishing". Returns true when THIS caller won the claim, false when the row
+ * was already claimed/posted by another run.
+ *
+ * The conditional UPDATE is atomic at the row level: when GitHub Actions and
+ * the VM worker race for the same item, exactly one UPDATE matches the
+ * pre-claim state and the other affects zero rows, so the loser skips instead
+ * of posting a duplicate. Supabase runs on PostgreSQL too, so the equivalent
+ * filtered update is just as atomic. A "publishing" row is reclaimable only
+ * after it goes stale (STALE_PUBLISHING_MS), matching selectDueDeliveryRows.
+ */
+export async function claimDeliveryRow(
+  channel: DeliveryChannel,
+  slug: string,
+  attemptCount: number,
+): Promise<boolean> {
+  const fields = getDeliveryFieldMap(channel);
+
+  if (getDatabaseProvider() === "postgres") {
+    const { rows } = await queryPostgres<{ slug: string }>(
+      `
+        update public.news
+        set ${fields.status} = 'publishing',
+            ${fields.attemptCount} = $2,
+            ${fields.lastAttemptAt} = now(),
+            ${fields.nextRetryAt} = null,
+            ${fields.lastError} = null
+        where slug = $1
+          and ${fields.postedAt} is null
+          and coalesce(${fields.status}, 'pending') not in ('posted', 'dead_letter')
+          and (
+            coalesce(${fields.status}, 'pending') <> 'publishing'
+            or ${fields.lastAttemptAt} is null
+            or ${fields.lastAttemptAt} <= now() - interval '${STALE_PUBLISHING_MS} milliseconds'
+          )
+        returning slug
+      `,
+      [slug, attemptCount],
+    );
+    return rows.length > 0;
+  }
+
+  const supabase = getSupabaseAdminClient();
+  const staleThreshold = new Date(Date.now() - STALE_PUBLISHING_MS).toISOString();
+  const { data, error } = await supabase
+    .from("news")
+    .update({
+      [fields.status]: "publishing",
+      [fields.attemptCount]: attemptCount,
+      [fields.lastAttemptAt]: new Date().toISOString(),
+      [fields.nextRetryAt]: null,
+      [fields.lastError]: null,
+    })
+    .eq("slug", slug)
+    .is(fields.postedAt, null)
+    .or(
+      `${fields.status}.is.null,${fields.status}.neq.publishing,${fields.lastAttemptAt}.lte.${staleThreshold}`,
+    )
+    .select("slug");
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return (data ?? []).length > 0;
 }
 
 async function updateNewsRowBySlugForProvider(provider: DatabaseProvider, slug: string, patch: Record<string, unknown>) {
