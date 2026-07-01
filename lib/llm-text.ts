@@ -90,6 +90,34 @@ function isFallbackEligibleError(error: unknown): boolean {
   );
 }
 
+/**
+ * True when an error indicates the configured LLM provider(s) are unavailable
+ * because of capacity, rate limits, quota exhaustion, or billing suspension —
+ * a transient "try again later" condition, not a code bug. Scheduled content
+ * scripts use this to skip gracefully (exit 0) instead of failing and opening a
+ * failure issue every run while the providers are out.
+ *
+ * Intentionally omits bare "timeout" so a database/network timeout is not
+ * mistaken for an LLM outage.
+ */
+export function isLlmUnavailableError(error: unknown): boolean {
+  const message = (error instanceof Error ? error.message : String(error)).toLowerCase();
+
+  return (
+    message.includes("429") ||
+    message.includes("503") ||
+    message.includes("529") ||
+    message.includes("rate limit") ||
+    message.includes("quota") ||
+    message.includes("tokens per day") ||
+    message.includes("overloaded") ||
+    message.includes("high demand") ||
+    message.includes("unavailable") ||
+    message.includes("suspended") ||
+    message.includes("insufficient balance")
+  );
+}
+
 async function generateWithGemini(
   options: GenerateTextOptions,
   model: string,

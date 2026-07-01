@@ -8,7 +8,7 @@ import Parser from "rss-parser";
 import { getRequiredWriteDatabaseEnvKeys, listActiveNewsRows, upsertNewsRows } from "@/lib/database";
 import { articleSchema, newsSchema } from "@/lib/content";
 import { resolveNewsImage } from "@/lib/editorial-images";
-import { generateText, resolveLlmProvider } from "@/lib/llm-text";
+import { generateText, isLlmUnavailableError, resolveLlmProvider } from "@/lib/llm-text";
 import { writeNewsSnapshot } from "@/lib/news-utils";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
 
@@ -365,6 +365,13 @@ async function main(): Promise<void> {
 }
 
 main().catch((error) => {
+  if (isLlmUnavailableError(error)) {
+    // Every provider is rate-limited / out of quota / suspended. Skip this run
+    // instead of failing the workflow (and opening a failure issue); the next
+    // scheduled run retries once capacity returns.
+    console.warn(`[briefing] skipped: all LLM providers are unavailable — ${toErrorMessage(error)}`);
+    process.exit(0);
+  }
   console.error(error);
   process.exit(1);
 });
