@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 
-import { getDatabaseProvider } from "@/lib/database";
+import { queryPostgres } from "@/lib/postgres";
 import { toErrorMessage } from "@/lib/runtime";
-import { getSupabaseAdminClient } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -25,8 +24,33 @@ type HealthCheck = {
   };
 };
 
+function toCount(value: unknown): number {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return value;
+  }
+
+  if (typeof value === "string") {
+    const parsed = Number.parseInt(value, 10);
+    return Number.isFinite(parsed) ? parsed : 0;
+  }
+
+  return 0;
+}
+
+function toTimestamp(value: unknown): string | null {
+  if (typeof value === "string" && value.trim().length > 0) {
+    return value;
+  }
+
+  if (value instanceof Date && !Number.isNaN(value.getTime())) {
+    return value.toISOString();
+  }
+
+  return null;
+}
+
 export async function GET() {
-  const provider = getDatabaseProvider();
+  const provider = "postgres";
   const timestamp = new Date().toISOString();
 
   let databaseOk = false;
@@ -35,82 +59,61 @@ export async function GET() {
   let databaseError: string | undefined;
 
   try {
-    const supabase = getSupabaseAdminClient();
-
     const [newsResult, socialResult] = await Promise.all([
-      supabase
-        .from("news")
-        .select("is_active, editorial_analysis, updated_at", { count: "exact" }),
-      supabase
-        .from("news")
-        .select(
-          "posted_to_x_at, posted_to_linkedin_at, x_post_status, linkedin_post_status, updated_at",
-        )
-        .eq("is_active", true),
+      queryPostgres<{
+        total: string | number;
+        active: string | number;
+        enriched: string | number;
+        last_sync: string | null;
+      }>(
+        `
+          select
+            count(*) as total,
+            count(*) filter (where is_active = true) as active,
+            count(*) filter (where editorial_analysis is not null) as enriched,
+            max(updated_at) as last_sync
+          from public.news
+        `,
+      ),
+      queryPostgres<{
+        last_x_post: string | null;
+        last_linkedin_post: string | null;
+        x_dead_letter: string | number;
+        linkedin_dead_letter: string | number;
+      }>(
+        `
+          select
+            max(posted_to_x_at) as last_x_post,
+            max(posted_to_linkedin_at) as last_linkedin_post,
+            count(*) filter (where x_post_status = 'dead_letter') as x_dead_letter,
+            count(*) filter (where linkedin_post_status = 'dead_letter') as linkedin_dead_letter
+          from public.news
+          where is_active = true
+        `,
+      ),
     ]);
-
-    if (newsResult.error) {
-      throw new Error(newsResult.error.message);
-    }
 
     databaseOk = true;
 
-    const newsRows = newsResult.data ?? [];
-    const totalCount = newsResult.count ?? newsRows.length;
-    const activeCount = newsRows.filter(
-      (row) => row.is_active === true,
-    ).length;
-    const enrichedCount = newsRows.filter(
-      (row) => row.editorial_analysis !== null,
-    ).length;
-
-    const timestamps = newsRows
-      .map((row) => row.updated_at as string | null)
-      .filter(Boolean)
-      .sort()
-      .reverse();
-
+    const newsRow = newsResult.rows[0];
     newsCheck = {
-      total: totalCount,
-      active: activeCount,
-      enriched: enrichedCount,
-      lastSync: timestamps[0] ?? null,
+      total: toCount(newsRow?.total),
+      active: toCount(newsRow?.active),
+      enriched: toCount(newsRow?.enriched),
+      lastSync: toTimestamp(newsRow?.last_sync),
     };
 
-    if (!socialResult.error) {
-      const socialRows = socialResult.data ?? [];
-
-      const xPosts = socialRows
-        .map((row) => row.posted_to_x_at as string | null)
-        .filter(Boolean)
-        .sort()
-        .reverse();
-
-      const linkedinPosts = socialRows
-        .map((row) => row.posted_to_linkedin_at as string | null)
-        .filter(Boolean)
-        .sort()
-        .reverse();
-
-      const xDeadLetterCount = socialRows.filter(
-        (row) => row.x_post_status === "dead_letter",
-      ).length;
-
-      const linkedinDeadLetterCount = socialRows.filter(
-        (row) => row.linkedin_post_status === "dead_letter",
-      ).length;
-
-      socialCheck = {
-        x: {
-          lastPost: xPosts[0] ?? null,
-          deadLetter: xDeadLetterCount,
-        },
-        linkedin: {
-          lastPost: linkedinPosts[0] ?? null,
-          deadLetter: linkedinDeadLetterCount,
-        },
-      };
-    }
+    const socialRow = socialResult.rows[0];
+    socialCheck = {
+      x: {
+        lastPost: toTimestamp(socialRow?.last_x_post),
+        deadLetter: toCount(socialRow?.x_dead_letter),
+      },
+      linkedin: {
+        lastPost: toTimestamp(socialRow?.last_linkedin_post),
+        deadLetter: toCount(socialRow?.linkedin_dead_letter),
+      },
+    };
   } catch (error) {
     // Log the real reason server-side; expose only a generic category to the
     // unauthenticated caller so driver/connection details are not leaked.

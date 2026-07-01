@@ -7,7 +7,6 @@ import { z } from "zod";
 import {
   getExistingNewsRowsBySourceUrls,
   getRequiredWriteDatabaseEnvKeys,
-  getSecondaryDatabaseProvider,
   listActiveNewsRows,
   upsertNewsRows,
   type NewsRowRecord,
@@ -301,21 +300,8 @@ async function main() {
 
   const existingRowBySourceUrl = new Map<string, NewsRowRecord>();
   const primaryExistingRows = await getExistingNewsRowsBySourceUrls(sorted.map((item) => item.sourceUrl));
-  const secondaryProvider = getSecondaryDatabaseProvider();
-  let secondaryExistingRows: NewsRowRecord[] = [];
 
-  if (secondaryProvider) {
-    try {
-      secondaryExistingRows = await getExistingNewsRowsBySourceUrls(
-        sorted.map((item) => item.sourceUrl),
-        secondaryProvider,
-      );
-    } catch (error) {
-      console.warn(`[database] secondary provider read skipped during news sync: ${toErrorMessage(error)}`);
-    }
-  }
-
-  for (const row of [...primaryExistingRows, ...secondaryExistingRows]) {
+  for (const row of primaryExistingRows) {
     existingRowBySourceUrl.set(row.source_url, {
       ...row,
       editorial_analysis:

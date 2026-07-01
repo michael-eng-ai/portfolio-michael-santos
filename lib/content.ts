@@ -6,7 +6,6 @@ import { z } from "zod";
 
 import {
   getActiveNewsPresence,
-  getDatabaseProvider,
   listActiveNewsRows,
 } from "@/lib/database";
 import { resolveArticleImage, resolveNewsImage, resolveProjectImage } from "@/lib/editorial-images";
@@ -344,7 +343,7 @@ export async function getArticleBySlug(slug: string) {
   return entries.find((entry) => entry.slug === slug) ?? null;
 }
 
-function mapSupabaseRowToNews(row: Record<string, unknown>): NewsReference {
+function mapNewsRow(row: Record<string, unknown>): NewsReference {
   return hydrateNews(newsSchema.parse({
     slug: row.slug,
     publishedAt: row.published_at,
@@ -364,7 +363,7 @@ async function fetchNewsReferencesFromSource(): Promise<NewsReference[]> {
     const results: NewsReference[] = [];
     for (const row of await listActiveNewsRows()) {
       try {
-        results.push(mapSupabaseRowToNews(row));
+        results.push(mapNewsRow(row));
       } catch (parseError) {
         console.error("Skipping invalid news row", {
           event: "database_news_parse_error",
@@ -380,14 +379,14 @@ async function fetchNewsReferencesFromSource(): Promise<NewsReference[]> {
 
     return sortNewsByPublishedAtDesc(results);
   } catch (fetchError) {
-    console.error("Unexpected error fetching news", { event: "supabase_news_unexpected_error", error: fetchError });
+    console.error("Unexpected error fetching news", { event: "database_news_unexpected_error", error: fetchError });
     return await readFallbackNewsReferences();
   }
 }
 
 // The full active news table is read by every page (home, each news/article/project
 // detail). Pulling it once per render multiplies database egress and is what tripped
-// the Supabase egress quota. Wrap the source read in two cache layers:
+// the database egress quota. Wrap the source read in two cache layers:
 //  - `unstable_cache` shares one result across all requests/paths for NEWS_CACHE_TTL,
 //    so the full table is fetched at most once per window globally instead of per path.
 //  - React `cache` deduplicates the repeated calls within a single render pass.
@@ -435,14 +434,13 @@ export async function getNewsReferenceBySlug(slug: string): Promise<NewsReferenc
 
 export async function getNewsHealthStatus() {
   const fallbackEntries = await readFallbackNewsReferences();
-  const provider = getDatabaseProvider();
 
   try {
     const activeCount = await getActiveNewsPresence();
 
     return {
       ok: true,
-      source: provider,
+      source: "postgres" as const,
       activeCount,
       fallbackCount: fallbackEntries.length,
     };

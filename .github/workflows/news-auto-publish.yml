@@ -37,23 +37,17 @@ jobs:
         id: guard
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
         run: |
           if [ -n "${DATABASE_URL:-}" ]; then
             echo "db_ready=true" >> "$GITHUB_OUTPUT"
-            echo "db_provider=postgres" >> "$GITHUB_OUTPUT"
-          elif [ -n "${SUPABASE_URL:-}" ]; then
-            echo "db_ready=true" >> "$GITHUB_OUTPUT"
-            echo "db_provider=supabase" >> "$GITHUB_OUTPUT"
-            echo "::notice title=Using Supabase fallback::DATABASE_URL is not set; falling back to Supabase (DATABASE_PROVIDER=supabase) for news sync."
           else
             echo "db_ready=false" >> "$GITHUB_OUTPUT"
-            echo "::warning title=Database not configured::Neither DATABASE_URL nor SUPABASE_URL is set; skipping news sync. Add one under Settings -> Secrets and variables -> Actions to resume."
+            echo "::warning title=Database not configured::DATABASE_URL is not set; skipping news sync. Add it under Settings -> Secrets and variables -> Actions to resume."
             {
               echo "## Skipped: database not configured"
               echo ""
-              echo "Neither \`DATABASE_URL\` nor \`SUPABASE_URL\` is set, so the news sync step was skipped instead of failing."
-              echo "Add the \`DATABASE_URL\` secret (VM PostgreSQL connection string) or the \`SUPABASE_URL\` secret to resume automatic news sync."
+              echo "\`DATABASE_URL\` is not set, so the news sync step was skipped instead of failing."
+              echo "Add the \`DATABASE_URL\` secret (VM PostgreSQL connection string) to resume automatic news sync."
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 
@@ -61,9 +55,6 @@ jobs:
         if: steps.guard.outputs.db_ready == 'true' && vars.VM_OWNS_NEWS_SYNC != 'true'
         run: pnpm content:sync:news
         env:
-          DATABASE_PROVIDER: ${{ steps.guard.outputs.db_provider }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DATABASE_SSL: ${{ secrets.DATABASE_SSL }}
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}

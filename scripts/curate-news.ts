@@ -2,12 +2,10 @@ import { Type, type Schema } from "@google/genai";
 import { jsonrepair } from "jsonrepair";
 
 import {
-  getDatabaseProvider,
   getRequiredWriteDatabaseEnvKeys,
   updateNewsRowBySlug,
 } from "@/lib/database";
 import { generateText, resolveLlmProvider } from "@/lib/llm-text";
-import { getSupabaseAdminClient } from "@/lib/supabase";
 import { queryPostgres } from "@/lib/postgres";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
 
@@ -34,31 +32,7 @@ function getTodayMidnightUTC(): string {
   return midnight.toISOString();
 }
 
-async function fetchTodayActiveNewsFromSupabase(todayMidnight: string): Promise<TodayNewsRow[]> {
-  const supabase = getSupabaseAdminClient();
-  const { data, error } = await supabase
-    .from("news")
-    .select("slug, locales, tags")
-    .eq("is_active", true)
-    .gte("published_at", todayMidnight)
-    .order("published_at", { ascending: false });
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return (data ?? []).map((row: Record<string, unknown>) => {
-    const locales = row.locales as Record<string, Record<string, string>>;
-    return {
-      slug: row.slug as string,
-      title_en: locales?.en?.title ?? "",
-      summary_en: locales?.en?.summary ?? "",
-      tags: Array.isArray(row.tags) ? (row.tags as string[]) : [],
-    };
-  });
-}
-
-async function fetchTodayActiveNewsFromPostgres(todayMidnight: string): Promise<TodayNewsRow[]> {
+async function fetchTodayActiveNews(todayMidnight: string): Promise<TodayNewsRow[]> {
   const { rows } = await queryPostgres<Record<string, unknown>>(
     "select slug, locales, tags from public.news where is_active = true and published_at >= $1 order by published_at desc",
     [todayMidnight],
@@ -73,12 +47,6 @@ async function fetchTodayActiveNewsFromPostgres(todayMidnight: string): Promise<
       tags: Array.isArray(row.tags) ? (row.tags as string[]) : [],
     };
   });
-}
-
-async function fetchTodayActiveNews(todayMidnight: string): Promise<TodayNewsRow[]> {
-  return getDatabaseProvider() === "postgres"
-    ? fetchTodayActiveNewsFromPostgres(todayMidnight)
-    : fetchTodayActiveNewsFromSupabase(todayMidnight);
 }
 
 function buildCurationPrompt(newsItems: TodayNewsRow[]): string {
