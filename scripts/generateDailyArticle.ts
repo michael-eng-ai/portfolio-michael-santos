@@ -7,6 +7,7 @@ import OpenAI from "openai";
 
 import { getNewsReferences, getProjects, getArticles } from "@/lib/content";
 import { generateCoverImage } from "@/lib/image-gen";
+import { isLlmUnavailableError } from "@/lib/llm-text";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
 
 const DEFAULT_KIMI_BASE_URL = "https://api.moonshot.ai/v1";
@@ -596,6 +597,13 @@ async function main() {
 }
 
 main().catch((error) => {
+  if (isLlmUnavailableError(error)) {
+    // Every provider is rate-limited / out of quota / suspended. Skip this run
+    // instead of failing the workflow (and opening a failure issue); the next
+    // scheduled run retries once capacity returns.
+    console.warn(`[article] skipped: all LLM providers are unavailable — ${toErrorMessage(error)}`);
+    process.exit(0);
+  }
   console.error(error);
   process.exit(1);
 });
