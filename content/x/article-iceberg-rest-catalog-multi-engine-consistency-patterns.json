@@ -1,0 +1,27 @@
+{
+  "slug": "article-iceberg-rest-catalog-multi-engine-consistency-patterns",
+  "sourceType": "article",
+  "sourceSlug": "iceberg-rest-catalog-multi-engine-consistency-patterns",
+  "status": "draft",
+  "generatedAt": "2026-07-02T12:16:26.727Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/iceberg-rest-catalog-multi-engine-consistency-patterns",
+    "pt": "https://michael.business/pt/articles/iceberg-rest-catalog-multi-engine-consistency-patterns",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Iceberg REST Catalog Multi-Engine Consistency Patterns\n\nSolve concurrency issues with Iceberg REST Catalog multi-engine consistency, reducing cross-engine schema conflicts and securing…\n\nhttps://michael.business/en/articles/iceberg-rest-catalog-multi-engine-consistency-patterns",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Consistência de Motores com Iceberg REST Catalog\n\nResolva concorrência com Iceberg REST Catalog multi-engine consistency, eliminando conflitos de esquema entre motores e protegendo seu…\n\nhttps://michael.business/pt/articles/iceberg-rest-catalog-multi-engine-consistency-patterns",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    }
+  }
+}
