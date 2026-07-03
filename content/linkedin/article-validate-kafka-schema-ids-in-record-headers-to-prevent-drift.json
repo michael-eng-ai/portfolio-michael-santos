@@ -1,0 +1,25 @@
+{
+  "slug": "article-validate-kafka-schema-ids-in-record-headers-to-prevent-drift",
+  "sourceType": "article",
+  "sourceSlug": "validate-kafka-schema-ids-in-record-headers-to-prevent-drift",
+  "status": "draft",
+  "generatedAt": "2026-07-03T12:15:54.730Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift",
+    "pt": "https://michael.business/pt/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "Validate Kafka Schema IDs in Record Headers to Prevent Drift",
+      "body": "Validate Kafka Schema IDs in Record Headers to eliminate downstream schema registry lookups. Learn to design high-throughput validation pipelines.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Validação de Schema ID em Headers do Kafka Evita Quebras",
+      "body": "A validação de Schema ID em headers do Kafka elimina requisições repetitivas ao registry. Garanta a integridade de dados CDC de alta taxa de transferência.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}
