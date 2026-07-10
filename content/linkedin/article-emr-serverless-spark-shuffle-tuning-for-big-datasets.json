@@ -1,0 +1,25 @@
+{
+  "slug": "article-emr-serverless-spark-shuffle-tuning-for-big-datasets",
+  "sourceType": "article",
+  "sourceSlug": "emr-serverless-spark-shuffle-tuning-for-big-datasets",
+  "status": "draft",
+  "generatedAt": "2026-07-10T12:19:42.301Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/emr-serverless-spark-shuffle-tuning-for-big-datasets",
+    "pt": "https://michael.business/pt/articles/emr-serverless-spark-shuffle-tuning-for-big-datasets",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "hook": "EMR Serverless Spark Shuffle Tuning for Big Datasets",
+      "body": "Apply EMR Serverless Spark shuffle tuning to eliminate execution bottlenecks and cut cloud expenses by up to 30% on massive analytical workloads.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Ajuste de Shuffle do Spark no EMR Serverless para Grandes Volumes",
+      "body": "Use o ajuste de shuffle do Spark no EMR Serverless para eliminar gargalos de execução e reduzir despesas de nuvem em até 30% em grandes volumes.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}
