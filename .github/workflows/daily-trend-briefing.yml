@@ -3,7 +3,7 @@ name: Daily Trend Briefing
 on:
   workflow_dispatch:
   schedule:
-    - cron: "23 10 * * *"
+    - cron: "23 13 * * *"
 
 concurrency:
   group: daily-trend-briefing
@@ -63,7 +63,7 @@ jobs:
           fi
 
       - name: Generate daily trend briefing
-        if: steps.guard.outputs.db_ready == 'true' && vars.VM_OWNS_DAILY_BRIEFING != 'true'
+        if: steps.guard.outputs.db_ready == 'true' && vars.ACTIONS_PIPELINE_ENABLED == 'true' && vars.VM_OWNS_DAILY_BRIEFING != 'true'
         run: pnpm content:daily:briefing
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -73,7 +73,7 @@ jobs:
           LLM_PROVIDER: groq
 
       - name: Post latest article to LinkedIn
-        if: steps.guard.outputs.db_ready == 'true' && vars.VM_OWNS_LINKEDIN_POSTING != 'true'
+        if: steps.guard.outputs.db_ready == 'true' && vars.ACTIONS_PIPELINE_ENABLED == 'true' && vars.VM_OWNS_LINKEDIN_POSTING != 'true'
         run: pnpm content:post:linkedin
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}

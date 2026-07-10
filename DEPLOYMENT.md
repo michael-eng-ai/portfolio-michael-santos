@@ -81,7 +81,7 @@ PostgreSQL (configured by `DATABASE_URL`, optionally `DATABASE_SSL`) is the only
 - Deploy with `ENABLE_POSTGRES=1 ./ops/gcp/worker/deploy-to-vm.sh`
 - The VM bootstrap applies `news.sql`, `newsletter_subscribers.sql`, and `analytics_events.sql` automatically on first start
 - Confirm readiness with `pnpm db:cutover:check`
-- Let the VM own hourly RSS sync and the other automation tasks by setting the GitHub repository variables `VM_OWNS_NEWS_SYNC`, `VM_OWNS_NEWS_ENRICHMENT`, `VM_OWNS_X_POSTING`, `VM_OWNS_DAILY_BRIEFING`, and `VM_OWNS_LINKEDIN_POSTING` to `true`
+- The GitHub Actions content pipelines are dormant by default; the VM is the primary runner. To enable Actions as a fallback runner, set the repository variable `ACTIONS_PIPELINE_ENABLED` to `true`. With Actions enabled, set the per-step variables `VM_OWNS_NEWS_SYNC`, `VM_OWNS_NEWS_ENRICHMENT`, `VM_OWNS_X_POSTING`, `VM_OWNS_DAILY_BRIEFING`, and `VM_OWNS_LINKEDIN_POSTING` to `true` to return individual steps to the VM
 - Do not point Vercel to the VM PostgreSQL until the database is reachable from Vercel with a safe network path
 - The database guide lives in [ops/gcp/worker/postgres/README.md](/Users/michaelsantos/Documents/GitHub/portfolio-michael-santos/ops/gcp/worker/postgres/README.md)
 

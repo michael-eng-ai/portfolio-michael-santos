@@ -51,7 +51,6 @@ merged = {}
 allowed_keys = {
     "NEXT_PUBLIC_SITE_URL",
     "DATABASE_PROVIDER",
-    "SECONDARY_DATABASE_PROVIDER",
     "DATABASE_URL",
     "DATABASE_SSL",
     "POSTGRES_IMAGE",
@@ -60,8 +59,6 @@ allowed_keys = {
     "POSTGRES_USER",
     "POSTGRES_PASSWORD",
     "POSTGRES_PORT",
-    "SUPABASE_URL",
-    "SUPABASE_SERVICE_ROLE_KEY",
     "INDEXNOW_KEY",
     "LLM_PROVIDER",
     "GEMINI_API_KEY",

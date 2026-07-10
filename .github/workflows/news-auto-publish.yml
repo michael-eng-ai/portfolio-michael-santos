@@ -52,7 +52,7 @@ jobs:
           fi
 
       - name: Sync RSS news to database
-        if: steps.guard.outputs.db_ready == 'true' && vars.VM_OWNS_NEWS_SYNC != 'true'
+        if: steps.guard.outputs.db_ready == 'true' && vars.ACTIONS_PIPELINE_ENABLED == 'true' && vars.VM_OWNS_NEWS_SYNC != 'true'
         run: pnpm content:sync:news
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}

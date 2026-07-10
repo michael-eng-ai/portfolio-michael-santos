@@ -64,7 +64,7 @@ jobs:
           fi
 
       - name: Enrich news with editorial analysis
-        if: steps.guard.outputs.db_ready == 'true' && vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
+        if: steps.guard.outputs.db_ready == 'true' && vars.ACTIONS_PIPELINE_ENABLED == 'true' && vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
         run: pnpm content:enrich:news
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -74,7 +74,7 @@ jobs:
           LLM_PROVIDER: groq
 
       - name: Curate top news for today
-        if: steps.guard.outputs.db_ready == 'true' && vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
+        if: steps.guard.outputs.db_ready == 'true' && vars.ACTIONS_PIPELINE_ENABLED == 'true' && vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
         run: pnpm content:curate:news
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -84,14 +84,14 @@ jobs:
           LLM_PROVIDER: groq
 
       - name: Cleanup old news items
-        if: steps.guard.outputs.db_ready == 'true' && vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
+        if: steps.guard.outputs.db_ready == 'true' && vars.ACTIONS_PIPELINE_ENABLED == 'true' && vars.VM_OWNS_NEWS_ENRICHMENT != 'true'
         run: pnpm content:cleanup:news
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DATABASE_SSL: ${{ secrets.DATABASE_SSL }}
 
       - name: Post new news to X
-        if: steps.guard.outputs.db_ready == 'true' && vars.VM_OWNS_X_POSTING != 'true'
+        if: steps.guard.outputs.db_ready == 'true' && vars.ACTIONS_PIPELINE_ENABLED == 'true' && vars.VM_OWNS_X_POSTING != 'true'
         run: pnpm content:post:x
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
