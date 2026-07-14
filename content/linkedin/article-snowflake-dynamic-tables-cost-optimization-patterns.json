@@ -1,0 +1,25 @@
+{
+  "slug": "article-snowflake-dynamic-tables-cost-optimization-patterns",
+  "sourceType": "article",
+  "sourceSlug": "snowflake-dynamic-tables-cost-optimization-patterns",
+  "status": "draft",
+  "generatedAt": "2026-07-14T11:59:56.946Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/snowflake-dynamic-tables-cost-optimization-patterns",
+    "pt": "https://michael.business/pt/articles/snowflake-dynamic-tables-cost-optimization-patterns",
+    "proof": "https://github.com/michael-eng-ai/azure-snowflake-pipeline"
+  },
+  "locales": {
+    "en": {
+      "hook": "Snowflake Dynamic Tables Cost Optimization Patterns",
+      "body": "Apply Snowflake Dynamic Tables cost optimization strategies to slash warehouse spend. Master target lag patterns and incremental refresh controls.",
+      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+    },
+    "pt": {
+      "hook": "Otimização de Custos com Snowflake Dynamic Tables",
+      "body": "Aplique otimização de custos com Snowflake Dynamic Tables para reduzir gastos de computação. Domine regras de target lag e atualização incremental.",
+      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+    }
+  }
+}
