@@ -83,12 +83,23 @@ Increase:
 - Improved resume delivery beyond raw markdown with printable HTML resume routes
 - Refreshed `baseline-browser-mapping` so build validation stays quieter and easier to trust
 
+## Phase 7 - Cover Images, Social Media, And Scroll Journeys (2026-07)
+
+- Article covers prefer generated JPG/PNG under `public/images/articles/` over SVG placeholders
+- Article `og:image` uses the raster cover when present; otherwise the route `opengraph-image.tsx` branded card
+- Backfill: `pnpm content:backfill:covers` / soft gate: `pnpm content:check:covers`
+- LinkedIn publish prefers IMAGE upload of the cover when available, else ARTICLE URL with strong OG
+- X publish attaches the cover via `twitter-api-v2` media upload on the root tweet when credentials exist
+- On-site retention: reading progress bar, mid-article newsletter CTA, next-article prompt, clickable topic tags, lightweight articles filter (`?tag=` / search)
+- Project cases end with an explicit contact CTA before the retention panel
+
 ## Next Iteration
 
 - Monitor CTR improvements from meta title changes (baseline 2026-04-01: 116 impressions, position 6.8, CTR 0%)
 - Add X/LinkedIn engagement metrics to the Streamlit dashboard (replies sent, impressions)
 - Expand Tech Radar based on community usage data
 - A/B test entry-path section variants on the home page
+- Track social preview CTR after July cover backfill lands in production
 
 ## Definition Of Done For Growth Work
 

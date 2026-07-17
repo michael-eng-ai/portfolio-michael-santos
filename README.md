@@ -134,7 +134,7 @@ sync-news.ts -----> PostgreSQL (upsert by source_url)
     |              IndexNow notification
     |
     v
-enrich-news.ts ---> Claude Haiku generates editorial analysis
+enrich-news.ts ---> Gemini / Groq generate editorial analysis
     |                (150-200 words, EN + PT, max 5/run)
     |
     v
@@ -143,7 +143,7 @@ post-news-to-x.ts -> X API (max 3 tweets/run, uses editorial as body)
 
 **RSS Sources**: AWS Blog, Confluent, Snowflake, Google Cloud, Databricks, dbt, Anthropic, Hugging Face, InfoQ, The New Stack, Martin Fowler, Changelog, GitHub Blog, TechCrunch AI
 
-**Cost**: Claude Haiku ~$0.001/article, X API ~$0.01/tweet
+**Cost**: Gemini/Groq editorial is low cents per run; X API ~$0.01/tweet
 
 ### Daily Trend Briefing (daily)
 
@@ -157,7 +157,7 @@ Google News API (trend-keywords.json)
 Filter headlines (last 48h)
     |
     v
-Claude Haiku synthesizes 2-3 key themes
+Gemini / Groq synthesizes 2-3 key themes
     (300-400 words, bilingual, data/business lens)
     |
     v
@@ -188,9 +188,19 @@ Opens PR for review (branch: chore/content-pipeline-updates)
 **Schedule**: Weekdays 11:30 UTC
 
 ```
-OpenAI -> bilingual article JSON
-       -> regenerate LinkedIn/X drafts
+Kimi / Gemini / Groq -> bilingual article JSON
+       -> Gemini cover image (JPG/PNG under public/images/articles/)
+       -> regenerate LinkedIn/X drafts (hooks ≠ SEO title)
+       -> soft cover gate (warn + skip auto-merge if cover missing while GEMINI_API_KEY is set)
        -> opens PR (branch: chore/auto-article-drafts)
+```
+
+Backfill missing covers locally:
+
+```bash
+set -a && source .env.worker.local && set +a
+pnpm content:backfill:covers -- --since=2026-07-01
+pnpm content:check:covers -- --since=2026-07-01
 ```
 
 ### Social Distribution (manual)
@@ -212,7 +222,7 @@ Draft JSON -> /api/linkedin/publish or /api/x/publish
 X Mentions API -> filter (skip own, skip RTs)
     |
     v
-Claude Haiku generates contextual reply (<280 chars)
+Gemini / Groq generates contextual reply (<280 chars)
     |
     v
 X API v2 reply (max 5/run, 30-90s delay between)
@@ -220,7 +230,7 @@ X API v2 reply (max 5/run, 30-90s delay between)
 LinkedIn Social Actions API -> fetch comments on recent posts (7d)
     |
     v
-Claude Haiku generates professional reply (<500 chars)
+Gemini / Groq generates professional reply (<500 chars)
     |
     v
 LinkedIn API reply (max 3/run, 15-45s delay between)
@@ -232,7 +242,7 @@ LinkedIn API reply (max 3/run, 15-45s delay between)
 **Trigger**: `pull_request_target` (for secrets access)
 
 ```
-gh pr diff -> Claude Haiku reviews (correctness, security, performance)
+gh pr diff -> Gemini / Groq reviews (correctness, security, performance)
           -> posts comment on PR
 ```
 

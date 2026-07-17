@@ -78,6 +78,38 @@ jobs:
         if: steps.config.outputs.ready == 'true'
         run: pnpm content:validate
 
+      - name: Check article covers
+        if: steps.config.outputs.ready == 'true'
+        id: covers
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          set +e
+          output="$(pnpm content:check:covers -- --since=2026-07-01 2>&1)"
+          echo "$output"
+          missing_count="$(printf '%s\n' "$output" | grep -c 'MISSING_COVER' || true)"
+          if [ -f .article-cover-status ]; then
+            cover_state="$(head -n 1 .article-cover-status)"
+          else
+            cover_state="unknown"
+          fi
+          echo "cover_state=$cover_state" >> "$GITHUB_OUTPUT"
+
+          if [ -z "${{ secrets.GEMINI_API_KEY }}" ]; then
+            echo "Cover check: GEMINI_API_KEY absent — soft warning only."
+            echo "cover_ok=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Soft gate: warn loudly when key exists but cover is missing; do not hard-fail the job
+          # so a temporary image API outage cannot brick the pipeline permanently.
+          if [ "$missing_count" -gt 0 ] || [ "$cover_state" = "missing" ]; then
+            echo "::warning title=Missing cover::Raster cover missing while GEMINI_API_KEY is configured. Auto-merge disabled until backfill."
+            echo "cover_ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "cover_ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Create pull request for generated article
         if: steps.config.outputs.ready == 'true'
         id: create_article_pr
@@ -87,6 +119,15 @@ jobs:
           title: "chore: generate article and social drafts"
           body: |
             Automated article and social draft generation.
+
+            ## Editorial checklist
+            - [ ] Raster cover present under `public/images/articles/` (JPG/PNG)
+            - [ ] `og:image` resolves to the cover (not a generic SVG)
+            - [ ] Opening hook creates business tension (incident/cost/SLO)
+            - [ ] Related news is fresh (or evergreen category)
+            - [ ] LinkedIn/X drafts do not reuse the raw SEO title as the hook
+
+            Cover status from pipeline: `${{ steps.covers.outputs.cover_state }}`
           branch: chore/auto-article-drafts
 
       - name: Mark validation status on generated article PR
@@ -102,7 +143,7 @@ jobs:
             -f target_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
       - name: Enable auto-merge on generated article PR
-        if: steps.config.outputs.ready == 'true' && steps.create_article_pr.outputs.pull-request-number != ''
+        if: steps.config.outputs.ready == 'true' && steps.create_article_pr.outputs.pull-request-number != '' && steps.covers.outputs.cover_ok != 'false'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -110,6 +151,23 @@ jobs:
             --squash --delete-branch --auto || \
           gh pr merge ${{ steps.create_article_pr.outputs.pull-request-number }} \
             --squash --delete-branch
+
+      - name: Skip auto-merge when cover missing
+        if: steps.config.outputs.ready == 'true' && steps.create_article_pr.outputs.pull-request-number != '' && steps.covers.outputs.cover_ok == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr comment ${{ steps.create_article_pr.outputs.pull-request-number }} --body "$(cat <<'EOF'
+          ## Cover gate
+
+          Auto-merge was **not** enabled because a raster cover is missing while `GEMINI_API_KEY` is configured.
+
+          Backfill locally or in CI:
+          ```bash
+          pnpm tsx scripts/backfill-article-covers.ts --since=2026-07-01
+          ```
+          EOF
+          )"
 
       - name: No automation run
         if: steps.config.outputs.ready != 'true'

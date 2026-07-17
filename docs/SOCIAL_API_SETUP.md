@@ -26,6 +26,8 @@ Configure the minimum credentials needed to test automated distribution to Linke
 - This project publishes member posts using the `ugcPosts` API.
 - The access token and the member URN must belong to the same LinkedIn account.
 - Keep `LINKEDIN_PUBLISH_ENABLED=false` until the token is ready.
+- Article drafts store an optional `mediaPath` (raster cover). On publish, the app tries LinkedIn IMAGE upload first (`LINKEDIN_PREFER_IMAGE_SHARE` defaults to true), then falls back to ARTICLE share so LinkedIn scrapes `og:image` from michael.business.
+- Strong social previews require a JPG/PNG cover in `public/images/articles/` — SVG placeholders are weak on LinkedIn.
 
 ## X
 
@@ -44,9 +46,10 @@ Configure the minimum credentials needed to test automated distribution to Linke
 
 ### Notes
 
-- The project publishes through the `POST /2/tweets` endpoint.
+- The project publishes through the `POST /2/tweets` endpoint (`twitter-api-v2`).
 - If multiple post segments exist in the draft, the project publishes them as a thread.
-- Keep `X_PUBLISH_ENABLED=false` until the token is ready.
+- When a draft has `mediaPath` (or a local article cover exists), the root tweet uploads that image via v1 media upload before posting.
+- Keep `X_PUBLISH_ENABLED=false` until the token is ready. Do not auto-spam every draft — publish is still opt-in via workflow/API.
 
 ## GitHub Actions Secrets
 
