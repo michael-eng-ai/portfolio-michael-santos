@@ -2,8 +2,15 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 
 import { getArticles, getProjects } from "@/lib/content";
+import { buildLinkedinLocaleCopy } from "@/lib/linkedin-draft-copy";
 import { localePath, siteConfig } from "@/lib/site";
 import { withSocialUtm } from "@/lib/utm";
+
+type ExistingDraft = {
+  status?: string;
+  publishedUrl?: string | null;
+  locales?: unknown;
+};
 
 function createDraftPayload({
   slug,
@@ -28,6 +35,8 @@ function createDraftPayload({
     proof: string | null;
   };
 }) {
+  const hasProof = Boolean(urls.proof);
+
   return {
     slug,
     sourceType,
@@ -37,23 +46,59 @@ function createDraftPayload({
     publishedUrl: null,
     urls,
     locales: {
-      en: {
-        hook: titleEn,
-        body: excerptEn,
-        cta: "Read the full story on the site and use GitHub as the operational proof point."
-      },
-      pt: {
-        hook: titlePt,
-        body: excerptPt,
-        cta: "Leia a historia completa no site e use o GitHub como prova operacional."
-      }
-    }
+      en: buildLinkedinLocaleCopy({
+        locale: "en",
+        sourceType,
+        title: titleEn,
+        excerpt: excerptEn,
+        hasProof,
+      }),
+      pt: buildLinkedinLocaleCopy({
+        locale: "pt",
+        sourceType,
+        title: titlePt,
+        excerpt: excerptPt,
+        hasProof,
+      }),
+    },
   };
+}
+
+async function readExistingDraft(targetPath: string): Promise<ExistingDraft | null> {
+  try {
+    const raw = await fs.readFile(targetPath, "utf8");
+    return JSON.parse(raw) as ExistingDraft;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+      return null;
+    }
+    throw error;
+  }
+}
+
+function shouldPreserveDraft(existing: ExistingDraft | null): boolean {
+  if (!existing) {
+    return false;
+  }
+
+  if (existing.publishedUrl) {
+    return true;
+  }
+
+  const status = existing.status?.toLowerCase();
+  return Boolean(status && status !== "draft");
 }
 
 async function writeDraft(slug: string, payload: unknown) {
   const targetPath = path.join(process.cwd(), "content", "linkedin", `${slug}.json`);
   await fs.mkdir(path.dirname(targetPath), { recursive: true });
+
+  const existing = await readExistingDraft(targetPath);
+  if (shouldPreserveDraft(existing)) {
+    console.log(`Skipped published/human draft ${targetPath}`);
+    return;
+  }
+
   await fs.writeFile(targetPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
   console.log(`Generated ${targetPath}`);
 }
