@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { ContentJourney, type ContentJourneyStep } from "@/components/content-journey";
 import { EditorialCover } from "@/components/editorial-cover";
 import { MarkdownContent } from "@/components/markdown-content";
+import { NextContentPrompt } from "@/components/next-content-prompt";
+import { ReadingProgress } from "@/components/reading-progress";
 import { RetentionPanel, type RetentionLink } from "@/components/retention-panel";
 import { ShareButtons } from "@/components/share-buttons";
 import { StructuredData } from "@/components/structured-data";
@@ -171,6 +173,7 @@ export default async function ProjectDetailPage({
 
   return (
     <main className="px-6 pb-20 pt-28 md:px-20">
+      <ReadingProgress />
       <StructuredData
         data={[
           buildProjectJsonLd({
@@ -377,6 +380,26 @@ export default async function ProjectDetailPage({
         location="project_topic_cluster"
         recommendations={topicClusterRecommendations}
       />
+
+      <div className="mx-auto mb-8 max-w-7xl">
+        <NextContentPrompt
+          locale={locale}
+          sourceType="project"
+          sourceSlug={project.slug}
+          href={localePath(locale, "/contact")}
+          title={copy(
+            locale,
+            "Discuss this architecture for your stack",
+            "Discuta esta arquitetura para o seu stack",
+          )}
+          description={copy(
+            locale,
+            "If this delivery pattern maps to a problem you are solving, start a conversation with a concrete context link.",
+            "Se este padrao de entrega mapeia um problema que voce esta resolvendo, inicie uma conversa com um link de contexto concreto.",
+          )}
+          targetType="contact"
+        />
+      </div>
 
       <div className="mx-auto max-w-7xl">
         <RetentionPanel

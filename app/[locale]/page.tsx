@@ -376,9 +376,19 @@ export default async function LocaleHomePage({
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/30 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-12">
-                  <span className="mb-6 inline-block rounded bg-[var(--primary)]/20 px-4 py-1 text-[10px] font-black uppercase tracking-widest text-[var(--primary)]">
+                  <TrackedLink
+                    href={`${localePath(locale, "/articles")}?tag=${encodeURIComponent(featuredProjects[0].tags[0] ?? "data-engineering")}`}
+                    eventName="navigation_click"
+                    eventParams={{
+                      location: "home_showcase",
+                      target: "tag",
+                      slug: featuredProjects[0].tags[0],
+                      locale,
+                    }}
+                    className="mb-6 inline-block rounded bg-[var(--primary)]/20 px-4 py-1 text-[10px] font-black uppercase tracking-widest text-[var(--primary)] transition hover:bg-[var(--primary)]/30"
+                  >
                     {featuredProjects[0].tags[0]}
-                  </span>
+                  </TrackedLink>
                   <h3 className="mb-6 text-3xl font-extrabold tracking-tighter text-white md:text-4xl">
                     {featuredProjects[0].locales[locale].title}
                   </h3>
@@ -411,9 +421,19 @@ export default async function LocaleHomePage({
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 p-12">
-                  <span className="mb-6 inline-block rounded bg-[var(--accent-mint)]/20 px-4 py-1 text-[10px] font-black uppercase tracking-widest text-[var(--accent-mint)]">
+                  <TrackedLink
+                    href={`${localePath(locale, "/articles")}?tag=${encodeURIComponent(featuredProjects[1].tags[0] ?? "data-engineering")}`}
+                    eventName="navigation_click"
+                    eventParams={{
+                      location: "home_showcase",
+                      target: "tag",
+                      slug: featuredProjects[1].tags[0],
+                      locale,
+                    }}
+                    className="mb-6 inline-block rounded bg-[var(--accent-mint)]/20 px-4 py-1 text-[10px] font-black uppercase tracking-widest text-[var(--accent-mint)] transition hover:bg-[var(--accent-mint)]/30"
+                  >
                     {featuredProjects[1].tags[0]}
-                  </span>
+                  </TrackedLink>
                   <h3 className="mb-6 text-2xl font-extrabold tracking-tighter text-white md:text-3xl">
                     {featuredProjects[1].locales[locale].title}
                   </h3>
@@ -532,6 +552,20 @@ export default async function LocaleHomePage({
                 "Padroes que vejo funcionando. Arquiteturas em que eu apostaria. Erros que cometi para que voce nao precise.",
               )}
             </p>
+          </div>
+
+          <div className="mb-10 flex flex-wrap gap-2">
+            {[...new Set(featuredArticles.flatMap((article) => article.tags))].slice(0, 8).map((tag) => (
+              <TrackedLink
+                key={tag}
+                href={`${localePath(locale, "/articles")}?tag=${encodeURIComponent(tag)}`}
+                eventName="navigation_click"
+                eventParams={{ location: "home_articles", target: "tag", slug: tag, locale }}
+                className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-gray-600 transition hover:border-[var(--primary)]/40 hover:text-[var(--primary)]"
+              >
+                {tag}
+              </TrackedLink>
+            ))}
           </div>
 
           <div className="grid gap-10 md:grid-cols-3">

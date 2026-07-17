@@ -3,7 +3,10 @@ import { notFound } from "next/navigation";
 
 import { ContentJourney, type ContentJourneyStep } from "@/components/content-journey";
 import { EditorialCover } from "@/components/editorial-cover";
+import { InlineNewsletterCta } from "@/components/inline-newsletter-cta";
 import { MarkdownContent } from "@/components/markdown-content";
+import { NextContentPrompt } from "@/components/next-content-prompt";
+import { ReadingProgress } from "@/components/reading-progress";
 import { RetentionPanel, type RetentionLink } from "@/components/retention-panel";
 import { ShareButtons } from "@/components/share-buttons";
 import { StructuredData } from "@/components/structured-data";
@@ -54,10 +57,11 @@ export default async function ArticleDetailPage({
 }) {
   const resolvedParams = await params;
   const locale = resolvedParams.locale as Locale;
-  const [article, projects, news] = await Promise.all([
+  const [article, projects, news, articles] = await Promise.all([
     getArticleBySlug(resolvedParams.slug),
     getProjects(),
     getNewsReferences(),
+    getArticles(),
   ]);
 
   if (!article) {
@@ -68,6 +72,11 @@ export default async function ArticleDetailPage({
   const relatedProjects = projects.filter((project) => article.relatedProjectSlugs.includes(project.slug));
   const relatedNews = news.filter((item) => article.relatedNewsSlugs.includes(item.slug));
   const primaryProject = relatedProjects[0] ?? projects[0];
+  const articleIndex = articles.findIndex((entry) => entry.slug === article.slug);
+  const nextArticle =
+    articleIndex >= 0
+      ? articles[articleIndex + 1] ?? articles[articleIndex - 1] ?? null
+      : articles.find((entry) => entry.slug !== article.slug) ?? null;
   const journeySteps: ContentJourneyStep[] = [
     {
       eyebrow: copy(locale, "Current insight", "Insight atual"),
@@ -174,6 +183,7 @@ export default async function ArticleDetailPage({
 
   return (
     <main className="px-6 pb-20 pt-28 md:px-20">
+      <ReadingProgress />
       <StructuredData
         data={[
           buildArticleJsonLd({
@@ -231,8 +241,61 @@ export default async function ArticleDetailPage({
           </div>
           <div className="p-6 sm:p-8 md:p-10">
             <h1 className="sr-only">{content.title}</h1>
-            <div>
-              <MarkdownContent content={content.body} />
+            <div className="mb-6 flex flex-wrap gap-2">
+              {article.tags.map((tag) => (
+                <TrackedLink
+                  key={tag}
+                  href={`${localePath(locale, "/articles")}?tag=${encodeURIComponent(tag)}`}
+                  eventName="navigation_click"
+                  eventParams={{
+                    location: "article_detail_tags",
+                    target: "tag",
+                    slug: tag,
+                    locale,
+                  }}
+                  className="rounded-full border border-gray-200 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-gray-600 transition hover:border-[var(--primary)]/40 hover:text-[var(--primary)]"
+                >
+                  {tag}
+                </TrackedLink>
+              ))}
+            </div>
+            {(() => {
+              const sections = content.body.split(/\n(?=## )/);
+              const midIndex = Math.max(1, Math.min(sections.length - 1, Math.ceil(sections.length / 2)));
+              const before = sections.slice(0, midIndex).join("\n");
+              const after = sections.slice(midIndex).join("\n");
+              return (
+                <>
+                  <MarkdownContent content={before} />
+                  <InlineNewsletterCta locale={locale} source="article-mid-inline" />
+                  {after ? <MarkdownContent content={after} /> : null}
+                </>
+              );
+            })()}
+            {nextArticle ? (
+              <NextContentPrompt
+                locale={locale}
+                sourceType="article"
+                sourceSlug={article.slug}
+                href={localePath(locale, `/articles/${nextArticle.slug}`)}
+                title={nextArticle.locales[locale].title}
+                description={copy(
+                  locale,
+                  "Next insight in the feed — keep the session moving.",
+                  "Proximo insight do feed — mantenha a sessao em movimento.",
+                )}
+                targetType="article"
+                targetSlug={nextArticle.slug}
+              />
+            ) : null}
+            <div className="mt-8 border-t border-gray-100 pt-6">
+              <ShareButtons
+                locale={locale}
+                url={localizedUrl(locale, `/articles/${article.slug}`)}
+                title={content.title}
+                contentType="article"
+                slug={article.slug}
+              />
             </div>
           </div>
         </article>

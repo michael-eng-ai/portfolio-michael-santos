@@ -1,4 +1,6 @@
-import { ArticleCard } from "@/components/article-card";
+import { Suspense } from "react";
+
+import { ArticlesExplorer } from "@/components/articles-explorer";
 import { StructuredData } from "@/components/structured-data";
 import { TrackedLink } from "@/components/tracked-link";
 import { getArticles } from "@/lib/content";
@@ -115,11 +117,15 @@ export default async function ArticlesPage({
           </div>
         </div>
 
-        <div className="grid gap-10 md:grid-cols-2">
-          {articles.map((article) => (
-            <ArticleCard key={article.slug} article={article} locale={locale} location="articles_index" />
-          ))}
-        </div>
+        <Suspense
+          fallback={
+            <p className="text-sm text-gray-500">
+              {copy(locale, "Loading insights…", "Carregando insights…")}
+            </p>
+          }
+        >
+          <ArticlesExplorer locale={locale} articles={articles} />
+        </Suspense>
       </div>
     </main>
   );
