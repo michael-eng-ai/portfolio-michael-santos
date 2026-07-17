@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ContentJourney, type ContentJourneyStep } from "@/components/content-journey";
 import { EditorialCover } from "@/components/editorial-cover";
 import { RetentionPanel, type RetentionLink } from "@/components/retention-panel";
+import { ShareButtons } from "@/components/share-buttons";
 import { StructuredData } from "@/components/structured-data";
 import { TopicCluster } from "@/components/topic-cluster";
 import { TrackedExternalLink } from "@/components/tracked-external-link";
@@ -12,7 +13,7 @@ import { getTopicClusterRecommendations } from "@/lib/content-recommendations";
 import { formatDisplayDate } from "@/lib/date";
 import { clampText, editorialLimits, sourceInitials } from "@/lib/editorial";
 import { getArticles, getNewsReferenceBySlug, getNewsReferences, getProjects } from "@/lib/content";
-import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildPageMetadata } from "@/lib/seo";
+import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildPageMetadata, localizedUrl } from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 import { getTagLabel } from "@/lib/tags";
 
@@ -239,6 +240,15 @@ export default async function NewsDetailPage({
               ))}
             </div>
           )}
+          <div className="border-b border-gray-100 px-6 py-4 sm:px-8 md:px-10">
+            <ShareButtons
+              locale={locale}
+              url={localizedUrl(locale, `/news/${item.slug}`)}
+              title={content.title}
+              contentType="news"
+              slug={item.slug}
+            />
+          </div>
           <div className="p-6 sm:p-8 md:p-10">
             <h1 className="sr-only">{content.title}</h1>
             <p className="max-w-3xl text-base leading-8 text-gray-600 sm:text-lg">{content.summary}</p>

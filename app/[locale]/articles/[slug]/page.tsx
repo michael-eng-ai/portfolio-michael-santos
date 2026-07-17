@@ -5,13 +5,14 @@ import { ContentJourney, type ContentJourneyStep } from "@/components/content-jo
 import { EditorialCover } from "@/components/editorial-cover";
 import { MarkdownContent } from "@/components/markdown-content";
 import { RetentionPanel, type RetentionLink } from "@/components/retention-panel";
+import { ShareButtons } from "@/components/share-buttons";
 import { StructuredData } from "@/components/structured-data";
 import { TopicCluster } from "@/components/topic-cluster";
 import { TrackedLink } from "@/components/tracked-link";
 import { getTopicClusterRecommendations } from "@/lib/content-recommendations";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { getArticleBySlug, getArticles, getNewsReferences, getProjects } from "@/lib/content";
-import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildPageMetadata } from "@/lib/seo";
+import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildPageMetadata, localizedUrl } from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 
 export async function generateStaticParams() {
@@ -219,6 +220,15 @@ export default async function ArticleDetailPage({
             meta={`${article.publishedAt} • ${article.readingMinutes} min`}
             imageUrl={article.imageUrl}
           />
+          <div className="border-b border-gray-100 px-6 py-4 sm:px-8 md:px-10">
+            <ShareButtons
+              locale={locale}
+              url={localizedUrl(locale, `/articles/${article.slug}`)}
+              title={content.title}
+              contentType="article"
+              slug={article.slug}
+            />
+          </div>
           <div className="p-6 sm:p-8 md:p-10">
             <h1 className="sr-only">{content.title}</h1>
             <div>

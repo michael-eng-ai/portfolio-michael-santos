@@ -139,6 +139,15 @@ Track enough behavior to answer:
   - `locale`
   - `file`
 
+### `share_click`
+- Fires when a visitor uses detail-page share actions (LinkedIn, X, or copy link)
+- Parameters:
+  - `channel` (`linkedin` | `x` | `copy`)
+  - `locale`
+  - `content_type` (`article` | `project` | `news`)
+  - `slug`
+  - `location` (`detail_share`)
+
 ## Funnel Views To Build
 
 ### Retention Funnel

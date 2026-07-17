@@ -5,6 +5,7 @@ import { ContentJourney, type ContentJourneyStep } from "@/components/content-jo
 import { EditorialCover } from "@/components/editorial-cover";
 import { MarkdownContent } from "@/components/markdown-content";
 import { RetentionPanel, type RetentionLink } from "@/components/retention-panel";
+import { ShareButtons } from "@/components/share-buttons";
 import { StructuredData } from "@/components/structured-data";
 import { TopicCluster } from "@/components/topic-cluster";
 import { TrackedExternalLink } from "@/components/tracked-external-link";
@@ -12,7 +13,7 @@ import { TrackedLink } from "@/components/tracked-link";
 import { getTopicClusterRecommendations } from "@/lib/content-recommendations";
 import { clampText, editorialLimits } from "@/lib/editorial";
 import { getArticles, getGithubRepoSnapshots, getGithubSnapshotForProject, getNewsReferences, getProjectBySlug, getProjects } from "@/lib/content";
-import { buildBreadcrumbJsonLd, buildPageMetadata, buildProjectJsonLd } from "@/lib/seo";
+import { buildBreadcrumbJsonLd, buildPageMetadata, buildProjectJsonLd, localizedUrl } from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 
 export async function generateStaticParams() {
@@ -214,6 +215,16 @@ export default async function ProjectDetailPage({
           supportingText={clampText(content.subtitle, editorialLimits.heroSummaryMax)}
           meta={project.stack.slice(0, 4).join(" • ")}
           imageUrl={project.imageUrl}
+        />
+      </div>
+
+      <div className="mx-auto mb-8 max-w-7xl sm:mb-10">
+        <ShareButtons
+          locale={locale}
+          url={localizedUrl(locale, `/projects/${project.slug}`)}
+          title={content.title}
+          contentType="project"
+          slug={project.slug}
         />
       </div>
 
