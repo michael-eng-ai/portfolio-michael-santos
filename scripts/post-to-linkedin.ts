@@ -6,12 +6,14 @@ import {
   updateNewsRowBySlug,
 } from "@/lib/database";
 import { resolveLinkedinAuthorUrn } from "@/lib/linkedin-author";
+import { buildLinkedinUgcShareContent } from "@/lib/linkedin";
 import {
   buildDeliveryFailurePatch, buildDeliverySuccessPatch, selectDueDeliveryRows, supportsDeliveryQueue,
 } from "@/lib/news-delivery";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
+import { Locale } from "@/lib/site";
+import { buildLocalizedSiteUrl, resolveSocialLocale } from "@/lib/utm";
 
-const SITE_HOST = "michael.business";
 const MAX_POSTS_PER_RUN = 1;
 const LINKEDIN_API_BASE = "https://api.linkedin.com/v2";
 
@@ -29,11 +31,25 @@ type NewsRow = Record<string, unknown> & {
   linkedin_attempt_count?: number | null;
 };
 
-function buildLinkedInPost(news: NewsRow): string {
-  const content = news.locales.pt;
-  const url = `https://${SITE_HOST}/pt/news/${news.slug}`;
+function resolvePostLocale(): Locale {
+  return resolveSocialLocale(process.env.NEWS_LINKEDIN_LOCALE, "pt");
+}
 
-  const editorial = news.editorial_analysis?.pt;
+function buildLinkedInPost(news: NewsRow, locale: Locale): {
+  text: string;
+  articleUrl: string;
+  title: string;
+  description: string;
+} {
+  const content = news.locales[locale] ?? news.locales.pt ?? news.locales.en;
+  const articleUrl = buildLocalizedSiteUrl({
+    locale,
+    path: `/news/${news.slug}`,
+    source: "linkedin",
+    campaign: news.slug,
+  });
+
+  const editorial = news.editorial_analysis?.[locale] ?? news.editorial_analysis?.pt ?? news.editorial_analysis?.en;
   const excerpt = editorial
     ? editorial.split("\n\n")[0].slice(0, 350)
     : content.summary.slice(0, 350);
@@ -43,18 +59,31 @@ function buildLinkedInPost(news: NewsRow): string {
     .map((t) => `#${t.replace(/[\s-]/g, "")}`)
     .join(" ");
 
-  return `${content.title}\n\n${excerpt}\n\nLeia a analise completa:\n${url}\n\n${hashtags} #DataEngineering`;
+  const cta = locale === "pt" ? "Leia a analise completa:" : "Read the full analysis:";
+
+  return {
+    text: `${content.title}\n\n${excerpt}\n\n${cta}\n${articleUrl}\n\n${hashtags} #DataEngineering`,
+    articleUrl,
+    title: content.title,
+    description: excerpt,
+  };
 }
 
-async function postToLinkedIn(accessToken: string, authorUrn: string, text: string): Promise<string> {
+async function postToLinkedIn(
+  accessToken: string,
+  authorUrn: string,
+  post: ReturnType<typeof buildLinkedInPost>,
+): Promise<string> {
   const body = {
     author: authorUrn,
     lifecycleState: "PUBLISHED",
     specificContent: {
-      "com.linkedin.ugc.ShareContent": {
-        shareCommentary: { text },
-        shareMediaCategory: "NONE",
-      },
+      "com.linkedin.ugc.ShareContent": buildLinkedinUgcShareContent({
+        commentary: post.text,
+        articleUrl: post.articleUrl,
+        title: post.title,
+        description: post.description,
+      }),
     },
     visibility: {
       "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC",
@@ -133,6 +162,7 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
+  const postLocale = resolvePostLocale();
   const sampleRow = await getActiveNewsSampleRow();
   const queueSupported = supportsDeliveryQueue(sampleRow as Record<string, unknown> | undefined, "linkedin");
   const unposted = await listPendingNewsRowsForDelivery("linkedin", queueSupported ? 25 : MAX_POSTS_PER_RUN, {
@@ -153,12 +183,12 @@ async function main(): Promise<void> {
     return;
   }
 
-  console.log(`Found ${candidates.length} due LinkedIn delivery items`);
+  console.log(`Found ${candidates.length} due LinkedIn delivery items (locale=${postLocale})`);
 
   let posted = 0;
 
   for (const article of candidates) {
-    const text = buildLinkedInPost(article);
+    const post = buildLinkedInPost(article, postLocale);
     const nextAttemptCount = Number(article.linkedin_attempt_count ?? 0) + 1;
 
     if (queueSupported) {
@@ -177,7 +207,7 @@ async function main(): Promise<void> {
 
     try {
       const postId = await withRetry(
-        () => postToLinkedIn(accessToken, author.authorUrn, text),
+        () => postToLinkedIn(accessToken, author.authorUrn, post),
         {
           attempts: 3,
           delayMs: 1_500,

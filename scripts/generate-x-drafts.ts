@@ -3,6 +3,7 @@ import path from "node:path";
 
 import { getArticles, getProjects } from "@/lib/content";
 import { localePath, siteConfig } from "@/lib/site";
+import { withSocialUtm } from "@/lib/utm";
 
 function limitPost(text: string, maxLength = 278) {
   if (text.length <= maxLength) {
@@ -128,8 +129,16 @@ async function main() {
         excerptEn: article.locales.en.excerpt,
         excerptPt: article.locales.pt.excerpt,
         urls: {
-          en: `${siteConfig.url}${localePath("en", `/articles/${article.slug}`)}`,
-          pt: `${siteConfig.url}${localePath("pt", `/articles/${article.slug}`)}`,
+          en: withSocialUtm(`${siteConfig.url}${localePath("en", `/articles/${article.slug}`)}`, {
+            source: "x",
+            campaign: article.slug,
+            content: "en",
+          }),
+          pt: withSocialUtm(`${siteConfig.url}${localePath("pt", `/articles/${article.slug}`)}`, {
+            source: "x",
+            campaign: article.slug,
+            content: "pt",
+          }),
           proof: relatedProject?.github.url ?? null,
         },
       }),
@@ -148,8 +157,16 @@ async function main() {
         excerptEn: project.locales.en.summary,
         excerptPt: project.locales.pt.summary,
         urls: {
-          en: `${siteConfig.url}${localePath("en", `/projects/${project.slug}`)}`,
-          pt: `${siteConfig.url}${localePath("pt", `/projects/${project.slug}`)}`,
+          en: withSocialUtm(`${siteConfig.url}${localePath("en", `/projects/${project.slug}`)}`, {
+            source: "x",
+            campaign: project.slug,
+            content: "en",
+          }),
+          pt: withSocialUtm(`${siteConfig.url}${localePath("pt", `/projects/${project.slug}`)}`, {
+            source: "x",
+            campaign: project.slug,
+            content: "pt",
+          }),
           proof: project.github.url,
         },
       }),

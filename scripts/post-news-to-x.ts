@@ -14,7 +14,9 @@ import {
   supportsDeliveryQueue,
 } from "@/lib/news-delivery";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
+import { Locale } from "@/lib/site";
 import { getTagHashtag, BROAD_HASHTAGS } from "@/lib/tags";
+import { buildLocalizedSiteUrl, resolveSocialLocale } from "@/lib/utm";
 import {
   isXCreditsDepletedError,
   markXCreditsDepleted,
@@ -23,7 +25,6 @@ import {
   shouldSkipXDueToBillingGuard,
 } from "@/lib/x-billing-guard";
 
-const SITE_HOST = "michael.business";
 const MAX_POSTS_PER_RUN = 1;
 const TWEET_MAX_LENGTH = 280;
 
@@ -69,16 +70,38 @@ function extractEditorialHook(analysis: string): string {
   return hook;
 }
 
+function resolvePostLocale(news: NewsRow): Locale {
+  const preferred = resolveSocialLocale(process.env.NEWS_X_LOCALE, "en");
+
+  if (news.locales[preferred]?.title) {
+    return preferred;
+  }
+
+  if (news.locales.pt?.title) {
+    return "pt";
+  }
+
+  return "en";
+}
+
 function buildTweet(news: NewsRow, index: number): string {
-  const url = `https://${SITE_HOST}/en/news/${news.slug}`;
+  const locale = resolvePostLocale(news);
+  const localized = news.locales[locale] ?? news.locales.en;
+  const url = buildLocalizedSiteUrl({
+    locale,
+    path: `/news/${news.slug}`,
+    source: "x",
+    campaign: news.slug,
+  });
   const hashtags = buildHashtags(news.tags);
 
   let hook: string;
-  if (news.editorial_analysis?.en) {
-    hook = extractEditorialHook(news.editorial_analysis.en);
+  const editorial = news.editorial_analysis?.[locale] ?? news.editorial_analysis?.en ?? news.editorial_analysis?.pt;
+  if (editorial) {
+    hook = extractEditorialHook(editorial);
   } else {
     const hookFn = hookTemplates[index % hookTemplates.length];
-    hook = hookFn(news.locales.en.title, news.source_name);
+    hook = hookFn(localized.title, news.source_name);
   }
 
   const suffix = `\n\n${url}\n\n${hashtags}`;
