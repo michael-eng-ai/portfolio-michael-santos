@@ -2,8 +2,10 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 
 import { getArticles, getProjects } from "@/lib/content";
+import { findLocalArticleCoverUrl } from "@/lib/article-covers";
 import { localePath, siteConfig } from "@/lib/site";
 import { withSocialUtm } from "@/lib/utm";
+import { buildXThreadPosts } from "@/lib/x-draft-copy";
 
 function limitPost(text: string, maxLength = 278) {
   if (text.length <= maxLength) {
@@ -39,6 +41,7 @@ function createDraftPayload({
   excerptEn,
   excerptPt,
   urls,
+  mediaPath,
 }: {
   slug: string;
   sourceType: "article" | "project";
@@ -52,35 +55,34 @@ function createDraftPayload({
     pt: string;
     proof: string | null;
   };
+  mediaPath?: string | null;
 }) {
-  const enPosts = [
-    buildPost([
-      titleEn,
-      excerptEn,
-      "Read on site:",
-    ], urls.en),
-  ];
+  const hasProof = Boolean(urls.proof);
+  const enThread = buildXThreadPosts({
+    locale: "en",
+    sourceType,
+    title: titleEn,
+    excerpt: excerptEn,
+    hasProof,
+  });
+  const ptThread = buildXThreadPosts({
+    locale: "pt",
+    sourceType,
+    title: titlePt,
+    excerpt: excerptPt,
+    hasProof,
+  });
 
+  const enPosts = [
+    buildPost([enThread[0], enThread[1], enThread[2]], urls.en),
+  ];
   const ptPosts = [
-    buildPost([
-      titlePt,
-      excerptPt,
-      "Leia no site:",
-    ], urls.pt),
+    buildPost([ptThread[0], ptThread[1], ptThread[2]], urls.pt),
   ];
 
   if (urls.proof) {
-    enPosts.push(
-      buildPost([
-        "Operational proof lives on GitHub.",
-      ], urls.proof),
-    );
-
-    ptPosts.push(
-      buildPost([
-        "A prova operacional esta no GitHub.",
-      ], urls.proof),
-    );
+    enPosts.push(buildPost(["Operational proof lives on GitHub."], urls.proof));
+    ptPosts.push(buildPost(["A prova operacional esta no GitHub."], urls.proof));
   }
 
   return {
@@ -90,6 +92,7 @@ function createDraftPayload({
     status: "draft",
     generatedAt: new Date().toISOString(),
     publishedUrl: null,
+    mediaPath: mediaPath ?? null,
     urls,
     locales: {
       en: {
@@ -117,6 +120,7 @@ async function main() {
     const relatedProject = article.relatedProjectSlugs
       .map((slug) => projectBySlug.get(slug))
       .find((entry) => Boolean(entry));
+    const cover = findLocalArticleCoverUrl(article.slug) ?? article.imageUrl;
 
     await writeDraft(
       `article-${article.slug}`,
@@ -128,6 +132,7 @@ async function main() {
         titlePt: article.locales.pt.title,
         excerptEn: article.locales.en.excerpt,
         excerptPt: article.locales.pt.excerpt,
+        mediaPath: cover && !cover.endsWith(".svg") ? cover : null,
         urls: {
           en: withSocialUtm(`${siteConfig.url}${localePath("en", `/articles/${article.slug}`)}`, {
             source: "x",
@@ -156,6 +161,8 @@ async function main() {
         titlePt: project.locales.pt.title,
         excerptEn: project.locales.en.summary,
         excerptPt: project.locales.pt.summary,
+        mediaPath:
+          project.imageUrl && !project.imageUrl.endsWith(".svg") ? project.imageUrl : null,
         urls: {
           en: withSocialUtm(`${siteConfig.url}${localePath("en", `/projects/${project.slug}`)}`, {
             source: "x",

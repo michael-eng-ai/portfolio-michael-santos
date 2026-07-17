@@ -1,6 +1,10 @@
 import { LinkedinDraft } from "@/lib/content";
 import { resolveLinkedinAuthorUrn } from "@/lib/linkedin-author";
 import { Locale } from "@/lib/site";
+import {
+  resolveArticleCoverDiskPath,
+  uploadLinkedinImageAsset,
+} from "@/lib/social-media";
 import { withSocialUtm } from "@/lib/utm";
 
 export type LinkedinShareMediaInput = {
@@ -8,9 +12,29 @@ export type LinkedinShareMediaInput = {
   articleUrl?: string | null;
   title?: string | null;
   description?: string | null;
+  /** LinkedIn digitalmedia asset URN for IMAGE shares. */
+  imageAssetUrn?: string | null;
 };
 
 export function buildLinkedinUgcShareContent(input: LinkedinShareMediaInput) {
+  const imageAssetUrn = input.imageAssetUrn?.trim();
+  if (imageAssetUrn) {
+    return {
+      shareCommentary: { text: input.commentary },
+      shareMediaCategory: "IMAGE" as const,
+      media: [
+        {
+          status: "READY",
+          media: imageAssetUrn,
+          ...(input.title ? { title: { text: input.title.slice(0, 200) } } : {}),
+          ...(input.description
+            ? { description: { text: input.description.slice(0, 300) } }
+            : {}),
+        },
+      ],
+    };
+  }
+
   const articleUrl = input.articleUrl?.trim();
 
   if (!articleUrl) {
@@ -40,6 +64,7 @@ export function buildLinkedinUgcShareContent(input: LinkedinShareMediaInput) {
 export async function publishLinkedinDraft(draft: LinkedinDraft, locale: Locale = "en") {
   const accessToken = process.env.LINKEDIN_ACCESS_TOKEN;
   const enabled = process.env.LINKEDIN_PUBLISH_ENABLED === "true";
+  const preferImage = process.env.LINKEDIN_PREFER_IMAGE_SHARE !== "false";
   const localizedDraft = draft.locales[locale];
   const siteUrl = draft.urls[locale]
     ? withSocialUtm(draft.urls[locale], {
@@ -74,6 +99,27 @@ export async function publishLinkedinDraft(draft: LinkedinDraft, locale: Locale 
     .filter(Boolean)
     .join("\n\n");
 
+  let imageAssetUrn: string | null = null;
+  if (preferImage && draft.sourceType === "article") {
+    const coverPath = resolveArticleCoverDiskPath(draft.sourceSlug, draft.mediaPath);
+    if (coverPath) {
+      try {
+        imageAssetUrn = await uploadLinkedinImageAsset({
+          accessToken,
+          ownerUrn: author.authorUrn,
+          filePath: coverPath,
+        });
+        console.log(`LinkedIn IMAGE asset uploaded for ${draft.sourceSlug}`);
+      } catch (error) {
+        console.warn(
+          `LinkedIn IMAGE upload failed for ${draft.sourceSlug}; falling back to ARTICLE OG share: ${
+            error instanceof Error ? error.message : String(error)
+          }`,
+        );
+      }
+    }
+  }
+
   const payload = {
     author: author.authorUrn,
     lifecycleState: "PUBLISHED",
@@ -83,6 +129,7 @@ export async function publishLinkedinDraft(draft: LinkedinDraft, locale: Locale 
         articleUrl: siteUrl,
         title: localizedDraft.hook,
         description: localizedDraft.body,
+        imageAssetUrn,
       }),
     },
     visibility: {
@@ -113,5 +160,6 @@ export async function publishLinkedinDraft(draft: LinkedinDraft, locale: Locale 
     published: true,
     id: headerId ?? data.id ?? null,
     locale,
+    shareMediaCategory: imageAssetUrn ? "IMAGE" : "ARTICLE",
   } as const;
 }

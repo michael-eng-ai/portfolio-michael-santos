@@ -166,6 +166,8 @@ export const linkedinDraftSchema = z.object({
   status: z.enum(["draft", "approved", "published"]),
   generatedAt: z.string().min(1),
   publishedUrl: z.string().url().nullable().default(null),
+  /** Optional root-relative cover path for IMAGE share when OG scrape is weak. */
+  mediaPath: z.string().min(1).nullable().optional(),
   urls: z.object({
     en: z.string().url(),
     pt: z.string().url(),
@@ -184,6 +186,8 @@ export const xDraftSchema = z.object({
   status: z.enum(["draft", "approved", "published"]),
   generatedAt: z.string().min(1),
   publishedUrl: z.string().url().nullable().default(null),
+  /** Optional root-relative cover path for media upload on publish. */
+  mediaPath: z.string().min(1).nullable().optional(),
   urls: z.object({
     en: z.string().url(),
     pt: z.string().url(),

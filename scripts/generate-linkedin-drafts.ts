@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
+import { findLocalArticleCoverUrl } from "@/lib/article-covers";
 import { getArticles, getProjects } from "@/lib/content";
 import { buildLinkedinLocaleCopy } from "@/lib/linkedin-draft-copy";
 import { localePath, siteConfig } from "@/lib/site";
@@ -21,6 +22,7 @@ function createDraftPayload({
   excerptEn,
   excerptPt,
   urls,
+  mediaPath,
 }: {
   slug: string;
   sourceType: "article" | "project";
@@ -34,6 +36,7 @@ function createDraftPayload({
     pt: string;
     proof: string | null;
   };
+  mediaPath?: string | null;
 }) {
   const hasProof = Boolean(urls.proof);
 
@@ -44,6 +47,7 @@ function createDraftPayload({
     status: "draft",
     generatedAt: new Date().toISOString(),
     publishedUrl: null,
+    mediaPath: mediaPath ?? null,
     urls,
     locales: {
       en: buildLinkedinLocaleCopy({
@@ -111,6 +115,7 @@ async function main() {
     const relatedProject = article.relatedProjectSlugs
       .map((slug) => projectBySlug.get(slug))
       .find((entry) => Boolean(entry));
+    const cover = findLocalArticleCoverUrl(article.slug) ?? article.imageUrl;
 
     await writeDraft(
       `article-${article.slug}`,
@@ -122,6 +127,7 @@ async function main() {
         titlePt: article.locales.pt.title,
         excerptEn: article.locales.en.excerpt,
         excerptPt: article.locales.pt.excerpt,
+        mediaPath: cover && !cover.endsWith(".svg") ? cover : null,
         urls: {
           en: withSocialUtm(`${siteConfig.url}${localePath("en", `/articles/${article.slug}`)}`, {
             source: "linkedin",
