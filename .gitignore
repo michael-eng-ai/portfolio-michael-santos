@@ -46,6 +46,7 @@ pids
 *.pid
 *.seed
 *.pid.lock
+.article-cover-status
 
 # Coverage directory used by tools like istanbul
 coverage/

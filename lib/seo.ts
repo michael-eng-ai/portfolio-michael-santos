@@ -1,6 +1,24 @@
 import type { Metadata } from "next";
 
+import { isGenericSvgCover, isRasterArticleCover } from "@/lib/article-covers";
 import { Locale, localeMetadata, localePath, locales, siteConfig } from "@/lib/site";
+
+/**
+ * Prefer raster covers for social scrapes. Generic SVG placeholders are weak on
+ * LinkedIn/X — return null so callers can omit `images` and let the route-level
+ * `opengraph-image.tsx` generate a branded card instead.
+ */
+export function resolveSocialShareImage(imageUrl?: string): string | null {
+  if (imageUrl && isRasterArticleCover(imageUrl)) {
+    return imageUrl;
+  }
+
+  if (!imageUrl || isGenericSvgCover(imageUrl)) {
+    return null;
+  }
+
+  return imageUrl;
+}
 
 type BuildPageMetadataInput = {
   locale: Locale;
@@ -59,7 +77,18 @@ export function buildPageMetadata({
   modifiedTime,
 }: BuildPageMetadataInput): Metadata {
   const url = localizedUrl(locale, path);
-  const image = absoluteUrl(imageUrl);
+  const shareImage = resolveSocialShareImage(imageUrl);
+  const image = absoluteUrl(shareImage ?? siteConfig.defaultSocialImage);
+  const explicitImages = shareImage
+    ? [
+        {
+          url: absoluteUrl(shareImage),
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ]
+    : undefined;
 
   return {
     title,
@@ -82,14 +111,8 @@ export function buildPageMetadata({
       alternateLocale: locales
         .filter((value) => value !== locale)
         .map((value) => localeMetadata[value].openGraph),
-      images: [
-        {
-          url: image,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      // When no raster cover exists, omit images so route opengraph-image.tsx wins.
+      ...(explicitImages ? { images: explicitImages } : {}),
       ...(publishedTime ? { publishedTime } : {}),
       ...(modifiedTime ? { modifiedTime } : {}),
     },
@@ -99,7 +122,7 @@ export function buildPageMetadata({
       creator: siteConfig.twitterHandle,
       title,
       description,
-      images: [image],
+      ...(explicitImages ? { images: [image] } : {}),
     },
   };
 }

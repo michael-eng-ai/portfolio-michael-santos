@@ -33,10 +33,37 @@ const ART_DIRECTION = `Editorial cover illustration for a senior data engineerin
 clean modern 3D render OR flat geometric illustration, blue and dark navy
 palette with subtle teal highlights, abstract data-flow / circuit / pipeline
 geometry, no text, no logos, no human figures unless essential. Banner
-aspect ratio 16:9, suitable as a hero image and Open Graph card.`;
+aspect ratio 16:9, suitable as a hero image and Open Graph card.
+Prefer a photoreal-abstract or crisp illustration that reads clearly at
+1200x630 social crop. Output a single JPEG-friendly image when possible.`;
 
 function buildPrompt(prompt: string): string {
   return `${ART_DIRECTION}\n\nSubject: ${prompt}`;
+}
+
+function extensionForMime(mimeType: string): "jpg" | "png" {
+  if (mimeType.includes("jpeg") || mimeType.includes("jpg")) {
+    return "jpg";
+  }
+  // Gemini preview models often return PNG; keep PNG rather than lying about JPG.
+  return "png";
+}
+
+function isRetryableImageError(error: Error): boolean {
+  const message = error.message.toLowerCase();
+  return (
+    message.includes("429") ||
+    message.includes("503") ||
+    message.includes("unavailable") ||
+    message.includes("high demand") ||
+    message.includes("rate") ||
+    message.includes("quota") ||
+    message.includes("timeout")
+  );
+}
+
+async function sleep(ms: number) {
+  await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function callGeminiImage(
@@ -45,39 +72,92 @@ async function callGeminiImage(
   prompt: string,
 ): Promise<{ data: string; mimeType: string }> {
   const url = `${GEMINI_BASE_URL}/${model}:generateContent`;
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-goog-api-key": apiKey,
-    },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: buildPrompt(prompt) }] }],
-      generationConfig: { responseModalities: ["IMAGE"] },
-    }),
-  });
+  const maxAttempts = 3;
+  let lastError: Error | undefined;
 
-  if (!response.ok) {
-    const body = await response.text();
-    throw new Error(
-      `Gemini image API ${model} returned HTTP ${response.status}: ${body.slice(0, 300)}`,
-    );
-  }
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": apiKey,
+        },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: buildPrompt(prompt) }] }],
+          generationConfig: { responseModalities: ["IMAGE"] },
+        }),
+      });
 
-  const payload = (await response.json()) as {
-    candidates?: { content?: { parts?: { inlineData?: { data: string; mimeType: string } }[] } }[];
-    error?: { message?: string };
-  };
+      if (!response.ok) {
+        const body = await response.text();
+        throw new Error(
+          `Gemini image API ${model} returned HTTP ${response.status}: ${body.slice(0, 300)}`,
+        );
+      }
 
-  const parts = payload.candidates?.[0]?.content?.parts ?? [];
-  for (const part of parts) {
-    if (part.inlineData?.data) {
-      return { data: part.inlineData.data, mimeType: part.inlineData.mimeType ?? "image/png" };
+      const payload = (await response.json()) as {
+        candidates?: { content?: { parts?: { inlineData?: { data: string; mimeType: string } }[] } }[];
+        error?: { message?: string };
+      };
+
+      const parts = payload.candidates?.[0]?.content?.parts ?? [];
+      for (const part of parts) {
+        if (part.inlineData?.data) {
+          return { data: part.inlineData.data, mimeType: part.inlineData.mimeType ?? "image/png" };
+        }
+      }
+
+      const errorMessage = payload.error?.message ?? "no inlineData in response";
+      throw new Error(`Gemini image API ${model} returned no image: ${errorMessage}`);
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+      if (attempt < maxAttempts && isRetryableImageError(lastError)) {
+        const delayMs = attempt * 8_000;
+        console.warn(
+          `Gemini image ${model} attempt ${attempt} failed (${lastError.message.slice(0, 120)}); retrying in ${delayMs}ms`,
+        );
+        await sleep(delayMs);
+        continue;
+      }
+      throw lastError;
     }
   }
 
-  const errorMessage = payload.error?.message ?? "no inlineData in response";
-  throw new Error(`Gemini image API ${model} returned no image: ${errorMessage}`);
+  throw lastError ?? new Error(`Gemini image API ${model} failed`);
+}
+
+async function persistCoverBuffer(input: {
+  slug: string;
+  outputDir: string;
+  publicPrefix: string;
+  buffer: Buffer;
+  ext: "jpg" | "png";
+  model: string;
+}): Promise<GenerateCoverImageResult> {
+  const fileName = `${input.slug}.${input.ext}`;
+  const filePath = path.join(input.outputDir, fileName);
+
+  await fs.mkdir(input.outputDir, { recursive: true });
+  await Promise.all(
+    (["jpg", "jpeg", "png", "webp"] as const)
+      .filter((candidate) => candidate !== input.ext && candidate !== (input.ext === "jpg" ? "jpeg" : input.ext))
+      .map(async (candidate) => {
+        try {
+          await fs.unlink(path.join(input.outputDir, `${input.slug}.${candidate}`));
+        } catch {
+          // Ignore missing stale files.
+        }
+      }),
+  );
+  await fs.writeFile(filePath, input.buffer);
+
+  return {
+    filePath,
+    publicUrl: `${input.publicPrefix}/${fileName}`,
+    model: input.model,
+    bytes: input.buffer.byteLength,
+  };
 }
 
 /**
@@ -107,20 +187,15 @@ export async function generateCoverImage(
   for (const model of modelsToTry) {
     try {
       const { data, mimeType } = await callGeminiImage(apiKey, model, input.prompt);
-      const ext = mimeType.includes("jpeg") ? "jpg" : "png";
-      const fileName = `${input.slug}.${ext}`;
-      const filePath = path.join(outputDir, fileName);
-
-      await fs.mkdir(outputDir, { recursive: true });
-      const buffer = Buffer.from(data, "base64");
-      await fs.writeFile(filePath, buffer);
-
-      return {
-        filePath,
-        publicUrl: `${publicPrefix}/${fileName}`,
+      const ext = extensionForMime(mimeType);
+      return persistCoverBuffer({
+        slug: input.slug,
+        outputDir,
+        publicPrefix,
+        buffer: Buffer.from(data, "base64"),
+        ext,
         model,
-        bytes: buffer.byteLength,
-      };
+      });
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
       console.warn(

@@ -1,11 +1,36 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+
 import { ImageResponse } from "next/og";
 
+import { findLocalArticleCoverPath, isRasterArticleCover } from "@/lib/article-covers";
 import { getArticleBySlug } from "@/lib/content";
 import { siteConfig } from "@/lib/site";
 import type { Locale } from "@/lib/site";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const alt = "Article cover";
+
+function mimeFromPath(filePath: string): string {
+  if (/\.jpe?g$/i.test(filePath)) return "image/jpeg";
+  if (/\.webp$/i.test(filePath)) return "image/webp";
+  if (/\.png$/i.test(filePath)) return "image/png";
+  return "application/octet-stream";
+}
+
+function resolveCoverDiskPath(slug: string, imageUrl?: string): string | undefined {
+  const local = findLocalArticleCoverPath(slug);
+  if (local) {
+    return local;
+  }
+
+  if (imageUrl?.startsWith("/images/") && isRasterArticleCover(imageUrl)) {
+    return path.join(process.cwd(), "public", imageUrl.replace(/^\//, ""));
+  }
+
+  return undefined;
+}
 
 export default async function OgImage({
   params,
@@ -15,6 +40,21 @@ export default async function OgImage({
   const { locale, slug } = await params;
   const article = await getArticleBySlug(slug);
   const title = article?.locales[locale as Locale]?.title ?? siteConfig.title;
+  const diskPath = resolveCoverDiskPath(slug, article?.imageUrl);
+
+  if (diskPath) {
+    try {
+      const bytes = await readFile(diskPath);
+      return new Response(bytes, {
+        headers: {
+          "Content-Type": mimeFromPath(diskPath),
+          "Cache-Control": "public, max-age=86400, immutable",
+        },
+      });
+    } catch {
+      // Fall through to branded synthetic OG card.
+    }
+  }
 
   return new ImageResponse(
     (

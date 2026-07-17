@@ -1,3 +1,5 @@
+import { findLocalArticleCoverUrl, isGenericSvgCover, isRasterArticleCover } from "@/lib/article-covers";
+
 type ImageResolveInput = {
   slug: string;
   imageUrl?: string | null;
@@ -100,8 +102,27 @@ export function resolveProjectImage(input: ImageResolveInput) {
 }
 
 export function resolveArticleImage(input: ImageResolveInput) {
-  if (!isStockEditorialImage(input.imageUrl)) {
+  // Generated raster covers always win over SVG / Unsplash placeholders.
+  const localCover = findLocalArticleCoverUrl(input.slug);
+  if (localCover) {
+    return localCover;
+  }
+
+  if (isRasterArticleCover(input.imageUrl) && !isStockEditorialImage(input.imageUrl)) {
     return input.imageUrl ?? undefined;
+  }
+
+  // Explicit curated SVG (legacy brand assets) when no raster cover exists.
+  if (
+    input.imageUrl &&
+    !isStockEditorialImage(input.imageUrl) &&
+    isGenericSvgCover(input.imageUrl)
+  ) {
+    return input.imageUrl;
+  }
+
+  if (!isStockEditorialImage(input.imageUrl) && input.imageUrl) {
+    return input.imageUrl;
   }
 
   const haystack = buildHaystack(input);

@@ -7,6 +7,7 @@ import OpenAI from "openai";
 
 import { getNewsReferences, getProjects, getArticles } from "@/lib/content";
 import { generateCoverImage } from "@/lib/image-gen";
+import { generateLocalCoverImage } from "@/lib/local-cover";
 import { isLlmUnavailableError } from "@/lib/llm-text";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
 
@@ -28,6 +29,9 @@ const MAX_NOVELTY_ATTEMPTS = 3;
 const NOVELTY_SIMILARITY_THRESHOLD = 0.5;
 // How many recent titles to surface to the model as "do not repeat" context.
 const RECENT_TITLE_CONTEXT = 30;
+// Prefer related news fresher than this unless the article is evergreen.
+const RELATED_NEWS_MAX_AGE_DAYS = 45;
+const EVERGREEN_CATEGORY_HINTS = ["evergreen", "fundamentals", "foundations", "primer"];
 
 type ArticlePayload = {
   titleEn: string;
@@ -234,6 +238,19 @@ function overCoveredThemes(titles: string[], minCount = 3, limit = 6): string[] 
     .map(([word, count]) => `${word} (${count}×)`);
 }
 
+function daysSince(isoDate: string, today = new Date()): number {
+  const published = new Date(`${isoDate}T00:00:00Z`);
+  if (Number.isNaN(published.getTime())) {
+    return Number.POSITIVE_INFINITY;
+  }
+  return Math.floor((today.getTime() - published.getTime()) / (1000 * 60 * 60 * 24));
+}
+
+function isEvergreenCategory(categoryEn: string): boolean {
+  const normalized = categoryEn.toLowerCase();
+  return EVERGREEN_CATEGORY_HINTS.some((hint) => normalized.includes(hint));
+}
+
 function buildPrompt(
   projects: Awaited<ReturnType<typeof getProjects>>,
   news: Awaited<ReturnType<typeof getNewsReferences>>,
@@ -247,6 +264,8 @@ function buildPrompt(
   const saturatedThemes = overCoveredThemes(
     recentArticles.map((article) => article.locales.en.title),
   );
+  const freshNews = news.filter((item) => daysSince(item.publishedAt) <= RELATED_NEWS_MAX_AGE_DAYS);
+  const newsForPrompt = (freshNews.length > 0 ? freshNews : news).slice(0, 24);
 
   return `
 You are generating a bilingual article draft for a senior data engineering portfolio platform.
@@ -255,8 +274,13 @@ NOVELTY & ATTENTION (highest priority — the catalogue already has 50+ articles
    - Choose a primary topic CLEARLY DISTINCT from every entry in "ALREADY PUBLISHED" below. Do not duplicate, paraphrase, re-angle, or reuse the same primary keyword as any of them.
    - Do NOT default to "self-healing data pipelines", "Claude MCP", or "agentic pipelines" — those are already over-covered.${saturatedThemes.length ? ` The most saturated keywords right now are: ${saturatedThemes.join(", ")}. Do not lead with these.` : ""}
    - Vary the title structure every run; never reuse a fixed template. Do not append "in 2026"/"in 2025" as a crutch — only include a year when the claim is genuinely time-bound, and never on consecutive articles.
-   - Avoid recycled stat-hooks ("X% of companies/projects fail/use AI"). Use at most one such framing, and only with a specific, cited number.
+   - Percentage / "X% of companies" claims are banned unless the body cites a named source (report, vendor doc, or news slug) in the same paragraph. Prefer concrete incident/cost/SLO framing over unverified stats.
    - Pick a fresh entry angle for the body (incident postmortem, benchmark, migration story, architecture trade-off, cost analysis, hands-on build) that differs from recent articles.${avoidTitles.length ? `\n   - REJECTED THIS RUN as too similar — pick something clearly different from these too:\n${avoidTitles.map((title) => `     - ${title}`).join("\n")}` : ""}
+
+OPENING HOOK (non-negotiable for retention):
+   - The first 2–3 sentences of bodyEn/bodyPt must create business tension: a production incident, cost overrun, SLO breach, on-call pain, or decision risk a hiring manager recognizes.
+   - Do NOT open with a definition, a history lesson, or "In this article we will…".
+   - After the tension, deliver the technical response and proof. Social excerpts will reuse this opening — make it punchy without clickbait spam.
 
 ALREADY PUBLISHED — must not be duplicated or paraphrased (most recent first):
 ${publishedTitles || "- (none yet)"}
@@ -272,11 +296,12 @@ SEO DISCIPLINE (non-negotiable — optimized for Google organic discovery on lon
 2. EXCERPT (excerptEn, excerptPt):
    - 140–160 characters. This becomes the meta description on SERP.
    - Promise a specific outcome + include the primary keyword once.
+   - Echo the business tension (cost / SLO / incident), not a bland summary.
    - End with a concrete benefit, not a tease.
 
 3. BODY (bodyEn, bodyPt):
    - Minimum 1400 words, maximum 2200 words in each language.
-   - First 100 characters of the body MUST contain the primary keyword naturally.
+   - First 100 characters of the body MUST contain the primary keyword naturally AND the business tension from OPENING HOOK.
    - Structure: intro paragraph (no heading) → four to six "## H2" sections → optional "### H3" subsections.
    - Use H2 wording that a human would paste into Google (question-shaped or gap-shaped), tailored to this article's specific topic rather than a recycled example.
    - Include at least one internal link: "[anchor](/articles/OTHER_SLUG)" pointing to an existing relevant article slug (pick from the news refs or recent articles section context). Use a descriptive anchor, never "click here".
@@ -286,7 +311,7 @@ SEO DISCIPLINE (non-negotiable — optimized for Google organic discovery on lon
 
 4. TAGS: 3–5 lowercase kebab-case tags that match how practitioners tag posts on dev.to or Medium (e.g., "agentic-ai", "pgvector", "dbt-fusion", not generic "technology" or "ai").
 
-5. RELATED LINKS: relatedProjectSlugs must reference slugs from the project list above. relatedNewsSlugs must reference slugs from the news list above. Never invent slugs.
+5. RELATED LINKS: relatedProjectSlugs must reference slugs from the project list above. relatedNewsSlugs must reference slugs from the news list above (prefer items marked FRESH). Never invent slugs. Prefer news published within the last ${RELATED_NEWS_MAX_AGE_DAYS} days unless categoryEn is clearly evergreen/fundamentals.
 
 Use the following project references:
 ${projects
@@ -297,11 +322,13 @@ ${projects
   .join("\n")}
 
 Use the following news references:
-${news
-  .map(
-    (item) =>
-      `- ${item.slug}: ${item.locales.en.title} | source=${item.sourceName} | why=${item.locales.en.whyItMatters}`,
-  )
+${newsForPrompt
+  .map((item) => {
+    const age = daysSince(item.publishedAt);
+    const freshness =
+      age <= RELATED_NEWS_MAX_AGE_DAYS ? "FRESH" : `STALE(${age}d)`;
+    return `- ${item.slug}: ${item.locales.en.title} | ${freshness} | published=${item.publishedAt} | source=${item.sourceName} | why=${item.locales.en.whyItMatters}`;
+  })
   .join("\n")}
 
 Return valid JSON with this shape:
@@ -543,25 +570,83 @@ async function main() {
     );
   }
 
-  // Generate cover image (best-effort: article still ships if image fails).
+  // Soft freshness gate for related news (warn loudly; do not hard-fail evergreen).
+  const newsBySlug = new Map(news.map((item) => [item.slug, item]));
+  const staleRelated = payload.relatedNewsSlugs.filter((newsSlug) => {
+    const item = newsBySlug.get(newsSlug);
+    if (!item) return false;
+    return daysSince(item.publishedAt) > RELATED_NEWS_MAX_AGE_DAYS;
+  });
+  if (staleRelated.length > 0 && !isEvergreenCategory(payload.categoryEn)) {
+    console.warn(
+      `::warning title=Stale related news::relatedNewsSlugs older than ${RELATED_NEWS_MAX_AGE_DAYS}d: ${staleRelated.join(", ")}`,
+    );
+  }
+
+  // Generate cover image (Gemini first, then local branded PNG fallback).
   let imageUrl: string | undefined;
-  if (process.env.GEMINI_API_KEY && process.env.SKIP_COVER_IMAGE !== "true") {
-    try {
-      const imagePrompt = `${payload.titleEn}. ${payload.excerptEn}. Tags: ${payload.tags.join(", ")}.`;
-      const cover = await generateCoverImage({ slug, prompt: imagePrompt });
-      imageUrl = cover.publicUrl;
-      console.log(
-        `Cover image generated via ${cover.model} (${(cover.bytes / 1024).toFixed(0)} KB) -> ${cover.publicUrl}`,
-      );
-    } catch (error) {
-      console.warn(
-        `Cover image generation failed (${(error as Error).message}); article will use the default social image.`,
-      );
-    }
-  } else if (process.env.SKIP_COVER_IMAGE === "true") {
+  let coverFailed = false;
+  if (process.env.SKIP_COVER_IMAGE === "true") {
     console.log("SKIP_COVER_IMAGE=true; not generating a cover image.");
   } else {
-    console.warn("GEMINI_API_KEY not set; skipping cover image generation.");
+    const imagePrompt = `${payload.titleEn}. ${payload.excerptEn}. Tags: ${payload.tags.join(", ")}.`;
+    try {
+      if (process.env.GEMINI_API_KEY) {
+        try {
+          const cover = await generateCoverImage({ slug, prompt: imagePrompt });
+          imageUrl = cover.publicUrl;
+          console.log(
+            `Cover image generated via ${cover.model} (${(cover.bytes / 1024).toFixed(0)} KB) -> ${cover.publicUrl}`,
+          );
+        } catch (error) {
+          const message = (error as Error).message;
+          console.warn(
+            `::warning title=Cover image Gemini failed::${slug} — ${message.slice(0, 160)}; using local PNG fallback`,
+          );
+          const local = await generateLocalCoverImage({
+            slug,
+            title: payload.titleEn,
+            eyebrow: payload.categoryEn,
+          });
+          imageUrl = local.publicUrl;
+          console.log(
+            `Cover image generated via ${local.model} (${(local.bytes / 1024).toFixed(0)} KB) -> ${local.publicUrl}`,
+          );
+        }
+      } else {
+        console.warn("::warning title=Cover image::GEMINI_API_KEY not set; using local branded PNG cover.");
+        const local = await generateLocalCoverImage({
+          slug,
+          title: payload.titleEn,
+          eyebrow: payload.categoryEn,
+        });
+        imageUrl = local.publicUrl;
+        console.log(
+          `Cover image generated via ${local.model} (${(local.bytes / 1024).toFixed(0)} KB) -> ${local.publicUrl}`,
+        );
+      }
+    } catch (error) {
+      coverFailed = true;
+      const message = (error as Error).message;
+      console.warn(
+        `::warning title=Cover image failed::${slug} — ${message.slice(0, 180)}`,
+      );
+    }
+  }
+
+  if (!imageUrl && process.env.GEMINI_API_KEY && process.env.SKIP_COVER_IMAGE !== "true") {
+    // Surface for PR body / auto-merge soft gate.
+    await fs.writeFile(
+      path.join(process.cwd(), ".article-cover-status"),
+      `missing\n${slug}\n${coverFailed ? "generation_failed" : "unknown"}\n`,
+      "utf8",
+    );
+  } else if (imageUrl) {
+    await fs.writeFile(
+      path.join(process.cwd(), ".article-cover-status"),
+      `ok\n${slug}\n${imageUrl}\n`,
+      "utf8",
+    );
   }
 
   const article = {
