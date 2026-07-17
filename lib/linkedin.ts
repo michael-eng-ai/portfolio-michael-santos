@@ -16,6 +16,25 @@ export type LinkedinShareMediaInput = {
   imageAssetUrn?: string | null;
 };
 
+/** Build a stable public LinkedIn URL from a ugcPosts / activity id or URN. */
+export function buildLinkedinPublishedUrl(postId: string | null | undefined): string | null {
+  if (!postId) {
+    return null;
+  }
+
+  const trimmed = postId.trim();
+  if (!trimmed || trimmed === "unknown") {
+    return null;
+  }
+
+  if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+    return trimmed;
+  }
+
+  // ugcPost / share / activity URNs all resolve via the feed update deep link.
+  return `https://www.linkedin.com/feed/update/${encodeURIComponent(trimmed)}`;
+}
+
 export function buildLinkedinUgcShareContent(input: LinkedinShareMediaInput) {
   const imageAssetUrn = input.imageAssetUrn?.trim();
   if (imageAssetUrn) {
@@ -154,11 +173,14 @@ export async function publishLinkedinDraft(draft: LinkedinDraft, locale: Locale 
 
   const data = (await response.json().catch(() => ({}))) as { id?: string };
   const headerId = response.headers.get("x-restli-id");
+  const id = headerId ?? data.id ?? null;
 
   return {
     mode: "api",
     published: true,
-    id: headerId ?? data.id ?? null,
+    id,
+    publishedUrl: buildLinkedinPublishedUrl(id),
+    publishedAt: new Date().toISOString(),
     locale,
     shareMediaCategory: imageAssetUrn ? "IMAGE" : "ARTICLE",
   } as const;

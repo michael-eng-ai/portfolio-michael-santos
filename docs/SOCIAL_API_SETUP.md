@@ -53,22 +53,34 @@ Configure the minimum credentials needed to test automated distribution to Linke
 
 ## GitHub Actions Secrets
 
-Add the publish secrets to GitHub Actions if you want workflow dispatch publishing:
+For **article draft LinkedIn publishing** (preferred path — persists `publishedUrl` in git):
 
-- `LINKEDIN_PUBLISH_SECRET`
-- `X_PUBLISH_SECRET`
+- `LINKEDIN_ACCESS_TOKEN`
+- `LINKEDIN_PERSON_URN` and/or `LINKEDIN_ORGANIZATION_URN`
 
-Use the same values that are stored in Vercel, because the workflow calls the production API routes.
+Optional / legacy production API dispatch:
+
+- `LINKEDIN_PUBLISH_SECRET` (Vercel route `/api/linkedin/publish`)
+- `X_PUBLISH_SECRET` (Vercel route `/api/x/publish`)
+
+For **news → LinkedIn** in `daily-trend-briefing.yml`:
+
+- Prefer `DATABASE_URL` (+ `DATABASE_SSL` when needed) for the Postgres delivery queue
+- If `DATABASE_URL` is absent, the job uses file-based `content/news` + `content/generated/linkedin-news-delivery.json` instead of skipping
+
+Ownership: set repository variable `VM_OWNS_LINKEDIN_POSTING=true` only when the GCP VM owns news posting. Automatic LinkedIn **article draft** publish on push is then skipped to avoid double posts; manual `workflow_dispatch` still works.
+
+## Site ↔ LinkedIn sync
+
+1. `article-draft-pipeline` generates the article + LinkedIn/X drafts and opens a PR.
+2. On merge to `main`, `social-distribution` runs (path filter on `content/articles/**` + `content/linkedin/**`).
+3. It publishes at most one unpublished July+ article draft via `pnpm content:publish:linkedin`, then commits `status` / `publishedUrl` / `publishedAt`.
+4. The article page shows **Discuss on LinkedIn** when `publishedUrl` is present.
 
 ## Test Flow
 
-1. Configure the Vercel environment variables.
-2. Trigger a production deploy.
-3. Pick a draft slug from:
-   - `content/linkedin`
-   - `content/x`
-4. Run the `Social Distribution` workflow with:
-   - `slug`
-   - `locale`
-   - `channel`
-5. Confirm the result in the workflow logs and in the social platform account.
+1. Configure LinkedIn secrets in GitHub Actions (and Vercel if using the API route).
+2. Regenerate drafts: `pnpm content:linkedin`
+3. Dry-run: `pnpm content:publish:linkedin -- --since=2026-07-01 --max=1 --dry-run`
+4. Publish one: `pnpm content:publish:linkedin -- --slug article-<slug> --locale en --delay-ms 0`
+5. Or run Actions: `gh workflow run social-distribution.yml -f mode=recent-articles -f since=2026-07-01 -f max=1 -f channel=linkedin`

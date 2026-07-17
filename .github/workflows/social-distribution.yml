@@ -3,9 +3,17 @@ name: Social Distribution
 on:
   workflow_dispatch:
     inputs:
-      slug:
-        description: Draft slug to publish
+      mode:
+        description: Publish mode
         required: true
+        default: slug
+        type: choice
+        options:
+          - slug
+          - recent-articles
+      slug:
+        description: Draft slug to publish (mode=slug)
+        required: false
         type: string
       locale:
         description: Locale to publish
@@ -18,37 +26,154 @@ on:
       channel:
         description: Channel to publish
         required: true
-        default: all
+        default: linkedin
         type: choice
         options:
           - all
           - linkedin
           - x
+      since:
+        description: Article publishedAt lower bound (mode=recent-articles)
+        required: false
+        default: "2026-07-01"
+        type: string
+      max:
+        description: Max drafts to publish in this run
+        required: false
+        default: "1"
+        type: string
+      delay_ms:
+        description: Delay between posts in ms
+        required: false
+        default: "180000"
+        type: string
+  # After a new article lands on main, publish at most one unpublished LinkedIn draft.
+  # Do not watch content/linkedin/** — bot commits that persist publishedUrl would re-trigger a loop.
+  push:
+    branches: [main]
+    paths:
+      - "content/articles/**"
 
 concurrency:
-  group: social-distribution-${{ inputs.slug }}-${{ inputs.locale }}-${{ inputs.channel }}
+  group: social-distribution-${{ github.event_name }}-${{ inputs.slug || github.sha }}
   cancel-in-progress: false
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  publish:
+  publish-linkedin-drafts:
+    if: >
+      github.event_name == 'push' ||
+      (github.event_name == 'workflow_dispatch' && (inputs.channel == 'all' || inputs.channel == 'linkedin'))
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 45
 
     steps:
-      - name: Publish to LinkedIn
-        if: inputs.channel == 'all' || inputs.channel == 'linkedin'
+      - name: Check LinkedIn credentials
+        id: config
         run: |
-          curl --fail-with-body --request POST \
-            --url "https://michael.business/api/linkedin/publish" \
-            --header "Content-Type: application/json" \
-            --header "x-linkedin-publish-secret: ${{ secrets.LINKEDIN_PUBLISH_SECRET }}" \
-            --data '{"slug":"${{ inputs.slug }}","locale":"${{ inputs.locale }}"}'
+          if [ -z "${{ secrets.LINKEDIN_ACCESS_TOKEN }}" ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::warning title=LinkedIn token missing::LINKEDIN_ACCESS_TOKEN is not set. Article draft LinkedIn publishing is skipped."
+            exit 0
+          fi
+          if [ -z "${{ secrets.LINKEDIN_PERSON_URN }}" ] && [ -z "${{ secrets.LINKEDIN_ORGANIZATION_URN }}" ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::warning title=LinkedIn author missing::Set LINKEDIN_PERSON_URN or LINKEDIN_ORGANIZATION_URN."
+            exit 0
+          fi
+          # On automatic push, skip if the VM owns LinkedIn posting to avoid double posts.
+          # Manual workflow_dispatch still runs so operators can catch up from Actions.
+          if [ "${{ vars.VM_OWNS_LINKEDIN_POSTING }}" = "true" ] && [ "${{ github.event_name }}" = "push" ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "VM_OWNS_LINKEDIN_POSTING=true — skipping automatic LinkedIn draft publish on push."
+            exit 0
+          fi
+          echo "ready=true" >> "$GITHUB_OUTPUT"
 
-      - name: Publish to X
-        if: inputs.channel == 'all' || inputs.channel == 'x'
+      - name: Checkout repository
+        if: steps.config.outputs.ready == 'true'
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        if: steps.config.outputs.ready == 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          package-manager-cache: false
+
+      - name: Enable Corepack
+        if: steps.config.outputs.ready == 'true'
+        run: corepack enable
+
+      - name: Install dependencies
+        if: steps.config.outputs.ready == 'true'
+        run: pnpm install --frozen-lockfile
+
+      - name: Publish LinkedIn drafts
+        if: steps.config.outputs.ready == 'true'
+        env:
+          LINKEDIN_PUBLISH_ENABLED: "true"
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          LINKEDIN_ORGANIZATION_URN: ${{ secrets.LINKEDIN_ORGANIZATION_URN }}
+          LINKEDIN_PREFER_IMAGE_SHARE: "true"
+        run: |
+          set -euo pipefail
+          MODE="${{ inputs.mode || 'recent-articles' }}"
+          LOCALE="${{ inputs.locale || 'en' }}"
+          MAX="${{ inputs.max || '1' }}"
+          SINCE="${{ inputs.since || '2026-07-01' }}"
+          DELAY_MS="${{ inputs.delay_ms || '180000' }}"
+          SLUG="${{ inputs.slug || '' }}"
+
+          if [ "${{ github.event_name }}" = "push" ]; then
+            MODE="recent-articles"
+            MAX="1"
+            SINCE="2026-07-01"
+            DELAY_MS="0"
+            LOCALE="en"
+          fi
+
+          args=(--locale "$LOCALE" --max "$MAX" --delay-ms "$DELAY_MS")
+          if [ "$MODE" = "slug" ]; then
+            if [ -z "$SLUG" ]; then
+              echo "ERROR: mode=slug requires inputs.slug"
+              exit 1
+            fi
+            args+=(--slug "$SLUG")
+          else
+            args+=(--since "$SINCE" --source-type article)
+          fi
+
+          pnpm content:publish:linkedin -- "${args[@]}"
+
+      - name: Commit published LinkedIn draft state
+        if: steps.config.outputs.ready == 'true'
+        run: |
+          if git diff --quiet -- content/linkedin; then
+            echo "No LinkedIn draft state changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/linkedin
+          git commit -m "chore(social): persist LinkedIn publish state"
+          git push
+
+  publish-x-via-api:
+    if: >
+      github.event_name == 'workflow_dispatch' &&
+      (inputs.channel == 'all' || inputs.channel == 'x') &&
+      inputs.mode == 'slug' &&
+      inputs.slug != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Publish to X (production API)
         run: |
           curl --fail-with-body --request POST \
             --url "https://michael.business/api/x/publish" \

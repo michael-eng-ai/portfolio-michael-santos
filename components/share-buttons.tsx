@@ -11,6 +11,8 @@ type ShareButtonsProps = {
   title: string;
   contentType: "article" | "project" | "news";
   slug: string;
+  /** When the site already published a LinkedIn post, deep-link to that discussion. */
+  linkedinPublishedUrl?: string | null;
 };
 
 function buildLinkedInShareUrl(url: string) {
@@ -31,8 +33,13 @@ export function ShareButtons({
   title,
   contentType,
   slug,
+  linkedinPublishedUrl,
 }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
+  const linkedInHref = linkedinPublishedUrl?.trim() || buildLinkedInShareUrl(url);
+  const linkedInLabel = linkedinPublishedUrl?.trim()
+    ? copy(locale, "Discuss on LinkedIn", "Discutir no LinkedIn")
+    : "LinkedIn";
 
   function emitShare(channel: "linkedin" | "x" | "copy") {
     trackEvent("share_click", {
@@ -41,6 +48,7 @@ export function ShareButtons({
       content_type: contentType,
       slug,
       location: "detail_share",
+      has_published_url: Boolean(linkedinPublishedUrl?.trim()),
     });
   }
 
@@ -65,13 +73,13 @@ export function ShareButtons({
         {copy(locale, "Share", "Compartilhar")}
       </span>
       <a
-        href={buildLinkedInShareUrl(url)}
+        href={linkedInHref}
         target="_blank"
         rel="noreferrer"
         className={linkClassName}
         onClick={() => emitShare("linkedin")}
       >
-        LinkedIn
+        {linkedInLabel}
       </a>
       <a
         href={buildXShareUrl(url, title)}

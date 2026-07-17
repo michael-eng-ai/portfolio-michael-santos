@@ -14,6 +14,8 @@ const requestSchema = z.object({
   // of content/linkedin/ when joined into a file path below.
   slug: z.string().min(1).max(200).regex(/^[a-z0-9-]+$/, "slug must be kebab-case"),
   locale: z.string().optional(),
+  /** When true, best-effort write status back to the draft JSON (CI/local only). */
+  persist: z.boolean().optional(),
 });
 
 export async function POST(request: Request) {
@@ -31,15 +33,52 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { slug, locale } = requestSchema.parse(await request.json());
+    const { slug, locale, persist } = requestSchema.parse(await request.json());
     const file = path.join(process.cwd(), "content", "linkedin", `${slug}.json`);
     const raw = await fs.readFile(file, "utf8");
     const draft = linkedinDraftSchema.parse(JSON.parse(raw));
+
+    if (draft.status === "published" && draft.publishedUrl) {
+      return NextResponse.json({
+        success: true,
+        result: {
+          mode: "already-published",
+          published: true,
+          id: null,
+          publishedUrl: draft.publishedUrl,
+          publishedAt: draft.publishedAt ?? null,
+          locale: locale && isLocale(locale) ? locale : "en",
+          shareMediaCategory: null,
+        },
+      });
+    }
+
     const result = await publishLinkedinDraft(draft, locale && isLocale(locale) ? locale : "en");
+
+    let persisted = false;
+    if (persist && result.published && result.publishedUrl) {
+      try {
+        const next = {
+          ...draft,
+          status: "published" as const,
+          publishedUrl: result.publishedUrl,
+          publishedAt: result.publishedAt ?? new Date().toISOString(),
+        };
+        await fs.writeFile(file, `${JSON.stringify(next, null, 2)}\n`, "utf8");
+        persisted = true;
+      } catch (persistError) {
+        console.warn(
+          `LinkedIn publish succeeded but draft persistence failed for ${slug}: ${toErrorMessage(persistError)}`,
+        );
+      }
+    }
 
     return NextResponse.json({
       success: true,
-      result,
+      result: {
+        ...result,
+        persisted,
+      },
     });
   } catch (error) {
     // Log the detail server-side; return a generic message so internal paths

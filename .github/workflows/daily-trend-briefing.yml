@@ -10,27 +10,17 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
   issues: write
 
 jobs:
   generate-briefing:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
-        with:
-          sparse-checkout: |
-            scripts/generate-daily-trend-briefing.ts
-            scripts/post-to-linkedin.ts
-            content/sources/trend-keywords.json
-            lib/
-            patches/
-            package.json
-            pnpm-lock.yaml
-            tsconfig.json
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -44,22 +34,33 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Check database configuration
+      - name: Check configuration
         id: guard
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          LINKEDIN_ORGANIZATION_URN: ${{ secrets.LINKEDIN_ORGANIZATION_URN }}
         run: |
           if [ -n "${DATABASE_URL:-}" ]; then
             echo "db_ready=true" >> "$GITHUB_OUTPUT"
           else
             echo "db_ready=false" >> "$GITHUB_OUTPUT"
-            echo "::warning title=Database not configured::DATABASE_URL is not set; skipping the daily briefing. Add it under Settings -> Secrets and variables -> Actions to resume."
+            echo "::warning title=Database not configured::DATABASE_URL is not set; briefing generation skips DB path. News LinkedIn uses content/news file fallback when tokens exist."
             {
-              echo "## Skipped: database not configured"
+              echo "## Database not configured"
               echo ""
-              echo "\`DATABASE_URL\` is not set, so the daily briefing steps were skipped instead of failing."
-              echo "Add the \`DATABASE_URL\` secret (VM PostgreSQL connection string) to resume the daily briefing."
+              echo "\`DATABASE_URL\` is not set. Daily briefing generation that needs Postgres was skipped."
+              echo "News LinkedIn posting still runs via file-based \`content/news\` when LinkedIn secrets are present."
+              echo "Add the \`DATABASE_URL\` secret to resume the full DB-backed briefing path."
             } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          if [ -n "${LINKEDIN_ACCESS_TOKEN:-}" ] && { [ -n "${LINKEDIN_PERSON_URN:-}" ] || [ -n "${LINKEDIN_ORGANIZATION_URN:-}" ]; }; then
+            echo "linkedin_ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "linkedin_ready=false" >> "$GITHUB_OUTPUT"
+            echo "::warning title=LinkedIn secrets missing::Set LINKEDIN_ACCESS_TOKEN and LINKEDIN_PERSON_URN (or LINKEDIN_ORGANIZATION_URN)."
           fi
 
       - name: Generate daily trend briefing
@@ -72,8 +73,8 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           LLM_PROVIDER: groq
 
-      - name: Post latest article to LinkedIn
-        if: steps.guard.outputs.db_ready == 'true' && vars.VM_OWNS_LINKEDIN_POSTING != 'true'
+      - name: Post news to LinkedIn
+        if: steps.guard.outputs.linkedin_ready == 'true' && vars.VM_OWNS_LINKEDIN_POSTING != 'true'
         run: pnpm content:post:linkedin
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -81,6 +82,23 @@ jobs:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
           LINKEDIN_ORGANIZATION_URN: ${{ secrets.LINKEDIN_ORGANIZATION_URN }}
+
+      - name: Commit file-based LinkedIn news delivery state
+        if: steps.guard.outputs.linkedin_ready == 'true' && vars.VM_OWNS_LINKEDIN_POSTING != 'true'
+        run: |
+          if [ ! -f content/generated/linkedin-news-delivery.json ]; then
+            echo "No file-based LinkedIn news delivery state to commit."
+            exit 0
+          fi
+          if git diff --quiet -- content/generated/linkedin-news-delivery.json; then
+            echo "No LinkedIn news delivery state changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/generated/linkedin-news-delivery.json
+          git commit -m "chore(social): persist file-based LinkedIn news delivery state"
+          git push
 
       - name: Summarize failure
         if: failure()
@@ -91,6 +109,7 @@ jobs:
             echo "- Check the workflow logs for the failing step."
             echo "- Confirm Gemini/Groq and LinkedIn credentials are still valid."
             echo "- Review \`content/articles\` output if the briefing step generated files."
+            echo "- If news LinkedIn is skipped, confirm \`LINKEDIN_*\` secrets and that \`VM_OWNS_LINKEDIN_POSTING\` is not true on both GHA and VM."
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Create failure issue

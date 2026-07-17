@@ -152,6 +152,32 @@ jobs:
           gh pr merge ${{ steps.create_article_pr.outputs.pull-request-number }} \
             --squash --delete-branch
 
+      - name: Queue LinkedIn publish after merge
+        if: steps.config.outputs.ready == 'true' && steps.create_article_pr.outputs.pull-request-number != '' && steps.covers.outputs.cover_ok != 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "## LinkedIn sync"
+            echo ""
+            echo "After this PR lands on \`main\`, workflow **Social Distribution** runs on push"
+            echo "(\`content/articles/**\` + \`content/linkedin/**\`) and publishes at most **one**"
+            echo "unpublished July+ article draft, then commits \`publishedUrl\` / \`publishedAt\`."
+            echo ""
+            echo "Manual catch-up:"
+            echo "\`\`\`bash"
+            echo "gh workflow run social-distribution.yml -f mode=recent-articles -f since=2026-07-01 -f max=1 -f channel=linkedin"
+            echo "\`\`\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+          gh pr comment ${{ steps.create_article_pr.outputs.pull-request-number }} --body "$(cat <<'EOF'
+          ## LinkedIn sync
+
+          When this PR merges to `main`, **Social Distribution** auto-publishes the newest unpublished July+ article LinkedIn draft (max 1 per push) and persists `publishedUrl` / `publishedAt` in `content/linkedin/`.
+
+          Manual: `gh workflow run social-distribution.yml -f mode=recent-articles -f since=2026-07-01 -f max=1 -f channel=linkedin`
+          EOF
+          )" || true
+
       - name: Skip auto-merge when cover missing
         if: steps.config.outputs.ready == 'true' && steps.create_article_pr.outputs.pull-request-number != '' && steps.covers.outputs.cover_ok == 'false'
         env:

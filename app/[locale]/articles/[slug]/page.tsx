@@ -14,7 +14,13 @@ import { TopicCluster } from "@/components/topic-cluster";
 import { TrackedLink } from "@/components/tracked-link";
 import { getTopicClusterRecommendations } from "@/lib/content-recommendations";
 import { clampText, editorialLimits } from "@/lib/editorial";
-import { getArticleBySlug, getArticles, getNewsReferences, getProjects } from "@/lib/content";
+import {
+  getArticleBySlug,
+  getArticles,
+  getLinkedinDrafts,
+  getNewsReferences,
+  getProjects,
+} from "@/lib/content";
 import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildPageMetadata, localizedUrl } from "@/lib/seo";
 import { Locale, copy, localePath } from "@/lib/site";
 
@@ -57,17 +63,22 @@ export default async function ArticleDetailPage({
 }) {
   const resolvedParams = await params;
   const locale = resolvedParams.locale as Locale;
-  const [article, projects, news, articles] = await Promise.all([
+  const [article, projects, news, articles, linkedinDrafts] = await Promise.all([
     getArticleBySlug(resolvedParams.slug),
     getProjects(),
     getNewsReferences(),
     getArticles(),
+    getLinkedinDrafts(),
   ]);
 
   if (!article) {
     notFound();
   }
 
+  const linkedinDraft = linkedinDrafts.find(
+    (draft) => draft.sourceType === "article" && draft.sourceSlug === article.slug,
+  );
+  const linkedinPublishedUrl = linkedinDraft?.publishedUrl ?? null;
   const content = article.locales[locale];
   const relatedProjects = projects.filter((project) => article.relatedProjectSlugs.includes(project.slug));
   const relatedNews = news.filter((item) => article.relatedNewsSlugs.includes(item.slug));
@@ -237,6 +248,7 @@ export default async function ArticleDetailPage({
               title={content.title}
               contentType="article"
               slug={article.slug}
+              linkedinPublishedUrl={linkedinPublishedUrl}
             />
           </div>
           <div className="p-6 sm:p-8 md:p-10">
@@ -295,6 +307,7 @@ export default async function ArticleDetailPage({
                 title={content.title}
                 contentType="article"
                 slug={article.slug}
+                linkedinPublishedUrl={linkedinPublishedUrl}
               />
             </div>
           </div>

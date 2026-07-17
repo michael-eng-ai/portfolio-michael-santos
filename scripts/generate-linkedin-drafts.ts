@@ -10,6 +10,7 @@ import { withSocialUtm } from "@/lib/utm";
 type ExistingDraft = {
   status?: string;
   publishedUrl?: string | null;
+  publishedAt?: string | null;
   locales?: unknown;
 };
 

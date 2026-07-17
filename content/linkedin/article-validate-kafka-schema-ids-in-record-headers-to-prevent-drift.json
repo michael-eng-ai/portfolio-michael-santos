@@ -3,8 +3,9 @@
   "sourceType": "article",
   "sourceSlug": "validate-kafka-schema-ids-in-record-headers-to-prevent-drift",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:39.938Z",
+  "generatedAt": "2026-07-17T23:44:11.174Z",
   "publishedUrl": null,
+  "mediaPath": "/images/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift.png",
   "urls": {
     "en": "https://michael.business/en/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift?utm_source=linkedin&utm_medium=social&utm_campaign=validate-kafka-schema-ids-in-record-headers-to-prevent-drift&utm_content=en",
     "pt": "https://michael.business/pt/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift?utm_source=linkedin&utm_medium=social&utm_campaign=validate-kafka-schema-ids-in-record-headers-to-prevent-drift&utm_content=pt",
