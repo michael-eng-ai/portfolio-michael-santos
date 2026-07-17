@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "building-trustworthy-and-scalable-modern-data-platforms",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.951Z",
+  "generatedAt": "2026-07-17T22:54:40.623Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/building-trustworthy-and-scalable-modern-data-platforms",
-    "pt": "https://michael.business/pt/articles/building-trustworthy-and-scalable-modern-data-platforms",
+    "en": "https://michael.business/en/articles/building-trustworthy-and-scalable-modern-data-platforms?utm_source=x&utm_medium=social&utm_campaign=building-trustworthy-and-scalable-modern-data-platforms&utm_content=en",
+    "pt": "https://michael.business/pt/articles/building-trustworthy-and-scalable-modern-data-platforms?utm_source=x&utm_medium=social&utm_campaign=building-trustworthy-and-scalable-modern-data-platforms&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
       "posts": [
-        "Scalable Data Platform Architecture: Engineering Patterns\n\nExplore how cross-cloud patterns and reliable transformation layers build scalable data platforms ensuring governance and ac…\n\nhttps://michael.business/en/articles/building-trustworthy-and-scalable-modern-data-platforms",
+        "Scalable Data Platform Architecture: Engineering Patterns\n\nExplore h…\n\nhttps://michael.business/en/articles/building-trustworthy-and-scalable-modern-data-platforms?utm_source=x&utm_medium=social&utm_campaign=building-trustworthy-and-scalable-modern-data-platforms&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Arquitetura de Plataforma de Dados Escalável: Padrões Multicloud\n\nVeja como camadas de transformação e padrões multicloud constroem plataformas de dados escaláveis que garantem govern…\n\nhttps://michael.business/pt/articles/building-trustworthy-and-scalable-modern-data-platforms",
+        "Arquitetura de Plataforma de Dados Escalável: Padrões Multicloud\n\nVe…\n\nhttps://michael.business/pt/articles/building-trustworthy-and-scalable-modern-data-platforms?utm_source=x&utm_medium=social&utm_campaign=building-trustworthy-and-scalable-modern-data-platforms&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

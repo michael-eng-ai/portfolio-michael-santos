@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.945Z",
+  "generatedAt": "2026-07-17T22:54:40.618Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026",
-    "pt": "https://michael.business/pt/articles/data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026",
+    "en": "https://michael.business/en/articles/data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026?utm_source=x&utm_medium=social&utm_campaign=data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026&utm_content=en",
+    "pt": "https://michael.business/pt/articles/data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026?utm_source=x&utm_medium=social&utm_campaign=data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
   },
   "locales": {
     "en": {
       "posts": [
-        "Data Engineering for Reliable, Scalable AI Systems in 2026\n\nData engineering ensures reliable, scalable AI systems. Eliminate context fragmentation across distr…\n\nhttps://michael.business/en/articles/data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026",
+        "Data Engineering for Reliable, Scalable…\n\nhttps://michael.business/en/articles/data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026?utm_source=x&utm_medium=social&utm_campaign=data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
       ]
     },
     "pt": {
       "posts": [
-        "Engenharia de Dados para IA Confiável e Escalável em 2026\n\nEngenharia de dados garante IA confiável e escalável. Elimine fragmentação de contexto entre modelos…\n\nhttps://michael.business/pt/articles/data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026",
+        "Engenharia de Dados para IA Confiável e…\n\nhttps://michael.business/pt/articles/data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026?utm_source=x&utm_medium=social&utm_campaign=data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
       ]
     }

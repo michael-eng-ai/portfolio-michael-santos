@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "self-healing-data-pipeline-with-claude-mcp-for-reliability",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.937Z",
+  "generatedAt": "2026-07-17T22:54:40.614Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-for-reliability",
-    "pt": "https://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-for-reliability",
+    "en": "https://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-for-reliability?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-for-reliability&utm_content=en",
+    "pt": "https://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-for-reliability?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-for-reliability&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
       "posts": [
-        "Self-healing data pipeline with Claude MCP for reliability\n\nBuild a self-healing data pipeline with Claude MCP to automate schema fixes and error recovery. Reduce on-call fatigue a…\n\nhttps://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-for-reliability",
+        "Self-healing data pipeline with Claude MCP for reliability\n\nBu…\n\nhttps://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-for-reliability?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-for-reliability&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Pipeline de dados auto-regenerativo com Claude MCP e Python\n\nConstrua um pipeline de dados auto-regenerativo com Claude MCP para automatizar correções e erros. Reduza a fadiga de s…\n\nhttps://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-for-reliability",
+        "Pipeline de dados auto-regenerativo com Claude MCP e Python\n\nC…\n\nhttps://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-for-reliability?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-for-reliability&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

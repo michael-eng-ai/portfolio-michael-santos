@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.939Z",
+  "generatedAt": "2026-07-17T22:54:40.615Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems",
-    "pt": "https://michael.business/pt/articles/from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems",
+    "en": "https://michael.business/en/articles/from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems?utm_source=x&utm_medium=social&utm_campaign=from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems&utm_content=en",
+    "pt": "https://michael.business/pt/articles/from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems?utm_source=x&utm_medium=social&utm_campaign=from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
       "posts": [
-        "MCP Agentic Pipelines: Production Implementation Patterns\n\nDeploy MCP agentic pipelines that self-heal schema drift and reroute failed loads automat…\n\nhttps://michael.business/en/articles/from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems",
+        "MCP Agentic Pipelines: Production Imple…\n\nhttps://michael.business/en/articles/from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems?utm_source=x&utm_medium=social&utm_campaign=from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Implementação de MCP para Pipelines Agenticos em Produção\n\nPipelines agenticos com MCP corrigem drift de schema e reroteiam cargas falhas automatica…\n\nhttps://michael.business/pt/articles/from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems",
+        "Implementação de MCP para Pipelines Age…\n\nhttps://michael.business/pt/articles/from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems?utm_source=x&utm_medium=social&utm_campaign=from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

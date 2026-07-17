@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.949Z",
+  "generatedAt": "2026-07-17T22:54:40.621Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026",
-    "pt": "https://michael.business/pt/articles/navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026",
+    "en": "https://michael.business/en/articles/navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026?utm_source=x&utm_medium=social&utm_campaign=navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026&utm_content=en",
+    "pt": "https://michael.business/pt/articles/navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026?utm_source=x&utm_medium=social&utm_campaign=navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
   },
   "locales": {
     "en": {
       "posts": [
-        "Agentic AI Data Engineering: 2026 Infrastructure Strategy\n\nAgentic AI is reshaping data engineering in 2026. Learn how to build scalable, governed inference…\n\nhttps://michael.business/en/articles/navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026",
+        "Agentic AI Data Engineering: 2026 Infra…\n\nhttps://michael.business/en/articles/navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026?utm_source=x&utm_medium=social&utm_campaign=navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     },
     "pt": {
       "posts": [
-        "Engenharia de Dados para IA Agente: Infraestrutura 2026\n\nAs previsões da Gartner para 2026 mostram como a IA agente transforma a engenharia de dados. Aprend…\n\nhttps://michael.business/pt/articles/navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026",
+        "Engenharia de Dados para IA Agente: Inf…\n\nhttps://michael.business/pt/articles/navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026?utm_source=x&utm_medium=social&utm_campaign=navigating-the-agentic-ai-revolution-strategic-insights-for-data-engineers-in-2026&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     }

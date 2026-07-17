@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.088Z",
+  "generatedAt": "2026-07-17T22:54:39.965Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
-    "pt": "https://michael.business/pt/articles/agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines",
+    "en": "https://michael.business/en/articles/agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines?utm_source=linkedin&utm_medium=social&utm_campaign=agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines&utm_content=en",
+    "pt": "https://michael.business/pt/articles/agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines?utm_source=linkedin&utm_medium=social&utm_campaign=agentic-ai-and-data-engineering-the-revolution-of-autonomous-agents-in-modern-pipelines&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
-      "hook": "Agentic AI Data Engineering: Autonomous Pipeline Architecture",
-      "body": "See how Agentic AI builds self-healing data pipelines. Explore architectures that reduce manual work and accelerate production reliability for engineering teams.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "See how Agentic AI builds self-healing data pipelines.",
+      "body": "See how Agentic AI builds self-healing data pipelines. Explore architectures that reduce manual work and accelerate production reliability for engineering teams.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Agentic AI na Engenharia de Dados: Pipelines Autônomos",
-      "body": "Veja como o Agentic AI viabiliza pipelines autônomos com auto-reparo. Conheça arquiteturas que reduzem intervenção manual e aceleram a entrega confiável em produção.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Veja como o Agentic AI viabiliza pipelines autônomos com auto-reparo.",
+      "body": "Veja como o Agentic AI viabiliza pipelines autônomos com auto-reparo. Conheça arquiteturas que reduzem intervenção manual e aceleram a entrega confiável em produção.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

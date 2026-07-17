@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.939Z",
+  "generatedAt": "2026-07-17T22:54:40.615Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure",
-    "pt": "https://michael.business/pt/articles/from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure",
+    "en": "https://michael.business/en/articles/from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure?utm_source=x&utm_medium=social&utm_campaign=from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure&utm_content=en",
+    "pt": "https://michael.business/pt/articles/from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure?utm_source=x&utm_medium=social&utm_campaign=from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
       "posts": [
-        "Agentic Data Pipelines: Productionizing MCP for Data Infrastructure\n\nProductionize Model Context Protocol to build agentic data p…\n\nhttps://michael.business/en/articles/from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure",
+        "Agentic Data Pipelines: Productionizing…\n\nhttps://michael.business/en/articles/from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure?utm_source=x&utm_medium=social&utm_campaign=from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Pipelines Agenticos: Colocando MCP em Produção na Infraestrutura\n\nTransforme DAGs estáticos em pipelines agenticos productionizan…\n\nhttps://michael.business/pt/articles/from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure",
+        "Pipelines Agenticos: Colocando MCP em P…\n\nhttps://michael.business/pt/articles/from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure?utm_source=x&utm_medium=social&utm_campaign=from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

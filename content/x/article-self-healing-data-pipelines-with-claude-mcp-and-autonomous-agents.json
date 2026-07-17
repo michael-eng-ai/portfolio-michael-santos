@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.943Z",
+  "generatedAt": "2026-07-17T22:54:40.617Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents",
-    "pt": "https://michael.business/pt/articles/self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents",
+    "en": "https://michael.business/en/articles/self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents&utm_content=en",
+    "pt": "https://michael.business/pt/articles/self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
       "posts": [
-        "Self-Healing Data Pipelines with Claude MCP and Agents\n\nBuild self-healing data pipelines that autonomously detect schema changes and fix failures without 3 AM pages. Open-s…\n\nhttps://michael.business/en/articles/self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents",
+        "Self-Healing Data Pipelines with Claude MCP and…\n\nhttps://michael.business/en/articles/self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Pipelines de Dados Auto-Corrigíveis com Claude MCP e Agentes\n\nImplemente pipelines auto-corrigíveis com Claude MCP para detectar mudanças de schema e corrigir falhas. Reduza…\n\nhttps://michael.business/pt/articles/self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents",
+        "Pipelines de Dados Auto-Corrigíveis com Claude M…\n\nhttps://michael.business/pt/articles/self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

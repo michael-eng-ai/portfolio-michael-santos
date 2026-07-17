@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "data-contracts-the-key-to-reliable-pipelines-and-business-agility",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.084Z",
+  "generatedAt": "2026-07-17T22:54:39.961Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/data-contracts-the-key-to-reliable-pipelines-and-business-agility",
-    "pt": "https://michael.business/pt/articles/data-contracts-the-key-to-reliable-pipelines-and-business-agility",
+    "en": "https://michael.business/en/articles/data-contracts-the-key-to-reliable-pipelines-and-business-agility?utm_source=linkedin&utm_medium=social&utm_campaign=data-contracts-the-key-to-reliable-pipelines-and-business-agility&utm_content=en",
+    "pt": "https://michael.business/pt/articles/data-contracts-the-key-to-reliable-pipelines-and-business-agility?utm_source=linkedin&utm_medium=social&utm_campaign=data-contracts-the-key-to-reliable-pipelines-and-business-agility&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
-      "hook": "Data Contracts for Pipeline Reliability and Business Agility",
-      "body": "Implement data contracts to formalize agreements between producers and consumers, prevent breaking schema changes, and build pipelines that drive reliable business decisions.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Implement data contracts to formalize agreements between producers and consumers, prevent breaking schema changes, and build pipelines that drive reliable business decisions.",
+      "body": "Implement data contracts to formalize agreements between producers and consumers, prevent breaking schema changes, and build pipelines that drive reliable business decisions.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Contratos de Dados para Confiabilidade de Pipelines e Agilidade",
-      "body": "Implemente contratos de dados para formalizar acordos entre produtores e consumidores, evitar breaking changes e construir pipelines que impulsionam decisões de negócio confiáveis.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Implemente contratos de dados para formalizar acordos entre produtores e consumidores, evitar breaking changes e construir pipelines que impulsionam decisões de negócio confiáveis.",
+      "body": "Implemente contratos de dados para formalizar acordos entre produtores e consumidores, evitar breaking changes e construir pipelines que impulsionam decisões de negócio confiáveis.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

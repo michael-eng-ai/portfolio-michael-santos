@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "agentic-data-pipeline-with-claude-mcp-implementation-guide",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.933Z",
+  "generatedAt": "2026-07-17T22:54:40.612Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-implementation-guide",
-    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-implementation-guide",
+    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-implementation-guide?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-implementation-guide&utm_content=en",
+    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-implementation-guide?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-implementation-guide&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
       "posts": [
-        "Agentic data pipeline with Claude MCP implementation guide\n\nDeploy an agentic data pipeline with Claude MCP to resolve real-time schema drifts autonomously, reducing manual enginee…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-implementation-guide",
+        "Agentic data pipeline with Claude MCP implementation guide\n\nDe…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-implementation-guide?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-implementation-guide&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Guia de pipeline de dados agênticos com Claude MCP\n\nImplemente um pipeline de dados agêntico com Claude MCP para resolver falhas de schema autonomamente, reduzindo intervenções man…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-implementation-guide",
+        "Guia de pipeline de dados agênticos com Claude MCP\n\nImplemente…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-implementation-guide?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-implementation-guide&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

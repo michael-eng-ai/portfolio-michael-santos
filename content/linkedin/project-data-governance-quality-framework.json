@@ -3,23 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "data-governance-quality-framework",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.092Z",
+  "generatedAt": "2026-07-17T22:54:39.968Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/projects/data-governance-quality-framework",
-    "pt": "https://michael.business/pt/projects/data-governance-quality-framework",
+    "en": "https://michael.business/en/projects/data-governance-quality-framework?utm_source=linkedin&utm_medium=social&utm_campaign=data-governance-quality-framework&utm_content=en",
+    "pt": "https://michael.business/pt/projects/data-governance-quality-framework?utm_source=linkedin&utm_medium=social&utm_campaign=data-governance-quality-framework&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
   },
   "locales": {
     "en": {
-      "hook": "Data Governance And Quality Framework",
-      "body": "A production-grade framework that embeds data quality validation, contract enforcement, and governance checks into every layer of the data pipeline, from ingestion to mart delivery.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "A production-grade framework that embeds data quality validation, contract enforcement, and governance checks into every layer of the data pipeline, from ingestion to mart delivery.",
+      "body": "A production-grade framework that embeds data quality validation, contract enforcement, and governance checks into every layer of the data pipeline, from ingestion to mart delivery.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Open the project case on the site and inspect the GitHub implementation."
     },
     "pt": {
-      "hook": "Framework de Governanca e Qualidade de Dados",
-      "body": "Um framework production-grade que embute validacao de qualidade, contratos de dados e checks de governanca em cada camada do pipeline, da ingestao a entrega de marts.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Um framework production-grade que embute validacao de qualidade, contratos de dados e checks de governanca em cada camada do pipeline, da ingestao a entrega de marts.",
+      "body": "Um framework production-grade que embute validacao de qualidade, contratos de dados e checks de governanca em cada camada do pipeline, da ingestao a entrega de marts.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Abra o case do projeto no site e inspecione a implementação no GitHub."
     }
   }
 }

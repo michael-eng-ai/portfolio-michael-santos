@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "validate-kafka-schema-ids-in-record-headers-to-prevent-drift",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.067Z",
+  "generatedAt": "2026-07-17T22:54:39.938Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift",
-    "pt": "https://michael.business/pt/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift",
+    "en": "https://michael.business/en/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift?utm_source=linkedin&utm_medium=social&utm_campaign=validate-kafka-schema-ids-in-record-headers-to-prevent-drift&utm_content=en",
+    "pt": "https://michael.business/pt/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift?utm_source=linkedin&utm_medium=social&utm_campaign=validate-kafka-schema-ids-in-record-headers-to-prevent-drift&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
-      "hook": "Validate Kafka Schema IDs in Record Headers to Prevent Drift",
-      "body": "Validate Kafka Schema IDs in Record Headers to eliminate downstream schema registry lookups. Learn to design high-throughput validation pipelines.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Validate Kafka Schema IDs in Record Headers to eliminate downstream schema registry lookups.",
+      "body": "Validate Kafka Schema IDs in Record Headers to eliminate downstream schema registry lookups. Learn to design high-throughput validation pipelines.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Validação de Schema ID em Headers do Kafka Evita Quebras",
-      "body": "A validação de Schema ID em headers do Kafka elimina requisições repetitivas ao registry. Garanta a integridade de dados CDC de alta taxa de transferência.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "A validação de Schema ID em headers do Kafka elimina requisições repetitivas ao registry.",
+      "body": "A validação de Schema ID em headers do Kafka elimina requisições repetitivas ao registry. Garanta a integridade de dados CDC de alta taxa de transferência.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

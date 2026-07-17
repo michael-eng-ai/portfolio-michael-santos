@@ -3,23 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "aws-databricks-lakehouse",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.090Z",
+  "generatedAt": "2026-07-17T22:54:39.967Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/projects/aws-databricks-lakehouse",
-    "pt": "https://michael.business/pt/projects/aws-databricks-lakehouse",
+    "en": "https://michael.business/en/projects/aws-databricks-lakehouse?utm_source=linkedin&utm_medium=social&utm_campaign=aws-databricks-lakehouse&utm_content=en",
+    "pt": "https://michael.business/pt/projects/aws-databricks-lakehouse?utm_source=linkedin&utm_medium=social&utm_campaign=aws-databricks-lakehouse&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
   },
   "locales": {
     "en": {
-      "hook": "AWS And Databricks Lakehouse",
-      "body": "A lakehouse case that provisions AWS storage with Terraform, lands simulated event data in S3, and processes silver and gold Delta layers in Databricks with PySpark.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "A lakehouse case that provisions AWS storage with Terraform, lands simulated event data in S3, and processes silver and gold Delta layers in Databricks with PySpark.",
+      "body": "A lakehouse case that provisions AWS storage with Terraform, lands simulated event data in S3, and processes silver and gold Delta layers in Databricks with PySpark.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Open the project case on the site and inspect the GitHub implementation."
     },
     "pt": {
-      "hook": "Lakehouse com AWS e Databricks",
-      "body": "Um caso de lakehouse que provisiona storage AWS com Terraform, pousa eventos simulados em S3 e processa camadas silver e gold em Databricks com PySpark.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Um caso de lakehouse que provisiona storage AWS com Terraform, pousa eventos simulados em S3 e processa camadas silver e gold em Databricks com PySpark.",
+      "body": "Um caso de lakehouse que provisiona storage AWS com Terraform, pousa eventos simulados em S3 e processa camadas silver e gold em Databricks com PySpark.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Abra o case do projeto no site e inspecione a implementação no GitHub."
     }
   }
 }

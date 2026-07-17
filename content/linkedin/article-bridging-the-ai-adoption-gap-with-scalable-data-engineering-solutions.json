@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.085Z",
+  "generatedAt": "2026-07-17T22:54:39.962Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions",
-    "pt": "https://michael.business/pt/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions",
+    "en": "https://michael.business/en/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions?utm_source=linkedin&utm_medium=social&utm_campaign=bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions&utm_content=en",
+    "pt": "https://michael.business/pt/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions?utm_source=linkedin&utm_medium=social&utm_campaign=bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
-      "hook": "Scalable Data Engineering to Close the AI Adoption Gap",
-      "body": "Learn how scalable data engineering closes the AI adoption gap between experimentation and structural integration. Reduce infrastructure costs and achieve measurable ROI with modern pipelines.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Learn how scalable data engineering closes the AI adoption gap between experimentation and structural integration.",
+      "body": "Learn how scalable data engineering closes the AI adoption gap between experimentation and structural integration. Reduce infrastructure costs and achieve measurable ROI with modern pipelines.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Engenharia de Dados Escalável para Fechar a Lacuna de IA",
-      "body": "Veja como engenharia de dados escalável fecha a lacuna de adoção de IA entre experimentação e integração estrutural. Reduza custos de infraestrutura e alcance ROI mensurável com pipelines modernos.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Veja como engenharia de dados escalável fecha a lacuna de adoção de IA entre experimentação e integração estrutural.",
+      "body": "Veja como engenharia de dados escalável fecha a lacuna de adoção de IA entre experimentação e integração estrutural. Reduza custos de infraestrutura e alcance ROI mensurável com pipelines modernos.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.944Z",
+  "generatedAt": "2026-07-17T22:54:40.618Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance",
-    "pt": "https://michael.business/pt/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance",
+    "en": "https://michael.business/en/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance?utm_source=x&utm_medium=social&utm_campaign=shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance&utm_content=en",
+    "pt": "https://michael.business/pt/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance?utm_source=x&utm_medium=social&utm_campaign=shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
   },
   "locales": {
     "en": {
       "posts": [
-        "Shadow AI Data Risks: Engineering Governance Strategies\n\nShadow AI creates hidden data risks in pipelines. Learn how data engineering governance with dbt and Great Exp…\n\nhttps://michael.business/en/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance",
+        "Shadow AI Data Risks: Engineering Gover…\n\nhttps://michael.business/en/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance?utm_source=x&utm_medium=social&utm_campaign=shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
       ]
     },
     "pt": {
       "posts": [
-        "Riscos do Shadow AI: Governança em Engenharia de Dados\n\nShadow AI expõe pipelines a riscos ocultos. Saiba como governança em engenharia de dados com dbt e Great Expect…\n\nhttps://michael.business/pt/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance",
+        "Riscos do Shadow AI: Governança em Enge…\n\nhttps://michael.business/pt/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance?utm_source=x&utm_medium=social&utm_campaign=shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
       ]
     }

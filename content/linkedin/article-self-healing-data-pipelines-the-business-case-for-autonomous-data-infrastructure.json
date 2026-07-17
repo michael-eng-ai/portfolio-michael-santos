@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.079Z",
+  "generatedAt": "2026-07-17T22:54:39.957Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure",
-    "pt": "https://michael.business/pt/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure",
+    "en": "https://michael.business/en/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure?utm_source=linkedin&utm_medium=social&utm_campaign=self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure&utm_content=en",
+    "pt": "https://michael.business/pt/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure?utm_source=linkedin&utm_medium=social&utm_campaign=self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
-      "hook": "Self-Healing Data Pipelines Cut Reactive Maintenance by 20%",
-      "body": "Deploy self-healing data pipelines to eliminate 3 AM alerts and reduce reactive maintenance by 20%. Discover how agentic AI cuts engineering toil and operational overhead.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Deploy self-healing data pipelines to eliminate 3 AM alerts and reduce reactive maintenance by 20%.",
+      "body": "Deploy self-healing data pipelines to eliminate 3 AM alerts and reduce reactive maintenance by 20%. Discover how agentic AI cuts engineering toil and operational overhead.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Pipelines Auto-Curativos Reduzem Manutenção Reativa em 20%",
-      "body": "Implemente pipelines auto-curativos com IA agêntica para eliminar alertas às 3h e reduzir manutenção reativa em 20%. Libere sua equipe para projetos estratégicos.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Implemente pipelines auto-curativos com IA agêntica para eliminar alertas às 3h e reduzir manutenção reativa em 20%.",
+      "body": "Implemente pipelines auto-curativos com IA agêntica para eliminar alertas às 3h e reduzir manutenção reativa em 20%. Libere sua equipe para projetos estratégicos.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

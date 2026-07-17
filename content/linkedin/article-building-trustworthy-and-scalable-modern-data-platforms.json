@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "building-trustworthy-and-scalable-modern-data-platforms",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.088Z",
+  "generatedAt": "2026-07-17T22:54:39.965Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/building-trustworthy-and-scalable-modern-data-platforms",
-    "pt": "https://michael.business/pt/articles/building-trustworthy-and-scalable-modern-data-platforms",
+    "en": "https://michael.business/en/articles/building-trustworthy-and-scalable-modern-data-platforms?utm_source=linkedin&utm_medium=social&utm_campaign=building-trustworthy-and-scalable-modern-data-platforms&utm_content=en",
+    "pt": "https://michael.business/pt/articles/building-trustworthy-and-scalable-modern-data-platforms?utm_source=linkedin&utm_medium=social&utm_campaign=building-trustworthy-and-scalable-modern-data-platforms&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
-      "hook": "Scalable Data Platform Architecture: Engineering Patterns",
-      "body": "Explore how cross-cloud patterns and reliable transformation layers build scalable data platforms ensuring governance and accelerating analytics delivery.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Explore how cross-cloud patterns and reliable transformation layers build scalable data platforms ensuring governance and accelerating analytics delivery.",
+      "body": "Explore how cross-cloud patterns and reliable transformation layers build scalable data platforms ensuring governance and accelerating analytics delivery.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Arquitetura de Plataforma de Dados Escalável: Padrões Multicloud",
-      "body": "Veja como camadas de transformação e padrões multicloud constroem plataformas de dados escaláveis que garantem governança e aceleram a tomada de decisões.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Veja como camadas de transformação e padrões multicloud constroem plataformas de dados escaláveis que garantem governança e aceleram a tomada de decisões.",
+      "body": "Veja como camadas de transformação e padrões multicloud constroem plataformas de dados escaláveis que garantem governança e aceleram a tomada de decisões.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

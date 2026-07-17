@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "automated-data-governance-embedding-quality-gates-without-slowing-delivery",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.080Z",
+  "generatedAt": "2026-07-17T22:54:39.958Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery",
-    "pt": "https://michael.business/pt/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery",
+    "en": "https://michael.business/en/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery?utm_source=linkedin&utm_medium=social&utm_campaign=automated-data-governance-embedding-quality-gates-without-slowing-delivery&utm_content=en",
+    "pt": "https://michael.business/pt/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery?utm_source=linkedin&utm_medium=social&utm_campaign=automated-data-governance-embedding-quality-gates-without-slowing-delivery&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
   },
   "locales": {
     "en": {
-      "hook": "Automated Data Governance: Quality Gates Without the Bottleneck",
-      "body": "Implement automated data governance by embedding contract enforcement and freshness SLAs directly into pipelines. Enforce standards without becoming a bottleneck.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Implement automated data governance by embedding contract enforcement and freshness SLAs directly into pipelines.",
+      "body": "Implement automated data governance by embedding contract enforcement and freshness SLAs directly into pipelines. Enforce standards without becoming a bottleneck.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Governança de Dados Automatizada: Quality Gates Sem Gargalos",
-      "body": "Implemente governança de dados automatizada embutindo enforcement de contratos e SLAs de freshness nos pipelines. Garanta conformidade sem criar gargalos.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Implemente governança de dados automatizada embutindo enforcement de contratos e SLAs de freshness nos pipelines.",
+      "body": "Implemente governança de dados automatizada embutindo enforcement de contratos e SLAs de freshness nos pipelines. Garanta conformidade sem criar gargalos.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

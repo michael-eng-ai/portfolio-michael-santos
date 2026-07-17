@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "building-a-data-observability-platform-with-open-source-tools",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.942Z",
+  "generatedAt": "2026-07-17T22:54:40.617Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/building-a-data-observability-platform-with-open-source-tools",
-    "pt": "https://michael.business/pt/articles/building-a-data-observability-platform-with-open-source-tools",
+    "en": "https://michael.business/en/articles/building-a-data-observability-platform-with-open-source-tools?utm_source=x&utm_medium=social&utm_campaign=building-a-data-observability-platform-with-open-source-tools&utm_content=en",
+    "pt": "https://michael.business/pt/articles/building-a-data-observability-platform-with-open-source-tools?utm_source=x&utm_medium=social&utm_campaign=building-a-data-observability-platform-with-open-source-tools&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/data-observability-platform"
   },
   "locales": {
     "en": {
       "posts": [
-        "Data Observability Platform: Build With Open-Source Tools\n\nLearn to build a production-grade data observability platform with open-source tools for anomaly detection and lineage…\n\nhttps://michael.business/en/articles/building-a-data-observability-platform-with-open-source-tools",
+        "Data Observability Platform: Build With Open-Source Tool…\n\nhttps://michael.business/en/articles/building-a-data-observability-platform-with-open-source-tools?utm_source=x&utm_medium=social&utm_campaign=building-a-data-observability-platform-with-open-source-tools&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-observability-platform"
       ]
     },
     "pt": {
       "posts": [
-        "Plataforma de Data Observability com Ferramentas Open-Source\n\nAprenda a construir uma plataforma de data observability open-source para detecção de anomalias e lineage. Reduz cu…\n\nhttps://michael.business/pt/articles/building-a-data-observability-platform-with-open-source-tools",
+        "Plataforma de Data Observability com Ferramentas Open-So…\n\nhttps://michael.business/pt/articles/building-a-data-observability-platform-with-open-source-tools?utm_source=x&utm_medium=social&utm_campaign=building-a-data-observability-platform-with-open-source-tools&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-observability-platform"
       ]
     }

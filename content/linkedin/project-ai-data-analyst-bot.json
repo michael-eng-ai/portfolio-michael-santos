@@ -3,23 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "ai-data-analyst-bot",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.091Z",
+  "generatedAt": "2026-07-17T22:54:39.967Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/projects/ai-data-analyst-bot",
-    "pt": "https://michael.business/pt/projects/ai-data-analyst-bot",
+    "en": "https://michael.business/en/projects/ai-data-analyst-bot?utm_source=linkedin&utm_medium=social&utm_campaign=ai-data-analyst-bot&utm_content=en",
+    "pt": "https://michael.business/pt/projects/ai-data-analyst-bot?utm_source=linkedin&utm_medium=social&utm_campaign=ai-data-analyst-bot&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
   },
   "locales": {
     "en": {
-      "hook": "AI Data Analyst Bot",
-      "body": "A portfolio project that links data engineering foundations with AI-enabled interfaces for warehouse and documentation access.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "A portfolio project that links data engineering foundations with AI-enabled interfaces for warehouse and documentation access.",
+      "body": "A portfolio project that links data engineering foundations with AI-enabled interfaces for warehouse and documentation access.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Open the project case on the site and inspect the GitHub implementation."
     },
     "pt": {
-      "hook": "AI Data Analyst Bot",
-      "body": "Um projeto de portfólio que conecta fundamentos de engenharia de dados com interfaces habilitadas por IA para acesso a warehouse e documentação.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Um projeto de portfólio que conecta fundamentos de engenharia de dados com interfaces habilitadas por IA para acesso a warehouse e documentação.",
+      "body": "Um projeto de portfólio que conecta fundamentos de engenharia de dados com interfaces habilitadas por IA para acesso a warehouse e documentação.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Abra o case do projeto no site e inspecione a implementação no GitHub."
     }
   }
 }

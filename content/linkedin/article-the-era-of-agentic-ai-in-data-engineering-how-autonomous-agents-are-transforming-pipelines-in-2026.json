@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.080Z",
+  "generatedAt": "2026-07-17T22:54:39.957Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026",
-    "pt": "https://michael.business/pt/articles/the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026",
+    "en": "https://michael.business/en/articles/the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026?utm_source=linkedin&utm_medium=social&utm_campaign=the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026&utm_content=en",
+    "pt": "https://michael.business/pt/articles/the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026?utm_source=linkedin&utm_medium=social&utm_campaign=the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
-      "hook": "Agentic AI Data Engineering: Autonomous Pipeline Agents in 2026",
-      "body": "Agentic AI automates data pipelines with 77.1% success. Learn how agents reduce engineering overhead while enforcing governance and operational resilience.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Agentic AI automates data pipelines with 77.1% success.",
+      "body": "Agentic AI automates data pipelines with 77.1% success. Learn how agents reduce engineering overhead while enforcing governance and operational resilience.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "IA Agêntica na Engenharia de Dados: Agentes Autônomos em 2026",
-      "body": "IA agêntica automatiza pipelines com 77,1% de sucesso. Veja como agentes reduzem overhead de engenharia garantindo governança e resiliência operacional.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "IA agêntica automatiza pipelines com 77,1% de sucesso.",
+      "body": "IA agêntica automatiza pipelines com 77,1% de sucesso. Veja como agentes reduzem overhead de engenharia garantindo governança e resiliência operacional.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

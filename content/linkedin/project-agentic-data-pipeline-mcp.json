@@ -3,23 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "agentic-data-pipeline-mcp",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.093Z",
+  "generatedAt": "2026-07-17T22:54:39.968Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/projects/agentic-data-pipeline-mcp",
-    "pt": "https://michael.business/pt/projects/agentic-data-pipeline-mcp",
+    "en": "https://michael.business/en/projects/agentic-data-pipeline-mcp?utm_source=linkedin&utm_medium=social&utm_campaign=agentic-data-pipeline-mcp&utm_content=en",
+    "pt": "https://michael.business/pt/projects/agentic-data-pipeline-mcp?utm_source=linkedin&utm_medium=social&utm_campaign=agentic-data-pipeline-mcp&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
-      "hook": "Agentic Data Pipeline With MCP",
-      "body": "A next-generation data pipeline where Claude-powered agents connected via Model Context Protocol autonomously detect schema changes, fix data quality issues, reroute failed loads, and report decisions through structured audit logs.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "A next-generation data pipeline where Claude-powered agents connected via Model Context Protocol autonomously detect schema changes, fix data quality issues, reroute failed loads, and report decisions through structured audit logs.",
+      "body": "A next-generation data pipeline where Claude-powered agents connected via Model Context Protocol autonomously detect schema changes, fix data quality issues, reroute failed loads, and report decisions through structured audit logs.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Open the project case on the site and inspect the GitHub implementation."
     },
     "pt": {
-      "hook": "Pipeline de Dados Agentico com MCP",
-      "body": "Um pipeline de dados de proxima geracao onde agentes Claude conectados via Model Context Protocol detectam autonomamente mudancas de schema, corrigem problemas de qualidade, redirecionam cargas falhas e reportam decisoes via logs de auditoria estruturados.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Um pipeline de dados de proxima geracao onde agentes Claude conectados via Model Context Protocol detectam autonomamente mudancas de schema, corrigem problemas de qualidade, redirecionam cargas falhas e reportam decisoes via logs de auditoria estruturados.",
+      "body": "Um pipeline de dados de proxima geracao onde agentes Claude conectados via Model Context Protocol detectam autonomamente mudancas de schema, corrigem problemas de qualidade, redirecionam cargas falhas e reportam decisoes via logs de auditoria estruturados.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Abra o case do projeto no site e inspecione a implementação no GitHub."
     }
   }
 }

@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.085Z",
+  "generatedAt": "2026-07-17T22:54:39.962Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering",
-    "pt": "https://michael.business/pt/articles/gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering",
+    "en": "https://michael.business/en/articles/gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering?utm_source=linkedin&utm_medium=social&utm_campaign=gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering&utm_content=en",
+    "pt": "https://michael.business/pt/articles/gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering?utm_source=linkedin&utm_medium=social&utm_campaign=gartner-2026-predictions-semantic-layers-agentic-ai-data-engineering&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
-      "hook": "Gartner 2026: Semantic Layers & Agentic AI for Data Engineering",
-      "body": "Gartner 2026 predictions reveal how semantic layers and agentic AI automate data pipelines. Explore practical strategies for governance and infrastructure using dbt, Kafka, and Iceberg.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Gartner 2026 predictions reveal how semantic layers and agentic AI automate data pipelines.",
+      "body": "Gartner 2026 predictions reveal how semantic layers and agentic AI automate data pipelines. Explore practical strategies for governance and infrastructure using dbt, Kafka, and Iceberg.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Previsões Gartner 2026: Camadas Semânticas e IA Agentiva",
-      "body": "Previsões Gartner 2026 mostram como camadas semânticas e IA agentiva automatizam pipelines. Aprenda estratégias práticas de governança e infraestrutura com dbt, Kafka e Iceberg.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Previsões Gartner 2026 mostram como camadas semânticas e IA agentiva automatizam pipelines.",
+      "body": "Previsões Gartner 2026 mostram como camadas semânticas e IA agentiva automatizam pipelines. Aprenda estratégias práticas de governança e infraestrutura com dbt, Kafka e Iceberg.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

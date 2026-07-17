@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.948Z",
+  "generatedAt": "2026-07-17T22:54:40.620Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem",
-    "pt": "https://michael.business/pt/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem",
+    "en": "https://michael.business/en/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem?utm_source=x&utm_medium=social&utm_campaign=aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem&utm_content=en",
+    "pt": "https://michael.business/pt/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem?utm_source=x&utm_medium=social&utm_campaign=aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
   },
   "locales": {
     "en": {
       "posts": [
-        "Data Engineering Still Dominates 80% of AI Infrastructure\n\nAWS Bedrock's NVIDIA launch proves data pipelines remain the foundation of production AI. Lea…\n\nhttps://michael.business/en/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem",
+        "Data Engineering Still Dominates 80% of…\n\nhttps://michael.business/en/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem?utm_source=x&utm_medium=social&utm_campaign=aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     },
     "pt": {
       "posts": [
-        "Engenharia de Dados Ainda Domina 80% da Infraestrutura de IA\n\nO lançamento da NVIDIA no Bedrock prova que pipelines sustentam IA em produção. Veja padrõ…\n\nhttps://michael.business/pt/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem",
+        "Engenharia de Dados Ainda Domina 80% da…\n\nhttps://michael.business/pt/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem?utm_source=x&utm_medium=social&utm_campaign=aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     }

@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.949Z",
+  "generatedAt": "2026-07-17T22:54:40.622Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
-    "pt": "https://michael.business/pt/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
+    "en": "https://michael.business/en/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026?utm_source=x&utm_medium=social&utm_campaign=the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026&utm_content=en",
+    "pt": "https://michael.business/pt/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026?utm_source=x&utm_medium=social&utm_campaign=the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
       "posts": [
-        "Databricks LakeFlow and dbt Fusion Engine: Unified Pipelines 2026\n\nDatabricks LakeFlow and dbt Fusion Engine unify pipelines and go…\n\nhttps://michael.business/en/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
+        "Databricks LakeFlow and dbt Fusion Engi…\n\nhttps://michael.business/en/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026?utm_source=x&utm_medium=social&utm_campaign=the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Databricks LakeFlow e dbt Fusion Engine: pipelines unificados 2026\n\nDatabricks LakeFlow e dbt Fusion Engine unificam pipelines e go…\n\nhttps://michael.business/pt/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
+        "Databricks LakeFlow e dbt Fusion Engine…\n\nhttps://michael.business/pt/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026?utm_source=x&utm_medium=social&utm_campaign=the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.080Z",
+  "generatedAt": "2026-07-17T22:54:39.957Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap",
-    "pt": "https://michael.business/pt/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap",
+    "en": "https://michael.business/en/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap?utm_source=linkedin&utm_medium=social&utm_campaign=industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap&utm_content=en",
+    "pt": "https://michael.business/pt/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap?utm_source=linkedin&utm_medium=social&utm_campaign=industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
   },
   "locales": {
     "en": {
-      "hook": "Industrial AI Data Engineering: Closing the $8.5T Gap",
-      "body": "Industrial AI adoption stalls without modern data engineering. Discover architecture patterns that unlock the $8.5 trillion opportunity and scale manufacturing analytics.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Industrial AI adoption stalls without modern data engineering.",
+      "body": "Industrial AI adoption stalls without modern data engineering. Discover architecture patterns that unlock the $8.5 trillion opportunity and scale manufacturing analytics.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Engenharia de Dados para IA Industrial: Fechando Lacuna de US$ 8,5 Tri",
-      "body": "IA industrial exige engenharia de dados moderna. Conheça arquiteturas que desbloqueiam os US$ 8,5 trilhões em oportunidade e escalam a manufatura inteligente.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "IA industrial exige engenharia de dados moderna.",
+      "body": "IA industrial exige engenharia de dados moderna. Conheça arquiteturas que desbloqueiam os US$ 8,5 trilhões em oportunidade e escalam a manufatura inteligente.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

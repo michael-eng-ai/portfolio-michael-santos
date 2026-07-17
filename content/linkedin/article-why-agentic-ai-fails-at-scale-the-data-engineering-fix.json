@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "why-agentic-ai-fails-at-scale-the-data-engineering-fix",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.083Z",
+  "generatedAt": "2026-07-17T22:54:39.960Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix",
-    "pt": "https://michael.business/pt/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix",
+    "en": "https://michael.business/en/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix?utm_source=linkedin&utm_medium=social&utm_campaign=why-agentic-ai-fails-at-scale-the-data-engineering-fix&utm_content=en",
+    "pt": "https://michael.business/pt/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix?utm_source=linkedin&utm_medium=social&utm_campaign=why-agentic-ai-fails-at-scale-the-data-engineering-fix&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
-      "hook": "Scaling Agentic AI: Why Production Fails Without Data Engineering",
-      "body": "Most agentic AI pilots fail to reach production due to weak data pipelines, not models. Learn the data engineering practices that enable sustainable scaling and proven ROI.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Most agentic AI pilots fail to reach production due to weak data pipelines, not models.",
+      "body": "Most agentic AI pilots fail to reach production due to weak data pipelines, not models. Learn the data engineering practices that enable sustainable scaling and proven ROI.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Por Que IA Agêntica Falha em Escala: O Problema é Engenharia de Dados",
-      "body": "A maioria dos pilotos de IA agêntica falham em produção por pipelines frágeis. Veja como a engenharia de dados viabiliza escalabilidade sustentável e ROI mensurável.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "A maioria dos pilotos de IA agêntica falham em produção por pipelines frágeis.",
+      "body": "A maioria dos pilotos de IA agêntica falham em produção por pipelines frágeis. Veja como a engenharia de dados viabiliza escalabilidade sustentável e ROI mensurável.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

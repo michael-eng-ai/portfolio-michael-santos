@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "automated-data-governance-embedding-quality-gates-without-slowing-delivery",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.942Z",
+  "generatedAt": "2026-07-17T22:54:40.617Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery",
-    "pt": "https://michael.business/pt/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery",
+    "en": "https://michael.business/en/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery?utm_source=x&utm_medium=social&utm_campaign=automated-data-governance-embedding-quality-gates-without-slowing-delivery&utm_content=en",
+    "pt": "https://michael.business/pt/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery?utm_source=x&utm_medium=social&utm_campaign=automated-data-governance-embedding-quality-gates-without-slowing-delivery&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
   },
   "locales": {
     "en": {
       "posts": [
-        "Automated Data Governance: Quality Gates Without the Bottleneck\n\nImplement automated data governance by embedding contract enforcement and freshness SLAs directly i…\n\nhttps://michael.business/en/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery",
+        "Automated Data Governance: Quality Gate…\n\nhttps://michael.business/en/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery?utm_source=x&utm_medium=social&utm_campaign=automated-data-governance-embedding-quality-gates-without-slowing-delivery&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
       ]
     },
     "pt": {
       "posts": [
-        "Governança de Dados Automatizada: Quality Gates Sem Gargalos\n\nImplemente governança de dados automatizada embutindo enforcement de contratos e SLAs de freshness nos…\n\nhttps://michael.business/pt/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery",
+        "Governança de Dados Automatizada: Quali…\n\nhttps://michael.business/pt/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery?utm_source=x&utm_medium=social&utm_campaign=automated-data-governance-embedding-quality-gates-without-slowing-delivery&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
       ]
     }

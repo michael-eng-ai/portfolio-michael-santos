@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "agentic-data-pipeline-with-claude-mcp-and-data-quality",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.071Z",
+  "generatedAt": "2026-07-17T22:54:39.945Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-and-data-quality",
-    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-and-data-quality",
+    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-and-data-quality?utm_source=linkedin&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-and-data-quality&utm_content=en",
+    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-and-data-quality?utm_source=linkedin&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-and-data-quality&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
-      "hook": "Agentic Data Pipeline with Claude MCP and Data Quality",
-      "body": "Build an agentic data pipeline with Claude MCP to automate schema recovery, eliminating on-call triage and improving downstream analytical reliability.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Build an agentic data pipeline with Claude MCP to automate schema recovery, eliminating on-call triage and improving downstream analytical reliability.",
+      "body": "Build an agentic data pipeline with Claude MCP to automate schema recovery, eliminating on-call triage and improving downstream analytical reliability.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Pipeline de Dados Agêntico com Claude MCP e Qualidade",
-      "body": "Construa um pipeline de dados agêntico com Claude MCP para automatizar falhas de schema, eliminando alertas de plantão e garantindo dados confiáveis.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Construa um pipeline de dados agêntico com Claude MCP para automatizar falhas de schema, eliminando alertas de plantão e garantindo dados confiáveis.",
+      "body": "Construa um pipeline de dados agêntico com Claude MCP para automatizar falhas de schema, eliminando alertas de plantão e garantindo dados confiáveis.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

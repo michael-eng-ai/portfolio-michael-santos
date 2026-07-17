@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.088Z",
+  "generatedAt": "2026-07-17T22:54:39.964Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics",
-    "pt": "https://michael.business/pt/articles/real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics",
+    "en": "https://michael.business/en/articles/real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics?utm_source=linkedin&utm_medium=social&utm_campaign=real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics&utm_content=en",
+    "pt": "https://michael.business/pt/articles/real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics?utm_source=linkedin&utm_medium=social&utm_campaign=real-time-data-architectures-in-2026-streaming-and-cdc-for-trustworthy-operational-analytics&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
-      "hook": "CDC Streaming Architecture for Trustworthy Operational Analytics",
-      "body": "Learn CDC streaming architecture patterns that deliver trustworthy operational analytics. Move beyond speed demos to build explainable, real-time data pipelines you can trust in production.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Learn CDC streaming architecture patterns that deliver trustworthy operational analytics.",
+      "body": "Learn CDC streaming architecture patterns that deliver trustworthy operational analytics. Move beyond speed demos to build explainable, real-time data pipelines you can trust in production.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Arquitetura CDC Streaming para Análises Operacionais Confiáveis",
-      "body": "Descubra padrões de arquitetura CDC streaming que geram análises operacionais confiáveis. Vá além de demos de velocidade para construir pipelines explicáveis e prontos para produção.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Descubra padrões de arquitetura CDC streaming que geram análises operacionais confiáveis.",
+      "body": "Descubra padrões de arquitetura CDC streaming que geram análises operacionais confiáveis. Vá além de demos de velocidade para construir pipelines explicáveis e prontos para produção.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

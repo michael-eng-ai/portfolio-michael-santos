@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "from-news-to-data-product",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.089Z",
+  "generatedAt": "2026-07-17T22:54:39.965Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/from-news-to-data-product",
-    "pt": "https://michael.business/pt/articles/from-news-to-data-product",
+    "en": "https://michael.business/en/articles/from-news-to-data-product?utm_source=linkedin&utm_medium=social&utm_campaign=from-news-to-data-product&utm_content=en",
+    "pt": "https://michael.business/pt/articles/from-news-to-data-product?utm_source=linkedin&utm_medium=social&utm_campaign=from-news-to-data-product&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
-      "hook": "Data Engineering and AI Business Value: The Four-Part Test",
-      "body": "Validate data engineering and AI initiatives with the four-part credibility test. Connect market pressures to architecture and metrics, cutting slideware.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Validate data engineering and AI initiatives with the four-part credibility test.",
+      "body": "Validate data engineering and AI initiatives with the four-part credibility test. Connect market pressures to architecture and metrics, cutting slideware.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Engenharia de Dados e IA: Teste de 4 Partes para Credibilidade",
-      "body": "Valide projetos de engenharia de dados e IA com o teste de quatro partes. Conecte pressões de mercado a arquitetura e métricas, eliminando o slideware.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Valide projetos de engenharia de dados e IA com o teste de quatro partes.",
+      "body": "Valide projetos de engenharia de dados e IA com o teste de quatro partes. Conecte pressões de mercado a arquitetura e métricas, eliminando o slideware.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

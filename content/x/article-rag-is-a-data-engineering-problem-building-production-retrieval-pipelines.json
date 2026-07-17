@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "rag-is-a-data-engineering-problem-building-production-retrieval-pipelines",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.943Z",
+  "generatedAt": "2026-07-17T22:54:40.617Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines",
-    "pt": "https://michael.business/pt/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines",
+    "en": "https://michael.business/en/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines?utm_source=x&utm_medium=social&utm_campaign=rag-is-a-data-engineering-problem-building-production-retrieval-pipelines&utm_content=en",
+    "pt": "https://michael.business/pt/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines?utm_source=x&utm_medium=social&utm_campaign=rag-is-a-data-engineering-problem-building-production-retrieval-pipelines&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
   },
   "locales": {
     "en": {
       "posts": [
-        "Production RAG Pipelines: A Data Engineering Approach\n\nRAG failures are data pipeline failures. Build production retrieval pipelines using pgvector, hybrid search, a…\n\nhttps://michael.business/en/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines",
+        "Production RAG Pipelines: A Data Engine…\n\nhttps://michael.business/en/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines?utm_source=x&utm_medium=social&utm_campaign=rag-is-a-data-engineering-problem-building-production-retrieval-pipelines&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
       ]
     },
     "pt": {
       "posts": [
-        "Pipelines RAG em Produção: Uma Abordagem de Engenharia de Dados\n\nFalhas em RAG são falhas de engenharia de dados. Construa pipelines de retrieval em produção com pgv…\n\nhttps://michael.business/pt/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines",
+        "Pipelines RAG em Produção: Uma Abordage…\n\nhttps://michael.business/pt/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines?utm_source=x&utm_medium=social&utm_campaign=rag-is-a-data-engineering-problem-building-production-retrieval-pipelines&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
       ]
     }

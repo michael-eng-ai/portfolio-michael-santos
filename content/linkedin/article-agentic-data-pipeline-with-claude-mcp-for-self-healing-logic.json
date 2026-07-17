@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "agentic-data-pipeline-with-claude-mcp-for-self-healing-logic",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.076Z",
+  "generatedAt": "2026-07-17T22:54:39.952Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing-logic",
-    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing-logic",
+    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing-logic?utm_source=linkedin&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-for-self-healing-logic&utm_content=en",
+    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing-logic?utm_source=linkedin&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-for-self-healing-logic&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
-      "hook": "Agentic data pipeline with Claude MCP for self-healing logic",
-      "body": "Deploy an agentic data pipeline with Claude MCP to automate schema recovery. Reduce manual on-call hours by implementing self-healing orchestration logic.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Deploy an agentic data pipeline with Claude MCP to automate schema recovery.",
+      "body": "Deploy an agentic data pipeline with Claude MCP to automate schema recovery. Reduce manual on-call hours by implementing self-healing orchestration logic.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Pipeline de dados agentica com Claude MCP e autocura",
-      "body": "Implemente uma pipeline de dados agentica com Claude MCP para automatizar a recuperação de esquema e reduzir horas de sobreaviso com lógica de autocura.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Implemente uma pipeline de dados agentica com Claude MCP para automatizar a recuperação de esquema e reduzir horas de sobreaviso com lógica de autocura.",
+      "body": "Implemente uma pipeline de dados agentica com Claude MCP para automatizar a recuperação de esquema e reduzir horas de sobreaviso com lógica de autocura.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

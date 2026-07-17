@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "from-news-to-data-product",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.951Z",
+  "generatedAt": "2026-07-17T22:54:40.623Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/from-news-to-data-product",
-    "pt": "https://michael.business/pt/articles/from-news-to-data-product",
+    "en": "https://michael.business/en/articles/from-news-to-data-product?utm_source=x&utm_medium=social&utm_campaign=from-news-to-data-product&utm_content=en",
+    "pt": "https://michael.business/pt/articles/from-news-to-data-product?utm_source=x&utm_medium=social&utm_campaign=from-news-to-data-product&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
       "posts": [
-        "Data Engineering and AI Business Value: The Four-Part Test\n\nValidate data engineering and AI initiatives with the four-part credibility test. Connect market pressures to architecture and metrics, cutting slideware…\n\nhttps://michael.business/en/articles/from-news-to-data-product",
+        "Data Engineering and AI Business Value: The Four-Part Test\n\nValidate data engineering and AI initiatives with the four-part cred…\n\nhttps://michael.business/en/articles/from-news-to-data-product?utm_source=x&utm_medium=social&utm_campaign=from-news-to-data-product&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Engenharia de Dados e IA: Teste de 4 Partes para Credibilidade\n\nValide projetos de engenharia de dados e IA com o teste de quatro partes. Conecte pressões de mercado a arquitetura e métricas, eliminando o slidewar…\n\nhttps://michael.business/pt/articles/from-news-to-data-product",
+        "Engenharia de Dados e IA: Teste de 4 Partes para Credibilidade\n\nValide projetos de engenharia de dados e IA com o teste de quatr…\n\nhttps://michael.business/pt/articles/from-news-to-data-product?utm_source=x&utm_medium=social&utm_campaign=from-news-to-data-product&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

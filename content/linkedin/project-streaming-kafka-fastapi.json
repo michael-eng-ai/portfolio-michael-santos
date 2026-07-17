@@ -3,23 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "streaming-kafka-fastapi",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.091Z",
+  "generatedAt": "2026-07-17T22:54:39.967Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/projects/streaming-kafka-fastapi",
-    "pt": "https://michael.business/pt/projects/streaming-kafka-fastapi",
+    "en": "https://michael.business/en/projects/streaming-kafka-fastapi?utm_source=linkedin&utm_medium=social&utm_campaign=streaming-kafka-fastapi&utm_content=en",
+    "pt": "https://michael.business/pt/projects/streaming-kafka-fastapi?utm_source=linkedin&utm_medium=social&utm_campaign=streaming-kafka-fastapi&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/streaming-kafka-fastapi"
   },
   "locales": {
     "en": {
-      "hook": "Streaming Radar API",
-      "body": "An event-driven serving path where Kafka carries market-style events, Redis holds current state, and FastAPI exposes low-latency endpoints for live consumption.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "An event-driven serving path where Kafka carries market-style events, Redis holds current state, and FastAPI exposes low-latency endpoints for live consumption.",
+      "body": "An event-driven serving path where Kafka carries market-style events, Redis holds current state, and FastAPI exposes low-latency endpoints for live consumption.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Open the project case on the site and inspect the GitHub implementation."
     },
     "pt": {
-      "hook": "Streaming Radar API",
-      "body": "Um caminho de serving orientado a eventos em que Kafka carrega eventos de mercado, Redis segura o estado atual e FastAPI expoe endpoints de baixa latencia para consumo vivo.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Um caminho de serving orientado a eventos em que Kafka carrega eventos de mercado, Redis segura o estado atual e FastAPI expoe endpoints de baixa latencia para consumo vivo.",
+      "body": "Um caminho de serving orientado a eventos em que Kafka carrega eventos de mercado, Redis segura o estado atual e FastAPI expoe endpoints de baixa latencia para consumo vivo.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Abra o case do projeto no site e inspecione a implementação no GitHub."
     }
   }
 }

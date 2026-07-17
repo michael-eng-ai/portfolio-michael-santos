@@ -3,23 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "kafka-debezium-dbt",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.953Z",
+  "generatedAt": "2026-07-17T22:54:40.624Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/projects/kafka-debezium-dbt",
-    "pt": "https://michael.business/pt/projects/kafka-debezium-dbt",
+    "en": "https://michael.business/en/projects/kafka-debezium-dbt?utm_source=x&utm_medium=social&utm_campaign=kafka-debezium-dbt&utm_content=en",
+    "pt": "https://michael.business/pt/projects/kafka-debezium-dbt?utm_source=x&utm_medium=social&utm_campaign=kafka-debezium-dbt&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
       "posts": [
-        "Real-Time CDC Analytics Pipeline\n\nA runnable CDC stack that captures PostgreSQL WAL changes with Debezium, normalizes events in Python, and publishes analytics-ready bronze, silver, and gold layers with dbt and Streamlit…\n\nhttps://michael.business/en/projects/kafka-debezium-dbt",
+        "Real-Time CDC Analytics Pipeline\n\nA runnable CDC stack that captures PostgreSQL WAL changes with Debezium, normalizes events in Python, and pu…\n\nhttps://michael.business/en/projects/kafka-debezium-dbt?utm_source=x&utm_medium=social&utm_campaign=kafka-debezium-dbt&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Pipeline Analitico de CDC em Tempo Real\n\nUm stack de CDC executavel que captura mudancas do WAL do PostgreSQL com Debezium, normaliza eventos em Python e publica camadas bronze, silver e gold com dbt e Streamlit.\n\nLeia n…\n\nhttps://michael.business/pt/projects/kafka-debezium-dbt",
+        "Pipeline Analitico de CDC em Tempo Real\n\nUm stack de CDC executavel que captura mudancas do WAL do PostgreSQL com Debezium, normaliza eventos…\n\nhttps://michael.business/pt/projects/kafka-debezium-dbt?utm_source=x&utm_medium=social&utm_campaign=kafka-debezium-dbt&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

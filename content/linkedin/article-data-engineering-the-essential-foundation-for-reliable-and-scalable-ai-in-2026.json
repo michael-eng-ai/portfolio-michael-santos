@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.083Z",
+  "generatedAt": "2026-07-17T22:54:39.960Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026",
-    "pt": "https://michael.business/pt/articles/data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026",
+    "en": "https://michael.business/en/articles/data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026?utm_source=linkedin&utm_medium=social&utm_campaign=data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026&utm_content=en",
+    "pt": "https://michael.business/pt/articles/data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026?utm_source=linkedin&utm_medium=social&utm_campaign=data-engineering-the-essential-foundation-for-reliable-and-scalable-ai-in-2026&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
   },
   "locales": {
     "en": {
-      "hook": "Data Engineering for Reliable, Scalable AI Systems in 2026",
-      "body": "Data engineering ensures reliable, scalable AI systems. Eliminate context fragmentation across distributed models with unified governance and robust pipelines aligned to business objectives.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Data engineering ensures reliable, scalable AI systems.",
+      "body": "Data engineering ensures reliable, scalable AI systems. Eliminate context fragmentation across distributed models with unified governance and robust pipelines aligned to business objectives.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Engenharia de Dados para IA Confiável e Escalável em 2026",
-      "body": "Engenharia de dados garante IA confiável e escalável. Elimine fragmentação de contexto entre modelos com governança unificada e pipelines robustos alinhados aos objetivos do negócio.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Engenharia de dados garante IA confiável e escalável.",
+      "body": "Engenharia de dados garante IA confiável e escalável. Elimine fragmentação de contexto entre modelos com governança unificada e pipelines robustos alinhados aos objetivos do negócio.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

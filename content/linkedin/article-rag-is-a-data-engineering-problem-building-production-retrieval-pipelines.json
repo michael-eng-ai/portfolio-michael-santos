@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "rag-is-a-data-engineering-problem-building-production-retrieval-pipelines",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.081Z",
+  "generatedAt": "2026-07-17T22:54:39.959Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines",
-    "pt": "https://michael.business/pt/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines",
+    "en": "https://michael.business/en/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines?utm_source=linkedin&utm_medium=social&utm_campaign=rag-is-a-data-engineering-problem-building-production-retrieval-pipelines&utm_content=en",
+    "pt": "https://michael.business/pt/articles/rag-is-a-data-engineering-problem-building-production-retrieval-pipelines?utm_source=linkedin&utm_medium=social&utm_campaign=rag-is-a-data-engineering-problem-building-production-retrieval-pipelines&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
   },
   "locales": {
     "en": {
-      "hook": "Production RAG Pipelines: A Data Engineering Approach",
-      "body": "RAG failures are data pipeline failures. Build production retrieval pipelines using pgvector, hybrid search, and citation validation to eliminate hallucinations and scale reliably.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "RAG failures are data pipeline failures.",
+      "body": "RAG failures are data pipeline failures. Build production retrieval pipelines using pgvector, hybrid search, and citation validation to eliminate hallucinations and scale reliably.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Pipelines RAG em Produção: Uma Abordagem de Engenharia de Dados",
-      "body": "Falhas em RAG são falhas de engenharia de dados. Construa pipelines de retrieval em produção com pgvector e hybrid search para eliminar alucinações e escalar com confiança.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Falhas em RAG são falhas de engenharia de dados.",
+      "body": "Falhas em RAG são falhas de engenharia de dados. Construa pipelines de retrieval em produção com pgvector e hybrid search para eliminar alucinações e escalar com confiança.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

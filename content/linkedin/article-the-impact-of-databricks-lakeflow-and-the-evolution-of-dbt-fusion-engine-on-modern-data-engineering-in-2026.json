@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.087Z",
+  "generatedAt": "2026-07-17T22:54:39.964Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
-    "pt": "https://michael.business/pt/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026",
+    "en": "https://michael.business/en/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026?utm_source=linkedin&utm_medium=social&utm_campaign=the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026&utm_content=en",
+    "pt": "https://michael.business/pt/articles/the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026?utm_source=linkedin&utm_medium=social&utm_campaign=the-impact-of-databricks-lakeflow-and-the-evolution-of-dbt-fusion-engine-on-modern-data-engineering-in-2026&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
-      "hook": "Databricks LakeFlow and dbt Fusion Engine: Unified Pipelines 2026",
-      "body": "Databricks LakeFlow and dbt Fusion Engine unify pipelines and governance, eliminating fragmentation. Discover scalable, reliable data platforms in 2026.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Databricks LakeFlow and dbt Fusion Engine unify pipelines and governance, eliminating fragmentation.",
+      "body": "Databricks LakeFlow and dbt Fusion Engine unify pipelines and governance, eliminating fragmentation. Discover scalable, reliable data platforms in 2026.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Databricks LakeFlow e dbt Fusion Engine: pipelines unificados 2026",
-      "body": "Databricks LakeFlow e dbt Fusion Engine unificam pipelines e governança, eliminando fragmentação. Veja como entregar análises confiáveis e escaláveis em 2026.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Databricks LakeFlow e dbt Fusion Engine unificam pipelines e governança, eliminando fragmentação.",
+      "body": "Databricks LakeFlow e dbt Fusion Engine unificam pipelines e governança, eliminando fragmentação. Veja como entregar análises confiáveis e escaláveis em 2026.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

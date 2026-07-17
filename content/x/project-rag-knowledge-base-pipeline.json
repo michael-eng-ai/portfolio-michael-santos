@@ -3,23 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "rag-knowledge-base-pipeline",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.956Z",
+  "generatedAt": "2026-07-17T22:54:40.625Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/projects/rag-knowledge-base-pipeline",
-    "pt": "https://michael.business/pt/projects/rag-knowledge-base-pipeline",
+    "en": "https://michael.business/en/projects/rag-knowledge-base-pipeline?utm_source=x&utm_medium=social&utm_campaign=rag-knowledge-base-pipeline&utm_content=en",
+    "pt": "https://michael.business/pt/projects/rag-knowledge-base-pipeline?utm_source=x&utm_medium=social&utm_campaign=rag-knowledge-base-pipeline&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
   },
   "locales": {
     "en": {
       "posts": [
-        "RAG Knowledge Base Pipeline\n\nA retrieval-augmented generation pipeline that ingests enterprise documents, chunks and embeds them into pgvector, and serves grounded answers through a FastAPI service backed by Cla…\n\nhttps://michael.business/en/projects/rag-knowledge-base-pipeline",
+        "RAG Knowledge Base Pipeline\n\nA retrieval-augmented generation pipeline that ingests enterprise documents, chunks and embeds…\n\nhttps://michael.business/en/projects/rag-knowledge-base-pipeline?utm_source=x&utm_medium=social&utm_campaign=rag-knowledge-base-pipeline&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
       ]
     },
     "pt": {
       "posts": [
-        "Pipeline RAG de Base de Conhecimento\n\nUm pipeline de geracao aumentada por recuperacao que ingere documentos corporativos, fragmenta e embede no pgvector, e serve respostas fundamentadas via FastAPI com Claude.…\n\nhttps://michael.business/pt/projects/rag-knowledge-base-pipeline",
+        "Pipeline RAG de Base de Conhecimento\n\nUm pipeline de geracao aumentada por recuperacao que ingere documentos corporativos, f…\n\nhttps://michael.business/pt/projects/rag-knowledge-base-pipeline?utm_source=x&utm_medium=social&utm_campaign=rag-knowledge-base-pipeline&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
       ]
     }

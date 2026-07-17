@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "agentic-data-pipeline-with-claude-mcp-architecture",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.071Z",
+  "generatedAt": "2026-07-17T22:54:39.946Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-architecture",
-    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-architecture",
+    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-architecture?utm_source=linkedin&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture&utm_content=en",
+    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-architecture?utm_source=linkedin&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
-      "hook": "Agentic data pipeline with Claude MCP architecture",
-      "body": "Deploy an agentic data pipeline with Claude MCP to resolve schema drift autonomously and eliminate manual recovery tasks on critical infrastructure.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Deploy an agentic data pipeline with Claude MCP to resolve schema drift autonomously and eliminate manual recovery tasks on critical infrastructure.",
+      "body": "Deploy an agentic data pipeline with Claude MCP to resolve schema drift autonomously and eliminate manual recovery tasks on critical infrastructure.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Pipeline de dados agente com Claude MCP em produção",
-      "body": "Implemente um pipeline de dados agente com Claude MCP para resolver schema drift e eliminar tarefas de recuperação manual em sua infraestrutura.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Implemente um pipeline de dados agente com Claude MCP para resolver schema drift e eliminar tarefas de recuperação manual em sua infraestrutura.",
+      "body": "Implemente um pipeline de dados agente com Claude MCP para resolver schema drift e eliminar tarefas de recuperação manual em sua infraestrutura.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

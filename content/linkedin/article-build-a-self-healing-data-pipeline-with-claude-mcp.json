@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "build-a-self-healing-data-pipeline-with-claude-mcp",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.073Z",
+  "generatedAt": "2026-07-17T22:54:39.948Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/build-a-self-healing-data-pipeline-with-claude-mcp",
-    "pt": "https://michael.business/pt/articles/build-a-self-healing-data-pipeline-with-claude-mcp",
+    "en": "https://michael.business/en/articles/build-a-self-healing-data-pipeline-with-claude-mcp?utm_source=linkedin&utm_medium=social&utm_campaign=build-a-self-healing-data-pipeline-with-claude-mcp&utm_content=en",
+    "pt": "https://michael.business/pt/articles/build-a-self-healing-data-pipeline-with-claude-mcp?utm_source=linkedin&utm_medium=social&utm_campaign=build-a-self-healing-data-pipeline-with-claude-mcp&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
-      "hook": "Build a Self-Healing Data Pipeline with Claude MCP",
-      "body": "Build a self-healing data pipeline with Claude MCP to autonomously resolve schema mismatches and reduce on-call incidents by eighty percent.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "The business pressure behind Build a Self-Healing Data Pipeline with Claude MCP is accelerating faster than most data stacks can absorb.",
+      "body": "Build a self-healing data pipeline with Claude MCP to autonomously resolve schema mismatches and reduce on-call incidents by eighty percent.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Criar Pipeline de Dados Self-Healing com Claude MCP",
-      "body": "Crie um pipeline de dados self-healing com Claude MCP para resolver falhas de schema de forma autônoma e reduzir incidentes de plantão em 80%.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Crie um pipeline de dados self-healing com Claude MCP para resolver falhas de schema de forma autônoma e reduzir incidentes de plantão em 80%.",
+      "body": "Crie um pipeline de dados self-healing com Claude MCP para resolver falhas de schema de forma autônoma e reduzir incidentes de plantão em 80%.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

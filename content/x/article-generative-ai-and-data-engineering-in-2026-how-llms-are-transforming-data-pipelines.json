@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.950Z",
+  "generatedAt": "2026-07-17T22:54:40.622Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines",
-    "pt": "https://michael.business/pt/articles/generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines",
+    "en": "https://michael.business/en/articles/generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines?utm_source=x&utm_medium=social&utm_campaign=generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines&utm_content=en",
+    "pt": "https://michael.business/pt/articles/generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines?utm_source=x&utm_medium=social&utm_campaign=generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
   },
   "locales": {
     "en": {
       "posts": [
-        "LLM Data Pipeline Automation: 2026 Engineering Strategies\n\nLearn how LLM data pipeline automation cuts manual work and improves governance in 2026. Apply p…\n\nhttps://michael.business/en/articles/generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines",
+        "LLM Data Pipeline Automation: 2026 Engi…\n\nhttps://michael.business/en/articles/generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines?utm_source=x&utm_medium=social&utm_campaign=generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
       ]
     },
     "pt": {
       "posts": [
-        "Automação de Pipelines com LLMs: Tendências para 2026\n\nDescubra como automatizar pipelines com LLMs reduz trabalho manual e reforça governança em 2026. Use…\n\nhttps://michael.business/pt/articles/generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines",
+        "Automação de Pipelines com LLMs: Tendên…\n\nhttps://michael.business/pt/articles/generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines?utm_source=x&utm_medium=social&utm_campaign=generative-ai-and-data-engineering-in-2026-how-llms-are-transforming-data-pipelines&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
       ]
     }

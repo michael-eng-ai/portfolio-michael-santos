@@ -3,23 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "rag-knowledge-base-pipeline",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.092Z",
+  "generatedAt": "2026-07-17T22:54:39.968Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/projects/rag-knowledge-base-pipeline",
-    "pt": "https://michael.business/pt/projects/rag-knowledge-base-pipeline",
+    "en": "https://michael.business/en/projects/rag-knowledge-base-pipeline?utm_source=linkedin&utm_medium=social&utm_campaign=rag-knowledge-base-pipeline&utm_content=en",
+    "pt": "https://michael.business/pt/projects/rag-knowledge-base-pipeline?utm_source=linkedin&utm_medium=social&utm_campaign=rag-knowledge-base-pipeline&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
   },
   "locales": {
     "en": {
-      "hook": "RAG Knowledge Base Pipeline",
-      "body": "A retrieval-augmented generation pipeline that ingests enterprise documents, chunks and embeds them into pgvector, and serves grounded answers through a FastAPI service backed by Claude.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "A retrieval-augmented generation pipeline that ingests enterprise documents, chunks and embeds them into pgvector, and serves grounded answers through a FastAPI service backed by Claude.",
+      "body": "A retrieval-augmented generation pipeline that ingests enterprise documents, chunks and embeds them into pgvector, and serves grounded answers through a FastAPI service backed by Claude.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Open the project case on the site and inspect the GitHub implementation."
     },
     "pt": {
-      "hook": "Pipeline RAG de Base de Conhecimento",
-      "body": "Um pipeline de geracao aumentada por recuperacao que ingere documentos corporativos, fragmenta e embede no pgvector, e serve respostas fundamentadas via FastAPI com Claude.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Um pipeline de geracao aumentada por recuperacao que ingere documentos corporativos, fragmenta e embede no pgvector, e serve respostas fundamentadas via FastAPI com Claude.",
+      "body": "Um pipeline de geracao aumentada por recuperacao que ingere documentos corporativos, fragmenta e embede no pgvector, e serve respostas fundamentadas via FastAPI com Claude.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Abra o case do projeto no site e inspecione a implementação no GitHub."
     }
   }
 }

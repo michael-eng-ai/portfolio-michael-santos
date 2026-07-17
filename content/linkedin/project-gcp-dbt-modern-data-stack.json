@@ -3,23 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "gcp-dbt-modern-data-stack",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.091Z",
+  "generatedAt": "2026-07-17T22:54:39.967Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/projects/gcp-dbt-modern-data-stack",
-    "pt": "https://michael.business/pt/projects/gcp-dbt-modern-data-stack",
+    "en": "https://michael.business/en/projects/gcp-dbt-modern-data-stack?utm_source=linkedin&utm_medium=social&utm_campaign=gcp-dbt-modern-data-stack&utm_content=en",
+    "pt": "https://michael.business/pt/projects/gcp-dbt-modern-data-stack?utm_source=linkedin&utm_medium=social&utm_campaign=gcp-dbt-modern-data-stack&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
   },
   "locales": {
     "en": {
-      "hook": "GCP Modern Data Stack",
-      "body": "A cloud-native analytics workflow that provisions BigQuery and storage with Terraform, ingests market data with Python, and tests warehouse models with dbt and GitHub Actions.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "A cloud-native analytics workflow that provisions BigQuery and storage with Terraform, ingests market data with Python, and tests warehouse models with dbt and GitHub Actions.",
+      "body": "A cloud-native analytics workflow that provisions BigQuery and storage with Terraform, ingests market data with Python, and tests warehouse models with dbt and GitHub Actions.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Open the project case on the site and inspect the GitHub implementation."
     },
     "pt": {
-      "hook": "Modern Data Stack na GCP",
-      "body": "Um workflow cloud-native de analytics que provisiona BigQuery e storage com Terraform, ingere dados de mercado com Python e testa modelos de warehouse com dbt e GitHub Actions.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Um workflow cloud-native de analytics que provisiona BigQuery e storage com Terraform, ingere dados de mercado com Python e testa modelos de warehouse com dbt e GitHub Actions.",
+      "body": "Um workflow cloud-native de analytics que provisiona BigQuery e storage com Terraform, ingere dados de mercado com Python e testa modelos de warehouse com dbt e GitHub Actions.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Abra o case do projeto no site e inspecione a implementação no GitHub."
     }
   }
 }

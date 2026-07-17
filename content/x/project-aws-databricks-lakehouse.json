@@ -3,23 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "aws-databricks-lakehouse",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.953Z",
+  "generatedAt": "2026-07-17T22:54:40.624Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/projects/aws-databricks-lakehouse",
-    "pt": "https://michael.business/pt/projects/aws-databricks-lakehouse",
+    "en": "https://michael.business/en/projects/aws-databricks-lakehouse?utm_source=x&utm_medium=social&utm_campaign=aws-databricks-lakehouse&utm_content=en",
+    "pt": "https://michael.business/pt/projects/aws-databricks-lakehouse?utm_source=x&utm_medium=social&utm_campaign=aws-databricks-lakehouse&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
   },
   "locales": {
     "en": {
       "posts": [
-        "AWS And Databricks Lakehouse\n\nA lakehouse case that provisions AWS storage with Terraform, lands simulated event data in S3, and processes silver and gold Delta layers in Databricks with PySpark.\n\nRead on site:\n\nhttps://michael.business/en/projects/aws-databricks-lakehouse",
+        "AWS And Databricks Lakehouse\n\nA lakehouse case that provisions AWS storage with Terraform, lands simulated event data in S3, and p…\n\nhttps://michael.business/en/projects/aws-databricks-lakehouse?utm_source=x&utm_medium=social&utm_campaign=aws-databricks-lakehouse&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     },
     "pt": {
       "posts": [
-        "Lakehouse com AWS e Databricks\n\nUm caso de lakehouse que provisiona storage AWS com Terraform, pousa eventos simulados em S3 e processa camadas silver e gold em Databricks com PySpark.\n\nLeia no site:\n\nhttps://michael.business/pt/projects/aws-databricks-lakehouse",
+        "Lakehouse com AWS e Databricks\n\nUm caso de lakehouse que provisiona storage AWS com Terraform, pousa eventos simulados em S3 e pro…\n\nhttps://michael.business/pt/projects/aws-databricks-lakehouse?utm_source=x&utm_medium=social&utm_campaign=aws-databricks-lakehouse&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     }

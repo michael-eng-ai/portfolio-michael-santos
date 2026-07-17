@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "agentic-data-pipeline-with-claude-mcp-implementation-guide",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.073Z",
+  "generatedAt": "2026-07-17T22:54:39.949Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-implementation-guide",
-    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-implementation-guide",
+    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-implementation-guide?utm_source=linkedin&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-implementation-guide&utm_content=en",
+    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-implementation-guide?utm_source=linkedin&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-implementation-guide&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
-      "hook": "Agentic data pipeline with Claude MCP implementation guide",
-      "body": "Deploy an agentic data pipeline with Claude MCP to resolve real-time schema drifts autonomously, reducing manual engineering intervention and on-call alerts.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Deploy an agentic data pipeline with Claude MCP to resolve real-time schema drifts autonomously, reducing manual engineering intervention and on-call alerts.",
+      "body": "Deploy an agentic data pipeline with Claude MCP to resolve real-time schema drifts autonomously, reducing manual engineering intervention and on-call alerts.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Guia de pipeline de dados agênticos com Claude MCP",
-      "body": "Implemente um pipeline de dados agêntico com Claude MCP para resolver falhas de schema autonomamente, reduzindo intervenções manuais e alertas de plantão.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Implemente um pipeline de dados agêntico com Claude MCP para resolver falhas de schema autonomamente, reduzindo intervenções manuais e alertas de plantão.",
+      "body": "Implemente um pipeline de dados agêntico com Claude MCP para resolver falhas de schema autonomamente, reduzindo intervenções manuais e alertas de plantão.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

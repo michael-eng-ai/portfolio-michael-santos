@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "agentic-data-pipeline-with-claude-mcp-for-self-healing",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.931Z",
+  "generatedAt": "2026-07-17T22:54:40.610Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing",
-    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing",
+    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-for-self-healing&utm_content=en",
+    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-for-self-healing&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
       "posts": [
-        "Agentic Data Pipeline with Claude MCP for Self-Healing\n\nImplement an agentic data pipeline with Claude MCP to resolve schema drift and data quality issues automatically, lowering on-ca…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing",
+        "Agentic Data Pipeline with Claude MCP for Self-Healing\n\nImplement an a…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-for-self-healing&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Pipeline de Dados Agêntico com Claude MCP e Autorrecuperação\n\nImplemente um pipeline de dados agêntico com Claude MCP para resolver falhas de esquema automaticamente, reduzindo alertas…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing",
+        "Pipeline de Dados Agêntico com Claude MCP e Autorrecuperação\n\nImplemen…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-for-self-healing&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

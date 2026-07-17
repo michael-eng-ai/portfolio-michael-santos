@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.086Z",
+  "generatedAt": "2026-07-17T22:54:39.963Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem",
-    "pt": "https://michael.business/pt/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem",
+    "en": "https://michael.business/en/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem?utm_source=linkedin&utm_medium=social&utm_campaign=aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem&utm_content=en",
+    "pt": "https://michael.business/pt/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem?utm_source=linkedin&utm_medium=social&utm_campaign=aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
   },
   "locales": {
     "en": {
-      "hook": "Data Engineering Still Dominates 80% of AI Infrastructure",
-      "body": "AWS Bedrock's NVIDIA launch proves data pipelines remain the foundation of production AI. Learn patterns that reduce infrastructure costs for agentic systems.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "AWS Bedrock's NVIDIA launch proves data pipelines remain the foundation of production AI.",
+      "body": "AWS Bedrock's NVIDIA launch proves data pipelines remain the foundation of production AI. Learn patterns that reduce infrastructure costs for agentic systems.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Engenharia de Dados Ainda Domina 80% da Infraestrutura de IA",
-      "body": "O lançamento da NVIDIA no Bedrock prova que pipelines sustentam IA em produção. Veja padrões que reduzem custos de infraestrutura para agentes.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "O lançamento da NVIDIA no Bedrock prova que pipelines sustentam IA em produção.",
+      "body": "O lançamento da NVIDIA no Bedrock prova que pipelines sustentam IA em produção. Veja padrões que reduzem custos de infraestrutura para agentes.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

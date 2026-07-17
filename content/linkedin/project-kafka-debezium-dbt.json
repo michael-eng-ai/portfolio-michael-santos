@@ -3,23 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "kafka-debezium-dbt",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.090Z",
+  "generatedAt": "2026-07-17T22:54:39.966Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/projects/kafka-debezium-dbt",
-    "pt": "https://michael.business/pt/projects/kafka-debezium-dbt",
+    "en": "https://michael.business/en/projects/kafka-debezium-dbt?utm_source=linkedin&utm_medium=social&utm_campaign=kafka-debezium-dbt&utm_content=en",
+    "pt": "https://michael.business/pt/projects/kafka-debezium-dbt?utm_source=linkedin&utm_medium=social&utm_campaign=kafka-debezium-dbt&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
-      "hook": "Real-Time CDC Analytics Pipeline",
-      "body": "A runnable CDC stack that captures PostgreSQL WAL changes with Debezium, normalizes events in Python, and publishes analytics-ready bronze, silver, and gold layers with dbt and Streamlit.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "A runnable CDC stack that captures PostgreSQL WAL changes with Debezium, normalizes events in Python, and publishes analytics-ready bronze, silver, and gold layers with dbt and Streamlit.",
+      "body": "A runnable CDC stack that captures PostgreSQL WAL changes with Debezium, normalizes events in Python, and publishes analytics-ready bronze, silver, and gold layers with dbt and Streamlit.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Open the project case on the site and inspect the GitHub implementation."
     },
     "pt": {
-      "hook": "Pipeline Analitico de CDC em Tempo Real",
-      "body": "Um stack de CDC executavel que captura mudancas do WAL do PostgreSQL com Debezium, normaliza eventos em Python e publica camadas bronze, silver e gold com dbt e Streamlit.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Um stack de CDC executavel que captura mudancas do WAL do PostgreSQL com Debezium, normaliza eventos em Python e publica camadas bronze, silver e gold com dbt e Streamlit.",
+      "body": "Um stack de CDC executavel que captura mudancas do WAL do PostgreSQL com Debezium, normaliza eventos em Python e publica camadas bronze, silver e gold com dbt e Streamlit.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Abra o case do projeto no site e inspecione a implementação no GitHub."
     }
   }
 }

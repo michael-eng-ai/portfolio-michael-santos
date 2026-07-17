@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "the-ai-maturity-gap-why-82-of-companies-use-ai-but-only-31-get-results-and-how-data-engineering-closes-that-gap",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.085Z",
+  "generatedAt": "2026-07-17T22:54:39.962Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/the-ai-maturity-gap-why-82-of-companies-use-ai-but-only-31-get-results-and-how-data-engineering-closes-that-gap",
-    "pt": "https://michael.business/pt/articles/the-ai-maturity-gap-why-82-of-companies-use-ai-but-only-31-get-results-and-how-data-engineering-closes-that-gap",
+    "en": "https://michael.business/en/articles/the-ai-maturity-gap-why-82-of-companies-use-ai-but-only-31-get-results-and-how-data-engineering-closes-that-gap?utm_source=linkedin&utm_medium=social&utm_campaign=the-ai-maturity-gap-why-82-of-companies-use-ai-but-only-31-get-results-and-how-data-engineering-closes-that-gap&utm_content=en",
+    "pt": "https://michael.business/pt/articles/the-ai-maturity-gap-why-82-of-companies-use-ai-but-only-31-get-results-and-how-data-engineering-closes-that-gap?utm_source=linkedin&utm_medium=social&utm_campaign=the-ai-maturity-gap-why-82-of-companies-use-ai-but-only-31-get-results-and-how-data-engineering-closes-that-gap&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
   },
   "locales": {
     "en": {
-      "hook": "AI Maturity Gap: Data Engineering Closes 82% to 31% Divide",
-      "body": "Discover how data engineering closes the AI maturity gap to convert 82% AI adoption into production-ready systems that deliver measurable business outcomes.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Discover how data engineering closes the AI maturity gap to convert 82% AI adoption into production-ready systems that deliver measurable business outcomes.",
+      "body": "Discover how data engineering closes the AI maturity gap to convert 82% AI adoption into production-ready systems that deliver measurable business outcomes.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Gap de Maturidade em IA: Engenharia de Dados Fecha 82%-31%",
-      "body": "Descubra como a engenharia de dados fecha o gap de maturidade em IA para converter 82% de adoção em sistemas confiáveis que geram impacto mensurável nos negócios.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Descubra como a engenharia de dados fecha o gap de maturidade em IA para converter 82% de adoção em sistemas confiáveis que geram impacto mensurável nos negócios.",
+      "body": "Descubra como a engenharia de dados fecha o gap de maturidade em IA para converter 82% de adoção em sistemas confiáveis que geram impacto mensurável nos negócios.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

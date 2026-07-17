@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "validate-kafka-schema-ids-in-record-headers-to-prevent-drift",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.928Z",
+  "generatedAt": "2026-07-17T22:54:40.604Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift",
-    "pt": "https://michael.business/pt/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift",
+    "en": "https://michael.business/en/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift?utm_source=x&utm_medium=social&utm_campaign=validate-kafka-schema-ids-in-record-headers-to-prevent-drift&utm_content=en",
+    "pt": "https://michael.business/pt/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift?utm_source=x&utm_medium=social&utm_campaign=validate-kafka-schema-ids-in-record-headers-to-prevent-drift&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
       "posts": [
-        "Validate Kafka Schema IDs in Record Headers to Prevent Drift\n\nValidate Kafka Schema IDs in Record Headers to eliminate downstream schema registry lookups. Learn to design high-th…\n\nhttps://michael.business/en/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift",
+        "Validate Kafka Schema IDs in Record Headers to Prevent Dri…\n\nhttps://michael.business/en/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift?utm_source=x&utm_medium=social&utm_campaign=validate-kafka-schema-ids-in-record-headers-to-prevent-drift&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Validação de Schema ID em Headers do Kafka Evita Quebras\n\nA validação de Schema ID em headers do Kafka elimina requisições repetitivas ao registry. Garanta a integridade de dados…\n\nhttps://michael.business/pt/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift",
+        "Validação de Schema ID em Headers do Kafka Evita Quebras…\n\nhttps://michael.business/pt/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift?utm_source=x&utm_medium=social&utm_campaign=validate-kafka-schema-ids-in-record-headers-to-prevent-drift&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

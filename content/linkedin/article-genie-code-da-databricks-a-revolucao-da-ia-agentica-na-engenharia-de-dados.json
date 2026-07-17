@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.083Z",
+  "generatedAt": "2026-07-17T22:54:39.961Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados",
-    "pt": "https://michael.business/pt/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados",
+    "en": "https://michael.business/en/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados?utm_source=linkedin&utm_medium=social&utm_campaign=genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados&utm_content=en",
+    "pt": "https://michael.business/pt/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados?utm_source=linkedin&utm_medium=social&utm_campaign=genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
   },
   "locales": {
     "en": {
-      "hook": "Databricks Genie Code: AI Agent for Data Engineering",
-      "body": "Discover how Databricks Genie Code automates critical data pipeline tasks and governance, doubling coding success rates to boost engineering productivity.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Discover how Databricks Genie Code automates critical data pipeline tasks and governance, doubling coding success rates to boost engineering productivity.",
+      "body": "Discover how Databricks Genie Code automates critical data pipeline tasks and governance, doubling coding success rates to boost engineering productivity.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Genie Code da Databricks: Agente de IA para Engenharia de Dados",
-      "body": "Entenda como o Genie Code da Databricks automatiza pipelines e governança de dados, dobrando a taxa de sucesso e acelerando a produtividade das equipes.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Entenda como o Genie Code da Databricks automatiza pipelines e governança de dados, dobrando a taxa de sucesso e acelerando a produtividade das equipes.",
+      "body": "Entenda como o Genie Code da Databricks automatiza pipelines e governança de dados, dobrando a taxa de sucesso e acelerando a produtividade das equipes.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

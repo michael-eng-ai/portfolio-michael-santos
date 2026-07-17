@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.079Z",
+  "generatedAt": "2026-07-17T22:54:39.956Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure",
-    "pt": "https://michael.business/pt/articles/from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure",
+    "en": "https://michael.business/en/articles/from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure?utm_source=linkedin&utm_medium=social&utm_campaign=from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure&utm_content=en",
+    "pt": "https://michael.business/pt/articles/from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure?utm_source=linkedin&utm_medium=social&utm_campaign=from-static-orchestration-to-agentic-pipelines-productionizing-model-context-protocol-for-data-infrastructure&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
-      "hook": "Agentic Data Pipelines: Productionizing MCP for Data Infrastructure",
-      "body": "Productionize Model Context Protocol to build agentic data pipelines that autonomously detect schema drift, enforce governance contracts, and eliminate 3 AM on-call interruptions.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Productionize Model Context Protocol to build agentic data pipelines that autonomously detect schema drift, enforce governance contracts, and eliminate 3 AM on-call interruptions.",
+      "body": "Productionize Model Context Protocol to build agentic data pipelines that autonomously detect schema drift, enforce governance contracts, and eliminate 3 AM on-call interruptions.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Pipelines Agenticos: Colocando MCP em Produção na Infraestrutura",
-      "body": "Transforme DAGs estáticos em pipelines agenticos productionizando o MCP para detectar schema drift, impor contratos e eliminar chamadas de emergência às 3h da manhã.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Transforme DAGs estáticos em pipelines agenticos productionizando o MCP para detectar schema drift, impor contratos e eliminar chamadas de emergência às 3h da manhã.",
+      "body": "Transforme DAGs estáticos em pipelines agenticos productionizando o MCP para detectar schema drift, impor contratos e eliminar chamadas de emergência às 3h da manhã.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

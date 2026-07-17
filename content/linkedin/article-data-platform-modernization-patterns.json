@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "data-platform-modernization-patterns",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.089Z",
+  "generatedAt": "2026-07-17T22:54:39.966Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/data-platform-modernization-patterns",
-    "pt": "https://michael.business/pt/articles/data-platform-modernization-patterns",
+    "en": "https://michael.business/en/articles/data-platform-modernization-patterns?utm_source=linkedin&utm_medium=social&utm_campaign=data-platform-modernization-patterns&utm_content=en",
+    "pt": "https://michael.business/pt/articles/data-platform-modernization-patterns?utm_source=linkedin&utm_medium=social&utm_campaign=data-platform-modernization-patterns&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
   },
   "locales": {
     "en": {
-      "hook": "Data Platform Modernization Patterns Beyond Tool Migration",
-      "body": "Move beyond tool migration with data platform modernization patterns that separate responsibilities, ensure auditable transformations, and deliver reliable data freshness to the business.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Move beyond tool migration with data platform modernization patterns that separate responsibilities, ensure auditable transformations, and deliver reliable data freshness to the business.",
+      "body": "Move beyond tool migration with data platform modernization patterns that separate responsibilities, ensure auditable transformations, and deliver reliable data freshness to the business.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Modernização de Plataforma de Dados: 3 Padrões Arquiteturais",
-      "body": "Saia da migração de ferramentas com padrões de modernização de plataforma de dados que separam responsabilidades, garantem transformações auditáveis e entregam dados confiáveis ao negócio.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Saia da migração de ferramentas com padrões de modernização de plataforma de dados que separam responsabilidades, garantem transformações auditáveis e entregam dados confiáveis ao negócio.",
+      "body": "Saia da migração de ferramentas com padrões de modernização de plataforma de dados que separam responsabilidades, garantem transformações auditáveis e entregam dados confiáveis ao negócio.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

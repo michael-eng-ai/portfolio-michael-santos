@@ -3,23 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "data-governance-quality-framework",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.956Z",
+  "generatedAt": "2026-07-17T22:54:40.625Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/projects/data-governance-quality-framework",
-    "pt": "https://michael.business/pt/projects/data-governance-quality-framework",
+    "en": "https://michael.business/en/projects/data-governance-quality-framework?utm_source=x&utm_medium=social&utm_campaign=data-governance-quality-framework&utm_content=en",
+    "pt": "https://michael.business/pt/projects/data-governance-quality-framework?utm_source=x&utm_medium=social&utm_campaign=data-governance-quality-framework&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
   },
   "locales": {
     "en": {
       "posts": [
-        "Data Governance And Quality Framework\n\nA production-grade framework that embeds data quality validation, contract enforcement, and governance checks into every layer of the data pipeline, from ingestion to…\n\nhttps://michael.business/en/projects/data-governance-quality-framework",
+        "Data Governance And Quality Framework\n\nA production-grade framework that embeds data quality validation, contrac…\n\nhttps://michael.business/en/projects/data-governance-quality-framework?utm_source=x&utm_medium=social&utm_campaign=data-governance-quality-framework&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
       ]
     },
     "pt": {
       "posts": [
-        "Framework de Governanca e Qualidade de Dados\n\nUm framework production-grade que embute validacao de qualidade, contratos de dados e checks de governanca em cada camada do pipeline, da ingestao a entrega de…\n\nhttps://michael.business/pt/projects/data-governance-quality-framework",
+        "Framework de Governanca e Qualidade de Dados\n\nUm framework production-grade que embute validacao de qualidade, c…\n\nhttps://michael.business/pt/projects/data-governance-quality-framework?utm_source=x&utm_medium=social&utm_campaign=data-governance-quality-framework&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
       ]
     }

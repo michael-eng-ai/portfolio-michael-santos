@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.947Z",
+  "generatedAt": "2026-07-17T22:54:40.619Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions",
-    "pt": "https://michael.business/pt/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions",
+    "en": "https://michael.business/en/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions?utm_source=x&utm_medium=social&utm_campaign=bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions&utm_content=en",
+    "pt": "https://michael.business/pt/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions?utm_source=x&utm_medium=social&utm_campaign=bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
       "posts": [
-        "Scalable Data Engineering to Close the AI Adoption Gap\n\nLearn how scalable data engineering closes the AI adoption gap between experimentation and structural integration…\n\nhttps://michael.business/en/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions",
+        "Scalable Data Engineering to Close the A…\n\nhttps://michael.business/en/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions?utm_source=x&utm_medium=social&utm_campaign=bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Engenharia de Dados Escalável para Fechar a Lacuna de IA\n\nVeja como engenharia de dados escalável fecha a lacuna de adoção de IA entre experimentação e integração estrut…\n\nhttps://michael.business/pt/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions",
+        "Engenharia de Dados Escalável para Fecha…\n\nhttps://michael.business/pt/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions?utm_source=x&utm_medium=social&utm_campaign=bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

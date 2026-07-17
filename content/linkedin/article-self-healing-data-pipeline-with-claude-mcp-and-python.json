@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "self-healing-data-pipeline-with-claude-mcp-and-python",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.074Z",
+  "generatedAt": "2026-07-17T22:54:39.950Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-and-python",
-    "pt": "https://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-and-python",
+    "en": "https://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-and-python?utm_source=linkedin&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-and-python&utm_content=en",
+    "pt": "https://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-and-python?utm_source=linkedin&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-and-python&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
-      "hook": "Self-Healing Data Pipeline with Claude MCP and Python",
-      "body": "Implement a self-healing data pipeline with Claude MCP to autonomously detect, patch, and recover from upstream schema drift without manual on-call triage.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Implement a self-healing data pipeline with Claude MCP to autonomously detect, patch, and recover from upstream schema drift without manual on-call triage.",
+      "body": "Implement a self-healing data pipeline with Claude MCP to autonomously detect, patch, and recover from upstream schema drift without manual on-call triage.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Pipeline de Dados Auto-Regenerável com Claude MCP e Python",
-      "body": "Implemente um pipeline de dados auto-regenerável com Claude MCP para detectar, corrigir e recuperar desvios de esquema sem intervenção manual no plantão.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Implemente um pipeline de dados auto-regenerável com Claude MCP para detectar, corrigir e recuperar desvios de esquema sem intervenção manual no plantão.",
+      "body": "Implemente um pipeline de dados auto-regenerável com Claude MCP para detectar, corrigir e recuperar desvios de esquema sem intervenção manual no plantão.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

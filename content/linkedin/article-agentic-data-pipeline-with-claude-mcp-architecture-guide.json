@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "agentic-data-pipeline-with-claude-mcp-architecture-guide",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.075Z",
+  "generatedAt": "2026-07-17T22:54:39.951Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-architecture-guide",
-    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-architecture-guide",
+    "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-architecture-guide?utm_source=linkedin&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture-guide&utm_content=en",
+    "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-architecture-guide?utm_source=linkedin&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture-guide&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
-      "hook": "Agentic data pipeline with Claude MCP: Architecture guide",
-      "body": "Implement an agentic data pipeline with Claude MCP to automate schema recovery and data quality fixes. Reduce on-call fatigue with autonomous self-healing.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Implement an agentic data pipeline with Claude MCP to automate schema recovery and data quality fixes.",
+      "body": "Implement an agentic data pipeline with Claude MCP to automate schema recovery and data quality fixes. Reduce on-call fatigue with autonomous self-healing.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Pipeline de dados agentic com Claude MCP: Guia técnico",
-      "body": "Implemente um pipeline de dados agentic com Claude MCP para automatizar a recuperação de esquemas. Reduza o cansaço do sobreaviso com autocorreção autônoma.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Implemente um pipeline de dados agentic com Claude MCP para automatizar a recuperação de esquemas.",
+      "body": "Implemente um pipeline de dados agentic com Claude MCP para automatizar a recuperação de esquemas. Reduza o cansaço do sobreaviso com autocorreção autônoma.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

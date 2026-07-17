@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "governed-ai-analytics",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.090Z",
+  "generatedAt": "2026-07-17T22:54:39.966Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/governed-ai-analytics",
-    "pt": "https://michael.business/pt/articles/governed-ai-analytics",
+    "en": "https://michael.business/en/articles/governed-ai-analytics?utm_source=linkedin&utm_medium=social&utm_campaign=governed-ai-analytics&utm_content=en",
+    "pt": "https://michael.business/pt/articles/governed-ai-analytics?utm_source=linkedin&utm_medium=social&utm_campaign=governed-ai-analytics&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
   },
   "locales": {
     "en": {
-      "hook": "Governed AI Analytics Requires Strong Data Engineering",
-      "body": "Build governed AI analytics on contracts and metadata to turn text-to-SQL and copilots from demos into production products. Learn the engineering path to trustworthy AI.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Build governed AI analytics on contracts and metadata to turn text-to-SQL and copilots from demos into production products.",
+      "body": "Build governed AI analytics on contracts and metadata to turn text-to-SQL and copilots from demos into production products. Learn the engineering path to trustworthy AI.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Analytics com IA Precisa de Engenharia de Dados Governada",
-      "body": "Interfaces de IA como text-to-SQL só viram produtos com pipelines governados e metadados. Descubra como engenharia de dados sólida coloca analytics com IA em produção com confiança.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Interfaces de IA como text-to-SQL só viram produtos com pipelines governados e metadados.",
+      "body": "Interfaces de IA como text-to-SQL só viram produtos com pipelines governados e metadados. Descubra como engenharia de dados sólida coloca analytics com IA em produção com confiança.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

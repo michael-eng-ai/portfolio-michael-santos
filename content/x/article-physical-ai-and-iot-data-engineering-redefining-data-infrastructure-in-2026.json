@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.946Z",
+  "generatedAt": "2026-07-17T22:54:40.619Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
-    "pt": "https://michael.business/pt/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
+    "en": "https://michael.business/en/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026?utm_source=x&utm_medium=social&utm_campaign=physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026&utm_content=en",
+    "pt": "https://michael.business/pt/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026?utm_source=x&utm_medium=social&utm_campaign=physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
       "posts": [
-        "Physical AI Data Engineering: Infrastructure for 10x IoT Growth\n\nPhysical AI data engineering strategies for managing 10x IoT data growth by 2029. Learn architectu…\n\nhttps://michael.business/en/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
+        "Physical AI Data Engineering: Infrastru…\n\nhttps://michael.business/en/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026?utm_source=x&utm_medium=social&utm_campaign=physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Engenharia de Dados para Physical AI: Infraestrutura IoT 2029\n\nEstratégias de engenharia de dados para Physical AI e crescimento 10x de dados IoT até 2029. Arquite…\n\nhttps://michael.business/pt/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
+        "Engenharia de Dados para Physical AI: I…\n\nhttps://michael.business/pt/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026?utm_source=x&utm_medium=social&utm_campaign=physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

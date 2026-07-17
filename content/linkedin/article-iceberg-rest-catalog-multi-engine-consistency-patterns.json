@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "iceberg-rest-catalog-multi-engine-consistency-patterns",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.068Z",
+  "generatedAt": "2026-07-17T22:54:39.942Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/iceberg-rest-catalog-multi-engine-consistency-patterns",
-    "pt": "https://michael.business/pt/articles/iceberg-rest-catalog-multi-engine-consistency-patterns",
+    "en": "https://michael.business/en/articles/iceberg-rest-catalog-multi-engine-consistency-patterns?utm_source=linkedin&utm_medium=social&utm_campaign=iceberg-rest-catalog-multi-engine-consistency-patterns&utm_content=en",
+    "pt": "https://michael.business/pt/articles/iceberg-rest-catalog-multi-engine-consistency-patterns?utm_source=linkedin&utm_medium=social&utm_campaign=iceberg-rest-catalog-multi-engine-consistency-patterns&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
-      "hook": "Iceberg REST Catalog Multi-Engine Consistency Patterns",
-      "body": "Solve concurrency issues with Iceberg REST Catalog multi-engine consistency, reducing cross-engine schema conflicts and securing transactional data lakes.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Solve concurrency issues with Iceberg REST Catalog multi-engine consistency, reducing cross-engine schema conflicts and securing transactional data lakes.",
+      "body": "Solve concurrency issues with Iceberg REST Catalog multi-engine consistency, reducing cross-engine schema conflicts and securing transactional data lakes.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Consistência de Motores com Iceberg REST Catalog",
-      "body": "Resolva concorrência com Iceberg REST Catalog multi-engine consistency, eliminando conflitos de esquema entre motores e protegendo seus data lakes.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Resolva concorrência com Iceberg REST Catalog multi-engine consistency, eliminando conflitos de esquema entre motores e protegendo seus data lakes.",
+      "body": "Resolva concorrência com Iceberg REST Catalog multi-engine consistency, eliminando conflitos de esquema entre motores e protegendo seus data lakes.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "self-healing-data-pipeline-with-claude-mcp-for-reliability",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.076Z",
+  "generatedAt": "2026-07-17T22:54:39.952Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-for-reliability",
-    "pt": "https://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-for-reliability",
+    "en": "https://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-for-reliability?utm_source=linkedin&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-for-reliability&utm_content=en",
+    "pt": "https://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-for-reliability?utm_source=linkedin&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-for-reliability&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
-      "hook": "Self-healing data pipeline with Claude MCP for reliability",
-      "body": "Build a self-healing data pipeline with Claude MCP to automate schema fixes and error recovery. Reduce on-call fatigue and increase system uptime significantly.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Build a self-healing data pipeline with Claude MCP to automate schema fixes and error recovery.",
+      "body": "Build a self-healing data pipeline with Claude MCP to automate schema fixes and error recovery. Reduce on-call fatigue and increase system uptime significantly.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Pipeline de dados auto-regenerativo com Claude MCP e Python",
-      "body": "Construa um pipeline de dados auto-regenerativo com Claude MCP para automatizar correções e erros. Reduza a fadiga de sobreaviso e aumente o tempo de atividade.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Construa um pipeline de dados auto-regenerativo com Claude MCP para automatizar correções e erros.",
+      "body": "Construa um pipeline de dados auto-regenerativo com Claude MCP para automatizar correções e erros. Reduza a fadiga de sobreaviso e aumente o tempo de atividade.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "governed-ai-analytics",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.952Z",
+  "generatedAt": "2026-07-17T22:54:40.624Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/governed-ai-analytics",
-    "pt": "https://michael.business/pt/articles/governed-ai-analytics",
+    "en": "https://michael.business/en/articles/governed-ai-analytics?utm_source=x&utm_medium=social&utm_campaign=governed-ai-analytics&utm_content=en",
+    "pt": "https://michael.business/pt/articles/governed-ai-analytics?utm_source=x&utm_medium=social&utm_campaign=governed-ai-analytics&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
   },
   "locales": {
     "en": {
       "posts": [
-        "Governed AI Analytics Requires Strong Data Engineering\n\nBuild governed AI analytics on contracts and metadata to turn text-to-SQL and copilots from demos into production products. Learn the engineering path to trustwo…\n\nhttps://michael.business/en/articles/governed-ai-analytics",
+        "Governed AI Analytics Requires Strong Data Engineering\n\nBuild governed AI analytics on contracts and metadata to turn text-to-SQL and co…\n\nhttps://michael.business/en/articles/governed-ai-analytics?utm_source=x&utm_medium=social&utm_campaign=governed-ai-analytics&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
       ]
     },
     "pt": {
       "posts": [
-        "Analytics com IA Precisa de Engenharia de Dados Governada\n\nInterfaces de IA como text-to-SQL só viram produtos com pipelines governados e metadados. Descubra como engenharia de dados sólida coloca analytics com IA em…\n\nhttps://michael.business/pt/articles/governed-ai-analytics",
+        "Analytics com IA Precisa de Engenharia de Dados Governada\n\nInterfaces de IA como text-to-SQL só viram produtos com pipelines governados…\n\nhttps://michael.business/pt/articles/governed-ai-analytics?utm_source=x&utm_medium=social&utm_campaign=governed-ai-analytics&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/AI-Data-Analyst-Bot"
       ]
     }

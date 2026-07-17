@@ -3,23 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "gcp-dbt-modern-data-stack",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.954Z",
+  "generatedAt": "2026-07-17T22:54:40.624Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/projects/gcp-dbt-modern-data-stack",
-    "pt": "https://michael.business/pt/projects/gcp-dbt-modern-data-stack",
+    "en": "https://michael.business/en/projects/gcp-dbt-modern-data-stack?utm_source=x&utm_medium=social&utm_campaign=gcp-dbt-modern-data-stack&utm_content=en",
+    "pt": "https://michael.business/pt/projects/gcp-dbt-modern-data-stack?utm_source=x&utm_medium=social&utm_campaign=gcp-dbt-modern-data-stack&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
   },
   "locales": {
     "en": {
       "posts": [
-        "GCP Modern Data Stack\n\nA cloud-native analytics workflow that provisions BigQuery and storage with Terraform, ingests market data with Python, and tests warehouse models with dbt and GitHub Actions.\n\nRead on site:\n\nhttps://michael.business/en/projects/gcp-dbt-modern-data-stack",
+        "GCP Modern Data Stack\n\nA cloud-native analytics workflow that provisions BigQuery and storage with Terraform, ingests market dat…\n\nhttps://michael.business/en/projects/gcp-dbt-modern-data-stack?utm_source=x&utm_medium=social&utm_campaign=gcp-dbt-modern-data-stack&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
       ]
     },
     "pt": {
       "posts": [
-        "Modern Data Stack na GCP\n\nUm workflow cloud-native de analytics que provisiona BigQuery e storage com Terraform, ingere dados de mercado com Python e testa modelos de warehouse com dbt e GitHub Actions.\n\nLeia no s…\n\nhttps://michael.business/pt/projects/gcp-dbt-modern-data-stack",
+        "Modern Data Stack na GCP\n\nUm workflow cloud-native de analytics que provisiona BigQuery e storage com Terraform, ingere dados de…\n\nhttps://michael.business/pt/projects/gcp-dbt-modern-data-stack?utm_source=x&utm_medium=social&utm_campaign=gcp-dbt-modern-data-stack&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
       ]
     }

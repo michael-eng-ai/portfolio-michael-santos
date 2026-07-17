@@ -3,23 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "data-observability-platform",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.093Z",
+  "generatedAt": "2026-07-17T22:54:39.969Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/projects/data-observability-platform",
-    "pt": "https://michael.business/pt/projects/data-observability-platform",
+    "en": "https://michael.business/en/projects/data-observability-platform?utm_source=linkedin&utm_medium=social&utm_campaign=data-observability-platform&utm_content=en",
+    "pt": "https://michael.business/pt/projects/data-observability-platform?utm_source=linkedin&utm_medium=social&utm_campaign=data-observability-platform&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/data-observability-platform"
   },
   "locales": {
     "en": {
-      "hook": "Data Observability Platform",
-      "body": "An open-source observability platform that monitors data freshness, volume anomalies, schema changes, and pipeline health across the entire data stack, with a Streamlit dashboard for real-time visibility.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "An open-source observability platform that monitors data freshness, volume anomalies, schema changes, and pipeline health across the entire data stack, with a Streamlit dashboard for real-time visibility.",
+      "body": "An open-source observability platform that monitors data freshness, volume anomalies, schema changes, and pipeline health across the entire data stack, with a Streamlit dashboard for real-time visibility.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Open the project case on the site and inspect the GitHub implementation."
     },
     "pt": {
-      "hook": "Plataforma de Observabilidade de Dados",
-      "body": "Uma plataforma open-source de observabilidade que monitora freshness, anomalias de volume, mudancas de schema e saude de pipelines em toda a stack de dados, com dashboard Streamlit para visibilidade em tempo real.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Uma plataforma open-source de observabilidade que monitora freshness, anomalias de volume, mudancas de schema e saude de pipelines em toda a stack de dados, com dashboard Streamlit para visibilidade em tempo real.",
+      "body": "Uma plataforma open-source de observabilidade que monitora freshness, anomalias de volume, mudancas de schema e saude de pipelines em toda a stack de dados, com dashboard Streamlit para visibilidade em tempo real.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Abra o case do projeto no site e inspecione a implementação no GitHub."
     }
   }
 }

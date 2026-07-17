@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.084Z",
+  "generatedAt": "2026-07-17T22:54:39.961Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
-    "pt": "https://michael.business/pt/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
+    "en": "https://michael.business/en/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026?utm_source=linkedin&utm_medium=social&utm_campaign=physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026&utm_content=en",
+    "pt": "https://michael.business/pt/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026?utm_source=linkedin&utm_medium=social&utm_campaign=physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {
     "en": {
-      "hook": "Physical AI Data Engineering: Infrastructure for 10x IoT Growth",
-      "body": "Physical AI data engineering strategies for managing 10x IoT data growth by 2029. Learn architecture patterns that reduce latency and operational costs.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Physical AI data engineering strategies for managing 10x IoT data growth by 2029.",
+      "body": "Physical AI data engineering strategies for managing 10x IoT data growth by 2029. Learn architecture patterns that reduce latency and operational costs.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Engenharia de Dados para Physical AI: Infraestrutura IoT 2029",
-      "body": "Estratégias de engenharia de dados para Physical AI e crescimento 10x de dados IoT até 2029. Arquiteturas que reduzem latência e custos operacionais.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Estratégias de engenharia de dados para Physical AI e crescimento 10x de dados IoT até 2029.",
+      "body": "Estratégias de engenharia de dados para Physical AI e crescimento 10x de dados IoT até 2029. Arquiteturas que reduzem latência e custos operacionais.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

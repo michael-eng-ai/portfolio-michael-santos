@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "building-a-data-observability-platform-with-open-source-tools",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.081Z",
+  "generatedAt": "2026-07-17T22:54:39.958Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/building-a-data-observability-platform-with-open-source-tools",
-    "pt": "https://michael.business/pt/articles/building-a-data-observability-platform-with-open-source-tools",
+    "en": "https://michael.business/en/articles/building-a-data-observability-platform-with-open-source-tools?utm_source=linkedin&utm_medium=social&utm_campaign=building-a-data-observability-platform-with-open-source-tools&utm_content=en",
+    "pt": "https://michael.business/pt/articles/building-a-data-observability-platform-with-open-source-tools?utm_source=linkedin&utm_medium=social&utm_campaign=building-a-data-observability-platform-with-open-source-tools&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/data-observability-platform"
   },
   "locales": {
     "en": {
-      "hook": "Data Observability Platform: Build With Open-Source Tools",
-      "body": "Learn to build a production-grade data observability platform with open-source tools for anomaly detection and lineage tracking. Cut infrastructure costs and avoid vendor lock-in.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Learn to build a production-grade data observability platform with open-source tools for anomaly detection and lineage tracking.",
+      "body": "Learn to build a production-grade data observability platform with open-source tools for anomaly detection and lineage tracking. Cut infrastructure costs and avoid vendor lock-in.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Plataforma de Data Observability com Ferramentas Open-Source",
-      "body": "Aprenda a construir uma plataforma de data observability open-source para detecção de anomalias e lineage. Reduz custos de infraestrutura e elimina vendor lock-in.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Aprenda a construir uma plataforma de data observability open-source para detecção de anomalias e lineage.",
+      "body": "Aprenda a construir uma plataforma de data observability open-source para detecção de anomalias e lineage. Reduz custos de infraestrutura e elimina vendor lock-in.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }

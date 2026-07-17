@@ -3,23 +3,23 @@
   "sourceType": "project",
   "sourceSlug": "streaming-kafka-fastapi",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.954Z",
+  "generatedAt": "2026-07-17T22:54:40.624Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/projects/streaming-kafka-fastapi",
-    "pt": "https://michael.business/pt/projects/streaming-kafka-fastapi",
+    "en": "https://michael.business/en/projects/streaming-kafka-fastapi?utm_source=x&utm_medium=social&utm_campaign=streaming-kafka-fastapi&utm_content=en",
+    "pt": "https://michael.business/pt/projects/streaming-kafka-fastapi?utm_source=x&utm_medium=social&utm_campaign=streaming-kafka-fastapi&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/streaming-kafka-fastapi"
   },
   "locales": {
     "en": {
       "posts": [
-        "Streaming Radar API\n\nAn event-driven serving path where Kafka carries market-style events, Redis holds current state, and FastAPI exposes low-latency endpoints for live consumption.\n\nRead on site:\n\nhttps://michael.business/en/projects/streaming-kafka-fastapi",
+        "Streaming Radar API\n\nAn event-driven serving path where Kafka carries market-style events, Redis holds current state, and FastAPI ex…\n\nhttps://michael.business/en/projects/streaming-kafka-fastapi?utm_source=x&utm_medium=social&utm_campaign=streaming-kafka-fastapi&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/streaming-kafka-fastapi"
       ]
     },
     "pt": {
       "posts": [
-        "Streaming Radar API\n\nUm caminho de serving orientado a eventos em que Kafka carrega eventos de mercado, Redis segura o estado atual e FastAPI expoe endpoints de baixa latencia para consumo vivo.\n\nLeia no site:\n\nhttps://michael.business/pt/projects/streaming-kafka-fastapi",
+        "Streaming Radar API\n\nUm caminho de serving orientado a eventos em que Kafka carrega eventos de mercado, Redis segura o estado atual…\n\nhttps://michael.business/pt/projects/streaming-kafka-fastapi?utm_source=x&utm_medium=social&utm_campaign=streaming-kafka-fastapi&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/streaming-kafka-fastapi"
       ]
     }

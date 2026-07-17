@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.940Z",
+  "generatedAt": "2026-07-17T22:54:40.616Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure",
-    "pt": "https://michael.business/pt/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure",
+    "en": "https://michael.business/en/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure&utm_content=en",
+    "pt": "https://michael.business/pt/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
       "posts": [
-        "Self-Healing Data Pipelines Cut Reactive Maintenance by 20%\n\nDeploy self-healing data pipelines to eliminate 3 AM alerts and reduce reactive maintenance by 20…\n\nhttps://michael.business/en/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure",
+        "Self-Healing Data Pipelines Cut Reactiv…\n\nhttps://michael.business/en/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Pipelines Auto-Curativos Reduzem Manutenção Reativa em 20%\n\nImplemente pipelines auto-curativos com IA agêntica para eliminar alertas às 3h e reduzir manutenç…\n\nhttps://michael.business/pt/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure",
+        "Pipelines Auto-Curativos Reduzem Manute…\n\nhttps://michael.business/pt/articles/self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipelines-the-business-case-for-autonomous-data-infrastructure&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

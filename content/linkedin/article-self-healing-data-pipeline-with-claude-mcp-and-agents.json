@@ -3,23 +3,23 @@
   "sourceType": "article",
   "sourceSlug": "self-healing-data-pipeline-with-claude-mcp-and-agents",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.077Z",
+  "generatedAt": "2026-07-17T22:54:39.952Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-and-agents",
-    "pt": "https://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-and-agents",
+    "en": "https://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-and-agents?utm_source=linkedin&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-and-agents&utm_content=en",
+    "pt": "https://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-and-agents?utm_source=linkedin&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-and-agents&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
   },
   "locales": {
     "en": {
-      "hook": "Self-healing data pipeline with Claude MCP and agents",
-      "body": "Deploy a self-healing data pipeline with Claude MCP to automate error recovery. Reduce on-call incidents by implementing autonomous schema and quality fixes.",
-      "cta": "Read the full story on the site and use GitHub as the operational proof point."
+      "hook": "Deploy a self-healing data pipeline with Claude MCP to automate error recovery.",
+      "body": "Deploy a self-healing data pipeline with Claude MCP to automate error recovery. Reduce on-call incidents by implementing autonomous schema and quality fixes.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Pipeline de dados auto-regenerativo com Claude MCP",
-      "body": "Implemente um pipeline de dados auto-regenerativo com Claude MCP para automação de erros. Reduza incidentes de plantão com correções autônomas de esquema.",
-      "cta": "Leia a historia completa no site e use o GitHub como prova operacional."
+      "hook": "Implemente um pipeline de dados auto-regenerativo com Claude MCP para automação de erros.",
+      "body": "Implemente um pipeline de dados auto-regenerativo com Claude MCP para automação de erros. Reduza incidentes de plantão com correções autônomas de esquema.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
   }
 }
