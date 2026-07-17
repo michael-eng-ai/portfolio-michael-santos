@@ -1,0 +1,27 @@
+{
+  "slug": "article-dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns",
+  "sourceType": "article",
+  "sourceSlug": "dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns",
+  "status": "draft",
+  "generatedAt": "2026-07-17T11:57:50.925Z",
+  "publishedUrl": null,
+  "urls": {
+    "en": "https://michael.business/en/articles/dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns",
+    "pt": "https://michael.business/pt/articles/dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns",
+    "proof": "https://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "dbt Fusion Engine vs SQLMesh Incremental Cost Patterns\n\nCompare dbt Fusion Engine vs SQLMesh Incremental Cost Patterns to optimize warehouse compute and prevent expensive model rebuilt…\n\nhttps://michael.business/en/articles/dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Comparativo dbt Fusion Engine vs SQLMesh Incremental\n\nCompare dbt Fusion Engine vs SQLMesh Incremental Cost Patterns para otimizar custos de computação no data warehouse e evitar repro…\n\nhttps://michael.business/pt/articles/dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+      ]
+    }
+  }
+}
