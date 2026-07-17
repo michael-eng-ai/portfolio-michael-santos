@@ -29,6 +29,8 @@ export const siteConfig = {
   email: "eng.michaelbarbosa@hotmail.com",
   linkedinUrl: "https://www.linkedin.com/in/michael-bs/",
   githubUrl: "https://github.com/michael-eng-ai",
+  xUrl: "https://x.com/michael_ai_4o",
+  twitterHandle: "@michael_ai_4o",
   defaultSocialImage: "/opengraph-image",
   keywords: [
     "data engineering",

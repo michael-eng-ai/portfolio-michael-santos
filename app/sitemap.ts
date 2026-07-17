@@ -30,6 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     buildEntry("/projects", new Date(), "weekly", 0.9)(locale),
     buildEntry("/articles", new Date(), "weekly", 0.9)(locale),
     buildEntry("/news", new Date(), "daily", 0.8)(locale),
+    buildEntry("/radar", new Date(), "weekly", 0.8)(locale),
     buildEntry("/newsletter", new Date(), "monthly", 0.7)(locale),
     buildEntry("/resume", new Date(), "monthly", 0.6)(locale),
     buildEntry("/contact", new Date(), "monthly", 0.6)(locale),

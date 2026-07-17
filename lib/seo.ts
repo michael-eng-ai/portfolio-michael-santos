@@ -95,6 +95,8 @@ export function buildPageMetadata({
     },
     twitter: {
       card: "summary_large_image",
+      site: siteConfig.twitterHandle,
+      creator: siteConfig.twitterHandle,
       title,
       description,
       images: [image],
@@ -114,7 +116,7 @@ export function buildPersonJsonLd(): StructuredDataRecord {
       "@type": "Place",
       name: siteConfig.location,
     },
-    sameAs: [siteConfig.linkedinUrl, siteConfig.githubUrl],
+    sameAs: [siteConfig.linkedinUrl, siteConfig.githubUrl, siteConfig.xUrl],
     knowsAbout: siteConfig.keywords,
   };
 }
@@ -132,11 +134,6 @@ export function buildWebsiteJsonLd(locale: Locale): StructuredDataRecord {
       name: siteConfig.name,
       url: siteConfig.url,
     },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${localizedUrl(locale, "/articles")}?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
   };
 }
 
@@ -153,7 +150,7 @@ export function buildOrganizationJsonLd(): StructuredDataRecord {
       name: siteConfig.name,
       url: siteConfig.url,
     },
-    sameAs: [siteConfig.linkedinUrl, siteConfig.githubUrl],
+    sameAs: [siteConfig.linkedinUrl, siteConfig.githubUrl, siteConfig.xUrl],
   };
 }
 

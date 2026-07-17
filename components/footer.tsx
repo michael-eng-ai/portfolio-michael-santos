@@ -46,6 +46,16 @@ export function Footer({ locale }: FooterProps) {
                 LinkedIn
               </TrackedExternalLink>
               <TrackedExternalLink
+                href={siteConfig.xUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-[var(--accent-mint)]"
+                eventName="external_link_click"
+                eventParams={{ channel: "x", location: "footer" }}
+              >
+                X
+              </TrackedExternalLink>
+              <TrackedExternalLink
                 href={`mailto:${siteConfig.email}`}
                 className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-[var(--accent-mint)]"
                 eventName="contact_click"
@@ -85,6 +95,7 @@ export function Footer({ locale }: FooterProps) {
               <ul className="space-y-5">
                 <li><TrackedExternalLink href={siteConfig.githubUrl} target="_blank" rel="noreferrer" className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900" eventName="external_link_click" eventParams={{ channel: "github", location: "footer_connect" }}>GitHub</TrackedExternalLink></li>
                 <li><TrackedExternalLink href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer" className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900" eventName="contact_click" eventParams={{ channel: "linkedin", location: "footer_connect" }}>LinkedIn</TrackedExternalLink></li>
+                <li><TrackedExternalLink href={siteConfig.xUrl} target="_blank" rel="noreferrer" className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900" eventName="external_link_click" eventParams={{ channel: "x", location: "footer_connect" }}>X</TrackedExternalLink></li>
                 <li><TrackedExternalLink href={`mailto:${siteConfig.email}`} className="text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors hover:text-gray-900" eventName="contact_click" eventParams={{ channel: "email", location: "footer_connect" }}>Email</TrackedExternalLink></li>
               </ul>
             </div>

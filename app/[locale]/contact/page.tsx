@@ -4,6 +4,14 @@ import { TrackedExternalLink } from "@/components/tracked-external-link";
 import { buildPageMetadata } from "@/lib/seo";
 import { Locale, copy, siteConfig } from "@/lib/site";
 
+function XIcon({ size = 28 }: { size?: number }) {
+  return (
+    <svg aria-hidden="true" width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.727-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
+    </svg>
+  );
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -67,7 +75,7 @@ export default async function ContactPage({
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
           <TrackedExternalLink
             href={`mailto:${siteConfig.email}`}
             className="group bg-white p-10 monolith-shadow transition-all duration-500 hover:bg-gray-50"
@@ -111,6 +119,21 @@ export default async function ContactPage({
             </div>
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">LinkedIn</p>
             <p className="mt-2 text-lg font-bold tracking-tight text-gray-900">michael-bs</p>
+          </TrackedExternalLink>
+
+          <TrackedExternalLink
+            href={siteConfig.xUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="group bg-white p-10 monolith-shadow transition-all duration-500 hover:bg-gray-50"
+            eventName="external_link_click"
+            eventParams={{ channel: "x", location: "contact_page" }}
+          >
+            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-gray-100 text-gray-900 transition-colors group-hover:bg-gray-200">
+              <XIcon size={28} />
+            </div>
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">X</p>
+            <p className="mt-2 text-lg font-bold tracking-tight text-gray-900">michael_ai_4o</p>
           </TrackedExternalLink>
         </div>
       </div>
