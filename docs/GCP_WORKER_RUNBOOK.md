@@ -108,15 +108,13 @@ gcloud compute ssh michael-news-worker-test --zone us-central1-a --project astut
 
 Esse fluxo era usado durante a transicao Supabase -> PostgreSQL. Para a VM OCI atual do bot, mantenha o worker em PostgreSQL e nao configure Supabase como provider secundario.
 
-## Modo de transicao do worker
+## Modo de transicao do worker (historico)
 
-Para validar o worker em PostgreSQL sem tirar o site do ar no modo legado:
-
-- mantenha a Vercel lendo Supabase
-- configure na VM `DATABASE_PROVIDER=postgres`
-- configure na VM `SECONDARY_DATABASE_PROVIDER=supabase`
-
-No modo atual do bot, prefira nao espelhar no Supabase. Se um provider secundario existir, as escritas secundarias sao best-effort e nao devem derrubar o ciclo principal.
+O Supabase foi removido em runtime (#122). Hoje ha um unico PostgreSQL,
+configurado por `DATABASE_URL`, do qual tanto a Vercel quanto o worker leem e
+escrevem -- nao ha read replica nem espelhamento. `SECONDARY_DATABASE_PROVIDER`
+e `DATABASE_PROVIDER` nao sao lidos por nenhum codigo de runtime (config morta) e
+podem ser ignorados.
 
 ## Bloqueador para a virada da Vercel
 
@@ -140,8 +138,17 @@ Enquanto `GEMINI_API_KEY`/`GROQ_API_KEY`, `X_*` e `LINKEDIN_*` ainda nao estiver
 
 Isso evita duplicidade no sync de RSS e mantem as integracoes sociais no caminho que ja tem credenciais configuradas.
 
-Quando as chaves forem configuradas na VM, use estas repository variables no GitHub para desligar os passos equivalentes no Actions sem editar workflow:
+### Ownership VM x GitHub Actions
 
+Os pipelines de conteudo do GitHub Actions ficam DORMENTES por padrao. Para
+ativa-los (como fallback), defina a repository variable `ACTIONS_PIPELINE_ENABLED=true`
+(Settings -> Secrets and variables -> Actions -> Variables). Estado seguro padrao
+(variavel ausente) = so a VM executa; nenhuma execucao dupla.
+
+Com o Actions ligado, os flags por step abaixo devolvem steps especificos a VM
+(defina `=true` para a VM assumir aquele step):
+
+- `VM_OWNS_NEWS_SYNC=true`
 - `VM_OWNS_NEWS_ENRICHMENT=true`
 - `VM_OWNS_X_POSTING=true`
 - `VM_OWNS_DAILY_BRIEFING=true`
