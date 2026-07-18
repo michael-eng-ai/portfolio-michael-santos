@@ -2,9 +2,9 @@
   "slug": "article-emr-serverless-spark-shuffle-tuning-for-big-datasets",
   "sourceType": "article",
   "sourceSlug": "emr-serverless-spark-shuffle-tuning-for-big-datasets",
-  "status": "draft",
+  "status": "published",
   "generatedAt": "2026-07-17T23:44:11.174Z",
-  "publishedUrl": null,
+  "publishedUrl": "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7484037559996694528",
   "mediaPath": "/images/articles/emr-serverless-spark-shuffle-tuning-for-big-datasets.png",
   "urls": {
     "en": "https://michael.business/en/articles/emr-serverless-spark-shuffle-tuning-for-big-datasets?utm_source=linkedin&utm_medium=social&utm_campaign=emr-serverless-spark-shuffle-tuning-for-big-datasets&utm_content=en",
@@ -18,9 +18,10 @@
       "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Use o ajuste de shuffle do Spark no EMR Serverless para eliminar gargalos de execução e reduzir despesas de nuvem em até 30% em grandes volumes.",
-      "body": "Use o ajuste de shuffle do Spark no EMR Serverless para eliminar gargalos de execução e reduzir despesas de nuvem em até 30% em grandes volumes.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "hook": "Use o ajuste de shuffle do Spark no EMR Serverless para eliminar gargalos de execu\u00e7\u00e3o e reduzir despesas de nuvem em at\u00e9 30% em grandes volumes.",
+      "body": "Use o ajuste de shuffle do Spark no EMR Serverless para eliminar gargalos de execu\u00e7\u00e3o e reduzir despesas de nuvem em at\u00e9 30% em grandes volumes.\n\nA prova operacional est\u00e1 no reposit\u00f3rio GitHub referenciado neste post.",
       "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
-  }
+  },
+  "publishedAt": "2026-07-18T00:13:21.341Z"
 }

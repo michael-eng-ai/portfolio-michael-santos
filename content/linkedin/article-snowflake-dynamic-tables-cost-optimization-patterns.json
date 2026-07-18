@@ -2,9 +2,9 @@
   "slug": "article-snowflake-dynamic-tables-cost-optimization-patterns",
   "sourceType": "article",
   "sourceSlug": "snowflake-dynamic-tables-cost-optimization-patterns",
-  "status": "draft",
+  "status": "published",
   "generatedAt": "2026-07-17T23:44:11.172Z",
-  "publishedUrl": null,
+  "publishedUrl": "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7484036040069144576",
   "mediaPath": "/images/articles/snowflake-dynamic-tables-cost-optimization-patterns.png",
   "urls": {
     "en": "https://michael.business/en/articles/snowflake-dynamic-tables-cost-optimization-patterns?utm_source=linkedin&utm_medium=social&utm_campaign=snowflake-dynamic-tables-cost-optimization-patterns&utm_content=en",
@@ -18,9 +18,10 @@
       "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Aplique otimização de custos com Snowflake Dynamic Tables para reduzir gastos de computação.",
-      "body": "Aplique otimização de custos com Snowflake Dynamic Tables para reduzir gastos de computação. Domine regras de target lag e atualização incremental.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "hook": "Aplique otimiza\u00e7\u00e3o de custos com Snowflake Dynamic Tables para reduzir gastos de computa\u00e7\u00e3o.",
+      "body": "Aplique otimiza\u00e7\u00e3o de custos com Snowflake Dynamic Tables para reduzir gastos de computa\u00e7\u00e3o. Domine regras de target lag e atualiza\u00e7\u00e3o incremental.\n\nA prova operacional est\u00e1 no reposit\u00f3rio GitHub referenciado neste post.",
       "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
-  }
+  },
+  "publishedAt": "2026-07-18T00:07:18.914Z"
 }

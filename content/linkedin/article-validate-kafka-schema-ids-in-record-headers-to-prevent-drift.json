@@ -2,9 +2,9 @@
   "slug": "article-validate-kafka-schema-ids-in-record-headers-to-prevent-drift",
   "sourceType": "article",
   "sourceSlug": "validate-kafka-schema-ids-in-record-headers-to-prevent-drift",
-  "status": "draft",
+  "status": "published",
   "generatedAt": "2026-07-17T23:44:11.174Z",
-  "publishedUrl": null,
+  "publishedUrl": "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7484038319501316098",
   "mediaPath": "/images/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift.png",
   "urls": {
     "en": "https://michael.business/en/articles/validate-kafka-schema-ids-in-record-headers-to-prevent-drift?utm_source=linkedin&utm_medium=social&utm_campaign=validate-kafka-schema-ids-in-record-headers-to-prevent-drift&utm_content=en",
@@ -18,9 +18,10 @@
       "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "A validação de Schema ID em headers do Kafka elimina requisições repetitivas ao registry.",
-      "body": "A validação de Schema ID em headers do Kafka elimina requisições repetitivas ao registry. Garanta a integridade de dados CDC de alta taxa de transferência.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "hook": "A valida\u00e7\u00e3o de Schema ID em headers do Kafka elimina requisi\u00e7\u00f5es repetitivas ao registry.",
+      "body": "A valida\u00e7\u00e3o de Schema ID em headers do Kafka elimina requisi\u00e7\u00f5es repetitivas ao registry. Garanta a integridade de dados CDC de alta taxa de transfer\u00eancia.\n\nA prova operacional est\u00e1 no reposit\u00f3rio GitHub referenciado neste post.",
       "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
-  }
+  },
+  "publishedAt": "2026-07-18T00:16:22.403Z"
 }

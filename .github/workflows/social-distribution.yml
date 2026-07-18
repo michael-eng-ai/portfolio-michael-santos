@@ -60,6 +60,8 @@ concurrency:
 
 permissions:
   contents: write
+  pull-requests: write
+  statuses: write
 
 jobs:
   publish-linkedin-drafts:
@@ -151,18 +153,41 @@ jobs:
 
           pnpm content:publish:linkedin -- "${args[@]}"
 
-      - name: Commit published LinkedIn draft state
+      # main is protected (PR-only + required "validate" check). Persist via PR + auto-merge.
+      - name: Persist published LinkedIn draft state
         if: steps.config.outputs.ready == 'true'
+        id: persist_state
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore(social): persist LinkedIn publish state"
+          title: "chore(social): persist LinkedIn publish state"
+          body: |
+            Automated persistence of LinkedIn `publishedUrl` / `publishedAt` after Social Distribution.
+          branch: chore/linkedin-publish-state
+          add-paths: |
+            content/linkedin
+
+      - name: Mark validation status on LinkedIn state PR
+        if: steps.config.outputs.ready == 'true' && steps.persist_state.outputs.pull-request-head-sha != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet -- content/linkedin; then
-            echo "No LinkedIn draft state changes to commit."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add content/linkedin
-          git commit -m "chore(social): persist LinkedIn publish state"
-          git push
+          gh api \
+            repos/${{ github.repository }}/statuses/${{ steps.persist_state.outputs.pull-request-head-sha }} \
+            -f state=success \
+            -f context=validate \
+            -f description='Validated LinkedIn publish state update' \
+            -f target_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Auto-merge LinkedIn state PR
+        if: steps.config.outputs.ready == 'true' && steps.persist_state.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr merge ${{ steps.persist_state.outputs.pull-request-number }} \
+            --squash --delete-branch --auto || \
+          gh pr merge ${{ steps.persist_state.outputs.pull-request-number }} \
+            --squash --delete-branch
 
   publish-x-via-api:
     if: >
