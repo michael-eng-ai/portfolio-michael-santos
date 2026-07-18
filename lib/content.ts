@@ -159,9 +159,14 @@ export const newsFeedSourceSchema = z.object({
 
 export const newsFeedCatalogSchema = z.array(newsFeedSourceSchema);
 
+export const socialMediaSourceSchema = z.enum(["screenshot", "ai", "none"]);
+export const socialDraftSourceTypeSchema = z.enum(["article", "project", "signal"]);
+export type SocialMediaSource = z.infer<typeof socialMediaSourceSchema>;
+export type SocialDraftSourceType = z.infer<typeof socialDraftSourceTypeSchema>;
+
 export const linkedinDraftSchema = z.object({
   slug: z.string().min(1),
-  sourceType: z.enum(["article", "project"]),
+  sourceType: socialDraftSourceTypeSchema,
   sourceSlug: z.string().min(1),
   status: z.enum(["draft", "approved", "published"]),
   generatedAt: z.string().min(1),
@@ -169,6 +174,12 @@ export const linkedinDraftSchema = z.object({
   publishedUrl: z.string().url().nullable().default(null),
   /** Optional root-relative cover path for IMAGE share when OG scrape is weak. */
   mediaPath: z.string().min(1).nullable().optional(),
+  /**
+   * Provenance of mediaPath for social feed quality.
+   * Prefer `screenshot` for LinkedIn/X signals; keep `ai` for site OG-derived promos.
+   * See docs/SOCIAL_SIGNAL_PLAYBOOK.md.
+   */
+  mediaSource: socialMediaSourceSchema.optional(),
   urls: z.object({
     en: z.string().url(),
     pt: z.string().url(),
@@ -182,7 +193,7 @@ export const linkedinDraftSchema = z.object({
 
 export const xDraftSchema = z.object({
   slug: z.string().min(1),
-  sourceType: z.enum(["article", "project"]),
+  sourceType: socialDraftSourceTypeSchema,
   sourceSlug: z.string().min(1),
   status: z.enum(["draft", "approved", "published"]),
   generatedAt: z.string().min(1),
@@ -190,6 +201,12 @@ export const xDraftSchema = z.object({
   publishedUrl: z.string().url().nullable().default(null),
   /** Optional root-relative cover path for media upload on publish. */
   mediaPath: z.string().min(1).nullable().optional(),
+  /**
+   * Provenance of mediaPath for social feed quality.
+   * Prefer `screenshot` for LinkedIn/X signals; keep `ai` for site OG-derived promos.
+   * See docs/SOCIAL_SIGNAL_PLAYBOOK.md.
+   */
+  mediaSource: socialMediaSourceSchema.optional(),
   urls: z.object({
     en: z.string().url(),
     pt: z.string().url(),

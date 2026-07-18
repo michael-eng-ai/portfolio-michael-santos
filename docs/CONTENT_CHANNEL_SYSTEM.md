@@ -59,10 +59,12 @@ Each one has a different job:
   - one technical response
   - one proof point
   - one call to action or reflection
+- Prefer **social signal** posts (curiosity hook + real screenshot of repo/UI/docs) over article dumps with AI covers — see `SOCIAL_SIGNAL_PLAYBOOK.md`
 - Avoid:
   - copying the website paragraph
   - copying the README intro
   - sounding too promotional or too abstract
+  - decorative AI covers as the default feed visual
 
 ### X
 - Primary function: reach and repetition
@@ -71,6 +73,7 @@ Each one has a different job:
   - one business pressure
   - one operational proof
   - one tight call to action
+- Prefer a tighter cut of the same signal pattern (real visual when it still reads small)
 - Avoid:
   - generic engagement bait
   - long corporate phrasing

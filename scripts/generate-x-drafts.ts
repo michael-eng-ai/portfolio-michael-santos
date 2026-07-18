@@ -93,6 +93,7 @@ function createDraftPayload({
     generatedAt: new Date().toISOString(),
     publishedUrl: null,
     mediaPath: mediaPath ?? null,
+    mediaSource: mediaPath ? ("ai" as const) : ("none" as const),
     urls,
     locales: {
       en: {

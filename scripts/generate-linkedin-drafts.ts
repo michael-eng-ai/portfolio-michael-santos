@@ -49,6 +49,8 @@ function createDraftPayload({
     generatedAt: new Date().toISOString(),
     publishedUrl: null,
     mediaPath: mediaPath ?? null,
+    // Article/project promo drafts may reuse site Gemini covers; signals use screenshot separately.
+    mediaSource: mediaPath ? ("ai" as const) : ("none" as const),
     urls,
     locales: {
       en: buildLinkedinLocaleCopy({

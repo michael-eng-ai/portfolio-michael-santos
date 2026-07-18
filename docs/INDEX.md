@@ -30,6 +30,7 @@ Central index for all project documentation. Each document has a single responsi
 | [BRAND_IDENTITY.md](BRAND_IDENTITY.md) | Brand positioning, tone, visual identity, and messaging framework |
 | [EDITORIAL_DESIGN_RULES.md](EDITORIAL_DESIGN_RULES.md) | Visual standards for premium, scannable, business-facing design |
 | [CONTENT_CHANNEL_SYSTEM.md](CONTENT_CHANNEL_SYSTEM.md) | How topics are expressed differently across site, GitHub, LinkedIn, and X |
+| [SOCIAL_SIGNAL_PLAYBOOK.md](SOCIAL_SIGNAL_PLAYBOOK.md) | Curated LinkedIn/X “signal” posts: human hooks + real screenshots (vs AI article covers) |
 | [AUTHORITY_PROFILE_PLAYBOOK.md](AUTHORITY_PROFILE_PLAYBOOK.md) | Guidelines for aligning public profiles across platforms for authority building |
 
 ---
