@@ -2,9 +2,9 @@
   "slug": "article-dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns",
   "sourceType": "article",
   "sourceSlug": "dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns",
-  "status": "draft",
+  "status": "published",
   "generatedAt": "2026-07-17T23:44:11.169Z",
-  "publishedUrl": null,
+  "publishedUrl": "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7484035279431921664",
   "mediaPath": "/images/articles/dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns.png",
   "urls": {
     "en": "https://michael.business/en/articles/dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns?utm_source=linkedin&utm_medium=social&utm_campaign=dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns&utm_content=en",
@@ -18,9 +18,10 @@
       "cta": "Read the full article on the site, then open GitHub for operational proof."
     },
     "pt": {
-      "hook": "Compare dbt Fusion Engine vs SQLMesh Incremental Cost Patterns para otimizar custos de computação no data warehouse e evitar reprocessamentos caros.",
-      "body": "Compare dbt Fusion Engine vs SQLMesh Incremental Cost Patterns para otimizar custos de computação no data warehouse e evitar reprocessamentos caros.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "hook": "Compare dbt Fusion Engine vs SQLMesh Incremental Cost Patterns para otimizar custos de computa\u00e7\u00e3o no data warehouse e evitar reprocessamentos caros.",
+      "body": "Compare dbt Fusion Engine vs SQLMesh Incremental Cost Patterns para otimizar custos de computa\u00e7\u00e3o no data warehouse e evitar reprocessamentos caros.\n\nA prova operacional est\u00e1 no reposit\u00f3rio GitHub referenciado neste post.",
       "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
     }
-  }
+  },
+  "publishedAt": "2026-07-18T00:04:17.578Z"
 }
