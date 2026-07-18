@@ -1,0 +1,28 @@
+{
+  "slug": "signal-dbt-fusion-engine-vs-sqlmesh-incremental-cost-pa",
+  "sourceType": "signal",
+  "sourceSlug": "dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns",
+  "status": "draft",
+  "generatedAt": "2026-07-18T03:51:54.337Z",
+  "publishedAt": null,
+  "publishedUrl": null,
+  "mediaPath": "/images/social/2026-07-18-dbt-fusion-engine-vs-sqlmesh-incremental-cost-pa.png",
+  "mediaSource": "screenshot",
+  "urls": {
+    "en": "https://michael.business/en/articles/dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns?utm_source=linkedin&utm_medium=social&utm_campaign=signal-dbt-fusion-engine-vs-sqlmesh-incremental-cost-pa&utm_content=signal",
+    "pt": "https://michael.business/pt/articles/dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns?utm_source=linkedin&utm_medium=social&utm_campaign=signal-dbt-fusion-engine-vs-sqlmesh-incremental-cost-pa&utm_content=signal",
+    "proof": "https://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+  },
+  "locales": {
+    "en": {
+      "hook": "Warehouse bills keep climbing while “incremental” models rebuild work that already existed.",
+      "body": "dbt Fusion vs SQLMesh is less about brand preference and more about how rebuilds, planning, and incremental contracts burn compute.\n\nIf your modern data stack on GCP still pays for avoidable reprocessing, the engine choice is a cost control decision — not a fashion cycle.",
+      "cta": "Curious which pattern fits your warehouse? Breakdown on the site + stack proof in the repo."
+    },
+    "pt": {
+      "hook": "A conta do warehouse sobe enquanto modelos “incrementais” reprocessam o que já existia.",
+      "body": "dbt Fusion vs SQLMesh importa menos como preferência de marca e mais por como rebuilds, planning e contratos incrementais queimam compute.\n\nSe o modern data stack no GCP ainda paga reprocessamento evitável, a escolha de engine é controle de custo — não ciclo de moda.",
+      "cta": "Curioso qual padrão cabe no seu warehouse? Breakdown no site + prova no repo."
+    }
+  }
+}
