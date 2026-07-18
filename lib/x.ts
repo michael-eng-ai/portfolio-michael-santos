@@ -2,7 +2,7 @@ import { TwitterApi } from "twitter-api-v2";
 
 import { XDraft } from "@/lib/content";
 import { Locale } from "@/lib/site";
-import { resolveArticleCoverDiskPath, uploadXMedia } from "@/lib/social-media";
+import { resolveSocialPublishMediaPath, uploadXMedia } from "@/lib/social-media";
 
 export async function publishXDraft(draft: XDraft, locale: Locale = "en") {
   const enabled = process.env.X_PUBLISH_ENABLED === "true";
@@ -32,19 +32,17 @@ export async function publishXDraft(draft: XDraft, locale: Locale = "en") {
   });
 
   let mediaId: string | null = null;
-  if (draft.sourceType === "article" || draft.sourceType === "project") {
-    const coverPath = resolveArticleCoverDiskPath(draft.sourceSlug, draft.mediaPath);
-    if (coverPath) {
-      try {
-        mediaId = await uploadXMedia(twitter, coverPath);
-        console.log(`X media uploaded for ${draft.sourceSlug}`);
-      } catch (error) {
-        console.warn(
-          `X media upload failed for ${draft.sourceSlug}; posting text-only: ${
-            error instanceof Error ? error.message : String(error)
-          }`,
-        );
-      }
+  const mediaPath = resolveSocialPublishMediaPath(draft);
+  if (mediaPath) {
+    try {
+      mediaId = await uploadXMedia(twitter, mediaPath);
+      console.log(`X media uploaded for ${draft.slug} (${draft.mediaSource ?? draft.sourceType})`);
+    } catch (error) {
+      console.warn(
+        `X media upload failed for ${draft.slug}; posting text-only: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+      );
     }
   }
 

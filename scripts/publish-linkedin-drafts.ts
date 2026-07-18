@@ -8,13 +8,14 @@ import { isLocale, type Locale } from "@/lib/site";
 
 type CliOptions = {
   slug?: string;
-  sourceType?: "article" | "project";
+  sourceType?: "article" | "project" | "signal";
   since?: string;
   max: number;
   locale: Locale;
   delayMs: number;
   dryRun: boolean;
   includeProjects: boolean;
+  includeSignals: boolean;
 };
 
 function parseArgs(argv: string[]): CliOptions {
@@ -24,6 +25,7 @@ function parseArgs(argv: string[]): CliOptions {
     delayMs: 180_000,
     dryRun: false,
     includeProjects: false,
+    includeSignals: false,
   };
 
   const tokens = argv.filter((arg) => arg !== "--");
@@ -61,13 +63,17 @@ function parseArgs(argv: string[]): CliOptions {
       if (consumedSeparate) index += 1;
       continue;
     }
-    if (arg === "--source-type" && (next === "article" || next === "project")) {
+    if (arg === "--source-type" && (next === "article" || next === "project" || next === "signal")) {
       options.sourceType = next;
       if (consumedSeparate) index += 1;
       continue;
     }
     if (arg === "--include-projects") {
       options.includeProjects = true;
+      continue;
+    }
+    if (arg === "--include-signals") {
+      options.includeSignals = true;
       continue;
     }
     if (arg === "--dry-run") {
@@ -107,8 +113,40 @@ async function writePublishedDraft(
   await fs.writeFile(draftPath(draft.slug), `${JSON.stringify(next, null, 2)}\n`, "utf8");
 }
 
+function isPublishableDraft(draft: LinkedinDraft, options: CliOptions): boolean {
+  if (draft.status === "published" || draft.publishedUrl) {
+    return false;
+  }
+  if (options.sourceType && draft.sourceType !== options.sourceType) {
+    return false;
+  }
+  if (draft.sourceType === "project" && !options.includeProjects && !options.sourceType) {
+    return false;
+  }
+  // Signals stay draft-only until human approval (playbook HITL gate).
+  if (draft.sourceType === "signal" && draft.status !== "approved") {
+    return false;
+  }
+  if (
+    draft.sourceType === "signal" &&
+    !options.includeSignals &&
+    options.sourceType !== "signal" &&
+    !options.slug
+  ) {
+    return false;
+  }
+  return true;
+}
+
 async function listCandidateSlugs(options: CliOptions): Promise<string[]> {
   if (options.slug) {
+    const draft = await readDraft(options.slug);
+    if (!isPublishableDraft(draft, options)) {
+      if (draft.sourceType === "signal" && draft.status !== "approved") {
+        console.log(`SKIPPED: ${options.slug} signal requires status=approved before publish.`);
+      }
+      return [];
+    }
     return [options.slug];
   }
 
@@ -124,13 +162,7 @@ async function listCandidateSlugs(options: CliOptions): Promise<string[]> {
   }
 
   const unpublished = drafts.filter((draft) => {
-    if (draft.status === "published" || draft.publishedUrl) {
-      return false;
-    }
-    if (options.sourceType && draft.sourceType !== options.sourceType) {
-      return false;
-    }
-    if (draft.sourceType === "project" && !options.includeProjects && !options.sourceType) {
+    if (!isPublishableDraft(draft, options)) {
       return false;
     }
     if (options.since && draft.sourceType === "article") {

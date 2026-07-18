@@ -1,26 +1,77 @@
 import { promises as fs } from "node:fs";
+import { existsSync } from "node:fs";
 import path from "node:path";
 
 import { TwitterApi } from "twitter-api-v2";
 
 import { findLocalArticleCoverPath, isRasterArticleCover } from "@/lib/article-covers";
+import type { SocialMediaSource } from "@/lib/content";
 
 const LINKEDIN_API_BASE = "https://api.linkedin.com/v2";
 
+export type SocialPublishMediaDraft = {
+  sourceType: "article" | "project" | "signal";
+  sourceSlug: string;
+  mediaPath?: string | null;
+  mediaSource?: SocialMediaSource | null;
+};
+
+export function isRasterPublicMedia(mediaPath?: string | null): boolean {
+  return isRasterArticleCover(mediaPath);
+}
+
+export function isSocialScreenshotPath(mediaPath?: string | null): boolean {
+  if (!mediaPath) {
+    return false;
+  }
+
+  return mediaPath.startsWith("/images/social/") && isRasterPublicMedia(mediaPath);
+}
+
 export function resolvePublicMediaPath(mediaPath?: string | null): string | null {
-  if (!mediaPath || !isRasterArticleCover(mediaPath)) {
+  if (!mediaPath || !isRasterPublicMedia(mediaPath)) {
     return null;
   }
 
-  if (mediaPath.startsWith("/images/")) {
-    return path.join(process.cwd(), "public", mediaPath.replace(/^\//, ""));
+  if (!mediaPath.startsWith("/images/")) {
+    return null;
   }
 
-  return null;
+  const diskPath = path.join(process.cwd(), "public", mediaPath.replace(/^\//, ""));
+  return existsSync(diskPath) ? diskPath : null;
 }
 
 export function resolveArticleCoverDiskPath(slug: string, mediaPath?: string | null): string | null {
   return findLocalArticleCoverPath(slug) ?? resolvePublicMediaPath(mediaPath);
+}
+
+/**
+ * Resolve the on-disk raster to upload for a social draft.
+ * Screenshot signals prefer `/images/social/**` and never fall back to Gemini article covers.
+ */
+export function resolveSocialPublishMediaPath(draft: SocialPublishMediaDraft): string | null {
+  if (draft.mediaSource === "none") {
+    return null;
+  }
+
+  const prefersScreenshot =
+    draft.mediaSource === "screenshot" ||
+    draft.sourceType === "signal" ||
+    isSocialScreenshotPath(draft.mediaPath);
+
+  if (prefersScreenshot) {
+    return resolvePublicMediaPath(draft.mediaPath);
+  }
+
+  if (draft.sourceType === "article" || draft.sourceType === "project") {
+    return resolveArticleCoverDiskPath(draft.sourceSlug, draft.mediaPath);
+  }
+
+  return resolvePublicMediaPath(draft.mediaPath);
+}
+
+export function shouldUploadSocialImage(draft: SocialPublishMediaDraft): boolean {
+  return Boolean(resolveSocialPublishMediaPath(draft));
 }
 
 /**

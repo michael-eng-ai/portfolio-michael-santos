@@ -2,7 +2,7 @@ import { LinkedinDraft } from "@/lib/content";
 import { resolveLinkedinAuthorUrn } from "@/lib/linkedin-author";
 import { Locale } from "@/lib/site";
 import {
-  resolveArticleCoverDiskPath,
+  resolveSocialPublishMediaPath,
   uploadLinkedinImageAsset,
 } from "@/lib/social-media";
 import { withSocialUtm } from "@/lib/utm";
@@ -119,19 +119,21 @@ export async function publishLinkedinDraft(draft: LinkedinDraft, locale: Locale 
     .join("\n\n");
 
   let imageAssetUrn: string | null = null;
-  if (preferImage && draft.sourceType === "article") {
-    const coverPath = resolveArticleCoverDiskPath(draft.sourceSlug, draft.mediaPath);
-    if (coverPath) {
+  if (preferImage) {
+    const mediaPath = resolveSocialPublishMediaPath(draft);
+    if (mediaPath) {
       try {
         imageAssetUrn = await uploadLinkedinImageAsset({
           accessToken,
           ownerUrn: author.authorUrn,
-          filePath: coverPath,
+          filePath: mediaPath,
         });
-        console.log(`LinkedIn IMAGE asset uploaded for ${draft.sourceSlug}`);
+        console.log(
+          `LinkedIn IMAGE asset uploaded for ${draft.slug} (${draft.mediaSource ?? draft.sourceType})`,
+        );
       } catch (error) {
         console.warn(
-          `LinkedIn IMAGE upload failed for ${draft.sourceSlug}; falling back to ARTICLE OG share: ${
+          `LinkedIn IMAGE upload failed for ${draft.slug}; falling back to ARTICLE OG share: ${
             error instanceof Error ? error.message : String(error)
           }`,
         );

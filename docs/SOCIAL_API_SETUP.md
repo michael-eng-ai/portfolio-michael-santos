@@ -26,8 +26,9 @@ Configure the minimum credentials needed to test automated distribution to Linke
 - This project publishes member posts using the `ugcPosts` API.
 - The access token and the member URN must belong to the same LinkedIn account.
 - Keep `LINKEDIN_PUBLISH_ENABLED=false` until the token is ready.
-- Article drafts store an optional `mediaPath` (raster cover). On publish, the app tries LinkedIn IMAGE upload first (`LINKEDIN_PREFER_IMAGE_SHARE` defaults to true), then falls back to ARTICLE share so LinkedIn scrapes `og:image` from michael.business.
-- Strong social previews require a JPG/PNG cover in `public/images/articles/` — SVG placeholders are weak on LinkedIn.
+- Article drafts store an optional `mediaPath` (raster cover) and optional `mediaSource` (`screenshot` | `ai` | `none`). On publish, the app tries LinkedIn IMAGE upload first (`LINKEDIN_PREFER_IMAGE_SHARE` defaults to true), then falls back to ARTICLE share so LinkedIn scrapes `og:image` from michael.business.
+- Strong social previews require a JPG/PNG cover — SVG placeholders are weak on LinkedIn.
+- For **feed signals** (human hook + real-world proof), prefer screenshots under `public/images/social/` with `mediaSource: "screenshot"`. Keep Gemini AI covers for **site article OG** (`public/images/articles/`). See `docs/SOCIAL_SIGNAL_PLAYBOOK.md`.
 
 ## X
 
