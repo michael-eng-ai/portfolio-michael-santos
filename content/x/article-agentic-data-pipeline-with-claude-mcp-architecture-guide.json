@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "agentic-data-pipeline-with-claude-mcp-architecture-guide",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.614Z",
+  "generatedAt": "2026-07-21T12:06:14.858Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-architecture-guide?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture-guide&utm_content=en",
     "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-architecture-guide?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture-guide&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Agentic data pipeline with Claude MCP: Architecture guide\n\nImpleme…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-architecture-guide?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture-guide&utm_content=en",
+        "Implement an agentic data pipeline with Claude MCP to automate sch…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-architecture-guide?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture-guide&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Pipeline de dados agentic com Claude MCP: Guia técnico\n\nImplemente…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-architecture-guide?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture-guide&utm_content=pt",
+        "Implemente um pipeline de dados agentic com Claude MCP para automa…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-architecture-guide?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture-guide&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

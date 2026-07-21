@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "agentic-data-pipeline-with-claude-mcp-autonomous-error-handling",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.615Z",
+  "generatedAt": "2026-07-21T12:06:14.861Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-autonomous-error-handling?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-autonomous-error-handling&utm_content=en",
     "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-autonomous-error-handling?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-autonomous-error-handling&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Agentic Data Pipeline with Claude MCP: Autonomous Er…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-autonomous-error-handling?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-autonomous-error-handling&utm_content=en",
+        "Implement an agentic data pipeline with Claude MCP f…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-autonomous-error-handling?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-autonomous-error-handling&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Pipeline de Dados Agente com Claude MCP: Erros Autôn…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-autonomous-error-handling?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-autonomous-error-handling&utm_content=pt",
+        "Implemente um pipeline de dados agente com Claude MC…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-autonomous-error-handling?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-autonomous-error-handling&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

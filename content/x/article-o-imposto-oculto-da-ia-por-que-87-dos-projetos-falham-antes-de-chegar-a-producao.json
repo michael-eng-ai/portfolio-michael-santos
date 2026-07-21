@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.620Z",
+  "generatedAt": "2026-07-21T12:06:14.874Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao?utm_source=x&utm_medium=social&utm_campaign=o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao&utm_content=en",
     "pt": "https://michael.business/pt/articles/o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao?utm_source=x&utm_medium=social&utm_campaign=o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Why 87% of AI Projects Fail Before Prod…\n\nhttps://michael.business/en/articles/o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao?utm_source=x&utm_medium=social&utm_campaign=o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao&utm_content=en",
+        "87% of AI projects fail before producti…\n\nhttps://michael.business/en/articles/o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao?utm_source=x&utm_medium=social&utm_campaign=o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     },
     "pt": {
       "posts": [
-        "Por Que 87% dos Projetos de IA Falham A…\n\nhttps://michael.business/pt/articles/o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao?utm_source=x&utm_medium=social&utm_campaign=o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao&utm_content=pt",
+        "87% dos projetos de IA falham antes da…\n\nhttps://michael.business/pt/articles/o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao?utm_source=x&utm_medium=social&utm_campaign=o-imposto-oculto-da-ia-por-que-87-dos-projetos-falham-antes-de-chegar-a-producao&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     }

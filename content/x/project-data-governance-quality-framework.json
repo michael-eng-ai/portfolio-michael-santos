@@ -3,8 +3,10 @@
   "sourceType": "project",
   "sourceSlug": "data-governance-quality-framework",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.625Z",
+  "generatedAt": "2026-07-21T12:06:14.883Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/projects/data-governance-quality-framework?utm_source=x&utm_medium=social&utm_campaign=data-governance-quality-framework&utm_content=en",
     "pt": "https://michael.business/pt/projects/data-governance-quality-framework?utm_source=x&utm_medium=social&utm_campaign=data-governance-quality-framework&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Data Governance And Quality Framework\n\nA production-grade framework that embeds data quality validation, contrac…\n\nhttps://michael.business/en/projects/data-governance-quality-framework?utm_source=x&utm_medium=social&utm_campaign=data-governance-quality-framework&utm_content=en",
+        "A production-grade framework that embeds data quality validation, contract enforcement, and governance checks in…\n\nhttps://michael.business/en/projects/data-governance-quality-framework?utm_source=x&utm_medium=social&utm_campaign=data-governance-quality-framework&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
       ]
     },
     "pt": {
       "posts": [
-        "Framework de Governanca e Qualidade de Dados\n\nUm framework production-grade que embute validacao de qualidade, c…\n\nhttps://michael.business/pt/projects/data-governance-quality-framework?utm_source=x&utm_medium=social&utm_campaign=data-governance-quality-framework&utm_content=pt",
+        "Um framework production-grade que embute validacao de qualidade, contratos de dados e checks de governanca em ca…\n\nhttps://michael.business/pt/projects/data-governance-quality-framework?utm_source=x&utm_medium=social&utm_campaign=data-governance-quality-framework&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
       ]
     }

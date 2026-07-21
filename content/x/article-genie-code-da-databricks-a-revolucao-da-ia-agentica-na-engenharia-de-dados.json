@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.619Z",
+  "generatedAt": "2026-07-21T12:06:14.871Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados?utm_source=x&utm_medium=social&utm_campaign=genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados&utm_content=en",
     "pt": "https://michael.business/pt/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados?utm_source=x&utm_medium=social&utm_campaign=genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Databricks Genie Code: AI Agent for Dat…\n\nhttps://michael.business/en/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados?utm_source=x&utm_medium=social&utm_campaign=genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados&utm_content=en",
+        "Discover how Databricks Genie Code auto…\n\nhttps://michael.business/en/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados?utm_source=x&utm_medium=social&utm_campaign=genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     },
     "pt": {
       "posts": [
-        "Genie Code da Databricks: Agente de IA…\n\nhttps://michael.business/pt/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados?utm_source=x&utm_medium=social&utm_campaign=genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados&utm_content=pt",
+        "Entenda como o Genie Code da Databricks…\n\nhttps://michael.business/pt/articles/genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados?utm_source=x&utm_medium=social&utm_campaign=genie-code-da-databricks-a-revolucao-da-ia-agentica-na-engenharia-de-dados&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     }

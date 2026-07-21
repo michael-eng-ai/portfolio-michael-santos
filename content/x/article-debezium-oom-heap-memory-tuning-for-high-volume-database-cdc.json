@@ -1,0 +1,29 @@
+{
+  "slug": "article-debezium-oom-heap-memory-tuning-for-high-volume-database-cdc",
+  "sourceType": "article",
+  "sourceSlug": "debezium-oom-heap-memory-tuning-for-high-volume-database-cdc",
+  "status": "draft",
+  "generatedAt": "2026-07-21T12:06:14.844Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/debezium-oom-heap-memory-tuning-for-high-volume-database-cdc.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/debezium-oom-heap-memory-tuning-for-high-volume-database-cdc?utm_source=x&utm_medium=social&utm_campaign=debezium-oom-heap-memory-tuning-for-high-volume-database-cdc&utm_content=en",
+    "pt": "https://michael.business/pt/articles/debezium-oom-heap-memory-tuning-for-high-volume-database-cdc?utm_source=x&utm_medium=social&utm_campaign=debezium-oom-heap-memory-tuning-for-high-volume-database-cdc&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Resolve Debezium OOM heap memory failures during large tra…\n\nhttps://michael.business/en/articles/debezium-oom-heap-memory-tuning-for-high-volume-database-cdc?utm_source=x&utm_medium=social&utm_campaign=debezium-oom-heap-memory-tuning-for-high-volume-database-cdc&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Evite falhas de Debezium OOM heap memory em picos de trans…\n\nhttps://michael.business/pt/articles/debezium-oom-heap-memory-tuning-for-high-volume-database-cdc?utm_source=x&utm_medium=social&utm_campaign=debezium-oom-heap-memory-tuning-for-high-volume-database-cdc&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    }
+  }
+}

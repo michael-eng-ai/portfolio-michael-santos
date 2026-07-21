@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "building-trustworthy-and-scalable-modern-data-platforms",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.623Z",
+  "generatedAt": "2026-07-21T12:06:14.878Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/building-trustworthy-and-scalable-modern-data-platforms?utm_source=x&utm_medium=social&utm_campaign=building-trustworthy-and-scalable-modern-data-platforms&utm_content=en",
     "pt": "https://michael.business/pt/articles/building-trustworthy-and-scalable-modern-data-platforms?utm_source=x&utm_medium=social&utm_campaign=building-trustworthy-and-scalable-modern-data-platforms&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Scalable Data Platform Architecture: Engineering Patterns\n\nExplore h…\n\nhttps://michael.business/en/articles/building-trustworthy-and-scalable-modern-data-platforms?utm_source=x&utm_medium=social&utm_campaign=building-trustworthy-and-scalable-modern-data-platforms&utm_content=en",
+        "Explore how cross-cloud patterns and reliable transformation layers…\n\nhttps://michael.business/en/articles/building-trustworthy-and-scalable-modern-data-platforms?utm_source=x&utm_medium=social&utm_campaign=building-trustworthy-and-scalable-modern-data-platforms&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Arquitetura de Plataforma de Dados Escalável: Padrões Multicloud\n\nVe…\n\nhttps://michael.business/pt/articles/building-trustworthy-and-scalable-modern-data-platforms?utm_source=x&utm_medium=social&utm_campaign=building-trustworthy-and-scalable-modern-data-platforms&utm_content=pt",
+        "Veja como camadas de transformação e padrões multicloud constroem pl…\n\nhttps://michael.business/pt/articles/building-trustworthy-and-scalable-modern-data-platforms?utm_source=x&utm_medium=social&utm_campaign=building-trustworthy-and-scalable-modern-data-platforms&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

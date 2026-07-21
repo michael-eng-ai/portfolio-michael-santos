@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.619Z",
+  "generatedAt": "2026-07-21T12:06:14.873Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions?utm_source=x&utm_medium=social&utm_campaign=bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions&utm_content=en",
     "pt": "https://michael.business/pt/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions?utm_source=x&utm_medium=social&utm_campaign=bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Scalable Data Engineering to Close the A…\n\nhttps://michael.business/en/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions?utm_source=x&utm_medium=social&utm_campaign=bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions&utm_content=en",
+        "Learn how scalable data engineering clos…\n\nhttps://michael.business/en/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions?utm_source=x&utm_medium=social&utm_campaign=bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Engenharia de Dados Escalável para Fecha…\n\nhttps://michael.business/pt/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions?utm_source=x&utm_medium=social&utm_campaign=bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions&utm_content=pt",
+        "Veja como engenharia de dados escalável…\n\nhttps://michael.business/pt/articles/bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions?utm_source=x&utm_medium=social&utm_campaign=bridging-the-ai-adoption-gap-with-scalable-data-engineering-solutions&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

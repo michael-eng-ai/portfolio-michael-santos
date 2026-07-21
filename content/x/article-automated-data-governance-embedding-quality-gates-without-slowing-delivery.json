@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "automated-data-governance-embedding-quality-gates-without-slowing-delivery",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.617Z",
+  "generatedAt": "2026-07-21T12:06:14.867Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery?utm_source=x&utm_medium=social&utm_campaign=automated-data-governance-embedding-quality-gates-without-slowing-delivery&utm_content=en",
     "pt": "https://michael.business/pt/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery?utm_source=x&utm_medium=social&utm_campaign=automated-data-governance-embedding-quality-gates-without-slowing-delivery&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Automated Data Governance: Quality Gate…\n\nhttps://michael.business/en/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery?utm_source=x&utm_medium=social&utm_campaign=automated-data-governance-embedding-quality-gates-without-slowing-delivery&utm_content=en",
+        "Implement automated data governance by…\n\nhttps://michael.business/en/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery?utm_source=x&utm_medium=social&utm_campaign=automated-data-governance-embedding-quality-gates-without-slowing-delivery&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
       ]
     },
     "pt": {
       "posts": [
-        "Governança de Dados Automatizada: Quali…\n\nhttps://michael.business/pt/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery?utm_source=x&utm_medium=social&utm_campaign=automated-data-governance-embedding-quality-gates-without-slowing-delivery&utm_content=pt",
+        "Implemente governança de dados automati…\n\nhttps://michael.business/pt/articles/automated-data-governance-embedding-quality-gates-without-slowing-delivery?utm_source=x&utm_medium=social&utm_campaign=automated-data-governance-embedding-quality-gates-without-slowing-delivery&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
       ]
     }

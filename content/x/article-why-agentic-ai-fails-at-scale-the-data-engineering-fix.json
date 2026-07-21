@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "why-agentic-ai-fails-at-scale-the-data-engineering-fix",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.618Z",
+  "generatedAt": "2026-07-21T12:06:14.870Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix?utm_source=x&utm_medium=social&utm_campaign=why-agentic-ai-fails-at-scale-the-data-engineering-fix&utm_content=en",
     "pt": "https://michael.business/pt/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix?utm_source=x&utm_medium=social&utm_campaign=why-agentic-ai-fails-at-scale-the-data-engineering-fix&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Scaling Agentic AI: Why Production Fails Without Data Engineering\n\nMos…\n\nhttps://michael.business/en/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix?utm_source=x&utm_medium=social&utm_campaign=why-agentic-ai-fails-at-scale-the-data-engineering-fix&utm_content=en",
+        "Most agentic AI pilots fail to reach production due to weak data pipel…\n\nhttps://michael.business/en/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix?utm_source=x&utm_medium=social&utm_campaign=why-agentic-ai-fails-at-scale-the-data-engineering-fix&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Por Que IA Agêntica Falha em Escala: O Problema é Engenharia de Dados…\n\nhttps://michael.business/pt/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix?utm_source=x&utm_medium=social&utm_campaign=why-agentic-ai-fails-at-scale-the-data-engineering-fix&utm_content=pt",
+        "A maioria dos pilotos de IA agêntica falham em produção por pipelines…\n\nhttps://michael.business/pt/articles/why-agentic-ai-fails-at-scale-the-data-engineering-fix?utm_source=x&utm_medium=social&utm_campaign=why-agentic-ai-fails-at-scale-the-data-engineering-fix&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

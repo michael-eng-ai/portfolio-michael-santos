@@ -3,23 +3,25 @@
   "sourceType": "article",
   "sourceSlug": "pgvector-hnsw-index-tuning-for-production-rag-pipelines",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.927Z",
+  "generatedAt": "2026-07-21T12:06:14.847Z",
   "publishedUrl": null,
+  "mediaPath": "/images/articles/pgvector-hnsw-index-tuning-for-production-rag-pipelines.png",
+  "mediaSource": "ai",
   "urls": {
-    "en": "https://michael.business/en/articles/pgvector-hnsw-index-tuning-for-production-rag-pipelines",
-    "pt": "https://michael.business/pt/articles/pgvector-hnsw-index-tuning-for-production-rag-pipelines",
+    "en": "https://michael.business/en/articles/pgvector-hnsw-index-tuning-for-production-rag-pipelines?utm_source=x&utm_medium=social&utm_campaign=pgvector-hnsw-index-tuning-for-production-rag-pipelines&utm_content=en",
+    "pt": "https://michael.business/pt/articles/pgvector-hnsw-index-tuning-for-production-rag-pipelines?utm_source=x&utm_medium=social&utm_campaign=pgvector-hnsw-index-tuning-for-production-rag-pipelines&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
   },
   "locales": {
     "en": {
       "posts": [
-        "pgvector HNSW Index Tuning for Production RAG Pipelines\n\nLearn how pgvector HNSW index tuning optimizes similarity search in PostgreSQL. Balance recall and latency to build cost-effec…\n\nhttps://michael.business/en/articles/pgvector-hnsw-index-tuning-for-production-rag-pipelines",
+        "Learn how pgvector HNSW index tuning optimizes similarity search in…\n\nhttps://michael.business/en/articles/pgvector-hnsw-index-tuning-for-production-rag-pipelines?utm_source=x&utm_medium=social&utm_campaign=pgvector-hnsw-index-tuning-for-production-rag-pipelines&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
       ]
     },
     "pt": {
       "posts": [
-        "Ajuste de Índices HNSW no pgvector para Pipelines RAG\n\nVeja como o pgvector HNSW index tuning otimiza buscas por similaridade no PostgreSQL. Equilibre revocação e latência para escala…\n\nhttps://michael.business/pt/articles/pgvector-hnsw-index-tuning-for-production-rag-pipelines",
+        "Veja como o pgvector HNSW index tuning otimiza buscas por similarida…\n\nhttps://michael.business/pt/articles/pgvector-hnsw-index-tuning-for-production-rag-pipelines?utm_source=x&utm_medium=social&utm_campaign=pgvector-hnsw-index-tuning-for-production-rag-pipelines&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
       ]
     }

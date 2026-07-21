@@ -3,23 +3,25 @@
   "sourceType": "article",
   "sourceSlug": "snowflake-dynamic-tables-cost-optimization-patterns",
   "status": "draft",
-  "generatedAt": "2026-07-17T11:57:50.926Z",
+  "generatedAt": "2026-07-21T12:06:14.846Z",
   "publishedUrl": null,
+  "mediaPath": "/images/articles/snowflake-dynamic-tables-cost-optimization-patterns.png",
+  "mediaSource": "ai",
   "urls": {
-    "en": "https://michael.business/en/articles/snowflake-dynamic-tables-cost-optimization-patterns",
-    "pt": "https://michael.business/pt/articles/snowflake-dynamic-tables-cost-optimization-patterns",
+    "en": "https://michael.business/en/articles/snowflake-dynamic-tables-cost-optimization-patterns?utm_source=x&utm_medium=social&utm_campaign=snowflake-dynamic-tables-cost-optimization-patterns&utm_content=en",
+    "pt": "https://michael.business/pt/articles/snowflake-dynamic-tables-cost-optimization-patterns?utm_source=x&utm_medium=social&utm_campaign=snowflake-dynamic-tables-cost-optimization-patterns&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/azure-snowflake-pipeline"
   },
   "locales": {
     "en": {
       "posts": [
-        "Snowflake Dynamic Tables Cost Optimization Patterns\n\nApply Snowflake Dynamic Tables cost optimization strategies to slash warehouse spend. Master target lag patterns and incremental refre…\n\nhttps://michael.business/en/articles/snowflake-dynamic-tables-cost-optimization-patterns",
+        "Apply Snowflake Dynamic Tables cost optimization strategies to slash warehou…\n\nhttps://michael.business/en/articles/snowflake-dynamic-tables-cost-optimization-patterns?utm_source=x&utm_medium=social&utm_campaign=snowflake-dynamic-tables-cost-optimization-patterns&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/azure-snowflake-pipeline"
       ]
     },
     "pt": {
       "posts": [
-        "Otimização de Custos com Snowflake Dynamic Tables\n\nAplique otimização de custos com Snowflake Dynamic Tables para reduzir gastos de computação. Domine regras de target lag e atualização i…\n\nhttps://michael.business/pt/articles/snowflake-dynamic-tables-cost-optimization-patterns",
+        "Aplique otimização de custos com Snowflake Dynamic Tables para reduzir gasto…\n\nhttps://michael.business/pt/articles/snowflake-dynamic-tables-cost-optimization-patterns?utm_source=x&utm_medium=social&utm_campaign=snowflake-dynamic-tables-cost-optimization-patterns&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/azure-snowflake-pipeline"
       ]
     }

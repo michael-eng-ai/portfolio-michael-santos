@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "agentic-data-pipeline-with-mcp-designing-self-healing-workflows",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.610Z",
+  "generatedAt": "2026-07-21T12:06:14.854Z",
   "publishedUrl": null,
+  "mediaPath": "/images/articles/agentic-data-pipeline-with-mcp-designing-self-healing-workflows.jpg",
+  "mediaSource": "ai",
   "urls": {
     "en": "https://michael.business/en/articles/agentic-data-pipeline-with-mcp-designing-self-healing-workflows?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-mcp-designing-self-healing-workflows&utm_content=en",
     "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-mcp-designing-self-healing-workflows?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-mcp-designing-self-healing-workflows&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Agentic Data Pipeline with MCP: Designing Self-Heali…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-mcp-designing-self-healing-workflows?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-mcp-designing-self-healing-workflows&utm_content=en",
+        "Implement an agentic data pipeline with MCP to auton…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-mcp-designing-self-healing-workflows?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-mcp-designing-self-healing-workflows&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Pipeline de Dados Agêntico com MCP: Fluxos Auto-Rege…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-mcp-designing-self-healing-workflows?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-mcp-designing-self-healing-workflows&utm_content=pt",
+        "Implemente um pipeline de dados agêntico com MCP par…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-mcp-designing-self-healing-workflows?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-mcp-designing-self-healing-workflows&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

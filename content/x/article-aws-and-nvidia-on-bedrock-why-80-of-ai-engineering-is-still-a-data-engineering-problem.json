@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.620Z",
+  "generatedAt": "2026-07-21T12:06:14.875Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem?utm_source=x&utm_medium=social&utm_campaign=aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem&utm_content=en",
     "pt": "https://michael.business/pt/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem?utm_source=x&utm_medium=social&utm_campaign=aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Data Engineering Still Dominates 80% of…\n\nhttps://michael.business/en/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem?utm_source=x&utm_medium=social&utm_campaign=aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem&utm_content=en",
+        "AWS Bedrock's NVIDIA launch proves data…\n\nhttps://michael.business/en/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem?utm_source=x&utm_medium=social&utm_campaign=aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     },
     "pt": {
       "posts": [
-        "Engenharia de Dados Ainda Domina 80% da…\n\nhttps://michael.business/pt/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem?utm_source=x&utm_medium=social&utm_campaign=aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem&utm_content=pt",
+        "O lançamento da NVIDIA no Bedrock prova…\n\nhttps://michael.business/pt/articles/aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem?utm_source=x&utm_medium=social&utm_campaign=aws-and-nvidia-on-bedrock-why-80-of-ai-engineering-is-still-a-data-engineering-problem&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     }

@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "data-platform-modernization-patterns",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.623Z",
+  "generatedAt": "2026-07-21T12:06:14.879Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/data-platform-modernization-patterns?utm_source=x&utm_medium=social&utm_campaign=data-platform-modernization-patterns&utm_content=en",
     "pt": "https://michael.business/pt/articles/data-platform-modernization-patterns?utm_source=x&utm_medium=social&utm_campaign=data-platform-modernization-patterns&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Data Platform Modernization Patterns Beyond Tool Migration\n\nMove beyond tool migration with data platform…\n\nhttps://michael.business/en/articles/data-platform-modernization-patterns?utm_source=x&utm_medium=social&utm_campaign=data-platform-modernization-patterns&utm_content=en",
+        "Move beyond tool migration with data platform modernization patterns that separate responsibilities, ensur…\n\nhttps://michael.business/en/articles/data-platform-modernization-patterns?utm_source=x&utm_medium=social&utm_campaign=data-platform-modernization-patterns&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     },
     "pt": {
       "posts": [
-        "Modernização de Plataforma de Dados: 3 Padrões Arquiteturais\n\nSaia da migração de ferramentas com padrões…\n\nhttps://michael.business/pt/articles/data-platform-modernization-patterns?utm_source=x&utm_medium=social&utm_campaign=data-platform-modernization-patterns&utm_content=pt",
+        "Saia da migração de ferramentas com padrões de modernização de plataforma de dados que separam responsabil…\n\nhttps://michael.business/pt/articles/data-platform-modernization-patterns?utm_source=x&utm_medium=social&utm_campaign=data-platform-modernization-patterns&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     }

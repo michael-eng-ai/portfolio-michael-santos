@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.619Z",
+  "generatedAt": "2026-07-21T12:06:14.872Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026?utm_source=x&utm_medium=social&utm_campaign=physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026&utm_content=en",
     "pt": "https://michael.business/pt/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026?utm_source=x&utm_medium=social&utm_campaign=physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Physical AI Data Engineering: Infrastru…\n\nhttps://michael.business/en/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026?utm_source=x&utm_medium=social&utm_campaign=physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026&utm_content=en",
+        "Physical AI data engineering strategies…\n\nhttps://michael.business/en/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026?utm_source=x&utm_medium=social&utm_campaign=physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Engenharia de Dados para Physical AI: I…\n\nhttps://michael.business/pt/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026?utm_source=x&utm_medium=social&utm_campaign=physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026&utm_content=pt",
+        "Estratégias de engenharia de dados para…\n\nhttps://michael.business/pt/articles/physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026?utm_source=x&utm_medium=social&utm_campaign=physical-ai-and-iot-data-engineering-redefining-data-infrastructure-in-2026&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

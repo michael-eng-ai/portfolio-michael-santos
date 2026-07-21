@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "agentic-data-pipeline-with-claude-mcp-architecture",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.609Z",
+  "generatedAt": "2026-07-21T12:06:14.852Z",
   "publishedUrl": null,
+  "mediaPath": "/images/articles/agentic-data-pipeline-with-claude-mcp-architecture.jpg",
+  "mediaSource": "ai",
   "urls": {
     "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-architecture?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture&utm_content=en",
     "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-architecture?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Agentic data pipeline with Claude MCP architecture\n\nDeploy an agentic data pip…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-architecture?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture&utm_content=en",
+        "Deploy an agentic data pipeline with Claude MCP to resolve schema drift autono…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-architecture?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Pipeline de dados agente com Claude MCP em produção\n\nImplemente um pipeline de…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-architecture?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture&utm_content=pt",
+        "Implemente um pipeline de dados agente com Claude MCP para resolver schema dri…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-architecture?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-architecture&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

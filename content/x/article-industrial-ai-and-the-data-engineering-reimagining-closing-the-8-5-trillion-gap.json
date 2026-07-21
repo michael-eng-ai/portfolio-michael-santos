@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.616Z",
+  "generatedAt": "2026-07-21T12:06:14.866Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap?utm_source=x&utm_medium=social&utm_campaign=industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap&utm_content=en",
     "pt": "https://michael.business/pt/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap?utm_source=x&utm_medium=social&utm_campaign=industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Industrial AI Data Engineering: Closing…\n\nhttps://michael.business/en/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap?utm_source=x&utm_medium=social&utm_campaign=industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap&utm_content=en",
+        "Industrial AI adoption stalls without m…\n\nhttps://michael.business/en/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap?utm_source=x&utm_medium=social&utm_campaign=industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     },
     "pt": {
       "posts": [
-        "Engenharia de Dados para IA Industrial:…\n\nhttps://michael.business/pt/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap?utm_source=x&utm_medium=social&utm_campaign=industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap&utm_content=pt",
+        "IA industrial exige engenharia de dados…\n\nhttps://michael.business/pt/articles/industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap?utm_source=x&utm_medium=social&utm_campaign=industrial-ai-and-the-data-engineering-reimagining-closing-the-8-5-trillion-gap&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     }

@@ -1,0 +1,27 @@
+{
+  "slug": "article-debezium-oom-heap-memory-tuning-for-high-volume-database-cdc",
+  "sourceType": "article",
+  "sourceSlug": "debezium-oom-heap-memory-tuning-for-high-volume-database-cdc",
+  "status": "draft",
+  "generatedAt": "2026-07-21T12:06:13.954Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/debezium-oom-heap-memory-tuning-for-high-volume-database-cdc.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/debezium-oom-heap-memory-tuning-for-high-volume-database-cdc?utm_source=linkedin&utm_medium=social&utm_campaign=debezium-oom-heap-memory-tuning-for-high-volume-database-cdc&utm_content=en",
+    "pt": "https://michael.business/pt/articles/debezium-oom-heap-memory-tuning-for-high-volume-database-cdc?utm_source=linkedin&utm_medium=social&utm_campaign=debezium-oom-heap-memory-tuning-for-high-volume-database-cdc&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "Resolve Debezium OOM heap memory failures during large transaction spikes.",
+      "body": "Resolve Debezium OOM heap memory failures during large transaction spikes. Prevent database disk exhaustion and recover SLA compliance under heavy workloads.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Evite falhas de Debezium OOM heap memory em picos de transações.",
+      "body": "Evite falhas de Debezium OOM heap memory em picos de transações. Proteja o disco do banco de dados e recupere acordos de SLA sob altas cargas de trabalho.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
