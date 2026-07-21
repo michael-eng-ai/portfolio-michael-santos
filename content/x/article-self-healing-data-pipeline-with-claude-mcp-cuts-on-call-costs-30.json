@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.615Z",
+  "generatedAt": "2026-07-21T12:06:14.861Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30&utm_content=en",
     "pt": "https://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Self-healing data pipeline with Claude MCP cuts on…\n\nhttps://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30&utm_content=en",
+        "Self-healing data pipeline with Claude MCP detects…\n\nhttps://michael.business/en/articles/self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Pipeline autossanável com Claude MCP reduz custos…\n\nhttps://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30&utm_content=pt",
+        "Pipeline autossanável com Claude MCP detecta schem…\n\nhttps://michael.business/pt/articles/self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipeline-with-claude-mcp-cuts-on-call-costs-30&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.617Z",
+  "generatedAt": "2026-07-21T12:06:14.868Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents&utm_content=en",
     "pt": "https://michael.business/pt/articles/self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Self-Healing Data Pipelines with Claude MCP and…\n\nhttps://michael.business/en/articles/self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents&utm_content=en",
+        "Build self-healing data pipelines that autonomou…\n\nhttps://michael.business/en/articles/self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Pipelines de Dados Auto-Corrigíveis com Claude M…\n\nhttps://michael.business/pt/articles/self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents&utm_content=pt",
+        "Implemente pipelines auto-corrigíveis com Claude…\n\nhttps://michael.business/pt/articles/self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents?utm_source=x&utm_medium=social&utm_campaign=self-healing-data-pipelines-with-claude-mcp-and-autonomous-agents&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

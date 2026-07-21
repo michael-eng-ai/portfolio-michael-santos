@@ -3,8 +3,10 @@
   "sourceType": "project",
   "sourceSlug": "aws-databricks-lakehouse",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.624Z",
+  "generatedAt": "2026-07-21T12:06:14.881Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/projects/aws-databricks-lakehouse?utm_source=x&utm_medium=social&utm_campaign=aws-databricks-lakehouse&utm_content=en",
     "pt": "https://michael.business/pt/projects/aws-databricks-lakehouse?utm_source=x&utm_medium=social&utm_campaign=aws-databricks-lakehouse&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "AWS And Databricks Lakehouse\n\nA lakehouse case that provisions AWS storage with Terraform, lands simulated event data in S3, and p…\n\nhttps://michael.business/en/projects/aws-databricks-lakehouse?utm_source=x&utm_medium=social&utm_campaign=aws-databricks-lakehouse&utm_content=en",
+        "A lakehouse case that provisions AWS storage with Terraform, lands simulated event data in S3, and processes silver and gold Delta…\n\nhttps://michael.business/en/projects/aws-databricks-lakehouse?utm_source=x&utm_medium=social&utm_campaign=aws-databricks-lakehouse&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     },
     "pt": {
       "posts": [
-        "Lakehouse com AWS e Databricks\n\nUm caso de lakehouse que provisiona storage AWS com Terraform, pousa eventos simulados em S3 e pro…\n\nhttps://michael.business/pt/projects/aws-databricks-lakehouse?utm_source=x&utm_medium=social&utm_campaign=aws-databricks-lakehouse&utm_content=pt",
+        "Um caso de lakehouse que provisiona storage AWS com Terraform, pousa eventos simulados em S3 e processa camadas silver e gold em D…\n\nhttps://michael.business/pt/projects/aws-databricks-lakehouse?utm_source=x&utm_medium=social&utm_campaign=aws-databricks-lakehouse&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
       ]
     }

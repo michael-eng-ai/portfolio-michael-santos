@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "from-news-to-data-product",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.623Z",
+  "generatedAt": "2026-07-21T12:06:14.879Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/from-news-to-data-product?utm_source=x&utm_medium=social&utm_campaign=from-news-to-data-product&utm_content=en",
     "pt": "https://michael.business/pt/articles/from-news-to-data-product?utm_source=x&utm_medium=social&utm_campaign=from-news-to-data-product&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Data Engineering and AI Business Value: The Four-Part Test\n\nValidate data engineering and AI initiatives with the four-part cred…\n\nhttps://michael.business/en/articles/from-news-to-data-product?utm_source=x&utm_medium=social&utm_campaign=from-news-to-data-product&utm_content=en",
+        "Validate data engineering and AI initiatives with the four-part credibility test.\n\nThe site breakdown connects the incident to t…\n\nhttps://michael.business/en/articles/from-news-to-data-product?utm_source=x&utm_medium=social&utm_campaign=from-news-to-data-product&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Engenharia de Dados e IA: Teste de 4 Partes para Credibilidade\n\nValide projetos de engenharia de dados e IA com o teste de quatr…\n\nhttps://michael.business/pt/articles/from-news-to-data-product?utm_source=x&utm_medium=social&utm_campaign=from-news-to-data-product&utm_content=pt",
+        "Valide projetos de engenharia de dados e IA com o teste de quatro partes.\n\nO breakdown no site conecta o incidente ao padrao de…\n\nhttps://michael.business/pt/articles/from-news-to-data-product?utm_source=x&utm_medium=social&utm_campaign=from-news-to-data-product&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "claude-mcp-self-healing-data-pipeline-implementation",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.613Z",
+  "generatedAt": "2026-07-21T12:06:14.856Z",
   "publishedUrl": null,
+  "mediaPath": "/images/articles/claude-mcp-self-healing-data-pipeline-implementation.jpg",
+  "mediaSource": "ai",
   "urls": {
     "en": "https://michael.business/en/articles/claude-mcp-self-healing-data-pipeline-implementation?utm_source=x&utm_medium=social&utm_campaign=claude-mcp-self-healing-data-pipeline-implementation&utm_content=en",
     "pt": "https://michael.business/pt/articles/claude-mcp-self-healing-data-pipeline-implementation?utm_source=x&utm_medium=social&utm_campaign=claude-mcp-self-healing-data-pipeline-implementation&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Claude MCP self-healing data pipeline implementation\n\nBuild a Claude MCP s…\n\nhttps://michael.business/en/articles/claude-mcp-self-healing-data-pipeline-implementation?utm_source=x&utm_medium=social&utm_campaign=claude-mcp-self-healing-data-pipeline-implementation&utm_content=en",
+        "Build a Claude MCP self-healing data pipeline to autonomously resolve sche…\n\nhttps://michael.business/en/articles/claude-mcp-self-healing-data-pipeline-implementation?utm_source=x&utm_medium=social&utm_campaign=claude-mcp-self-healing-data-pipeline-implementation&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Pipeline de dados autônomo com Claude MCP na prática\n\nCrie um pipeline de…\n\nhttps://michael.business/pt/articles/claude-mcp-self-healing-data-pipeline-implementation?utm_source=x&utm_medium=social&utm_campaign=claude-mcp-self-healing-data-pipeline-implementation&utm_content=pt",
+        "Crie um pipeline de dados autônomo com Claude MCP para corrigir desvios de…\n\nhttps://michael.business/pt/articles/claude-mcp-self-healing-data-pipeline-implementation?utm_source=x&utm_medium=social&utm_campaign=claude-mcp-self-healing-data-pipeline-implementation&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

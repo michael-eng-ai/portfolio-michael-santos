@@ -3,8 +3,10 @@
   "sourceType": "project",
   "sourceSlug": "gcp-dbt-modern-data-stack",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.624Z",
+  "generatedAt": "2026-07-21T12:06:14.881Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/projects/gcp-dbt-modern-data-stack?utm_source=x&utm_medium=social&utm_campaign=gcp-dbt-modern-data-stack&utm_content=en",
     "pt": "https://michael.business/pt/projects/gcp-dbt-modern-data-stack?utm_source=x&utm_medium=social&utm_campaign=gcp-dbt-modern-data-stack&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "GCP Modern Data Stack\n\nA cloud-native analytics workflow that provisions BigQuery and storage with Terraform, ingests market dat…\n\nhttps://michael.business/en/projects/gcp-dbt-modern-data-stack?utm_source=x&utm_medium=social&utm_campaign=gcp-dbt-modern-data-stack&utm_content=en",
+        "A cloud-native analytics workflow that provisions BigQuery and storage with Terraform, ingests market data with Python, and test…\n\nhttps://michael.business/en/projects/gcp-dbt-modern-data-stack?utm_source=x&utm_medium=social&utm_campaign=gcp-dbt-modern-data-stack&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
       ]
     },
     "pt": {
       "posts": [
-        "Modern Data Stack na GCP\n\nUm workflow cloud-native de analytics que provisiona BigQuery e storage com Terraform, ingere dados de…\n\nhttps://michael.business/pt/projects/gcp-dbt-modern-data-stack?utm_source=x&utm_medium=social&utm_campaign=gcp-dbt-modern-data-stack&utm_content=pt",
+        "Um workflow cloud-native de analytics que provisiona BigQuery e storage com Terraform, ingere dados de mercado com Python e test…\n\nhttps://michael.business/pt/projects/gcp-dbt-modern-data-stack?utm_source=x&utm_medium=social&utm_campaign=gcp-dbt-modern-data-stack&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
       ]
     }

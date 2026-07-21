@@ -3,8 +3,10 @@
   "sourceType": "project",
   "sourceSlug": "data-observability-platform",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.626Z",
+  "generatedAt": "2026-07-21T12:06:14.884Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/projects/data-observability-platform?utm_source=x&utm_medium=social&utm_campaign=data-observability-platform&utm_content=en",
     "pt": "https://michael.business/pt/projects/data-observability-platform?utm_source=x&utm_medium=social&utm_campaign=data-observability-platform&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Data Observability Platform\n\nAn open-source observability platform that monitors data freshness, volume anomalies, schema ch…\n\nhttps://michael.business/en/projects/data-observability-platform?utm_source=x&utm_medium=social&utm_campaign=data-observability-platform&utm_content=en",
+        "An open-source observability platform that monitors data freshness, volume anomalies, schema changes, and pipeline health ac…\n\nhttps://michael.business/en/projects/data-observability-platform?utm_source=x&utm_medium=social&utm_campaign=data-observability-platform&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-observability-platform"
       ]
     },
     "pt": {
       "posts": [
-        "Plataforma de Observabilidade de Dados\n\nUma plataforma open-source de observabilidade que monitora freshness, anomalias de v…\n\nhttps://michael.business/pt/projects/data-observability-platform?utm_source=x&utm_medium=social&utm_campaign=data-observability-platform&utm_content=pt",
+        "Uma plataforma open-source de observabilidade que monitora freshness, anomalias de volume, mudancas de schema e saude de pip…\n\nhttps://michael.business/pt/projects/data-observability-platform?utm_source=x&utm_medium=social&utm_campaign=data-observability-platform&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-observability-platform"
       ]
     }

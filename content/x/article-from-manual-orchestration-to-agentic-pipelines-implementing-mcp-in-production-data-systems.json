@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.615Z",
+  "generatedAt": "2026-07-21T12:06:14.862Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems?utm_source=x&utm_medium=social&utm_campaign=from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems&utm_content=en",
     "pt": "https://michael.business/pt/articles/from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems?utm_source=x&utm_medium=social&utm_campaign=from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "MCP Agentic Pipelines: Production Imple…\n\nhttps://michael.business/en/articles/from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems?utm_source=x&utm_medium=social&utm_campaign=from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems&utm_content=en",
+        "Deploy MCP agentic pipelines that self-…\n\nhttps://michael.business/en/articles/from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems?utm_source=x&utm_medium=social&utm_campaign=from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Implementação de MCP para Pipelines Age…\n\nhttps://michael.business/pt/articles/from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems?utm_source=x&utm_medium=social&utm_campaign=from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems&utm_content=pt",
+        "Pipelines agenticos com MCP corrigem dr…\n\nhttps://michael.business/pt/articles/from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems?utm_source=x&utm_medium=social&utm_campaign=from-manual-orchestration-to-agentic-pipelines-implementing-mcp-in-production-data-systems&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

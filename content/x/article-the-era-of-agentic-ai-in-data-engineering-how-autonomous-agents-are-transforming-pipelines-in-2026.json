@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.617Z",
+  "generatedAt": "2026-07-21T12:06:14.866Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026?utm_source=x&utm_medium=social&utm_campaign=the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026&utm_content=en",
     "pt": "https://michael.business/pt/articles/the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026?utm_source=x&utm_medium=social&utm_campaign=the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Agentic AI Data Engineering: Autonomous…\n\nhttps://michael.business/en/articles/the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026?utm_source=x&utm_medium=social&utm_campaign=the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026&utm_content=en",
+        "Agentic AI automates data pipelines wit…\n\nhttps://michael.business/en/articles/the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026?utm_source=x&utm_medium=social&utm_campaign=the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "IA Agêntica na Engenharia de Dados: Age…\n\nhttps://michael.business/pt/articles/the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026?utm_source=x&utm_medium=social&utm_campaign=the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026&utm_content=pt",
+        "IA agêntica automatiza pipelines com 77…\n\nhttps://michael.business/pt/articles/the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026?utm_source=x&utm_medium=social&utm_campaign=the-era-of-agentic-ai-in-data-engineering-how-autonomous-agents-are-transforming-pipelines-in-2026&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

@@ -3,8 +3,10 @@
   "sourceType": "project",
   "sourceSlug": "kafka-debezium-dbt",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.624Z",
+  "generatedAt": "2026-07-21T12:06:14.880Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/projects/kafka-debezium-dbt?utm_source=x&utm_medium=social&utm_campaign=kafka-debezium-dbt&utm_content=en",
     "pt": "https://michael.business/pt/projects/kafka-debezium-dbt?utm_source=x&utm_medium=social&utm_campaign=kafka-debezium-dbt&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Real-Time CDC Analytics Pipeline\n\nA runnable CDC stack that captures PostgreSQL WAL changes with Debezium, normalizes events in Python, and pu…\n\nhttps://michael.business/en/projects/kafka-debezium-dbt?utm_source=x&utm_medium=social&utm_campaign=kafka-debezium-dbt&utm_content=en",
+        "A runnable CDC stack that captures PostgreSQL WAL changes with Debezium, normalizes events in Python, and publishes analytics-ready bronze, si…\n\nhttps://michael.business/en/projects/kafka-debezium-dbt?utm_source=x&utm_medium=social&utm_campaign=kafka-debezium-dbt&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     },
     "pt": {
       "posts": [
-        "Pipeline Analitico de CDC em Tempo Real\n\nUm stack de CDC executavel que captura mudancas do WAL do PostgreSQL com Debezium, normaliza eventos…\n\nhttps://michael.business/pt/projects/kafka-debezium-dbt?utm_source=x&utm_medium=social&utm_campaign=kafka-debezium-dbt&utm_content=pt",
+        "Um stack de CDC executavel que captura mudancas do WAL do PostgreSQL com Debezium, normaliza eventos em Python e publica camadas bronze, silve…\n\nhttps://michael.business/pt/projects/kafka-debezium-dbt?utm_source=x&utm_medium=social&utm_campaign=kafka-debezium-dbt&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
       ]
     }

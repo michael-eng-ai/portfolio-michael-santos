@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "agentic-data-pipeline-with-claude-mcp-for-self-healing-logic",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.614Z",
+  "generatedAt": "2026-07-21T12:06:14.858Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing-logic?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-for-self-healing-logic&utm_content=en",
     "pt": "https://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing-logic?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-for-self-healing-logic&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Agentic data pipeline with Claude MCP for self-healing log…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing-logic?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-for-self-healing-logic&utm_content=en",
+        "Deploy an agentic data pipeline with Claude MCP to automat…\n\nhttps://michael.business/en/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing-logic?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-for-self-healing-logic&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     },
     "pt": {
       "posts": [
-        "Pipeline de dados agentica com Claude MCP e autocura\n\nImpl…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing-logic?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-for-self-healing-logic&utm_content=pt",
+        "Implemente uma pipeline de dados agentica com Claude MCP p…\n\nhttps://michael.business/pt/articles/agentic-data-pipeline-with-claude-mcp-for-self-healing-logic?utm_source=x&utm_medium=social&utm_campaign=agentic-data-pipeline-with-claude-mcp-for-self-healing-logic&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/agentic-data-pipeline-mcp"
       ]
     }

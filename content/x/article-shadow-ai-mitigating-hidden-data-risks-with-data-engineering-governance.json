@@ -3,8 +3,10 @@
   "sourceType": "article",
   "sourceSlug": "shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance",
   "status": "draft",
-  "generatedAt": "2026-07-17T22:54:40.618Z",
+  "generatedAt": "2026-07-21T12:06:14.869Z",
   "publishedUrl": null,
+  "mediaPath": null,
+  "mediaSource": "none",
   "urls": {
     "en": "https://michael.business/en/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance?utm_source=x&utm_medium=social&utm_campaign=shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance&utm_content=en",
     "pt": "https://michael.business/pt/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance?utm_source=x&utm_medium=social&utm_campaign=shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance&utm_content=pt",
@@ -13,13 +15,13 @@
   "locales": {
     "en": {
       "posts": [
-        "Shadow AI Data Risks: Engineering Gover…\n\nhttps://michael.business/en/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance?utm_source=x&utm_medium=social&utm_campaign=shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance&utm_content=en",
+        "Shadow AI creates hidden data risks in…\n\nhttps://michael.business/en/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance?utm_source=x&utm_medium=social&utm_campaign=shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance&utm_content=en",
         "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
       ]
     },
     "pt": {
       "posts": [
-        "Riscos do Shadow AI: Governança em Enge…\n\nhttps://michael.business/pt/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance?utm_source=x&utm_medium=social&utm_campaign=shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance&utm_content=pt",
+        "Shadow AI expõe pipelines a riscos ocul…\n\nhttps://michael.business/pt/articles/shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance?utm_source=x&utm_medium=social&utm_campaign=shadow-ai-mitigating-hidden-data-risks-with-data-engineering-governance&utm_content=pt",
         "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
       ]
     }
