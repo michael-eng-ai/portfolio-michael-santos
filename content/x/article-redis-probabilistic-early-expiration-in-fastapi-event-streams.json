@@ -1,0 +1,29 @@
+{
+  "slug": "article-redis-probabilistic-early-expiration-in-fastapi-event-streams",
+  "sourceType": "article",
+  "sourceSlug": "redis-probabilistic-early-expiration-in-fastapi-event-streams",
+  "status": "draft",
+  "generatedAt": "2026-07-23T12:07:26.813Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/redis-probabilistic-early-expiration-in-fastapi-event-streams.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/redis-probabilistic-early-expiration-in-fastapi-event-streams?utm_source=x&utm_medium=social&utm_campaign=redis-probabilistic-early-expiration-in-fastapi-event-streams&utm_content=en",
+    "pt": "https://michael.business/pt/articles/redis-probabilistic-early-expiration-in-fastapi-event-streams?utm_source=x&utm_medium=social&utm_campaign=redis-probabilistic-early-expiration-in-fastapi-event-streams&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/streaming-kafka-fastapi"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Prevent P99 latency spikes and database crashes during t…\n\nhttps://michael.business/en/articles/redis-probabilistic-early-expiration-in-fastapi-event-streams?utm_source=x&utm_medium=social&utm_campaign=redis-probabilistic-early-expiration-in-fastapi-event-streams&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/streaming-kafka-fastapi"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Evite picos de latência P99 e quedas no banco de dados d…\n\nhttps://michael.business/pt/articles/redis-probabilistic-early-expiration-in-fastapi-event-streams?utm_source=x&utm_medium=social&utm_campaign=redis-probabilistic-early-expiration-in-fastapi-event-streams&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/streaming-kafka-fastapi"
+      ]
+    }
+  }
+}

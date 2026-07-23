@@ -1,0 +1,27 @@
+{
+  "slug": "article-redis-probabilistic-early-expiration-in-fastapi-event-streams",
+  "sourceType": "article",
+  "sourceSlug": "redis-probabilistic-early-expiration-in-fastapi-event-streams",
+  "status": "draft",
+  "generatedAt": "2026-07-23T12:07:25.935Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/redis-probabilistic-early-expiration-in-fastapi-event-streams.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/redis-probabilistic-early-expiration-in-fastapi-event-streams?utm_source=linkedin&utm_medium=social&utm_campaign=redis-probabilistic-early-expiration-in-fastapi-event-streams&utm_content=en",
+    "pt": "https://michael.business/pt/articles/redis-probabilistic-early-expiration-in-fastapi-event-streams?utm_source=linkedin&utm_medium=social&utm_campaign=redis-probabilistic-early-expiration-in-fastapi-event-streams&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/streaming-kafka-fastapi"
+  },
+  "locales": {
+    "en": {
+      "hook": "Prevent P99 latency spikes and database crashes during traffic bursts by implementing Redis probabilistic early expiration in FastAPI event streams.",
+      "body": "Prevent P99 latency spikes and database crashes during traffic bursts by implementing Redis probabilistic early expiration in FastAPI event streams.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Evite picos de latência P99 e quedas no banco de dados durante picos de tráfego com expiração probabilística Redis em APIs FastAPI de tempo real.",
+      "body": "Evite picos de latência P99 e quedas no banco de dados durante picos de tráfego com expiração probabilística Redis em APIs FastAPI de tempo real.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
