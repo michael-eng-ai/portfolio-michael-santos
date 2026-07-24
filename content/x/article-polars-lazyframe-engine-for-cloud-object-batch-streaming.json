@@ -1,0 +1,29 @@
+{
+  "slug": "article-polars-lazyframe-engine-for-cloud-object-batch-streaming",
+  "sourceType": "article",
+  "sourceSlug": "polars-lazyframe-engine-for-cloud-object-batch-streaming",
+  "status": "draft",
+  "generatedAt": "2026-07-24T12:02:32.756Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/polars-lazyframe-engine-for-cloud-object-batch-streaming.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/polars-lazyframe-engine-for-cloud-object-batch-streaming?utm_source=x&utm_medium=social&utm_campaign=polars-lazyframe-engine-for-cloud-object-batch-streaming&utm_content=en",
+    "pt": "https://michael.business/pt/articles/polars-lazyframe-engine-for-cloud-object-batch-streaming?utm_source=x&utm_medium=social&utm_campaign=polars-lazyframe-engine-for-cloud-object-batch-streaming&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Eliminate PySpark driver bottlenecks and cut S3 query latency usin…\n\nhttps://michael.business/en/articles/polars-lazyframe-engine-for-cloud-object-batch-streaming?utm_source=x&utm_medium=social&utm_campaign=polars-lazyframe-engine-for-cloud-object-batch-streaming&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Elimine gargalos do PySpark e reduza a latência no S3 utilizando q…\n\nhttps://michael.business/pt/articles/polars-lazyframe-engine-for-cloud-object-batch-streaming?utm_source=x&utm_medium=social&utm_campaign=polars-lazyframe-engine-for-cloud-object-batch-streaming&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    }
+  }
+}
