@@ -1,0 +1,29 @@
+{
+  "slug": "article-clickhouse-mergetree-primary-key-index-tuning-guide",
+  "sourceType": "article",
+  "sourceSlug": "clickhouse-mergetree-primary-key-index-tuning-guide",
+  "status": "draft",
+  "generatedAt": "2026-07-27T12:39:02.387Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/clickhouse-mergetree-primary-key-index-tuning-guide.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/clickhouse-mergetree-primary-key-index-tuning-guide?utm_source=x&utm_medium=social&utm_campaign=clickhouse-mergetree-primary-key-index-tuning-guide&utm_content=en",
+    "pt": "https://michael.business/pt/articles/clickhouse-mergetree-primary-key-index-tuning-guide?utm_source=x&utm_medium=social&utm_campaign=clickhouse-mergetree-primary-key-index-tuning-guide&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/streaming-kafka-fastapi"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "High write amplification and 4-second query latencies ruin real-time dashboa…\n\nhttps://michael.business/en/articles/clickhouse-mergetree-primary-key-index-tuning-guide?utm_source=x&utm_medium=social&utm_campaign=clickhouse-mergetree-primary-key-index-tuning-guide&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/streaming-kafka-fastapi"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Alta amplificação de escrita e latência de 4s destroem dashboards.\n\nO breakd…\n\nhttps://michael.business/pt/articles/clickhouse-mergetree-primary-key-index-tuning-guide?utm_source=x&utm_medium=social&utm_campaign=clickhouse-mergetree-primary-key-index-tuning-guide&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/streaming-kafka-fastapi"
+      ]
+    }
+  }
+}
