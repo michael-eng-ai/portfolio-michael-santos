@@ -1,0 +1,29 @@
+{
+  "slug": "article-flink-rocksdb-memory-tuning-for-high-throughput-joins",
+  "sourceType": "article",
+  "sourceSlug": "flink-rocksdb-memory-tuning-for-high-throughput-joins",
+  "status": "draft",
+  "generatedAt": "2026-07-28T12:11:53.247Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/flink-rocksdb-memory-tuning-for-high-throughput-joins.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/flink-rocksdb-memory-tuning-for-high-throughput-joins?utm_source=x&utm_medium=social&utm_campaign=flink-rocksdb-memory-tuning-for-high-throughput-joins&utm_content=en",
+    "pt": "https://michael.business/pt/articles/flink-rocksdb-memory-tuning-for-high-throughput-joins?utm_source=x&utm_medium=social&utm_campaign=flink-rocksdb-memory-tuning-for-high-throughput-joins&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/streaming-kafka-fastapi"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Prevent out-of-memory crashes during streaming joins using Flink RocksDB…\n\nhttps://michael.business/en/articles/flink-rocksdb-memory-tuning-for-high-throughput-joins?utm_source=x&utm_medium=social&utm_campaign=flink-rocksdb-memory-tuning-for-high-throughput-joins&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/streaming-kafka-fastapi"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Evite falhas de memória em joins contínuos usando ajuste de memória Flin…\n\nhttps://michael.business/pt/articles/flink-rocksdb-memory-tuning-for-high-throughput-joins?utm_source=x&utm_medium=social&utm_campaign=flink-rocksdb-memory-tuning-for-high-throughput-joins&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/streaming-kafka-fastapi"
+      ]
+    }
+  }
+}
