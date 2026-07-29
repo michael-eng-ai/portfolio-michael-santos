@@ -1,0 +1,27 @@
+{
+  "slug": "article-lakefs-write-audit-publish-pattern-for-lakehouse-etl",
+  "sourceType": "article",
+  "sourceSlug": "lakefs-write-audit-publish-pattern-for-lakehouse-etl",
+  "status": "draft",
+  "generatedAt": "2026-07-29T12:15:57.081Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/lakefs-write-audit-publish-pattern-for-lakehouse-etl.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/lakefs-write-audit-publish-pattern-for-lakehouse-etl?utm_source=linkedin&utm_medium=social&utm_campaign=lakefs-write-audit-publish-pattern-for-lakehouse-etl&utm_content=en",
+    "pt": "https://michael.business/pt/articles/lakefs-write-audit-publish-pattern-for-lakehouse-etl?utm_source=linkedin&utm_medium=social&utm_campaign=lakefs-write-audit-publish-pattern-for-lakehouse-etl&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
+  },
+  "locales": {
+    "en": {
+      "hook": "LakeFS write-audit-publish pattern for data lakes stops corrupted ETL updates before production reads, enforcing quality gates and zero-downtime rollbacks.",
+      "body": "LakeFS write-audit-publish pattern for data lakes stops corrupted ETL updates before production reads, enforcing quality gates and zero-downtime rollbacks.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "O padrão write-audit-publish com LakeFS para data lakes bloqueia atualizações ETL corrompidas antes do consumo, garantindo rollbacks com zero downtime.",
+      "body": "O padrão write-audit-publish com LakeFS para data lakes bloqueia atualizações ETL corrompidas antes do consumo, garantindo rollbacks com zero downtime.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
