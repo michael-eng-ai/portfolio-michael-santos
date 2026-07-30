@@ -1,0 +1,29 @@
+{
+  "slug": "article-soda-core-data-contract-validation-in-event-streams",
+  "sourceType": "article",
+  "sourceSlug": "soda-core-data-contract-validation-in-event-streams",
+  "status": "draft",
+  "generatedAt": "2026-07-30T12:08:07.162Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/soda-core-data-contract-validation-in-event-streams.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/soda-core-data-contract-validation-in-event-streams?utm_source=x&utm_medium=social&utm_campaign=soda-core-data-contract-validation-in-event-streams&utm_content=en",
+    "pt": "https://michael.business/pt/articles/soda-core-data-contract-validation-in-event-streams?utm_source=x&utm_medium=social&utm_campaign=soda-core-data-contract-validation-in-event-streams&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Prevent schema drift silently corrupting downstream models.\n\nThe site breakd…\n\nhttps://michael.business/en/articles/soda-core-data-contract-validation-in-event-streams?utm_source=x&utm_medium=social&utm_campaign=soda-core-data-contract-validation-in-event-streams&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Evite que o schema drift corrompa seus modelos.\n\nO breakdown no site conecta…\n\nhttps://michael.business/pt/articles/soda-core-data-contract-validation-in-event-streams?utm_source=x&utm_medium=social&utm_campaign=soda-core-data-contract-validation-in-event-streams&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
+      ]
+    }
+  }
+}

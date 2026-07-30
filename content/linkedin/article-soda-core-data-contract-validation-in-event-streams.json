@@ -1,0 +1,27 @@
+{
+  "slug": "article-soda-core-data-contract-validation-in-event-streams",
+  "sourceType": "article",
+  "sourceSlug": "soda-core-data-contract-validation-in-event-streams",
+  "status": "draft",
+  "generatedAt": "2026-07-30T12:08:06.252Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/soda-core-data-contract-validation-in-event-streams.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/soda-core-data-contract-validation-in-event-streams?utm_source=linkedin&utm_medium=social&utm_campaign=soda-core-data-contract-validation-in-event-streams&utm_content=en",
+    "pt": "https://michael.business/pt/articles/soda-core-data-contract-validation-in-event-streams?utm_source=linkedin&utm_medium=social&utm_campaign=soda-core-data-contract-validation-in-event-streams&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
+  },
+  "locales": {
+    "en": {
+      "hook": "Prevent schema drift silently corrupting downstream models.",
+      "body": "Prevent schema drift silently corrupting downstream models. Implement Soda Core data contract validation to halt breaking payloads before warehouse ingestion.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Evite que o schema drift corrompa seus modelos.",
+      "body": "Evite que o schema drift corrompa seus modelos. Implemente a validação de data contracts com Soda Core para barrar payloads inválidos antes do data warehouse.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
