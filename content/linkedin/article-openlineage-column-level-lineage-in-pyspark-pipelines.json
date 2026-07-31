@@ -1,0 +1,27 @@
+{
+  "slug": "article-openlineage-column-level-lineage-in-pyspark-pipelines",
+  "sourceType": "article",
+  "sourceSlug": "openlineage-column-level-lineage-in-pyspark-pipelines",
+  "status": "draft",
+  "generatedAt": "2026-07-31T12:13:19.486Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/openlineage-column-level-lineage-in-pyspark-pipelines.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/openlineage-column-level-lineage-in-pyspark-pipelines?utm_source=linkedin&utm_medium=social&utm_campaign=openlineage-column-level-lineage-in-pyspark-pipelines&utm_content=en",
+    "pt": "https://michael.business/pt/articles/openlineage-column-level-lineage-in-pyspark-pipelines?utm_source=linkedin&utm_medium=social&utm_campaign=openlineage-column-level-lineage-in-pyspark-pipelines&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
+  },
+  "locales": {
+    "en": {
+      "hook": "Prevent silent reporting failures by configuring OpenLineage column-level lineage in PySpark to trace field transformations and cut incident MTTR.",
+      "body": "Prevent silent reporting failures by configuring OpenLineage column-level lineage in PySpark to trace field transformations and cut incident MTTR.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Evite falhas em relatórios configurando OpenLineage column-level lineage em PySpark para rastrear transformações de campos e reduzir o MTTR.",
+      "body": "Evite falhas em relatórios configurando OpenLineage column-level lineage em PySpark para rastrear transformações de campos e reduzir o MTTR.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
