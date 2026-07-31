@@ -1,0 +1,29 @@
+{
+  "slug": "article-openlineage-column-level-lineage-in-pyspark-pipelines",
+  "sourceType": "article",
+  "sourceSlug": "openlineage-column-level-lineage-in-pyspark-pipelines",
+  "status": "draft",
+  "generatedAt": "2026-07-31T12:13:20.400Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/openlineage-column-level-lineage-in-pyspark-pipelines.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/openlineage-column-level-lineage-in-pyspark-pipelines?utm_source=x&utm_medium=social&utm_campaign=openlineage-column-level-lineage-in-pyspark-pipelines&utm_content=en",
+    "pt": "https://michael.business/pt/articles/openlineage-column-level-lineage-in-pyspark-pipelines?utm_source=x&utm_medium=social&utm_campaign=openlineage-column-level-lineage-in-pyspark-pipelines&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/data-governance-quality-framework"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Prevent silent reporting failures by configuring OpenLineage column-leve…\n\nhttps://michael.business/en/articles/openlineage-column-level-lineage-in-pyspark-pipelines?utm_source=x&utm_medium=social&utm_campaign=openlineage-column-level-lineage-in-pyspark-pipelines&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Evite falhas em relatórios configurando OpenLineage column-level lineage…\n\nhttps://michael.business/pt/articles/openlineage-column-level-lineage-in-pyspark-pipelines?utm_source=x&utm_medium=social&utm_campaign=openlineage-column-level-lineage-in-pyspark-pipelines&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-governance-quality-framework"
+      ]
+    }
+  }
+}
