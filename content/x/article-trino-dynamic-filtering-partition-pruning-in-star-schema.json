@@ -1,0 +1,29 @@
+{
+  "slug": "article-trino-dynamic-filtering-partition-pruning-in-star-schema",
+  "sourceType": "article",
+  "sourceSlug": "trino-dynamic-filtering-partition-pruning-in-star-schema",
+  "status": "draft",
+  "generatedAt": "2026-08-04T12:14:15.577Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/trino-dynamic-filtering-partition-pruning-in-star-schema.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/trino-dynamic-filtering-partition-pruning-in-star-schema?utm_source=x&utm_medium=social&utm_campaign=trino-dynamic-filtering-partition-pruning-in-star-schema&utm_content=en",
+    "pt": "https://michael.business/pt/articles/trino-dynamic-filtering-partition-pruning-in-star-schema?utm_source=x&utm_medium=social&utm_campaign=trino-dynamic-filtering-partition-pruning-in-star-schema&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Optimize Trino Dynamic Filtering to prevent table scans on multi-t…\n\nhttps://michael.business/en/articles/trino-dynamic-filtering-partition-pruning-in-star-schema?utm_source=x&utm_medium=social&utm_campaign=trino-dynamic-filtering-partition-pruning-in-star-schema&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Otimize o Trino Dynamic Filtering para evitar varreduras completas…\n\nhttps://michael.business/pt/articles/trino-dynamic-filtering-partition-pruning-in-star-schema?utm_source=x&utm_medium=social&utm_campaign=trino-dynamic-filtering-partition-pruning-in-star-schema&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+      ]
+    }
+  }
+}

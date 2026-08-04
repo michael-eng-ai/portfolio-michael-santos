@@ -1,0 +1,27 @@
+{
+  "slug": "article-trino-dynamic-filtering-partition-pruning-in-star-schema",
+  "sourceType": "article",
+  "sourceSlug": "trino-dynamic-filtering-partition-pruning-in-star-schema",
+  "status": "draft",
+  "generatedAt": "2026-08-04T12:14:14.716Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/trino-dynamic-filtering-partition-pruning-in-star-schema.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/trino-dynamic-filtering-partition-pruning-in-star-schema?utm_source=linkedin&utm_medium=social&utm_campaign=trino-dynamic-filtering-partition-pruning-in-star-schema&utm_content=en",
+    "pt": "https://michael.business/pt/articles/trino-dynamic-filtering-partition-pruning-in-star-schema?utm_source=linkedin&utm_medium=social&utm_campaign=trino-dynamic-filtering-partition-pruning-in-star-schema&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+  },
+  "locales": {
+    "en": {
+      "hook": "Optimize Trino Dynamic Filtering to prevent table scans on multi-terabyte fact tables, reducing query latency and cut execution costs across lakehouses.",
+      "body": "Optimize Trino Dynamic Filtering to prevent table scans on multi-terabyte fact tables, reducing query latency and cut execution costs across lakehouses.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Otimize o Trino Dynamic Filtering para evitar varreduras completas em tabelas fato gigantes, reduzindo latência de consultas e custos no lakehouse.",
+      "body": "Otimize o Trino Dynamic Filtering para evitar varreduras completas em tabelas fato gigantes, reduzindo latência de consultas e custos no lakehouse.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
