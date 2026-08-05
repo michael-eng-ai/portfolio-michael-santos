@@ -1,0 +1,29 @@
+{
+  "slug": "article-bigquery-slot-contention-and-partition-skew-mitigation",
+  "sourceType": "article",
+  "sourceSlug": "bigquery-slot-contention-and-partition-skew-mitigation",
+  "status": "draft",
+  "generatedAt": "2026-08-05T12:12:35.257Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/bigquery-slot-contention-and-partition-skew-mitigation.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/bigquery-slot-contention-and-partition-skew-mitigation?utm_source=x&utm_medium=social&utm_campaign=bigquery-slot-contention-and-partition-skew-mitigation&utm_content=en",
+    "pt": "https://michael.business/pt/articles/bigquery-slot-contention-and-partition-skew-mitigation?utm_source=x&utm_medium=social&utm_campaign=bigquery-slot-contention-and-partition-skew-mitigation&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "BigQuery Slot Contention spikes query latency by 400ms during peak bat…\n\nhttps://michael.business/en/articles/bigquery-slot-contention-and-partition-skew-mitigation?utm_source=x&utm_medium=social&utm_campaign=bigquery-slot-contention-and-partition-skew-mitigation&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "A contenção de slots no BigQuery eleva a latência em 400ms nos picos.…\n\nhttps://michael.business/pt/articles/bigquery-slot-contention-and-partition-skew-mitigation?utm_source=x&utm_medium=social&utm_campaign=bigquery-slot-contention-and-partition-skew-mitigation&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+      ]
+    }
+  }
+}

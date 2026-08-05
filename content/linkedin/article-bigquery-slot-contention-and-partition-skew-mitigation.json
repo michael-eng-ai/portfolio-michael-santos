@@ -1,0 +1,27 @@
+{
+  "slug": "article-bigquery-slot-contention-and-partition-skew-mitigation",
+  "sourceType": "article",
+  "sourceSlug": "bigquery-slot-contention-and-partition-skew-mitigation",
+  "status": "draft",
+  "generatedAt": "2026-08-05T12:12:34.567Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/bigquery-slot-contention-and-partition-skew-mitigation.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/bigquery-slot-contention-and-partition-skew-mitigation?utm_source=linkedin&utm_medium=social&utm_campaign=bigquery-slot-contention-and-partition-skew-mitigation&utm_content=en",
+    "pt": "https://michael.business/pt/articles/bigquery-slot-contention-and-partition-skew-mitigation?utm_source=linkedin&utm_medium=social&utm_campaign=bigquery-slot-contention-and-partition-skew-mitigation&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+  },
+  "locales": {
+    "en": {
+      "hook": "BigQuery Slot Contention spikes query latency by 400ms during peak batch loads.",
+      "body": "BigQuery Slot Contention spikes query latency by 400ms during peak batch loads. Optimize partition boundaries and slot allocations to slash analytical costs.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "A contenção de slots no BigQuery eleva a latência em 400ms nos picos.",
+      "body": "A contenção de slots no BigQuery eleva a latência em 400ms nos picos. Otimize limites de partição e alocação de slots para reduzir custos analíticos.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
