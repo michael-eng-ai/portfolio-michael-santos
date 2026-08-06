@@ -1,0 +1,29 @@
+{
+  "slug": "article-duckdb-out-of-core-memory-spills-in-s3-parquet-scans",
+  "sourceType": "article",
+  "sourceSlug": "duckdb-out-of-core-memory-spills-in-s3-parquet-scans",
+  "status": "draft",
+  "generatedAt": "2026-08-06T12:14:22.405Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/duckdb-out-of-core-memory-spills-in-s3-parquet-scans.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/duckdb-out-of-core-memory-spills-in-s3-parquet-scans?utm_source=x&utm_medium=social&utm_campaign=duckdb-out-of-core-memory-spills-in-s3-parquet-scans&utm_content=en",
+    "pt": "https://michael.business/pt/articles/duckdb-out-of-core-memory-spills-in-s3-parquet-scans?utm_source=x&utm_medium=social&utm_campaign=duckdb-out-of-core-memory-spills-in-s3-parquet-scans&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "The business pressure behind DuckDB Out-of-Core Memory Spills in S3 Parque…\n\nhttps://michael.business/en/articles/duckdb-out-of-core-memory-spills-in-s3-parquet-scans?utm_source=x&utm_medium=social&utm_campaign=duckdb-out-of-core-memory-spills-in-s3-parquet-scans&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "A pressão de negócio por trás de Spills de Memória Out-of-Core no DuckDB c…\n\nhttps://michael.business/pt/articles/duckdb-out-of-core-memory-spills-in-s3-parquet-scans?utm_source=x&utm_medium=social&utm_campaign=duckdb-out-of-core-memory-spills-in-s3-parquet-scans&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    }
+  }
+}

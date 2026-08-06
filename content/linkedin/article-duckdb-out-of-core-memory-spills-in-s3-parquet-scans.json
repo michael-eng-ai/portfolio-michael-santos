@@ -1,0 +1,27 @@
+{
+  "slug": "article-duckdb-out-of-core-memory-spills-in-s3-parquet-scans",
+  "sourceType": "article",
+  "sourceSlug": "duckdb-out-of-core-memory-spills-in-s3-parquet-scans",
+  "status": "draft",
+  "generatedAt": "2026-08-06T12:14:21.495Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/duckdb-out-of-core-memory-spills-in-s3-parquet-scans.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/duckdb-out-of-core-memory-spills-in-s3-parquet-scans?utm_source=linkedin&utm_medium=social&utm_campaign=duckdb-out-of-core-memory-spills-in-s3-parquet-scans&utm_content=en",
+    "pt": "https://michael.business/pt/articles/duckdb-out-of-core-memory-spills-in-s3-parquet-scans?utm_source=linkedin&utm_medium=social&utm_campaign=duckdb-out-of-core-memory-spills-in-s3-parquet-scans&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "hook": "The business pressure behind DuckDB Out-of-Core Memory Spills in S3 Parquet Scans is accelerating faster than most data stacks can absorb.",
+      "body": "DuckDB Out-of-Core Memory Spills in S3 Parquet Scans crash pod workers during high-throughput loads. Tune buffer limits to prevent OOM errors and cut cloud costs.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "A pressão de negócio por trás de Spills de Memória Out-of-Core no DuckDB com Parquet S3 está acelerando mais rápido do que a maioria dos stacks de dados consegue absorver.",
+      "body": "Spills de memória out-of-core no DuckDB com Parquet S3 travam pods sob carga. Ajuste limites de buffer para eliminar erros OOM e cortar custos em nuvem.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
