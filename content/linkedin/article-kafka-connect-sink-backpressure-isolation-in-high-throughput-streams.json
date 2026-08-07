@@ -1,0 +1,27 @@
+{
+  "slug": "article-kafka-connect-sink-backpressure-isolation-in-high-throughput-streams",
+  "sourceType": "article",
+  "sourceSlug": "kafka-connect-sink-backpressure-isolation-in-high-throughput-streams",
+  "status": "draft",
+  "generatedAt": "2026-08-07T11:47:54.357Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/kafka-connect-sink-backpressure-isolation-in-high-throughput-streams.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/kafka-connect-sink-backpressure-isolation-in-high-throughput-streams?utm_source=linkedin&utm_medium=social&utm_campaign=kafka-connect-sink-backpressure-isolation-in-high-throughput-streams&utm_content=en",
+    "pt": "https://michael.business/pt/articles/kafka-connect-sink-backpressure-isolation-in-high-throughput-streams?utm_source=linkedin&utm_medium=social&utm_campaign=kafka-connect-sink-backpressure-isolation-in-high-throughput-streams&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "Kafka Connect Sink Backpressure Isolation prevents consumer lag spikes from crashing downstream database writers.",
+      "body": "Kafka Connect Sink Backpressure Isolation prevents consumer lag spikes from crashing downstream database writers. Restore streaming SLOs and cut memory waste.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Isolamento de Backpressure em Kafka Connect Sink evita picos de lag ao gravar no banco.",
+      "body": "Isolamento de Backpressure em Kafka Connect Sink evita picos de lag ao gravar no banco. Recupere SLOs de streaming e reduza o desperdício de memória.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
