@@ -1,0 +1,29 @@
+{
+  "slug": "article-kafka-connect-sink-backpressure-isolation-in-high-throughput-streams",
+  "sourceType": "article",
+  "sourceSlug": "kafka-connect-sink-backpressure-isolation-in-high-throughput-streams",
+  "status": "draft",
+  "generatedAt": "2026-08-07T11:47:55.056Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/kafka-connect-sink-backpressure-isolation-in-high-throughput-streams.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/kafka-connect-sink-backpressure-isolation-in-high-throughput-streams?utm_source=x&utm_medium=social&utm_campaign=kafka-connect-sink-backpressure-isolation-in-high-throughput-streams&utm_content=en",
+    "pt": "https://michael.business/pt/articles/kafka-connect-sink-backpressure-isolation-in-high-throughput-streams?utm_source=x&utm_medium=social&utm_campaign=kafka-connect-sink-backpressure-isolation-in-high-throughput-streams&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Kafka Connect Sink Backpressure Isolation…\n\nhttps://michael.business/en/articles/kafka-connect-sink-backpressure-isolation-in-high-throughput-streams?utm_source=x&utm_medium=social&utm_campaign=kafka-connect-sink-backpressure-isolation-in-high-throughput-streams&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Isolamento de Backpressure em Kafka Connec…\n\nhttps://michael.business/pt/articles/kafka-connect-sink-backpressure-isolation-in-high-throughput-streams?utm_source=x&utm_medium=social&utm_campaign=kafka-connect-sink-backpressure-isolation-in-high-throughput-streams&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    }
+  }
+}
