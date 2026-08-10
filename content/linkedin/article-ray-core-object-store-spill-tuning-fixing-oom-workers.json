@@ -1,0 +1,27 @@
+{
+  "slug": "article-ray-core-object-store-spill-tuning-fixing-oom-workers",
+  "sourceType": "article",
+  "sourceSlug": "ray-core-object-store-spill-tuning-fixing-oom-workers",
+  "status": "draft",
+  "generatedAt": "2026-08-10T11:47:45.976Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/ray-core-object-store-spill-tuning-fixing-oom-workers.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/ray-core-object-store-spill-tuning-fixing-oom-workers?utm_source=linkedin&utm_medium=social&utm_campaign=ray-core-object-store-spill-tuning-fixing-oom-workers&utm_content=en",
+    "pt": "https://michael.business/pt/articles/ray-core-object-store-spill-tuning-fixing-oom-workers?utm_source=linkedin&utm_medium=social&utm_campaign=ray-core-object-store-spill-tuning-fixing-oom-workers&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/rag-knowledge-base-pipeline"
+  },
+  "locales": {
+    "en": {
+      "hook": "Ray Core object store spill tuning resolves worker OOM crashes and cuts streaming vector embedding costs by 40% under high-volume batch workloads.",
+      "body": "Ray Core object store spill tuning resolves worker OOM crashes and cuts streaming vector embedding costs by 40% under high-volume batch workloads.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "O ajuste de spill no object store do Ray Core elimina crashes por OOM e reduz custos com embeddings vetoriais em lotes em 40% em grande escala.",
+      "body": "O ajuste de spill no object store do Ray Core elimina crashes por OOM e reduz custos com embeddings vetoriais em lotes em 40% em grande escala.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
