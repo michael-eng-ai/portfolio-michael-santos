@@ -1,0 +1,27 @@
+{
+  "slug": "article-clickhouse-lightweight-deletes-solving-read-amplification",
+  "sourceType": "article",
+  "sourceSlug": "clickhouse-lightweight-deletes-solving-read-amplification",
+  "status": "draft",
+  "generatedAt": "2026-08-11T11:47:25.892Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/clickhouse-lightweight-deletes-solving-read-amplification.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/clickhouse-lightweight-deletes-solving-read-amplification?utm_source=linkedin&utm_medium=social&utm_campaign=clickhouse-lightweight-deletes-solving-read-amplification&utm_content=en",
+    "pt": "https://michael.business/pt/articles/clickhouse-lightweight-deletes-solving-read-amplification?utm_source=linkedin&utm_medium=social&utm_campaign=clickhouse-lightweight-deletes-solving-read-amplification&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "Fix ClickHouse lightweight delete read amplification to eliminate 4x query latency spikes and optimize S3 read costs across analytical workloads.",
+      "body": "Fix ClickHouse lightweight delete read amplification to eliminate 4x query latency spikes and optimize S3 read costs across analytical workloads.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Mitigue o read amplification por deletes leves no ClickHouse para eliminar picos de latência de 4x e otimizar custos de leitura no S3.",
+      "body": "Mitigue o read amplification por deletes leves no ClickHouse para eliminar picos de latência de 4x e otimizar custos de leitura no S3.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
