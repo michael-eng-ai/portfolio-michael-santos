@@ -1,0 +1,27 @@
+{
+  "slug": "article-s3-express-one-zone-streaming-sink-performance-guide",
+  "sourceType": "article",
+  "sourceSlug": "s3-express-one-zone-streaming-sink-performance-guide",
+  "status": "draft",
+  "generatedAt": "2026-08-12T11:47:51.234Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/s3-express-one-zone-streaming-sink-performance-guide.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/s3-express-one-zone-streaming-sink-performance-guide?utm_source=linkedin&utm_medium=social&utm_campaign=s3-express-one-zone-streaming-sink-performance-guide&utm_content=en",
+    "pt": "https://michael.business/pt/articles/s3-express-one-zone-streaming-sink-performance-guide?utm_source=linkedin&utm_medium=social&utm_campaign=s3-express-one-zone-streaming-sink-performance-guide&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "hook": "Fix sub-second streaming sink SLA breaches using S3 Express One Zone streaming sink performance patterns to eliminate HTTP PUT latency spikes and storage costs.",
+      "body": "Fix sub-second streaming sink SLA breaches using S3 Express One Zone streaming sink performance patterns to eliminate HTTP PUT latency spikes and storage costs.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Elimine estouros de SLA em sinks de streaming aplicando S3 Express One Zone streaming sink performance para reduzir a latência de PUTs e cortar custos.",
+      "body": "Elimine estouros de SLA em sinks de streaming aplicando S3 Express One Zone streaming sink performance para reduzir a latência de PUTs e cortar custos.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
