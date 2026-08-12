@@ -1,0 +1,29 @@
+{
+  "slug": "article-s3-express-one-zone-streaming-sink-performance-guide",
+  "sourceType": "article",
+  "sourceSlug": "s3-express-one-zone-streaming-sink-performance-guide",
+  "status": "draft",
+  "generatedAt": "2026-08-12T11:47:52.155Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/s3-express-one-zone-streaming-sink-performance-guide.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/s3-express-one-zone-streaming-sink-performance-guide?utm_source=x&utm_medium=social&utm_campaign=s3-express-one-zone-streaming-sink-performance-guide&utm_content=en",
+    "pt": "https://michael.business/pt/articles/s3-express-one-zone-streaming-sink-performance-guide?utm_source=x&utm_medium=social&utm_campaign=s3-express-one-zone-streaming-sink-performance-guide&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Fix sub-second streaming sink SLA breaches using S3 Express One Zone strea…\n\nhttps://michael.business/en/articles/s3-express-one-zone-streaming-sink-performance-guide?utm_source=x&utm_medium=social&utm_campaign=s3-express-one-zone-streaming-sink-performance-guide&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Elimine estouros de SLA em sinks de streaming aplicando S3 Express One Zon…\n\nhttps://michael.business/pt/articles/s3-express-one-zone-streaming-sink-performance-guide?utm_source=x&utm_medium=social&utm_campaign=s3-express-one-zone-streaming-sink-performance-guide&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    }
+  }
+}
