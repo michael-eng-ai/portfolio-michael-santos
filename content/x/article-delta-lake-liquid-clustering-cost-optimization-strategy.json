@@ -1,0 +1,29 @@
+{
+  "slug": "article-delta-lake-liquid-clustering-cost-optimization-strategy",
+  "sourceType": "article",
+  "sourceSlug": "delta-lake-liquid-clustering-cost-optimization-strategy",
+  "status": "draft",
+  "generatedAt": "2026-08-13T11:47:57.983Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/delta-lake-liquid-clustering-cost-optimization-strategy.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/delta-lake-liquid-clustering-cost-optimization-strategy?utm_source=x&utm_medium=social&utm_campaign=delta-lake-liquid-clustering-cost-optimization-strategy&utm_content=en",
+    "pt": "https://michael.business/pt/articles/delta-lake-liquid-clustering-cost-optimization-strategy?utm_source=x&utm_medium=social&utm_campaign=delta-lake-liquid-clustering-cost-optimization-strategy&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Prevent cloud storage read amplification and reduce Delta Lake Liqui…\n\nhttps://michael.business/en/articles/delta-lake-liquid-clustering-cost-optimization-strategy?utm_source=x&utm_medium=social&utm_campaign=delta-lake-liquid-clustering-cost-optimization-strategy&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Evite a amplificação de leitura em nuvem e reduza custos do Delta La…\n\nhttps://michael.business/pt/articles/delta-lake-liquid-clustering-cost-optimization-strategy?utm_source=x&utm_medium=social&utm_campaign=delta-lake-liquid-clustering-cost-optimization-strategy&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    }
+  }
+}
