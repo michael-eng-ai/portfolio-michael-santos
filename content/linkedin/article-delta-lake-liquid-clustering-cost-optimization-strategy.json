@@ -1,0 +1,27 @@
+{
+  "slug": "article-delta-lake-liquid-clustering-cost-optimization-strategy",
+  "sourceType": "article",
+  "sourceSlug": "delta-lake-liquid-clustering-cost-optimization-strategy",
+  "status": "draft",
+  "generatedAt": "2026-08-13T11:47:57.078Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/delta-lake-liquid-clustering-cost-optimization-strategy.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/delta-lake-liquid-clustering-cost-optimization-strategy?utm_source=linkedin&utm_medium=social&utm_campaign=delta-lake-liquid-clustering-cost-optimization-strategy&utm_content=en",
+    "pt": "https://michael.business/pt/articles/delta-lake-liquid-clustering-cost-optimization-strategy?utm_source=linkedin&utm_medium=social&utm_campaign=delta-lake-liquid-clustering-cost-optimization-strategy&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "hook": "Prevent cloud storage read amplification and reduce Delta Lake Liquid Clustering costs while eliminating partitioning skew in multi-terabyte analytical queries.",
+      "body": "Prevent cloud storage read amplification and reduce Delta Lake Liquid Clustering costs while eliminating partitioning skew in multi-terabyte analytical queries.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Evite a amplificação de leitura em nuvem e reduza custos do Delta Lake Liquid Clustering, eliminando o desequilíbrio em consultas de múltiplos terabytes.",
+      "body": "Evite a amplificação de leitura em nuvem e reduza custos do Delta Lake Liquid Clustering, eliminando o desequilíbrio em consultas de múltiplos terabytes.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
