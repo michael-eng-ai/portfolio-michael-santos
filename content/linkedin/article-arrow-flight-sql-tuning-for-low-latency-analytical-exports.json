@@ -1,0 +1,27 @@
+{
+  "slug": "article-arrow-flight-sql-tuning-for-low-latency-analytical-exports",
+  "sourceType": "article",
+  "sourceSlug": "arrow-flight-sql-tuning-for-low-latency-analytical-exports",
+  "status": "draft",
+  "generatedAt": "2026-08-14T11:47:50.801Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/arrow-flight-sql-tuning-for-low-latency-analytical-exports.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/arrow-flight-sql-tuning-for-low-latency-analytical-exports?utm_source=linkedin&utm_medium=social&utm_campaign=arrow-flight-sql-tuning-for-low-latency-analytical-exports&utm_content=en",
+    "pt": "https://michael.business/pt/articles/arrow-flight-sql-tuning-for-low-latency-analytical-exports?utm_source=linkedin&utm_medium=social&utm_campaign=arrow-flight-sql-tuning-for-low-latency-analytical-exports&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/streaming-kafka-fastapi"
+  },
+  "locales": {
+    "en": {
+      "hook": "Eliminate JDBC serialization bottlenecks using Arrow Flight SQL tuning to cut export latency by 70% and stabilize downstream analytical microservices.",
+      "body": "Eliminate JDBC serialization bottlenecks using Arrow Flight SQL tuning to cut export latency by 70% and stabilize downstream analytical microservices.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Elimine gargalos de serialização JDBC com Arrow Flight SQL tuning para reduzir latência de exportação em 70% e estabilizar serviços analíticos.",
+      "body": "Elimine gargalos de serialização JDBC com Arrow Flight SQL tuning para reduzir latência de exportação em 70% e estabilizar serviços analíticos.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
