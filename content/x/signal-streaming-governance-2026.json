@@ -1,0 +1,32 @@
+{
+  "slug": "signal-streaming-governance-2026",
+  "sourceType": "signal",
+  "sourceSlug": "streaming-governance-2026",
+  "status": "draft",
+  "generatedAt": "2026-07-18T03:51:54.334Z",
+  "publishedAt": null,
+  "publishedUrl": null,
+  "mediaPath": "/images/social/2026-07-18-streaming-governance-2026.png",
+  "mediaSource": "screenshot",
+  "urls": {
+    "en": "https://michael.business/en/news/streaming-governance-2026?utm_source=x&utm_medium=social&utm_campaign=signal-streaming-governance-2026&utm_content=signal",
+    "pt": "https://michael.business/pt/news/streaming-governance-2026?utm_source=x&utm_medium=social&utm_campaign=signal-streaming-governance-2026&utm_content=signal",
+    "proof": "https://www.confluent.io/blog/"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Streaming used to sell on speed. The buying question now is recovery and trust.",
+        "Confluent's push makes it clear: latency and time-to-recovery decide the investment — not the architecture slide.",
+        "Proof: https://www.confluent.io/blog/"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Streaming vendia velocidade. Agora a pergunta de compra é recovery e confiança.",
+        "O movimento da Confluent deixa claro: latência e tempo até recovery decidem o investimento — não o slide de arquitetura.",
+        "Prova: https://www.confluent.io/blog/"
+      ]
+    }
+  }
+}

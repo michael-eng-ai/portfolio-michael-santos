@@ -1,0 +1,28 @@
+{
+  "slug": "signal-streaming-governance-2026",
+  "sourceType": "signal",
+  "sourceSlug": "streaming-governance-2026",
+  "status": "draft",
+  "generatedAt": "2026-07-18T03:51:54.333Z",
+  "publishedAt": null,
+  "publishedUrl": null,
+  "mediaPath": "/images/social/2026-07-18-streaming-governance-2026.png",
+  "mediaSource": "screenshot",
+  "urls": {
+    "en": "https://michael.business/en/news/streaming-governance-2026?utm_source=linkedin&utm_medium=social&utm_campaign=signal-streaming-governance-2026&utm_content=signal",
+    "pt": "https://michael.business/pt/news/streaming-governance-2026?utm_source=linkedin&utm_medium=social&utm_campaign=signal-streaming-governance-2026&utm_content=signal",
+    "proof": "https://www.confluent.io/blog/"
+  },
+  "locales": {
+    "en": {
+      "hook": "Streaming used to sell on speed. The buying question now is recovery and trust.",
+      "body": "Confluent's recent push makes the shift obvious: executives do not fund streaming for throughput alone. They fund it when operational data moves fast enough to improve visibility, response, and confidence in downstream decisions.\n\nThe hidden cost shows up in pipeline latency and time-to-recovery — not the architecture slide.",
+      "cta": "Curious how you'd harden this in your stack? Proof + breakdown in the links."
+    },
+    "pt": {
+      "hook": "Streaming vendia velocidade. Agora a pergunta de compra é recovery e confiança.",
+      "body": "O movimento recente da Confluent deixa o shift claro: executivos não compram streaming só por throughput. Eles investem quando dados operacionais se movem rápido o bastante para melhorar visibilidade, resposta e confiança nas decisões downstream.\n\nO custo escondido aparece em latência de pipeline e tempo até recovery — não no slide de arquitetura.",
+      "cta": "Curioso como você endureceria isso no seu stack? Prova + breakdown nos links."
+    }
+  }
+}
