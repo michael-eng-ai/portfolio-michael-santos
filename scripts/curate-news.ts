@@ -160,7 +160,7 @@ async function main(): Promise<void> {
   );
 
   if (validKeptSlugs.length === 0) {
-    console.error("ERROR: Claude returned no valid slugs matching today's news");
+    console.error("ERROR: the LLM returned no valid slugs matching today's news");
     process.exit(1);
   }
 
