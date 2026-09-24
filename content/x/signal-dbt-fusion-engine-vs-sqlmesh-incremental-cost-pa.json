@@ -1,0 +1,32 @@
+{
+  "slug": "signal-dbt-fusion-engine-vs-sqlmesh-incremental-cost-pa",
+  "sourceType": "signal",
+  "sourceSlug": "dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns",
+  "status": "draft",
+  "generatedAt": "2026-07-18T03:51:54.337Z",
+  "publishedAt": null,
+  "publishedUrl": null,
+  "mediaPath": "/images/social/2026-07-18-dbt-fusion-engine-vs-sqlmesh-incremental-cost-pa.png",
+  "mediaSource": "screenshot",
+  "urls": {
+    "en": "https://michael.business/en/articles/dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns?utm_source=x&utm_medium=social&utm_campaign=signal-dbt-fusion-engine-vs-sqlmesh-incremental-cost-pa&utm_content=signal",
+    "pt": "https://michael.business/pt/articles/dbt-fusion-engine-vs-sqlmesh-incremental-cost-patterns?utm_source=x&utm_medium=social&utm_campaign=signal-dbt-fusion-engine-vs-sqlmesh-incremental-cost-pa&utm_content=signal",
+    "proof": "https://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Warehouse bills keep climbing while “incremental” models rebuild work that already existed.",
+        "dbt Fusion vs SQLMesh is a cost-control choice on rebuilds and planning — not a fashion cycle.",
+        "Proof: https://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "A conta do warehouse sobe enquanto modelos “incrementais” reprocessam o que já existia.",
+        "dbt Fusion vs SQLMesh é escolha de custo em rebuilds e planning — não ciclo de moda.",
+        "Prova: https://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+      ]
+    }
+  }
+}
