@@ -1,0 +1,27 @@
+{
+  "slug": "article-postgres-wal-replication-slot-disk-bloat-mitigation",
+  "sourceType": "article",
+  "sourceSlug": "postgres-wal-replication-slot-disk-bloat-mitigation",
+  "status": "draft",
+  "generatedAt": "2026-09-25T11:39:03.278Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/postgres-wal-replication-slot-disk-bloat-mitigation.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/postgres-wal-replication-slot-disk-bloat-mitigation?utm_source=linkedin&utm_medium=social&utm_campaign=postgres-wal-replication-slot-disk-bloat-mitigation&utm_content=en",
+    "pt": "https://michael.business/pt/articles/postgres-wal-replication-slot-disk-bloat-mitigation?utm_source=linkedin&utm_medium=social&utm_campaign=postgres-wal-replication-slot-disk-bloat-mitigation&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "Resolve Postgres WAL replication slot disk bloat before primary storage fills up.",
+      "body": "Resolve Postgres WAL replication slot disk bloat before primary storage fills up. Enforce max_slot_wal_keep_size and fail-safes to preserve OLTP uptime.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Resolva o bloat de WAL por replication slot no Postgres antes que o disco encha.",
+      "body": "Resolva o bloat de WAL por replication slot no Postgres antes que o disco encha. Use max_slot_wal_keep_size e fail-safes para proteger a alta disponibilidade.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
