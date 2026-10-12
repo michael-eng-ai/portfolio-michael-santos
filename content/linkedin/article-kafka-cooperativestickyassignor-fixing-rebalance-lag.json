@@ -1,0 +1,27 @@
+{
+  "slug": "article-kafka-cooperativestickyassignor-fixing-rebalance-lag",
+  "sourceType": "article",
+  "sourceSlug": "kafka-cooperativestickyassignor-fixing-rebalance-lag",
+  "status": "draft",
+  "generatedAt": "2026-10-12T11:42:58.960Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/kafka-cooperativestickyassignor-fixing-rebalance-lag.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/kafka-cooperativestickyassignor-fixing-rebalance-lag?utm_source=linkedin&utm_medium=social&utm_campaign=kafka-cooperativestickyassignor-fixing-rebalance-lag&utm_content=en",
+    "pt": "https://michael.business/pt/articles/kafka-cooperativestickyassignor-fixing-rebalance-lag?utm_source=linkedin&utm_medium=social&utm_campaign=kafka-cooperativestickyassignor-fixing-rebalance-lag&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/streaming-kafka-fastapi"
+  },
+  "locales": {
+    "en": {
+      "hook": "Prevent consumer lag spikes during Kubernetes rolling restarts by configuring Kafka CooperativeStickyAssignor to eliminate stop-the-world partition stalls.",
+      "body": "Prevent consumer lag spikes during Kubernetes rolling restarts by configuring Kafka CooperativeStickyAssignor to eliminate stop-the-world partition stalls.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Evite picos de lag ao reiniciar pods no Kubernetes configurando Kafka CooperativeStickyAssignor para eliminar pausas globais na atribuição de partições.",
+      "body": "Evite picos de lag ao reiniciar pods no Kubernetes configurando Kafka CooperativeStickyAssignor para eliminar pausas globais na atribuição de partições.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
