@@ -1,0 +1,29 @@
+{
+  "slug": "article-kafka-cooperativestickyassignor-fixing-rebalance-lag",
+  "sourceType": "article",
+  "sourceSlug": "kafka-cooperativestickyassignor-fixing-rebalance-lag",
+  "status": "draft",
+  "generatedAt": "2026-10-12T11:42:59.482Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/kafka-cooperativestickyassignor-fixing-rebalance-lag.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/kafka-cooperativestickyassignor-fixing-rebalance-lag?utm_source=x&utm_medium=social&utm_campaign=kafka-cooperativestickyassignor-fixing-rebalance-lag&utm_content=en",
+    "pt": "https://michael.business/pt/articles/kafka-cooperativestickyassignor-fixing-rebalance-lag?utm_source=x&utm_medium=social&utm_campaign=kafka-cooperativestickyassignor-fixing-rebalance-lag&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/streaming-kafka-fastapi"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Prevent consumer lag spikes during Kubernetes rolling restarts by configur…\n\nhttps://michael.business/en/articles/kafka-cooperativestickyassignor-fixing-rebalance-lag?utm_source=x&utm_medium=social&utm_campaign=kafka-cooperativestickyassignor-fixing-rebalance-lag&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/streaming-kafka-fastapi"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Evite picos de lag ao reiniciar pods no Kubernetes configurando Kafka Coop…\n\nhttps://michael.business/pt/articles/kafka-cooperativestickyassignor-fixing-rebalance-lag?utm_source=x&utm_medium=social&utm_campaign=kafka-cooperativestickyassignor-fixing-rebalance-lag&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/streaming-kafka-fastapi"
+      ]
+    }
+  }
+}
