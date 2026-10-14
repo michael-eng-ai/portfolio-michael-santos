@@ -1,0 +1,27 @@
+{
+  "slug": "article-asyncpg-connection-pool-starvation-in-live-serving-apis",
+  "sourceType": "article",
+  "sourceSlug": "asyncpg-connection-pool-starvation-in-live-serving-apis",
+  "status": "draft",
+  "generatedAt": "2026-10-14T11:41:50.313Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/asyncpg-connection-pool-starvation-in-live-serving-apis.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/asyncpg-connection-pool-starvation-in-live-serving-apis?utm_source=linkedin&utm_medium=social&utm_campaign=asyncpg-connection-pool-starvation-in-live-serving-apis&utm_content=en",
+    "pt": "https://michael.business/pt/articles/asyncpg-connection-pool-starvation-in-live-serving-apis?utm_source=linkedin&utm_medium=social&utm_campaign=asyncpg-connection-pool-starvation-in-live-serving-apis&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/streaming-kafka-fastapi"
+  },
+  "locales": {
+    "en": {
+      "hook": "Resolve AsyncPG connection pool starvation during live event bursts.",
+      "body": "Resolve AsyncPG connection pool starvation during live event bursts. Eliminate 503 spikes and p99 latency regressions using acquire timeouts and pooling.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Resolva o esgotamento de pool AsyncPG em picos de eventos.",
+      "body": "Resolva o esgotamento de pool AsyncPG em picos de eventos. Elimine erros 503 e regressões de p99 ajustando acquire timeouts e reciclagem de conexões.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
