@@ -1,0 +1,29 @@
+{
+  "slug": "article-bigquery-storage-write-api-resolving-stream-commit-latency",
+  "sourceType": "article",
+  "sourceSlug": "bigquery-storage-write-api-resolving-stream-commit-latency",
+  "status": "draft",
+  "generatedAt": "2026-10-19T11:42:04.130Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/bigquery-storage-write-api-resolving-stream-commit-latency.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/bigquery-storage-write-api-resolving-stream-commit-latency?utm_source=x&utm_medium=social&utm_campaign=bigquery-storage-write-api-resolving-stream-commit-latency&utm_content=en",
+    "pt": "https://michael.business/pt/articles/bigquery-storage-write-api-resolving-stream-commit-latency?utm_source=x&utm_medium=social&utm_campaign=bigquery-storage-write-api-resolving-stream-commit-latency&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Eliminate streaming commit deadlocks and high write latency in…\n\nhttps://michael.business/en/articles/bigquery-storage-write-api-resolving-stream-commit-latency?utm_source=x&utm_medium=social&utm_campaign=bigquery-storage-write-api-resolving-stream-commit-latency&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Elimine deadlocks de commit e alta latência na BigQuery Storag…\n\nhttps://michael.business/pt/articles/bigquery-storage-write-api-resolving-stream-commit-latency?utm_source=x&utm_medium=social&utm_campaign=bigquery-storage-write-api-resolving-stream-commit-latency&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/gcp-dbt-modern-data-stack"
+      ]
+    }
+  }
+}
