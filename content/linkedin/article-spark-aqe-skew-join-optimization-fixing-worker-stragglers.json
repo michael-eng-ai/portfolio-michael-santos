@@ -1,0 +1,27 @@
+{
+  "slug": "article-spark-aqe-skew-join-optimization-fixing-worker-stragglers",
+  "sourceType": "article",
+  "sourceSlug": "spark-aqe-skew-join-optimization-fixing-worker-stragglers",
+  "status": "draft",
+  "generatedAt": "2026-10-20T11:41:48.659Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/spark-aqe-skew-join-optimization-fixing-worker-stragglers.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/spark-aqe-skew-join-optimization-fixing-worker-stragglers?utm_source=linkedin&utm_medium=social&utm_campaign=spark-aqe-skew-join-optimization-fixing-worker-stragglers&utm_content=en",
+    "pt": "https://michael.business/pt/articles/spark-aqe-skew-join-optimization-fixing-worker-stragglers?utm_source=linkedin&utm_medium=social&utm_campaign=spark-aqe-skew-join-optimization-fixing-worker-stragglers&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "hook": "Resolve SLA breaches caused by task stragglers with Spark AQE skew join optimization.",
+      "body": "Resolve SLA breaches caused by task stragglers with Spark AQE skew join optimization. Split skewed shuffle partitions to cut runtimes and stop compute cost waste.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Resolva quebras de SLA causadas por tarefas lentas com Spark AQE skew join optimization.",
+      "body": "Resolva quebras de SLA causadas por tarefas lentas com Spark AQE skew join optimization. Divida partições desbalanceadas e reduza custos operacionais de computação.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
