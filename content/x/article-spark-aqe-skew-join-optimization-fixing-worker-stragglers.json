@@ -1,0 +1,29 @@
+{
+  "slug": "article-spark-aqe-skew-join-optimization-fixing-worker-stragglers",
+  "sourceType": "article",
+  "sourceSlug": "spark-aqe-skew-join-optimization-fixing-worker-stragglers",
+  "status": "draft",
+  "generatedAt": "2026-10-20T11:41:49.627Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/spark-aqe-skew-join-optimization-fixing-worker-stragglers.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/spark-aqe-skew-join-optimization-fixing-worker-stragglers?utm_source=x&utm_medium=social&utm_campaign=spark-aqe-skew-join-optimization-fixing-worker-stragglers&utm_content=en",
+    "pt": "https://michael.business/pt/articles/spark-aqe-skew-join-optimization-fixing-worker-stragglers?utm_source=x&utm_medium=social&utm_campaign=spark-aqe-skew-join-optimization-fixing-worker-stragglers&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Resolve SLA breaches caused by task stragglers with Spark AQE sk…\n\nhttps://michael.business/en/articles/spark-aqe-skew-join-optimization-fixing-worker-stragglers?utm_source=x&utm_medium=social&utm_campaign=spark-aqe-skew-join-optimization-fixing-worker-stragglers&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Resolva quebras de SLA causadas por tarefas lentas com Spark AQE…\n\nhttps://michael.business/pt/articles/spark-aqe-skew-join-optimization-fixing-worker-stragglers?utm_source=x&utm_medium=social&utm_campaign=spark-aqe-skew-join-optimization-fixing-worker-stragglers&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    }
+  }
+}
