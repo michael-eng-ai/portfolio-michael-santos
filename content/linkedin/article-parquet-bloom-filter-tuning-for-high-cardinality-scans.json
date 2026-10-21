@@ -1,0 +1,27 @@
+{
+  "slug": "article-parquet-bloom-filter-tuning-for-high-cardinality-scans",
+  "sourceType": "article",
+  "sourceSlug": "parquet-bloom-filter-tuning-for-high-cardinality-scans",
+  "status": "draft",
+  "generatedAt": "2026-10-21T11:41:46.699Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/parquet-bloom-filter-tuning-for-high-cardinality-scans.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/parquet-bloom-filter-tuning-for-high-cardinality-scans?utm_source=linkedin&utm_medium=social&utm_campaign=parquet-bloom-filter-tuning-for-high-cardinality-scans&utm_content=en",
+    "pt": "https://michael.business/pt/articles/parquet-bloom-filter-tuning-for-high-cardinality-scans?utm_source=linkedin&utm_medium=social&utm_campaign=parquet-bloom-filter-tuning-for-high-cardinality-scans&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/data-observability-platform"
+  },
+  "locales": {
+    "en": {
+      "hook": "Parquet Bloom Filter tuning resolves analytical query scan timeouts and reduces Amazon S3 read bytes by 68% during high-cardinality telemetry point lookups.",
+      "body": "Parquet Bloom Filter tuning resolves analytical query scan timeouts and reduces Amazon S3 read bytes by 68% during high-cardinality telemetry point lookups.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "O ajuste de Bloom Filter no Parquet elimina timeouts e reduz em 68% os bytes lidos no S3 em consultas analíticas pontuais de altíssima cardinalidade.",
+      "body": "O ajuste de Bloom Filter no Parquet elimina timeouts e reduz em 68% os bytes lidos no S3 em consultas analíticas pontuais de altíssima cardinalidade.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}

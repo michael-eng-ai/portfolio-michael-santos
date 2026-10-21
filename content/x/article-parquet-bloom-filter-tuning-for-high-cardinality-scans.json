@@ -1,0 +1,29 @@
+{
+  "slug": "article-parquet-bloom-filter-tuning-for-high-cardinality-scans",
+  "sourceType": "article",
+  "sourceSlug": "parquet-bloom-filter-tuning-for-high-cardinality-scans",
+  "status": "draft",
+  "generatedAt": "2026-10-21T11:41:47.666Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/parquet-bloom-filter-tuning-for-high-cardinality-scans.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/parquet-bloom-filter-tuning-for-high-cardinality-scans?utm_source=x&utm_medium=social&utm_campaign=parquet-bloom-filter-tuning-for-high-cardinality-scans&utm_content=en",
+    "pt": "https://michael.business/pt/articles/parquet-bloom-filter-tuning-for-high-cardinality-scans?utm_source=x&utm_medium=social&utm_campaign=parquet-bloom-filter-tuning-for-high-cardinality-scans&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/data-observability-platform"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Parquet Bloom Filter tuning resolves analytical query scan timeouts an…\n\nhttps://michael.business/en/articles/parquet-bloom-filter-tuning-for-high-cardinality-scans?utm_source=x&utm_medium=social&utm_campaign=parquet-bloom-filter-tuning-for-high-cardinality-scans&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-observability-platform"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "O ajuste de Bloom Filter no Parquet elimina timeouts e reduz em 68% os…\n\nhttps://michael.business/pt/articles/parquet-bloom-filter-tuning-for-high-cardinality-scans?utm_source=x&utm_medium=social&utm_campaign=parquet-bloom-filter-tuning-for-high-cardinality-scans&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-observability-platform"
+      ]
+    }
+  }
+}
