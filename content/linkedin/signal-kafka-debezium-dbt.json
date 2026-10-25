@@ -1,0 +1,28 @@
+{
+  "slug": "signal-kafka-debezium-dbt",
+  "sourceType": "signal",
+  "sourceSlug": "kafka-debezium-dbt",
+  "status": "draft",
+  "generatedAt": "2026-07-18T03:51:54.336Z",
+  "publishedAt": null,
+  "publishedUrl": null,
+  "mediaPath": "/images/social/2026-07-18-kafka-debezium-dbt.png",
+  "mediaSource": "screenshot",
+  "urls": {
+    "en": "https://michael.business/en/projects/kafka-debezium-dbt?utm_source=linkedin&utm_medium=social&utm_campaign=signal-kafka-debezium-dbt&utm_content=signal",
+    "pt": "https://michael.business/pt/projects/kafka-debezium-dbt?utm_source=linkedin&utm_medium=social&utm_campaign=signal-kafka-debezium-dbt&utm_content=signal",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "Your warehouse is still waiting on overnight batches while the source of truth already moved.",
+      "body": "I built a runnable CDC path for that gap: PostgreSQL WAL → Debezium → Kafka → Python normalize → dbt bronze/silver/gold, with a Streamlit layer on top.\n\nThe stake is not “real-time for the slide.” It is latency and recovery when analytics lags the operational system of record.",
+      "cta": "Curious how you'd implement this? Repo proof + project notes in the links."
+    },
+    "pt": {
+      "hook": "O warehouse ainda espera o batch da madrugada — a fonte da verdade já mudou.",
+      "body": "Monte um caminho de CDC executável para esse gap: WAL do PostgreSQL → Debezium → Kafka → normalização em Python → dbt bronze/silver/gold, com Streamlit por cima.\n\nO stake não é “tempo real no slide”. É latência e recovery quando a analítica fica atrás do sistema operacional de registro.",
+      "cta": "Curioso como você implementaria isso? Repo + notas do projeto nos links."
+    }
+  }
+}
