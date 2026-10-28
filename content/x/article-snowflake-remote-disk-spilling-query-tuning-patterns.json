@@ -1,0 +1,29 @@
+{
+  "slug": "article-snowflake-remote-disk-spilling-query-tuning-patterns",
+  "sourceType": "article",
+  "sourceSlug": "snowflake-remote-disk-spilling-query-tuning-patterns",
+  "status": "draft",
+  "generatedAt": "2026-10-28T11:39:02.333Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/snowflake-remote-disk-spilling-query-tuning-patterns.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/snowflake-remote-disk-spilling-query-tuning-patterns?utm_source=x&utm_medium=social&utm_campaign=snowflake-remote-disk-spilling-query-tuning-patterns&utm_content=en",
+    "pt": "https://michael.business/pt/articles/snowflake-remote-disk-spilling-query-tuning-patterns?utm_source=x&utm_medium=social&utm_campaign=snowflake-remote-disk-spilling-query-tuning-patterns&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/azure-snowflake-pipeline"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Eliminate Snowflake remote disk spilling and resolve warehouse memory bott…\n\nhttps://michael.business/en/articles/snowflake-remote-disk-spilling-query-tuning-patterns?utm_source=x&utm_medium=social&utm_campaign=snowflake-remote-disk-spilling-query-tuning-patterns&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/azure-snowflake-pipeline"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Elimine o Snowflake remote disk spilling ajustando joins e memoria para re…\n\nhttps://michael.business/pt/articles/snowflake-remote-disk-spilling-query-tuning-patterns?utm_source=x&utm_medium=social&utm_campaign=snowflake-remote-disk-spilling-query-tuning-patterns&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/azure-snowflake-pipeline"
+      ]
+    }
+  }
+}

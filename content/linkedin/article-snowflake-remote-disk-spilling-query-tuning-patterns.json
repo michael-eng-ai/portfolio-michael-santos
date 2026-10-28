@@ -1,0 +1,27 @@
+{
+  "slug": "article-snowflake-remote-disk-spilling-query-tuning-patterns",
+  "sourceType": "article",
+  "sourceSlug": "snowflake-remote-disk-spilling-query-tuning-patterns",
+  "status": "draft",
+  "generatedAt": "2026-10-28T11:39:01.512Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/snowflake-remote-disk-spilling-query-tuning-patterns.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/snowflake-remote-disk-spilling-query-tuning-patterns?utm_source=linkedin&utm_medium=social&utm_campaign=snowflake-remote-disk-spilling-query-tuning-patterns&utm_content=en",
+    "pt": "https://michael.business/pt/articles/snowflake-remote-disk-spilling-query-tuning-patterns?utm_source=linkedin&utm_medium=social&utm_campaign=snowflake-remote-disk-spilling-query-tuning-patterns&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/azure-snowflake-pipeline"
+  },
+  "locales": {
+    "en": {
+      "hook": "Eliminate Snowflake remote disk spilling and resolve warehouse memory bottlenecks to cut query runtimes by 75% and prevent unexpected cloud credit spikes.",
+      "body": "Eliminate Snowflake remote disk spilling and resolve warehouse memory bottlenecks to cut query runtimes by 75% and prevent unexpected cloud credit spikes.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Elimine o Snowflake remote disk spilling ajustando joins e memoria para reduzir o tempo de execucao em 75% e blindar o consumo de creditos no armazem.",
+      "body": "Elimine o Snowflake remote disk spilling ajustando joins e memoria para reduzir o tempo de execucao em 75% e blindar o consumo de creditos no armazem.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
