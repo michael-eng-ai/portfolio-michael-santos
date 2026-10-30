@@ -1,0 +1,29 @@
+{
+  "slug": "article-airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency",
+  "sourceType": "article",
+  "sourceSlug": "airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency",
+  "status": "draft",
+  "generatedAt": "2026-10-30T11:39:19.905Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency?utm_source=x&utm_medium=social&utm_campaign=airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency&utm_content=en",
+    "pt": "https://michael.business/pt/articles/airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency?utm_source=x&utm_medium=social&utm_campaign=airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/data-observability-platform"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Airflow DAG parsing bottlenecks stall hourly schedules a…\n\nhttps://michael.business/en/articles/airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency?utm_source=x&utm_medium=social&utm_campaign=airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/data-observability-platform"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Gargalos de parsing no Airflow atrasam execuções e causa…\n\nhttps://michael.business/pt/articles/airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency?utm_source=x&utm_medium=social&utm_campaign=airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/data-observability-platform"
+      ]
+    }
+  }
+}

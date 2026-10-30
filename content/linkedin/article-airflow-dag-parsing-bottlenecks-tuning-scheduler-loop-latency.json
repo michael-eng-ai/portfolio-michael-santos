@@ -1,0 +1,27 @@
+{
+  "slug": "article-airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency",
+  "sourceType": "article",
+  "sourceSlug": "airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency",
+  "status": "draft",
+  "generatedAt": "2026-10-30T11:39:18.866Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency?utm_source=linkedin&utm_medium=social&utm_campaign=airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency&utm_content=en",
+    "pt": "https://michael.business/pt/articles/airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency?utm_source=linkedin&utm_medium=social&utm_campaign=airflow-dag-parsing-bottlenecks-tuning-scheduler-loop-latency&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/data-observability-platform"
+  },
+  "locales": {
+    "en": {
+      "hook": "Airflow DAG parsing bottlenecks stall hourly schedules and trigger false SLA misses.",
+      "body": "Airflow DAG parsing bottlenecks stall hourly schedules and trigger false SLA misses. Learn how to tune file parsing intervals and isolate scheduler loops.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Gargalos de parsing no Airflow atrasam execuções e causam falsos alertas de SLA.",
+      "body": "Gargalos de parsing no Airflow atrasam execuções e causam falsos alertas de SLA. Veja como configurar o loop do scheduler e otimizar processos DAG.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
