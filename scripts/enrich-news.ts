@@ -7,6 +7,7 @@ import {
   updateNewsRowBySlug,
 } from "@/lib/database";
 import { generateText, resolveLlmProvider } from "@/lib/llm-text";
+import { decideExitCode } from "@/lib/pipeline-exit";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
 
 const ENRICHMENT_SCHEMA: Schema = {
@@ -188,6 +189,19 @@ async function main(): Promise<void> {
       mayHaveMore: unenriched.length === MAX_ITEMS_PER_RUN,
     })}`,
   );
+
+  const exitCode = decideExitCode({
+    candidates: unenriched.length,
+    succeeded: enriched,
+    failed,
+  });
+
+  if (exitCode !== 0) {
+    console.error(
+      `[enrich] every enrichment attempt failed (${failed}/${unenriched.length}); exiting ${exitCode} so the orchestrator records a failure.`,
+    );
+    process.exit(exitCode);
+  }
 }
 
 main().catch((error) => {
