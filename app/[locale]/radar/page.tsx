@@ -16,12 +16,12 @@ export async function generateMetadata({
     title: copy(
       locale,
       "Data Engineering Tech Radar | Technology Assessment 2026",
-      "Tech Radar de Engenharia de Dados | Avaliacao de Tecnologias 2026",
+      "Tech Radar de Engenharia de Dados | Avaliação de Tecnologias 2026",
     ),
     description: copy(
       locale,
       "Interactive technology radar for the data engineering ecosystem. Opinionated assessment of tools, frameworks, and platforms across processing, storage, orchestration, and AI/ML.",
-      "Radar tecnologico interativo para o ecossistema de engenharia de dados. Avaliacao opinativa de ferramentas, frameworks e plataformas em processamento, armazenamento, orquestracao e IA/ML.",
+      "Radar tecnológico interativo para o ecossistema de engenharia de dados. Avaliação opinativa de ferramentas, frameworks e plataformas em processamento, armazenamento, orquestração e IA/ML.",
     ),
     path: "/radar",
     keywords: [

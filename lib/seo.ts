@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 import { isGenericSvgCover, isRasterArticleCover } from "@/lib/article-covers";
+import { toMetaDescription, toSocialTitle } from "@/lib/editorial";
+import { restorePortugueseDiacritics } from "@/lib/portuguese-text";
 import { Locale, localeMetadata, localePath, locales, siteConfig } from "@/lib/site";
 
 /**
@@ -77,6 +79,10 @@ export function buildPageMetadata({
   modifiedTime,
 }: BuildPageMetadataInput): Metadata {
   const url = localizedUrl(locale, path);
+  const socialTitle = toSocialTitle(locale === "pt" ? restorePortugueseDiacritics(title) : title);
+  const socialDescription = toMetaDescription(
+    locale === "pt" ? restorePortugueseDiacritics(description) : description,
+  );
   const shareImage = resolveSocialShareImage(imageUrl);
   const image = absoluteUrl(shareImage ?? siteConfig.defaultSocialImage);
   const explicitImages = shareImage
@@ -85,14 +91,14 @@ export function buildPageMetadata({
           url: absoluteUrl(shareImage),
           width: 1200,
           height: 630,
-          alt: title,
+          alt: socialTitle,
         },
       ]
     : undefined;
 
   return {
-    title,
-    description,
+    title: socialTitle,
+    description: socialDescription,
     keywords: [...siteConfig.keywords, ...keywords],
     alternates: {
       canonical: url,
@@ -104,8 +110,8 @@ export function buildPageMetadata({
     openGraph: {
       type,
       url,
-      title,
-      description,
+      title: socialTitle,
+      description: socialDescription,
       siteName: siteConfig.name,
       locale: localeMetadata[locale].openGraph,
       alternateLocale: locales
@@ -120,9 +126,9 @@ export function buildPageMetadata({
       card: "summary_large_image",
       site: siteConfig.twitterHandle,
       creator: siteConfig.twitterHandle,
-      title,
-      description,
-      ...(explicitImages ? { images: [image] } : {}),
+      title: socialTitle,
+      description: socialDescription,
+      ...(explicitImages ? { images: [{ url: image, alt: socialTitle }] } : {}),
     },
   };
 }

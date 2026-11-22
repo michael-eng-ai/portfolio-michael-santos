@@ -14,9 +14,9 @@
       "whyItMatters": "This validates the decision to build a LinkedIn workflow that can publish where approved and fall back to structured drafts where direct automation is unavailable."
     },
     "pt": {
-      "title": "Publicacao no LinkedIn continua poderosa, mas depende de aprovacao",
-      "summary": "As APIs de publicacao do LinkedIn continuam exigindo revisao do app e acessos especificos, o que significa que o sistema de conteudo precisa suportar tanto rascunhos quanto publicacao por API quando houver aprovacao.",
-      "whyItMatters": "Isso valida a decisao de construir um fluxo para LinkedIn que publique quando houver acesso aprovado e caia para drafts estruturados quando a automacao direta nao estiver disponivel."
+      "title": "Publicação no LinkedIn continua poderosa, mas depende de aprovação",
+      "summary": "As APIs de publicação do LinkedIn ainda exigem revisão do app e acessos específicos. O sistema de conteúdo precisa suportar rascunhos e publicação por API quando houver aprovação.",
+      "whyItMatters": "Isso valida a decisão de construir um fluxo para LinkedIn que publique quando houver acesso aprovado e caia para drafts estruturados quando a automação direta não estiver disponível."
     }
   }
 }

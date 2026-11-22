@@ -7,6 +7,25 @@ import type { Locale } from "@/lib/site";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+export async function generateImageMetadata({
+  params,
+}: {
+  params: { locale: string; slug: string } | Promise<{ locale: string; slug: string }>;
+}) {
+  const resolved = await params;
+  const item = await getNewsReferenceBySlug(resolved.slug);
+  const title = item?.locales[resolved.locale as Locale]?.title ?? "News";
+
+  return [
+    {
+      id: "cover",
+      alt: title,
+      size,
+      contentType,
+    },
+  ];
+}
+
 export default async function OgImage({
   params,
 }: {

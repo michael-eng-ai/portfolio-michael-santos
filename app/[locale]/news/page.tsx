@@ -24,12 +24,12 @@ export async function generateMetadata({
     title: copy(
       locale,
       "Curated Market Signals For Data, AI, And Digital Strategy",
-      "Sinais de Mercado Curados Para Dados, IA e Estrategia Digital",
+      "Sinais de Mercado Curados Para Dados, IA e Estratégia Digital",
     ),
     description: copy(
       locale,
       "A filtered view of the external signals shaping investment, operating models, and platform strategy.",
-      "Uma visao filtrada dos sinais externos que moldam investimento, modelos operacionais e estrategia de plataforma.",
+      "Uma visão filtrada dos sinais externos que moldam investimento, modelos operacionais e estratégia de plataforma.",
     ),
     path: "/news",
     keywords: ["AI market signals", "data engineering news", "digital strategy news"],
@@ -48,12 +48,12 @@ export default async function NewsPage({
   const pageTitle = copy(
     locale,
     "Curated Market Signals For Data, AI, And Digital Strategy",
-    "Sinais de Mercado Curados Para Dados, IA e Estrategia Digital",
+    "Sinais de Mercado Curados Para Dados, IA e Estratégia Digital",
   );
   const pageDescription = copy(
     locale,
     "A filtered view of the external signals shaping investment, operating models, and platform strategy.",
-    "Uma visao filtrada dos sinais externos que moldam investimento, modelos operacionais e estrategia de plataforma.",
+    "Uma visão filtrada dos sinais externos que moldam investimento, modelos operacionais e estratégia de plataforma.",
   );
 
   return (

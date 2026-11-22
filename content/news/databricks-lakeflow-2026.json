@@ -16,7 +16,7 @@
     "pt": {
       "title": "Lakeflow e o movimento para entrega integrada de plataforma",
       "summary": "A direção recente de produto da Databricks reforça a ideia de que orquestração, ingestão e transformação estão sendo tratadas como uma história única de plataforma, e não como camadas isoladas.",
-      "whyItMatters": "Isso importa porque liderancas de plataforma estao sendo pressionadas a simplificar ambientes de dados fragmentados. Historias de entrega integrada ficam mais atraentes quando os times precisam de velocidade, governanca e menor friccao operacional ao mesmo tempo."
+      "whyItMatters": "Isso importa porque lideranças de plataforma estão sendo pressionadas a simplificar ambientes de dados fragmentados. Historias de entrega integrada ficam mais atraentes quando os times precisam de velocidade, governança e menor fricção operacional ao mesmo tempo."
     }
   }
 }

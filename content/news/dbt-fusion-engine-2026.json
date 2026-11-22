@@ -14,9 +14,9 @@
       "whyItMatters": "This matters because analytics is increasingly judged on reliability and governance, not just dashboard output. Teams that treat transformation as a strategic layer improve trust, delivery quality, and long-term platform reuse."
     },
     "pt": {
-      "title": "A evolucao do dbt mantem analytics engineering no centro da plataforma",
-      "summary": "Os anuncios recentes ligados ao dbt continuam enfatizando testes, fluxo de desenvolvimento e transformacao governada como partes estrategicas do stack analitico.",
-      "whyItMatters": "Isso importa porque analytics esta sendo cada vez mais avaliado por confiabilidade e governanca, e nao apenas pela entrega de dashboards. Times que tratam transformacao como camada estrategica melhoram confianca, qualidade de entrega e reuso de plataforma no longo prazo."
+      "title": "A evolução do dbt mantem analytics engineering no centro da plataforma",
+      "summary": "Os anuncios recentes ligados ao dbt continuam enfatizando testes, fluxo de desenvolvimento e transformação governada como partes estratégicas do stack analítico.",
+      "whyItMatters": "Isso importa porque analytics esta sendo cada vez mais avaliado por confiabilidade e governança, e não apenas pela entrega de dashboards. Times que tratam transformação como camada estratégica melhoram confiança, qualidade de entrega e reúso de plataforma no longo prazo."
     }
   }
 }

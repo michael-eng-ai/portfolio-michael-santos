@@ -21,12 +21,12 @@ export async function generateMetadata({
     title: copy(
       locale,
       "Resume Formats",
-      "Formatos de Curriculo",
+      "Formatos de Currículo",
     ),
     description: copy(
       locale,
       "Choose between printable HTML resume views and markdown downloads in English or Portuguese.",
-      "Escolha entre versoes HTML imprimiveis e downloads em markdown do curriculo em ingles ou portugues.",
+      "Escolha entre versões HTML imprimíveis e downloads em markdown do currículo em inglês ou português.",
     ),
     path: "/resume",
     keywords: ["resume", "CV", "Senior Data Engineer resume"],

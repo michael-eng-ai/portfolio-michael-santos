@@ -11,7 +11,7 @@ import {
   upsertNewsRows,
   type NewsRowRecord,
 } from "@/lib/database";
-import { clampText, editorialLimits } from "@/lib/editorial";
+import { toMetaDescription, truncateAtWord } from "@/lib/editorial";
 import { newsSchema, type NewsReference } from "@/lib/content";
 import {
   buildStableNewsSlug,
@@ -86,17 +86,9 @@ function stripHtml(value: string) {
     .trim();
 }
 
-function truncate(value: string, maxLength: number) {
-  if (value.length <= maxLength) {
-    return value;
-  }
-
-  return `${value.slice(0, maxLength - 3).trimEnd()}...`;
-}
-
-function getExcerpt(item: FeedItem) {
+function getPlainExcerpt(item: FeedItem) {
   const raw = item.contentSnippet ?? item.summary ?? item.content ?? "";
-  return truncate(stripHtml(raw), 220);
+  return stripHtml(raw).slice(0, 500);
 }
 
 function resolveSourceUrl(source: FeedSource, link?: string) {
@@ -113,45 +105,41 @@ function resolveSourceUrl(source: FeedSource, link?: string) {
 
 function buildEnglishSummary(source: FeedSource, excerpt: string) {
   if (excerpt.length > 0) {
-    return clampText(excerpt, editorialLimits.newsSummaryMax);
+    return excerpt;
   }
 
-  return clampText(
+  return toMetaDescription(
     `A new ${source.sourceName} update on ${source.topic.en}. Read the original source for the full details.`,
-    editorialLimits.newsSummaryMax,
   );
 }
 
 const ptTitleVerbs = [
-  "avanca em",
+  "avança em",
   "traz nova perspectiva sobre",
-  "reforça evolucao em",
-  "amplia visao sobre",
-  "publica atualizacao sobre",
-  "destaca mudanca em",
-  "aponta tendencia em",
+  "reforça evolução em",
+  "amplia visão sobre",
+  "publica atualização sobre",
+  "destaca mudança em",
+  "aponta tendência em",
   "apresenta novidade em",
 ];
 
 function buildPortugueseTitle(source: FeedSource, itemIndex: number) {
   const verb = ptTitleVerbs[itemIndex % ptTitleVerbs.length];
-  return truncate(`${source.sourceName} ${verb} ${source.topic.pt}`, 100);
+  return truncateAtWord(`${source.sourceName} ${verb} ${source.topic.pt}`, 100);
 }
 
 const ptSummaryFrames = [
+  (s: FeedSource) => `Esta publicação da ${s.sourceName} trata de ${s.topic.pt}.`,
   (s: FeedSource) =>
-    `Esta publicacao da ${s.sourceName} aborda um avanco relevante em ${s.topic.pt}, com implicacoes para equipes de dados e liderancas que avaliam suas estrategias de plataforma.`,
-  (s: FeedSource) =>
-    `A ${s.sourceName} compartilhou uma perspectiva que conecta ${s.topic.pt} a decisoes de negocio, reuso de dados e velocidade de entrega analitica.`,
-  (s: FeedSource) =>
-    `Atualizacao da ${s.sourceName} sobre ${s.topic.pt} que impacta como organizacoes planejam governanca, escala e confianca em seus pipelines de dados.`,
-  (s: FeedSource) =>
-    `Nova publicacao da ${s.sourceName} explora como ${s.topic.pt} esta redefinindo prioridades de investimento, operacao e entrega para times de dados.`,
+    `${s.sourceName} conecta ${s.topic.pt} a decisões de negócio e à velocidade de entrega.`,
+  (s: FeedSource) => `Atualização da ${s.sourceName} sobre ${s.topic.pt}.`,
+  (s: FeedSource) => `${s.sourceName} mostra como ${s.topic.pt} muda a prioridade dos times de dados.`,
 ];
 
 function buildPortugueseSummary(source: FeedSource, itemIndex: number) {
   const frame = ptSummaryFrames[itemIndex % ptSummaryFrames.length];
-  return clampText(frame(source), editorialLimits.newsSummaryMax);
+  return toMetaDescription(frame(source));
 }
 
 async function fetchFeed(source: FeedSource) {
@@ -254,7 +242,8 @@ async function main() {
           continue;
         }
 
-        const excerpt = getExcerpt(item);
+        const plainExcerpt = getPlainExcerpt(item);
+        const excerpt = toMetaDescription(plainExcerpt);
         const normalized = newsSchema.parse({
           slug: buildStableNewsSlug(source.slug, sourceUrl, title),
           publishedAt: normalizePublishedAt(item.isoDate ?? item.pubDate),
@@ -262,7 +251,7 @@ async function main() {
           sourceUrl,
           imageUrl: source.defaultImageUrl,
           category: source.category,
-          tags: detectTags(source.tags, title, excerpt),
+          tags: detectTags(source.tags, title, plainExcerpt),
           relatedProjectSlugs: source.relatedProjectSlugs,
           locales: {
             en: {

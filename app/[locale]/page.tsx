@@ -25,12 +25,12 @@ export async function generateMetadata({
     title: copy(
       locale,
       "Michael Santos | Data Engineering & AI Strategy",
-      "Michael Santos | Estrategia de Dados e IA",
+      "Michael Santos | Estratégia de Dados e IA",
     ),
     description: copy(
       locale,
       "Data pipelines, lakehouse architectures, and AI infrastructure that turn raw data into real-time business decisions. Open-source projects, technical insights, and proven case studies.",
-      "Pipelines de dados, arquiteturas lakehouse e infraestrutura de IA que transformam dados brutos em decisoes de negocio em tempo real. Projetos open-source, insights tecnicos e casos comprovados.",
+      "Pipelines de dados, arquiteturas lakehouse e infraestrutura de IA que transformam dados brutos em decisões de negócio em tempo real. Projetos open-source, insights técnicos e casos comprovados.",
     ),
     keywords: [
       "data engineering portfolio",

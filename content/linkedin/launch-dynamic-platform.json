@@ -6,8 +6,8 @@
   "generatedAt": "2026-03-11T00:00:00.000Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/from-news-to-data-product",
-    "pt": "https://michael.business/pt/articles/from-news-to-data-product",
+    "en": "https://michael.business/en/articles/from-news-to-data-product?utm_source=linkedin&utm_medium=social&utm_campaign=from-news-to-data-product&utm_content=en",
+    "pt": "https://michael.business/pt/articles/from-news-to-data-product?utm_source=linkedin&utm_medium=social&utm_campaign=from-news-to-data-product&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {

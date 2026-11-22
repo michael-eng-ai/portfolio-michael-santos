@@ -15,12 +15,12 @@ export async function generateMetadata({
     title: copy(
       locale,
       "Newsletter On AI, Data Platforms, And Digital Strategy",
-      "Newsletter Sobre IA, Plataformas de Dados e Estrategia Digital",
+      "Newsletter Sobre IA, Plataformas de Dados e Estratégia Digital",
     ),
     description: copy(
       locale,
       "Weekly executive signals on data engineering, AI adoption, and digital growth opportunities.",
-      "Sinais executivos semanais sobre engenharia de dados, adocao de IA e oportunidades de crescimento digital.",
+      "Sinais executivos semanais sobre engenharia de dados, adoção de IA e oportunidades de crescimento digital.",
     ),
     path: "/newsletter",
     keywords: ["newsletter", "AI newsletter", "data platform newsletter"],

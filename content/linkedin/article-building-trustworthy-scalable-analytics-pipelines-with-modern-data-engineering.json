@@ -6,8 +6,8 @@
   "generatedAt": "2026-03-20T14:00:48.761Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering",
-    "pt": "https://michael.business/pt/articles/building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering",
+    "en": "https://michael.business/en/articles/building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering?utm_source=linkedin&utm_medium=social&utm_campaign=building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering&utm_content=en",
+    "pt": "https://michael.business/pt/articles/building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering?utm_source=linkedin&utm_medium=social&utm_campaign=building-trustworthy-scalable-analytics-pipelines-with-modern-data-engineering&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {

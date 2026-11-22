@@ -22,12 +22,12 @@ export async function generateMetadata({
     title: copy(
       locale,
       "Business Cases In Data Engineering And AI Delivery",
-      "Casos de Negocio em Engenharia de Dados e Entrega de IA",
+      "Casos de Negócio em Engenharia de Dados e Entrega de IA",
     ),
     description: copy(
       locale,
       "Execution cases that show how strategy becomes technical delivery and measurable business impact.",
-      "Casos de execucao que mostram como a estrategia vira entrega tecnica e impacto de negocio mensuravel.",
+      "Casos de execução que mostram como a estratégia vira entrega técnica e impacto de negócio mensurável.",
     ),
     path: "/projects",
     keywords: ["data engineering projects", "AI case studies", "technical portfolio"],
@@ -46,12 +46,12 @@ export default async function ProjectsPage({
   const pageTitle = copy(
     locale,
     "Business Cases In Data Engineering And AI Delivery",
-    "Casos de Negocio em Engenharia de Dados e Entrega de IA",
+    "Casos de Negócio em Engenharia de Dados e Entrega de IA",
   );
   const pageDescription = copy(
     locale,
     "Execution cases that show how strategy becomes technical delivery and measurable business impact.",
-    "Casos de execucao que mostram como a estrategia vira entrega tecnica e impacto de negocio mensuravel.",
+    "Casos de execução que mostram como a estratégia vira entrega técnica e impacto de negócio mensurável.",
   );
 
   return (

@@ -11,6 +11,18 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // May 2026 TechCrunch item used buildStableNewsSlug (path seed + sha1).
+      // It aged out of the active news window, so the old LinkedIn URL 404s.
+      {
+        source: "/en/news/techcrunch-ai-14-what-happens-when-ai-starts-building-itself-77bafaaf",
+        destination: "/en/news",
+        permanent: true,
+      },
+      {
+        source: "/pt/news/techcrunch-ai-14-what-happens-when-ai-starts-building-itself-77bafaaf",
+        destination: "/pt/news",
+        permanent: true,
+      },
       {
         source: "/:locale/articles/building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns",
         destination: "/:locale/articles/building-trustworthy-and-scalable-modern-data-platforms",
