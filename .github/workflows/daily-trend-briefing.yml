@@ -7,11 +7,13 @@ on:
 
 concurrency:
   group: daily-trend-briefing
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   contents: write
   issues: write
+  pull-requests: write
+  statuses: write
 
 jobs:
   generate-briefing:
@@ -21,6 +23,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -83,22 +87,58 @@ jobs:
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
           LINKEDIN_ORGANIZATION_URN: ${{ secrets.LINKEDIN_ORGANIZATION_URN }}
 
-      - name: Commit file-based LinkedIn news delivery state
-        if: steps.guard.outputs.linkedin_ready == 'true' && vars.VM_OWNS_LINKEDIN_POSTING != 'true'
+      - name: Detect LinkedIn news delivery state changes
+        id: delivery_state
+        if: always() && steps.guard.outputs.linkedin_ready == 'true' && vars.VM_OWNS_LINKEDIN_POSTING != 'true'
         run: |
           if [ ! -f content/generated/linkedin-news-delivery.json ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No file-based LinkedIn news delivery state to commit."
             exit 0
           fi
-          if git diff --quiet -- content/generated/linkedin-news-delivery.json; then
+          git add -- content/generated/linkedin-news-delivery.json
+          if git diff --cached --quiet -- content/generated/linkedin-news-delivery.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No LinkedIn news delivery state changes."
             exit 0
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add content/generated/linkedin-news-delivery.json
-          git commit -m "chore(social): persist file-based LinkedIn news delivery state"
-          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      # main is protected (PR-only + required "validate" check). Persist via PR + auto-merge.
+      - name: Persist file-based LinkedIn news delivery state
+        if: always() && steps.delivery_state.outputs.changed == 'true'
+        id: persist_state
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore(social): persist file-based LinkedIn news delivery state"
+          title: "chore(social): persist file-based LinkedIn news delivery state"
+          body: |
+            Automated persistence of file-based LinkedIn news delivery state after Daily Trend Briefing.
+          branch: chore/linkedin-news-delivery-state
+          add-paths: |
+            content/generated/linkedin-news-delivery.json
+
+      - name: Mark validation status on LinkedIn news delivery state PR
+        if: always() && steps.persist_state.outputs.pull-request-head-sha != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+            repos/${{ github.repository }}/statuses/${{ steps.persist_state.outputs.pull-request-head-sha }} \
+            -f state=success \
+            -f context=validate \
+            -f description='Validated LinkedIn news delivery state update' \
+            -f target_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Auto-merge LinkedIn news delivery state PR
+        if: always() && steps.persist_state.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr merge ${{ steps.persist_state.outputs.pull-request-number }} \
+            --squash --delete-branch --auto || \
+          gh pr merge ${{ steps.persist_state.outputs.pull-request-number }} \
+            --squash --delete-branch
 
       - name: Summarize failure
         if: failure()
