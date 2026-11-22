@@ -17,7 +17,7 @@
     },
     "whyItMatters": {
       "en": "This signal matters because cloud data platforms are increasingly evaluated on delivery speed, governance, and the ability to scale reliable analytics without operational sprawl.",
-      "pt": "Esse sinal importa porque plataformas de dados em nuvem sao cada vez mais avaliadas por velocidade de entrega, governanca e capacidade de escalar analytics confiavel sem espalhar complexidade operacional."
+      "pt": "Esse sinal importa porque plataformas de dados em nuvem são cada vez mais avaliadas por velocidade de entrega, governança e capacidade de escalar analytics confiável sem espalhar complexidade operacional."
     },
     "maxItems": 4
   },
@@ -35,11 +35,11 @@
     "relatedProjectSlugs": ["kafka-debezium-dbt", "streaming-kafka-fastapi"],
     "topic": {
       "en": "streaming systems, event operations, and trustworthy data movement",
-      "pt": "sistemas de streaming, operacao orientada a eventos e movimento confiavel de dados"
+      "pt": "sistemas de streaming, operação orientada a eventos e movimento confiável de dados"
     },
     "whyItMatters": {
       "en": "This matters because streaming is only strategically valuable when faster operational data improves visibility, responsiveness, and confidence in downstream decisions.",
-      "pt": "Isso importa porque streaming so tem valor estrategico quando dados operacionais mais rapidos melhoram visibilidade, capacidade de resposta e confianca nas decisoes downstream."
+      "pt": "Isso importa porque streaming só tem valor estratégico quando dados operacionais mais rápidos melhoram visibilidade, capacidade de resposta e confiança nas decisões downstream."
     },
     "maxItems": 4
   },
@@ -51,17 +51,17 @@
     "defaultImageUrl": "/images/news/analytics-platform-signal.svg",
     "category": {
       "en": "Analytics Platforms",
-      "pt": "Plataformas Analiticas"
+      "pt": "Plataformas Analíticas"
     },
     "tags": ["snowflake", "governance", "data-platform"],
     "relatedProjectSlugs": ["azure-snowflake-pipeline"],
     "topic": {
       "en": "governed analytics, interoperability, and platform modernization",
-      "pt": "analytics governado, interoperabilidade e modernizacao de plataforma"
+      "pt": "analytics governado, interoperabilidade e modernização de plataforma"
     },
     "whyItMatters": {
       "en": "This signal matters because analytical platforms are under pressure to improve governance, interoperability, and executive trust while still accelerating delivery.",
-      "pt": "Esse sinal importa porque plataformas analiticas estao sob pressao para melhorar governanca, interoperabilidade e confianca executiva sem perder velocidade de entrega."
+      "pt": "Esse sinal importa porque plataformas analíticas estão sob pressão para melhorar governança, interoperabilidade e confiança executiva sem perder velocidade de entrega."
     },
     "maxItems": 4
   },
@@ -79,11 +79,11 @@
     "relatedProjectSlugs": ["gcp-dbt-modern-data-stack"],
     "topic": {
       "en": "modern analytics, data stack simplification, and cloud-native delivery",
-      "pt": "analytics moderno, simplificacao do data stack e entrega cloud-native"
+      "pt": "analytics moderno, simplificação do data stack e entrega cloud-native"
     },
     "whyItMatters": {
       "en": "This matters because modern data teams are expected to simplify tooling, govern transformation, and deliver analytical products faster with less operational overhead.",
-      "pt": "Isso importa porque times modernos de dados precisam simplificar ferramentas, governar transformacoes e entregar produtos analiticos mais rapido com menos custo operacional."
+      "pt": "Isso importa porque times modernos de dados precisam simplificar ferramentas, governar transformações e entregar produtos analíticos mais rápido com menos custo operacional."
     },
     "maxItems": 4
   },
@@ -101,11 +101,11 @@
     "relatedProjectSlugs": ["gcp-dbt-modern-data-stack"],
     "topic": {
       "en": "analytics engineering, governed transformation, and developer workflow",
-      "pt": "analytics engineering, transformacao governada e fluxo de desenvolvimento"
+      "pt": "analytics engineering, transformação governada e fluxo de desenvolvimento"
     },
     "whyItMatters": {
       "en": "This matters because reliable transformation is becoming a strategic layer in analytics delivery, improving trust, reuse, and the quality of business-facing data products.",
-      "pt": "Isso importa porque transformacao confiavel esta se tornando uma camada estrategica na entrega analitica, melhorando confianca, reuso e a qualidade dos produtos de dados voltados ao negocio."
+      "pt": "Isso importa porque transformação confiável está se tornando uma camada estratégica na entrega analítica, melhorando confiança, reúso e a qualidade dos produtos de dados voltados ao negócio."
     },
     "maxItems": 4
   },
@@ -117,7 +117,7 @@
     "defaultImageUrl": "/images/news/lakehouse-signal.svg",
     "category": {
       "en": "Analytics Platforms",
-      "pt": "Plataformas Analiticas"
+      "pt": "Plataformas Analíticas"
     },
     "tags": ["databricks", "lakehouse", "ai"],
     "relatedProjectSlugs": ["aws-databricks-lakehouse"],
@@ -127,7 +127,7 @@
     },
     "whyItMatters": {
       "en": "This signal matters because the lakehouse paradigm is redefining how organizations unify data engineering, analytics, and AI on a single governed platform.",
-      "pt": "Esse sinal importa porque o paradigma lakehouse esta redefinindo como organizacoes unificam engenharia de dados, analytics e IA em uma unica plataforma governada."
+      "pt": "Esse sinal importa porque o paradigma lakehouse está redefinindo como organizações unificam engenharia de dados, analytics e IA em uma única plataforma governada."
     },
     "maxItems": 4
   },
@@ -149,7 +149,7 @@
     },
     "whyItMatters": {
       "en": "This matters because cloud-native tooling and platform engineering are reshaping how data teams build, deploy, and operate production data systems.",
-      "pt": "Isso importa porque ferramentas cloud-native e engenharia de plataforma estao transformando como times de dados constroem, implantam e operam sistemas de dados em producao."
+      "pt": "Isso importa porque ferramentas cloud-native e engenharia de plataforma estão transformando como times de dados constroem, implantam e operam sistemas de dados em produção."
     },
     "maxItems": 4
   },
@@ -167,11 +167,11 @@
     "relatedProjectSlugs": [],
     "topic": {
       "en": "software architecture, AI engineering, and enterprise data strategy",
-      "pt": "arquitetura de software, engenharia de IA e estrategia de dados corporativa"
+      "pt": "arquitetura de software, engenharia de IA e estratégia de dados corporativa"
     },
     "whyItMatters": {
       "en": "This matters because enterprise architecture decisions around AI, data, and platform engineering define long-term competitiveness and operational efficiency.",
-      "pt": "Isso importa porque decisoes de arquitetura corporativa em IA, dados e engenharia de plataforma definem competitividade e eficiencia operacional a longo prazo."
+      "pt": "Isso importa porque decisões de arquitetura corporativa em IA, dados e engenharia de plataforma definem competitividade e eficiência operacional a longo prazo."
     },
     "maxItems": 4
   },
@@ -189,11 +189,11 @@
     "relatedProjectSlugs": [],
     "topic": {
       "en": "data integration, ELT pipelines, and open-source data movement",
-      "pt": "integracao de dados, pipelines ELT e movimentacao de dados open-source"
+      "pt": "integração de dados, pipelines ELT e movimentação de dados open-source"
     },
     "whyItMatters": {
       "en": "This matters because data integration remains the most time-consuming part of data engineering, and modern ELT approaches are simplifying how teams move and trust their data.",
-      "pt": "Isso importa porque integracao de dados continua sendo a parte mais demorada da engenharia de dados, e abordagens modernas de ELT estao simplificando como times movem e confiam nos seus dados."
+      "pt": "Isso importa porque integração de dados continua sendo a parte mais demorada da engenharia de dados, e abordagens modernas de ELT estão simplificando como times movem e confiam nos seus dados."
     },
     "maxItems": 4
   },
@@ -211,11 +211,11 @@
     "relatedProjectSlugs": [],
     "topic": {
       "en": "large-scale data infrastructure, AI systems, and production engineering",
-      "pt": "infraestrutura de dados em larga escala, sistemas de IA e engenharia de producao"
+      "pt": "infraestrutura de dados em larga escala, sistemas de IA e engenharia de produção"
     },
     "whyItMatters": {
       "en": "This matters because Meta's engineering challenges at scale often preview patterns and tools that reshape the broader data and AI ecosystem.",
-      "pt": "Isso importa porque os desafios de engenharia da Meta em escala frequentemente antecipam padroes e ferramentas que transformam o ecossistema mais amplo de dados e IA."
+      "pt": "Isso importa porque os desafios de engenharia da Meta em escala frequentemente antecipam padrões e ferramentas que transformam o ecossistema mais amplo de dados e IA."
     },
     "maxItems": 4
   },
@@ -233,11 +233,11 @@
     "relatedProjectSlugs": [],
     "topic": {
       "en": "data science, machine learning applications, and analytical best practices",
-      "pt": "ciencia de dados, aplicacoes de machine learning e melhores praticas analiticas"
+      "pt": "ciência de dados, aplicações de machine learning e melhores práticas analíticas"
     },
     "whyItMatters": {
       "en": "This matters because practical data science insights bridge the gap between research and production, helping teams deliver AI-driven value faster.",
-      "pt": "Isso importa porque insights praticos de ciencia de dados conectam pesquisa e producao, ajudando times a entregar valor orientado por IA mais rapido."
+      "pt": "Isso importa porque insights praticos de ciência de dados conectam pesquisa e produção, ajudando times a entregar valor orientado por IA mais rápido."
     },
     "maxItems": 4
   },
@@ -255,11 +255,11 @@
     "relatedProjectSlugs": [],
     "topic": {
       "en": "data science trends, ML tools, and career insights for data professionals",
-      "pt": "tendencias em ciencia de dados, ferramentas de ML e insights de carreira para profissionais de dados"
+      "pt": "tendências em ciência de dados, ferramentas de ML e insights de carreira para profissionais de dados"
     },
     "whyItMatters": {
       "en": "This matters because staying current with tools, techniques, and industry trends is essential for data teams navigating a rapidly evolving landscape.",
-      "pt": "Isso importa porque manter-se atualizado com ferramentas, tecnicas e tendencias e essencial para times de dados em um cenario em rapida evolucao."
+      "pt": "Isso importa porque manter-se atualizado com ferramentas, técnicas e tendências e essencial para times de dados em um cenário em rápida evolução."
     },
     "maxItems": 4
   },
@@ -277,11 +277,11 @@
     "relatedProjectSlugs": [],
     "topic": {
       "en": "AI industry news, startup funding, and emerging technology trends",
-      "pt": "noticias da industria de IA, financiamento de startups e tendencias de tecnologia emergente"
+      "pt": "notícias da indústria de IA, financiamento de startups e tendências de tecnologia emergente"
     },
     "whyItMatters": {
       "en": "This matters because AI industry dynamics, funding patterns, and product launches shape the tools and platforms data teams adopt.",
-      "pt": "Isso importa porque a dinamica da industria de IA, padroes de financiamento e lancamentos de produtos moldam as ferramentas e plataformas que times de dados adotam."
+      "pt": "Isso importa porque a dinâmica da indústria de IA, padrões de financiamento e lançamentos de produtos moldam as ferramentas e plataformas que times de dados adotam."
     },
     "maxItems": 4
   },
@@ -299,11 +299,11 @@
     "relatedProjectSlugs": [],
     "topic": {
       "en": "frontier AI research, model capabilities, and responsible AI deployment",
-      "pt": "pesquisa de IA de fronteira, capacidades de modelos e implantacao responsavel de IA"
+      "pt": "pesquisa de IA de fronteira, capacidades de modelos e implantação responsável de IA"
     },
     "whyItMatters": {
       "en": "This matters because OpenAI's research and product decisions set the pace for how organizations integrate generative AI into data workflows and products.",
-      "pt": "Isso importa porque as decisoes de pesquisa e produto da OpenAI definem o ritmo de como organizacoes integram IA generativa em fluxos de dados e produtos."
+      "pt": "Isso importa porque as decisões de pesquisa e produto da OpenAI definem o ritmo de como organizações integram IA generativa em fluxos de dados e produtos."
     },
     "maxItems": 4
   },
@@ -325,7 +325,7 @@
     },
     "whyItMatters": {
       "en": "This matters because open-source AI models are lowering barriers to adoption and giving data teams more control over how they deploy and fine-tune ML capabilities.",
-      "pt": "Isso importa porque modelos de IA open-source estao reduzindo barreiras de adocao e dando mais controle aos times de dados sobre como implantam e ajustam capacidades de ML."
+      "pt": "Isso importa porque modelos de IA open-source estão reduzindo barreiras de adoção e dando mais controle aos times de dados sobre como implantam e ajustam capacidades de ML."
     },
     "maxItems": 4
   },
@@ -343,11 +343,11 @@
     "relatedProjectSlugs": ["azure-snowflake-pipeline"],
     "topic": {
       "en": "cloud infrastructure, Azure AI services, and enterprise data solutions",
-      "pt": "infraestrutura cloud, servicos de IA do Azure e solucoes de dados corporativas"
+      "pt": "infraestrutura cloud, serviços de IA do Azure e soluções de dados corporativas"
     },
     "whyItMatters": {
       "en": "This matters because Azure's data and AI portfolio shapes enterprise choices around cloud adoption, hybrid architectures, and governed analytics at scale.",
-      "pt": "Isso importa porque o portfolio de dados e IA do Azure molda escolhas corporativas de adocao cloud, arquiteturas hibridas e analytics governado em escala."
+      "pt": "Isso importa porque o portfolio de dados e IA do Azure molda escolhas corporativas de adoção cloud, arquiteturas hibridas e analytics governado em escala."
     },
     "maxItems": 4
   },
@@ -365,11 +365,11 @@
     "relatedProjectSlugs": [],
     "topic": {
       "en": "applied machine learning, deep learning tutorials, and practical AI implementation",
-      "pt": "machine learning aplicado, tutoriais de deep learning e implementacao pratica de IA"
+      "pt": "machine learning aplicado, tutoriais de deep learning e implementação prática de IA"
     },
     "whyItMatters": {
       "en": "This matters because practical ML knowledge bridges the gap between theory and production, enabling data teams to ship AI features with confidence.",
-      "pt": "Isso importa porque conhecimento pratico de ML conecta teoria e producao, permitindo que times de dados entreguem funcionalidades de IA com confianca."
+      "pt": "Isso importa porque conhecimento pratico de ML conecta teoria e produção, permitindo que times de dados entreguem funcionalidades de IA com confiança."
     },
     "maxItems": 4
   },
@@ -387,11 +387,11 @@
     "relatedProjectSlugs": ["gcp-dbt-modern-data-stack"],
     "topic": {
       "en": "AI research breakthroughs, Gemini ecosystem, and responsible AI development",
-      "pt": "avancos em pesquisa de IA, ecossistema Gemini e desenvolvimento responsavel de IA"
+      "pt": "avanços em pesquisa de IA, ecossistema Gemini e desenvolvimento responsável de IA"
     },
     "whyItMatters": {
       "en": "This matters because Google's AI research directly influences the tools, models, and capabilities available to data teams building intelligent applications.",
-      "pt": "Isso importa porque a pesquisa de IA do Google influencia diretamente as ferramentas, modelos e capacidades disponiveis para times de dados que constroem aplicacoes inteligentes."
+      "pt": "Isso importa porque a pesquisa de IA do Google influência diretamente as ferramentas, modelos e capacidades disponíveis para times de dados que constroem aplicações inteligentes."
     },
     "maxItems": 4
   }

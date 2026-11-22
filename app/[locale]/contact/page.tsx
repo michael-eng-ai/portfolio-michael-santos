@@ -30,7 +30,7 @@ export async function generateMetadata({
     description: copy(
       locale,
       "Get in touch for consulting, technical leadership, partnerships, and growth-focused data or AI initiatives.",
-      "Entre em contato para consultoria, lideranca tecnica, parcerias e iniciativas de dados ou IA focadas em crescimento.",
+      "Entre em contato para consultoria, liderança técnica, parcerias e iniciativas de dados ou IA focadas em crescimento.",
     ),
     path: "/contact",
     keywords: ["contact", "consulting", "data engineering advisor"],

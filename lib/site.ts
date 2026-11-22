@@ -53,10 +53,10 @@ export const siteConfig = {
     "real-time analytics",
     "CDC pipeline",
     "engenharia de dados",
-    "inteligencia artificial",
+    "inteligência artificial",
     "plataforma de dados",
     "arquitetura de dados",
-    "estrategia digital",
+    "estratégia digital",
   ],
 };
 

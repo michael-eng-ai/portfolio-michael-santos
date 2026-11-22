@@ -6,8 +6,8 @@
   "generatedAt": "2026-03-20T14:00:48.760Z",
   "publishedUrl": null,
   "urls": {
-    "en": "https://michael.business/en/articles/building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns",
-    "pt": "https://michael.business/pt/articles/building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns",
+    "en": "https://michael.business/en/articles/building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns?utm_source=linkedin&utm_medium=social&utm_campaign=building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns&utm_content=en",
+    "pt": "https://michael.business/pt/articles/building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns?utm_source=linkedin&utm_medium=social&utm_campaign=building-trustworthy-and-scalable-data-platforms-with-modern-engineering-patterns&utm_content=pt",
     "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
   },
   "locales": {

@@ -29,7 +29,7 @@ export async function generateMetadata({
     description: copy(
       locale,
       "Long-form analysis that connects market pressure, technical execution, and measurable business outcomes.",
-      "Analises que conectam pressao de mercado, execucao tecnica e resultados de negocio mensuraveis.",
+      "Análises que conectam pressão de mercado, execução técnica e resultados de negócio mensuráveis.",
     ),
     path: "/articles",
     keywords: ["AI articles", "data platform strategy", "digital transformation"],
@@ -53,7 +53,7 @@ export default async function ArticlesPage({
   const pageDescription = copy(
     locale,
     "Long-form analysis that connects market pressure, technical execution, and measurable business outcomes.",
-    "Analises que conectam pressao de mercado, execucao tecnica e resultados de negocio mensuraveis.",
+    "Análises que conectam pressão de mercado, execução técnica e resultados de negócio mensuráveis.",
   );
 
   return (

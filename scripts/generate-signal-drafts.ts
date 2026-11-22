@@ -271,13 +271,13 @@ async function main() {
 
     const linkedinEn = withSocialUtm(baseEn, {
       source: "linkedin",
-      campaign: draftSlug,
-      content: "signal",
+      campaign: candidate.sourceSlug,
+      content: "en",
     });
     const linkedinPt = withSocialUtm(basePt, {
       source: "linkedin",
-      campaign: draftSlug,
-      content: "signal",
+      campaign: candidate.sourceSlug,
+      content: "pt",
     });
     const xEn = withSocialUtm(baseEn, {
       source: "x",

@@ -51,7 +51,7 @@ export async function generateMetadata({
     description: copy(
       locale,
       "Printable HTML resume view with a clean reading experience for recruiters and clients.",
-      "Versao HTML imprimivel do curriculo com leitura mais limpa para recrutadores e clientes.",
+      "Versão HTML imprimível do currículo com leitura mais limpa para recrutadores e clientes.",
     ),
     path: `/resume/${document}`,
     keywords: ["resume", "CV", "data engineer", document],
