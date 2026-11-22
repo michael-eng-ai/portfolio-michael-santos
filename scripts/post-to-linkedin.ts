@@ -11,6 +11,10 @@ import {
 import { resolveLinkedinAuthorUrn } from "@/lib/linkedin-author";
 import { buildLinkedinPublishedUrl, buildLinkedinUgcShareContent } from "@/lib/linkedin";
 import {
+  isRetryableLinkedinPublishError,
+  linkedinPostIdFromCreateResponse,
+} from "@/lib/linkedin-retry";
+import {
   buildDeliveryFailurePatch,
   buildDeliverySuccessPatch,
   selectDueDeliveryRows,
@@ -134,12 +138,13 @@ async function postToLinkedIn(
     body: JSON.stringify(body),
   });
 
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`LinkedIn API ${response.status}: ${error}`);
+  const status = response.status;
+  if (status >= 200 && status < 300) {
+    return linkedinPostIdFromCreateResponse(status, response.headers.get("x-restli-id"));
   }
 
-  return response.headers.get("x-restli-id") ?? "unknown";
+  const errorDetail = await response.text();
+  return linkedinPostIdFromCreateResponse(status, null, errorDetail);
 }
 
 async function validateLinkedInToken(accessToken: string): Promise<boolean> {
@@ -222,6 +227,19 @@ async function listFileBasedNewsCandidates(): Promise<NewsRow[]> {
   return rows.sort((left, right) => right.published_at.localeCompare(left.published_at));
 }
 
+function withoutFileDelivered(rows: NewsRow[], state: FileDeliveryState): NewsRow[] {
+  return rows.filter((row) => {
+    if (!state[row.slug]?.postedAt) {
+      return true;
+    }
+
+    console.log(
+      `SKIPPED: ${row.slug} -- already recorded in LinkedIn file delivery ledger`,
+    );
+    return false;
+  });
+}
+
 async function publishRows(
   accessToken: string,
   author: ReturnType<typeof resolveLinkedinAuthorUrn>,
@@ -229,12 +247,13 @@ async function publishRows(
   options: { queueSupported: boolean; persistFileState: boolean },
 ): Promise<number> {
   const postLocale = resolvePostLocale();
-  console.log(`Found ${candidates.length} due LinkedIn delivery items (locale=${postLocale})`);
+  let fileState = await readFileDeliveryState();
+  const pending = withoutFileDelivered(candidates, fileState);
+  console.log(`Found ${pending.length} due LinkedIn delivery items (locale=${postLocale})`);
 
   let posted = 0;
-  let fileState = options.persistFileState ? await readFileDeliveryState() : {};
 
-  for (const article of candidates) {
+  for (const article of pending) {
     const post = buildLinkedInPost(article, postLocale);
     const nextAttemptCount = Number(article.linkedin_attempt_count ?? 0) + 1;
 
@@ -258,10 +277,7 @@ async function publishRows(
       const postId = await withRetry(() => postToLinkedIn(accessToken, author.authorUrn, post), {
         attempts: 3,
         delayMs: 1_500,
-        shouldRetry: (error) => {
-          const message = toErrorMessage(error);
-          return message.includes("429") || message.includes("5") || message.includes("timeout");
-        },
+        shouldRetry: (error) => isRetryableLinkedinPublishError(error),
         onRetry: (error, attempt, nextDelayMs) => {
           console.warn(
             `Retrying LinkedIn publish for ${article.slug} after attempt ${attempt}: ${toErrorMessage(error)} (next in ${nextDelayMs}ms)`,
@@ -273,17 +289,23 @@ async function publishRows(
         `POSTED: ${article.slug} -> LinkedIn post ${postId}${publishedUrl ? ` (${publishedUrl})` : ""}`,
       );
 
-      if (options.persistFileState) {
-        fileState = {
-          ...fileState,
-          [article.slug]: {
-            postedAt: new Date().toISOString(),
-            postId,
-            publishedUrl,
-          },
-        };
+      fileState = {
+        ...fileState,
+        [article.slug]: {
+          postedAt: new Date().toISOString(),
+          postId,
+          publishedUrl,
+        },
+      };
+      try {
         await writeFileDeliveryState(fileState);
-      } else {
+      } catch (fileError) {
+        console.warn(
+          `WARNING: posted but failed to persist LinkedIn file delivery state for ${article.slug}: ${toErrorMessage(fileError)}`,
+        );
+      }
+
+      if (!options.persistFileState) {
         const successPatch = options.queueSupported
           ? buildDeliverySuccessPatch("linkedin", nextAttemptCount, postId)
           : { posted_to_linkedin_at: new Date().toISOString() };
@@ -381,22 +403,25 @@ async function main(): Promise<void> {
     sampleRow as Record<string, unknown> | undefined,
     "linkedin",
   );
-  const unposted = await listPendingNewsRowsForDelivery(
-    "linkedin",
-    queueSupported ? 25 : MAX_POSTS_PER_RUN,
-    {
-      requireEditorial: true,
-    },
-  );
+  const unposted = await listPendingNewsRowsForDelivery("linkedin", 25, {
+    requireEditorial: true,
+  });
 
   if (!unposted || unposted.length === 0) {
     console.log("No unposted news found");
     return;
   }
 
+  const fileState = await readFileDeliveryState();
+  const unseen = withoutFileDelivered(unposted as unknown as NewsRow[], fileState);
+  if (unseen.length === 0) {
+    console.log("No unposted news found");
+    return;
+  }
+
   const candidates = queueSupported
-    ? selectDueDeliveryRows(unposted as unknown as NewsRow[], "linkedin", MAX_POSTS_PER_RUN)
-    : (unposted as unknown as NewsRow[]);
+    ? selectDueDeliveryRows(unseen, "linkedin", MAX_POSTS_PER_RUN)
+    : unseen.slice(0, MAX_POSTS_PER_RUN);
 
   if (candidates.length === 0) {
     console.log("No due LinkedIn delivery items found");
