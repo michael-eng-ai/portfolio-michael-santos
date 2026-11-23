@@ -32,6 +32,7 @@ const BRIEFING_SCHEMA: Schema = {
 };
 
 const SITE_HOST = "michael.business";
+const SUPABASE_SITE_PROJECT = 'Supabase project "site" (ref ouxycojwjztfqiklvtin)';
 const MIN_HEADLINES = 3;
 const MAX_HEADLINES = 8;
 const HEADLINE_MAX_AGE_HOURS = 48;
@@ -244,12 +245,27 @@ async function writeBriefingArticle(slug: string, briefing: BriefingContent, pub
   console.log(`ARTICLE: wrote canonical daily briefing to ${targetPath}`);
 }
 
+function databaseUrlPointsAtSiteProject(connectionString: string) {
+  return connectionString.includes("ouxycojwjztfqiklvtin");
+}
+
 async function main(): Promise<void> {
   const missingDatabaseEnv = getRequiredWriteDatabaseEnvKeys().filter((key) => !process.env[key]);
+  const databaseUrl = process.env.DATABASE_URL?.trim() ?? "";
+  const canWriteDatabase = missingDatabaseEnv.length === 0 && databaseUrl.length > 0;
 
-  if (missingDatabaseEnv.length > 0) {
-    console.error(`ERROR: Missing required database env vars: ${missingDatabaseEnv.join(", ")}`);
-    process.exit(1);
+  if (!canWriteDatabase) {
+    console.warn(
+      `DATABASE_URL is not set. The briefing will not be written to ${SUPABASE_SITE_PROJECT}. ` +
+        "Add the DATABASE_URL repository secret (Postgres URI for that project) and DATABASE_SSL=require. " +
+        "The connection string is not printed.",
+    );
+  } else if (!databaseUrlPointsAtSiteProject(databaseUrl)) {
+    console.warn(
+      "DATABASE_URL is set but does not mention ref ouxycojwjztfqiklvtin. " +
+        `Rows will be written with that secret. Point it at ${SUPABASE_SITE_PROJECT} if this is the wrong database. ` +
+        "The connection string is not printed.",
+    );
   }
 
   let provider;
@@ -296,6 +312,14 @@ async function main(): Promise<void> {
   const today = nowIso.slice(0, 10);
 
   await writeBriefingArticle(slug, briefing, nowIso);
+
+  if (!canWriteDatabase) {
+    console.log(
+      `SKIPPED_DATABASE: ${slug} was written as an article file only. ` +
+        `Add DATABASE_URL for ${SUPABASE_SITE_PROJECT} to persist the news row.`,
+    );
+    return;
+  }
 
   const row = {
     slug,

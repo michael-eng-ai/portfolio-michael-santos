@@ -52,13 +52,14 @@ jobs:
             echo "db_ready=true" >> "$GITHUB_OUTPUT"
           else
             echo "db_ready=false" >> "$GITHUB_OUTPUT"
-            echo "::warning title=Database not configured::DATABASE_URL is not set; briefing generation skips DB path. News LinkedIn uses content/news file fallback when tokens exist."
+            echo "::warning title=Database not configured::DATABASE_URL is not set. Add it for Supabase project site (ref ouxycojwjztfqiklvtin) before the briefing can write news rows."
             {
               echo "## Database not configured"
               echo ""
-              echo "\`DATABASE_URL\` is not set. Daily briefing generation that needs Postgres was skipped."
-              echo "News LinkedIn posting still runs via file-based \`content/news\` when LinkedIn secrets are present."
-              echo "Add the \`DATABASE_URL\` secret to resume the full DB-backed briefing path."
+              echo "\`DATABASE_URL\` is not set, so the daily briefing does not write to Supabase project **site** (ref \`ouxycojwjztfqiklvtin\`)."
+              echo "Add that project's Postgres URI as the \`DATABASE_URL\` secret and set \`DATABASE_SSL=require\`."
+              echo "News LinkedIn posting still uses file-based \`content/news\` when LinkedIn secrets are present."
+              echo "The secret value is not printed."
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 

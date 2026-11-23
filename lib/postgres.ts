@@ -5,10 +5,23 @@ declare global {
   var __michaelBusinessPostgresPool: Pool | undefined;
 }
 
+function connectionStringRequiresSsl(connectionString: string) {
+  return /supabase\.(co|com)/i.test(connectionString) || connectionString.includes("ouxycojwjztfqiklvtin");
+}
+
 function getSslConfig() {
   const sslMode = process.env.DATABASE_SSL?.toLowerCase();
 
+  if (sslMode === "false" || sslMode === "disable" || sslMode === "off") {
+    return undefined;
+  }
+
   if (sslMode === "true" || sslMode === "require") {
+    return { rejectUnauthorized: false };
+  }
+
+  const connectionString = process.env.DATABASE_URL ?? "";
+  if (connectionString && connectionStringRequiresSsl(connectionString)) {
     return { rejectUnauthorized: false };
   }
 
