@@ -3,6 +3,7 @@ import path from "node:path";
 
 import { getArticles, linkedinDraftSchema, type LinkedinDraft } from "@/lib/content";
 import { publishLinkedinDraft } from "@/lib/linkedin";
+import { describeLinkedInTokenFailure, inspectLinkedInAccessToken } from "@/lib/linkedin-token";
 import { toErrorMessage } from "@/lib/runtime";
 import { isLocale, type Locale } from "@/lib/site";
 
@@ -201,18 +202,13 @@ async function main(): Promise<void> {
       console.error("ERROR: LINKEDIN_ACCESS_TOKEN is not set.");
       process.exit(1);
     }
-    try {
-      const probe = await fetch("https://api.linkedin.com/v2/userinfo", {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-      if (probe.status === 401) {
-        console.error(
-          "ERROR: LINKEDIN_ACCESS_TOKEN expired (401). Regenerate at https://www.linkedin.com/developers/apps/ and update GitHub Actions + local worker secrets.",
-        );
-        process.exit(1);
-      }
-    } catch (error) {
-      console.warn(`LinkedIn token probe failed; continuing: ${toErrorMessage(error)}`);
+    const inspection = await inspectLinkedInAccessToken(accessToken);
+    if (inspection.warning) {
+      console.warn(inspection.warning);
+    }
+    if (!inspection.ok) {
+      console.error(`ERROR: ${describeLinkedInTokenFailure(inspection.reason ?? "invalid")}`);
+      process.exit(1);
     }
   }
 
