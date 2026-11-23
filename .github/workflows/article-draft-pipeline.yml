@@ -9,6 +9,8 @@ permissions:
   contents: write
   pull-requests: write
   statuses: write
+  # Cancel approval-gated CI runs on the bot head branch before auto-merge.
+  actions: write
 
 concurrency:
   group: article-draft-pipeline
@@ -147,6 +149,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          bash .github/scripts/cancel-pending-ci.sh chore/auto-article-drafts
           gh pr merge ${{ steps.create_article_pr.outputs.pull-request-number }} \
             --squash --delete-branch --auto || \
           gh pr merge ${{ steps.create_article_pr.outputs.pull-request-number }} \

@@ -14,6 +14,8 @@ permissions:
   issues: write
   pull-requests: write
   statuses: write
+  # Cancel approval-gated CI runs on the bot head branch before auto-merge.
+  actions: write
 
 jobs:
   generate-briefing:
@@ -135,6 +137,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          bash .github/scripts/cancel-pending-ci.sh chore/linkedin-news-delivery-state
           gh pr merge ${{ steps.persist_state.outputs.pull-request-number }} \
             --squash --delete-branch --auto || \
           gh pr merge ${{ steps.persist_state.outputs.pull-request-number }} \
