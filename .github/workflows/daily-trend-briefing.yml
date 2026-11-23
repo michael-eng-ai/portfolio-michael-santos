@@ -162,6 +162,8 @@ jobs:
             --squash --delete-branch --auto || \
           gh pr merge ${{ steps.persist_state.outputs.pull-request-number }} \
             --squash --delete-branch
+          bash .github/scripts/dispatch-after-bot-merge.sh \
+            ${{ steps.persist_state.outputs.pull-request-number }}
 
       - name: Summarize failure
         if: failure()

@@ -163,6 +163,14 @@ jobs:
             LOCALE="en"
           fi
 
+          # recent-articles is the automatic path (push or workflow_dispatch).
+          # One article, never a backlog, and publishedUrl/status already posted
+          # are skipped by the script.
+          if [ "$MODE" != "slug" ]; then
+            export AUTOMATIC_LINKEDIN_PUBLISH=true
+            MAX=1
+          fi
+
           args=(--locale "$LOCALE" --max "$MAX" --delay-ms "$DELAY_MS")
           if [ "$MODE" = "slug" ]; then
             if [ -z "$SLUG" ]; then
@@ -176,9 +184,12 @@ jobs:
 
           pnpm content:publish:linkedin -- "${args[@]}"
 
-      # main is protected (PR-only + required "validate" check). Persist via PR + auto-merge.
+      # Run 29622243863 (2026-07-18) failed by git pushing publish state onto
+      # protected main. Persist with a PR instead. Do not git push main here.
+      # GITHUB_TOKEN merges do not retrigger this workflow; the article pipeline
+      # dispatches it. This job does not dispatch itself, or it would post again.
       - name: Persist published LinkedIn draft state
-        if: steps.config.outputs.ready == 'true' && steps.linkedin_token.outputs.ok == 'true'
+        if: success() && steps.config.outputs.ready == 'true' && steps.linkedin_token.outputs.ok == 'true'
         id: persist_state
         uses: peter-evans/create-pull-request@v7
         with:
@@ -191,7 +202,7 @@ jobs:
             content/linkedin
 
       - name: Mark validation status on LinkedIn state PR
-        if: steps.config.outputs.ready == 'true' && steps.linkedin_token.outputs.ok == 'true' && steps.persist_state.outputs.pull-request-head-sha != ''
+        if: success() && steps.config.outputs.ready == 'true' && steps.linkedin_token.outputs.ok == 'true' && steps.persist_state.outputs.pull-request-head-sha != ''
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -203,7 +214,7 @@ jobs:
             -f target_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
       - name: Auto-merge LinkedIn state PR
-        if: steps.config.outputs.ready == 'true' && steps.linkedin_token.outputs.ok == 'true' && steps.persist_state.outputs.pull-request-number != ''
+        if: success() && steps.config.outputs.ready == 'true' && steps.linkedin_token.outputs.ok == 'true' && steps.persist_state.outputs.pull-request-number != ''
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -212,6 +223,9 @@ jobs:
             --squash --delete-branch --auto || \
           gh pr merge ${{ steps.persist_state.outputs.pull-request-number }} \
             --squash --delete-branch
+          # CI only. Dispatching social-distribution here would publish another article.
+          bash .github/scripts/dispatch-after-bot-merge.sh \
+            ${{ steps.persist_state.outputs.pull-request-number }}
 
   publish-x-via-api:
     if: >
