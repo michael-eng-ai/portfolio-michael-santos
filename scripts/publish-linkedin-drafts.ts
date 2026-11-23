@@ -187,6 +187,14 @@ async function listCandidateSlugs(options: CliOptions): Promise<string[]> {
 async function main(): Promise<void> {
   const options = parseArgs(process.argv.slice(2));
 
+  if (process.env.AUTOMATIC_LINKEDIN_PUBLISH === "true") {
+    options.max = 1;
+    options.sourceType = "article";
+    options.includeProjects = false;
+    options.includeSignals = false;
+    options.since = options.since ?? "2026-07-01";
+  }
+
   if (!options.slug && !options.since && !options.sourceType) {
     console.error(
       "ERROR: Provide --slug <draft-slug> or --since YYYY-MM-DD (optionally with --max / --include-projects).",
