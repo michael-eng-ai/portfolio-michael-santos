@@ -79,8 +79,28 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           LLM_PROVIDER: groq
 
-      - name: Post news to LinkedIn
+      - name: Validate LinkedIn access token
+        id: linkedin_token
         if: steps.guard.outputs.linkedin_ready == 'true' && vars.VM_OWNS_LINKEDIN_POSTING != 'true'
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+        run: |
+          set +e
+          pnpm tsx scripts/check-linkedin-token.ts
+          code=$?
+          set -e
+          if [ "$code" -eq 0 ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "ok=false" >> "$GITHUB_OUTPUT"
+          if [ "$code" -eq 1 ]; then
+            bash .github/scripts/open-linkedin-token-issue.sh
+          fi
+          exit "$code"
+
+      - name: Post news to LinkedIn
+        if: steps.guard.outputs.linkedin_ready == 'true' && vars.VM_OWNS_LINKEDIN_POSTING != 'true' && steps.linkedin_token.outputs.ok == 'true'
         run: pnpm content:post:linkedin
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -156,7 +176,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Create failure issue
-        if: failure()
+        if: failure() && steps.linkedin_token.outputs.ok != 'false'
         run: |
           gh issue create \
             --title "[pipeline] ${{ github.workflow }} failed" \

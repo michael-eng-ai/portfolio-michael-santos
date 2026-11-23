@@ -20,6 +20,7 @@ import {
   selectDueDeliveryRows,
   supportsDeliveryQueue,
 } from "@/lib/news-delivery";
+import { describeLinkedInTokenFailure, inspectLinkedInAccessToken } from "@/lib/linkedin-token";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
 import { Locale } from "@/lib/site";
 import { buildLocalizedSiteUrl, resolveSocialLocale } from "@/lib/utm";
@@ -148,39 +149,15 @@ async function postToLinkedIn(
 }
 
 async function validateLinkedInToken(accessToken: string): Promise<boolean> {
-  try {
-    const response = await fetch(`${LINKEDIN_API_BASE}/userinfo`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-
-    if (response.status === 401) {
-      console.error(
-        "CRITICAL: LinkedIn access token expired. Regenerate at https://www.linkedin.com/developers/apps/",
-      );
-      return false;
-    }
-
-    if (response.status === 403) {
-      console.warn(
-        "LinkedIn /userinfo returned 403 (missing profile read scope) -- proceeding with post attempt",
-      );
-      return true;
-    }
-
-    if (!response.ok) {
-      console.warn(
-        `LinkedIn token check returned ${response.status} -- proceeding with post attempt`,
-      );
-      return true;
-    }
-
-    return true;
-  } catch (error) {
-    console.warn(
-      `LinkedIn token check failed: ${toErrorMessage(error)} -- proceeding with post attempt`,
-    );
-    return true;
+  const inspection = await inspectLinkedInAccessToken(accessToken);
+  if (inspection.warning) {
+    console.warn(inspection.warning);
   }
+  if (!inspection.ok) {
+    console.error(`CRITICAL: ${describeLinkedInTokenFailure(inspection.reason ?? "invalid")}`);
+    return false;
+  }
+  return true;
 }
 
 async function readFileDeliveryState(): Promise<FileDeliveryState> {
