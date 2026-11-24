@@ -79,6 +79,9 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           LLM_PROVIDER: groq
+          # Production replacement for the retired llama-3.3-70b-versatile model.
+          # A 404 falls through to openai/gpt-oss-20b, then Gemini, in lib/llm-text.ts.
+          GROQ_MODEL: openai/gpt-oss-120b
 
       - name: Validate LinkedIn access token
         id: linkedin_token

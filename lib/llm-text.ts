@@ -2,8 +2,13 @@ import { GoogleGenAI, type Schema } from "@google/genai";
 import OpenAI from "openai";
 
 const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
-const DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile";
+/** Current production Groq model. Replaces llama-3.3-70b-versatile (removed for developer keys on 2026-08-16). */
+export const DEFAULT_GROQ_MODEL = "openai/gpt-oss-120b";
+/** Tried, in order, when the selected Groq model id returns 404. */
+export const GROQ_FALLBACK_MODELS = ["openai/gpt-oss-20b"] as const;
 const DEFAULT_GROQ_BASE_URL = "https://api.groq.com/openai/v1";
+/** GPT-OSS bills reasoning tokens against the completion cap. Low effort still needs room for the answer. */
+const GPT_OSS_REASONING_HEADROOM = 1024;
 
 export type LlmProvider = "gemini" | "groq";
 
@@ -14,7 +19,7 @@ export type GenerateTextOptions = {
   temperature?: number;
   /** Override automatic provider resolution. */
   provider?: LlmProvider;
-  /** Override the model. Defaults: gemini-2.5-flash | llama-3.3-70b-versatile */
+  /** Override the model. Defaults: gemini-2.5-flash | openai/gpt-oss-120b */
   model?: string;
   /**
    * Optional schema enforcement. When provided AND provider is "gemini",
@@ -72,7 +77,55 @@ function getProviderPlan(preferred: LlmProvider, allowFallback: boolean): LlmPro
   return providers.filter((provider) => hasProviderKey(provider));
 }
 
+export function isModelNotFoundError(error: unknown): boolean {
+  if (error && typeof error === "object") {
+    const record = error as { status?: unknown; code?: unknown; name?: unknown };
+    if (record.status === 404 || record.code === "model_not_found" || record.name === "NotFoundError") {
+      return true;
+    }
+  }
+
+  const message = (error instanceof Error ? error.message : String(error)).toLowerCase();
+  return (
+    message.includes("404") ||
+    message.includes("does not exist") ||
+    message.includes("model_not_found")
+  );
+}
+
+/**
+ * Models to call on Groq. An explicit `options.model` is used alone.
+ * Otherwise: GROQ_MODEL, then the current default, then production fallbacks.
+ */
+export function groqModelsToTry(explicitModel?: string): string[] {
+  const pinned = explicitModel?.trim();
+  if (pinned) return [pinned];
+
+  const fromEnv = process.env.GROQ_MODEL?.trim();
+  const ordered = [fromEnv, DEFAULT_GROQ_MODEL, ...GROQ_FALLBACK_MODELS].filter(
+    (model): model is string => Boolean(model),
+  );
+  return [...new Set(ordered)];
+}
+
+export function groqCompletionOptions(model: string, maxTokens: number): {
+  max_tokens?: number;
+  max_completion_tokens?: number;
+  reasoning_effort?: "low";
+} {
+  if (model.startsWith("openai/gpt-oss")) {
+    return {
+      max_completion_tokens: maxTokens + GPT_OSS_REASONING_HEADROOM,
+      reasoning_effort: "low",
+    };
+  }
+
+  return { max_tokens: maxTokens };
+}
+
 function isFallbackEligibleError(error: unknown): boolean {
+  if (isModelNotFoundError(error)) return true;
+
   const message = error instanceof Error
     ? `${error.name} ${error.message}`.toLowerCase()
     : String(error).toLowerCase();
@@ -160,8 +213,7 @@ async function generateWithGemini(
 
 async function generateWithGroq(
   options: GenerateTextOptions,
-  model: string,
-): Promise<string> {
+): Promise<{ text: string; model: string }> {
   const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
     throw new Error("GROQ_API_KEY is not set; cannot use the Groq provider.");
@@ -178,21 +230,40 @@ async function generateWithGroq(
   }
   messages.push({ role: "user", content: options.prompt });
 
-  const completion = await client.chat.completions.create({
-    model,
-    max_tokens: options.maxTokens ?? 1024,
-    ...(options.temperature !== undefined ? { temperature: options.temperature } : {}),
-    ...(options.responseSchema
-      ? { response_format: { type: "json_object" } }
-      : {}),
-    messages,
-  });
+  const models = groqModelsToTry(options.model);
+  const maxTokens = options.maxTokens ?? 1024;
+  let lastError: unknown;
 
-  const content = completion.choices[0]?.message?.content;
-  if (!content) {
-    throw new Error("Groq response did not contain text content.");
+  for (let index = 0; index < models.length; index += 1) {
+    const model = models[index];
+    try {
+      const completion = await client.chat.completions.create({
+        model,
+        ...groqCompletionOptions(model, maxTokens),
+        ...(options.temperature !== undefined ? { temperature: options.temperature } : {}),
+        ...(options.responseSchema
+          ? { response_format: { type: "json_object" as const } }
+          : {}),
+        messages,
+      });
+
+      const content = completion.choices[0]?.message?.content;
+      if (!content) {
+        throw new Error("Groq response did not contain text content.");
+      }
+      return { text: content, model };
+    } catch (error) {
+      lastError = error;
+      const nextModel = models[index + 1];
+      if (nextModel && isModelNotFoundError(error)) {
+        console.warn(`[llm] Groq model ${model} returned 404; trying ${nextModel}.`);
+        continue;
+      }
+      throw error;
+    }
   }
-  return content;
+
+  throw lastError instanceof Error ? lastError : new Error("Groq request failed.");
 }
 
 /**
@@ -207,19 +278,15 @@ export async function generateText(
   const errors: string[] = [];
 
   for (const targetProvider of providerPlan) {
-    const model =
-      options.model ??
-      (targetProvider === "gemini"
-        ? DEFAULT_GEMINI_MODEL
-        : DEFAULT_GROQ_MODEL);
-
     try {
-      const text =
-        targetProvider === "gemini"
-          ? await generateWithGemini(options, model)
-          : await generateWithGroq(options, model);
+      if (targetProvider === "gemini") {
+        const model = options.model ?? DEFAULT_GEMINI_MODEL;
+        const text = await generateWithGemini(options, model);
+        return { text, provider: targetProvider, model };
+      }
 
-      return { text, provider: targetProvider, model };
+      const result = await generateWithGroq(options);
+      return { text: result.text, provider: targetProvider, model: result.model };
     } catch (error) {
       errors.push(`${targetProvider}: ${error instanceof Error ? error.message : String(error)}`);
 
