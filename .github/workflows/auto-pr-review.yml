@@ -82,7 +82,7 @@ jobs:
 
             # GPT-OSS counts reasoning tokens against max_completion_tokens. Keep effort low so the review still fits.
             if [[ "$model" == openai/gpt-oss* ]]; then
-              body=$(echo "$body" | jq '. + {max_completion_tokens: .max_tokens, reasoning_effort: "low"} | del(.max_tokens)')
+              body=$(echo "$body" | jq '. + {max_completion_tokens: .max_tokens, reasoning_effort: "low", include_reasoning: false} | del(.max_tokens)')
             fi
 
             resp=$(curl -sS -X POST "$url" \

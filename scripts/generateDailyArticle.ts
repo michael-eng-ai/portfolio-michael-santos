@@ -10,6 +10,7 @@ import { generateCoverImage } from "@/lib/image-gen";
 import { generateLocalCoverImage } from "@/lib/local-cover";
 import {
   groqCompletionOptions,
+  groqFinalContent,
   groqModelsToTry,
   isLlmUnavailableError,
   isModelNotFoundError,
@@ -471,7 +472,7 @@ async function generateWithGroq(prompt: string): Promise<string> {
         ],
       });
 
-      const content = completion.choices[0]?.message?.content;
+      const content = groqFinalContent(completion.choices[0]?.message);
       if (!content) {
         throw new Error("Groq response did not contain text content.");
       }

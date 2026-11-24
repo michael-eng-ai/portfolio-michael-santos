@@ -2,12 +2,15 @@ import { GoogleGenAI, type Schema } from "@google/genai";
 import OpenAI from "openai";
 
 const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
-/** Current production Groq model. Replaces llama-3.3-70b-versatile (removed for developer keys on 2026-08-16). */
+/** Developer-tier Groq chat model. llama-3.3-70b-versatile is enterprise-only and 404s. */
 export const DEFAULT_GROQ_MODEL = "openai/gpt-oss-120b";
-/** Tried, in order, when the selected Groq model id returns 404. */
-export const GROQ_FALLBACK_MODELS = ["openai/gpt-oss-20b"] as const;
+/** Used when GROQ_MODEL returns 404. llama-* ids are never accepted here. */
+export const DEFAULT_GROQ_FALLBACK_MODEL = "openai/gpt-oss-20b";
 const DEFAULT_GROQ_BASE_URL = "https://api.groq.com/openai/v1";
-/** GPT-OSS bills reasoning tokens against the completion cap. Low effort still needs room for the answer. */
+/**
+ * GPT-OSS counts reasoning tokens against max_completion_tokens.
+ * This reserve sits on top of the caller's answer budget.
+ */
 const GPT_OSS_REASONING_HEADROOM = 1024;
 
 export type LlmProvider = "gemini" | "groq";
@@ -93,34 +96,64 @@ export function isModelNotFoundError(error: unknown): boolean {
   );
 }
 
+/** True for Groq llama ids, including meta-llama/*. Those models 404 on developer keys. */
+export function isGroqLlamaModel(model: string): boolean {
+  const name = model.trim().toLowerCase().split("/").pop() ?? "";
+  return name.startsWith("llama");
+}
+
+function configuredGroqModel(envValue: string | undefined, fallback: string, envName: string): string {
+  const configured = envValue?.trim();
+  if (!configured) return fallback;
+  if (!isGroqLlamaModel(configured)) return configured;
+
+  console.warn(
+    `[llm] ${envName}=${configured} is enterprise-only on Groq and is not used. Using ${fallback}.`,
+  );
+  return fallback;
+}
+
 /**
- * Models to call on Groq. An explicit `options.model` is used alone.
- * Otherwise: GROQ_MODEL, then the current default, then production fallbacks.
+ * Groq models to call, in order. GROQ_MODEL then GROQ_FALLBACK_MODEL.
+ * An explicit non-llama options.model is used alone. llama-* ids are dropped.
  */
 export function groqModelsToTry(explicitModel?: string): string[] {
   const pinned = explicitModel?.trim();
-  if (pinned) return [pinned];
+  if (pinned && !isGroqLlamaModel(pinned)) return [pinned];
+  if (pinned && isGroqLlamaModel(pinned)) {
+    console.warn(`[llm] Refusing llama model ${pinned}. Using the GPT-OSS defaults.`);
+  }
 
-  const fromEnv = process.env.GROQ_MODEL?.trim();
-  const ordered = [fromEnv, DEFAULT_GROQ_MODEL, ...GROQ_FALLBACK_MODELS].filter(
-    (model): model is string => Boolean(model),
+  const primary = configuredGroqModel(process.env.GROQ_MODEL, DEFAULT_GROQ_MODEL, "GROQ_MODEL");
+  const secondary = configuredGroqModel(
+    process.env.GROQ_FALLBACK_MODEL,
+    DEFAULT_GROQ_FALLBACK_MODEL,
+    "GROQ_FALLBACK_MODEL",
   );
-  return [...new Set(ordered)];
+  return [...new Set([primary, secondary])];
 }
 
 export function groqCompletionOptions(model: string, maxTokens: number): {
   max_tokens?: number;
   max_completion_tokens?: number;
   reasoning_effort?: "low";
+  include_reasoning?: false;
 } {
   if (model.startsWith("openai/gpt-oss")) {
     return {
       max_completion_tokens: maxTokens + GPT_OSS_REASONING_HEADROOM,
       reasoning_effort: "low",
+      include_reasoning: false,
     };
   }
 
   return { max_tokens: maxTokens };
+}
+
+/** Final answer only. GPT-OSS reasoning stays in message.reasoning and is ignored. */
+export function groqFinalContent(message: { content?: string | null } | null | undefined): string {
+  const raw = typeof message?.content === "string" ? message.content : "";
+  return raw.replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
 }
 
 function isFallbackEligibleError(error: unknown): boolean {
@@ -247,7 +280,7 @@ async function generateWithGroq(
         messages,
       });
 
-      const content = completion.choices[0]?.message?.content;
+      const content = groqFinalContent(completion.choices[0]?.message);
       if (!content) {
         throw new Error("Groq response did not contain text content.");
       }
@@ -274,13 +307,15 @@ export async function generateText(
   options: GenerateTextOptions,
 ): Promise<GenerateTextResult> {
   const provider = resolveLlmProvider(options.provider);
-  const providerPlan = getProviderPlan(provider, !options.provider && !options.model);
+  const pinnedModel = options.model?.trim();
+  const modelIsPinned = Boolean(pinnedModel) && !isGroqLlamaModel(pinnedModel ?? "");
+  const providerPlan = getProviderPlan(provider, !options.provider && !modelIsPinned);
   const errors: string[] = [];
 
   for (const targetProvider of providerPlan) {
     try {
       if (targetProvider === "gemini") {
-        const model = options.model ?? DEFAULT_GEMINI_MODEL;
+        const model = (modelIsPinned ? pinnedModel : undefined) ?? DEFAULT_GEMINI_MODEL;
         const text = await generateWithGemini(options, model);
         return { text, provider: targetProvider, model };
       }
