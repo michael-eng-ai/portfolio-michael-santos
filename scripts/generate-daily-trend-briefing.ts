@@ -294,7 +294,7 @@ async function main(): Promise<void> {
   const prompt = buildPrompt(headlines);
 
   const result = await withRetry(
-    () => generateText({ prompt, maxTokens: 2048, responseSchema: BRIEFING_SCHEMA }),
+    () => generateText({ prompt, maxTokens: 4096, responseSchema: BRIEFING_SCHEMA }),
     {
       attempts: 3,
       delayMs: 1_500,
@@ -305,6 +305,7 @@ async function main(): Promise<void> {
     },
   );
 
+  console.log(`Generated briefing via ${result.provider} (${result.model})`);
   const briefing = parseResponse(result.text);
   const slug = todaySlug();
   const sourceUrl = `https://${SITE_HOST}/en/news/${slug}`;

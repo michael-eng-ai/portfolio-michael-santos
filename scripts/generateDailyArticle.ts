@@ -8,7 +8,13 @@ import OpenAI from "openai";
 import { getNewsReferences, getProjects, getArticles } from "@/lib/content";
 import { generateCoverImage } from "@/lib/image-gen";
 import { generateLocalCoverImage } from "@/lib/local-cover";
-import { isLlmUnavailableError } from "@/lib/llm-text";
+import {
+  groqCompletionOptions,
+  groqFinalContent,
+  groqModelsToTry,
+  isLlmUnavailableError,
+  isModelNotFoundError,
+} from "@/lib/llm-text";
 import { toErrorMessage, withRetry } from "@/lib/runtime";
 
 const DEFAULT_KIMI_BASE_URL = "https://api.moonshot.ai/v1";
@@ -51,7 +57,6 @@ type ArticlePayload = {
 type Provider = "kimi" | "gemini" | "groq";
 
 const DEFAULT_GROQ_BASE_URL = "https://api.groq.com/openai/v1";
-const DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile";
 
 const SYSTEM_PROMPT =
   "You write precise bilingual content for a data engineering portfolio site. Avoid hype. Keep it useful for recruiters and engineering managers. Respond with valid JSON only.";
@@ -450,22 +455,40 @@ async function generateWithGroq(prompt: string): Promise<string> {
     baseURL: process.env.GROQ_BASE_URL || DEFAULT_GROQ_BASE_URL,
   });
 
-  const completion = await client.chat.completions.create({
-    model: process.env.GROQ_MODEL || DEFAULT_GROQ_MODEL,
-    max_tokens: KIMI_MAX_TOKENS,
-    temperature: 1,
-    response_format: { type: "json_object" },
-    messages: [
-      { role: "system", content: SYSTEM_PROMPT },
-      { role: "user", content: prompt },
-    ],
-  });
+  const models = groqModelsToTry();
+  let lastError: unknown;
 
-  const content = completion.choices[0]?.message?.content;
-  if (!content) {
-    throw new Error("Groq response did not contain text content.");
+  for (let index = 0; index < models.length; index += 1) {
+    const model = models[index];
+    try {
+      const completion = await client.chat.completions.create({
+        model,
+        ...groqCompletionOptions(model, KIMI_MAX_TOKENS),
+        temperature: 1,
+        response_format: { type: "json_object" },
+        messages: [
+          { role: "system", content: SYSTEM_PROMPT },
+          { role: "user", content: prompt },
+        ],
+      });
+
+      const content = groqFinalContent(completion.choices[0]?.message);
+      if (!content) {
+        throw new Error("Groq response did not contain text content.");
+      }
+      return content;
+    } catch (error) {
+      lastError = error;
+      const nextModel = models[index + 1];
+      if (nextModel && isModelNotFoundError(error)) {
+        console.warn(`Groq model ${model} returned 404; trying ${nextModel}.`);
+        continue;
+      }
+      throw error;
+    }
   }
-  return content;
+
+  throw lastError instanceof Error ? lastError : new Error("Groq request failed.");
 }
 
 async function generatePayload(prompt: string, providerPlan: Provider[]): Promise<ArticlePayload> {

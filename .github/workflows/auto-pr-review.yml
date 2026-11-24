@@ -80,6 +80,11 @@ jobs:
               --argjson temp "$temp" \
               '{model: $model, max_tokens: $max_tokens, temperature: $temp, messages: [{role: "system", content: "You are a senior code reviewer. Be direct and terse."}, {role: "user", content: $prompt}]}')
 
+            # GPT-OSS counts reasoning tokens against max_completion_tokens. Keep effort low so the review still fits.
+            if [[ "$model" == openai/gpt-oss* ]]; then
+              body=$(echo "$body" | jq '. + {max_completion_tokens: .max_tokens, reasoning_effort: "low", include_reasoning: false} | del(.max_tokens)')
+            fi
+
             resp=$(curl -sS -X POST "$url" \
               -H "Content-Type: application/json" \
               -H "Authorization: Bearer ${key}" \
@@ -102,7 +107,8 @@ jobs:
           }
 
           try_provider "Kimi" "https://api.moonshot.ai/v1/chat/completions" "kimi-k2.5" "${KIMI_API_KEY:-}" 8192 1 \
-            || try_provider "Groq" "https://api.groq.com/openai/v1/chat/completions" "llama-3.3-70b-versatile" "${GROQ_API_KEY:-}" 2048 0.2 \
+            || try_provider "Groq" "https://api.groq.com/openai/v1/chat/completions" "openai/gpt-oss-120b" "${GROQ_API_KEY:-}" 4096 0.2 \
+            || try_provider "Groq" "https://api.groq.com/openai/v1/chat/completions" "openai/gpt-oss-20b" "${GROQ_API_KEY:-}" 4096 0.2 \
             || try_provider "Gemini" "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions" "gemini-flash-latest" "${GEMINI_API_KEY:-}" 2048 0.4 \
             || true
 

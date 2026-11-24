@@ -79,6 +79,10 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           LLM_PROVIDER: groq
+          # llama-3.3-70b-versatile and llama-3.1-8b-instant are enterprise-only and 404.
+          # A 404 on GROQ_MODEL tries GROQ_FALLBACK_MODEL, then Gemini. llama-* is never used.
+          GROQ_MODEL: openai/gpt-oss-120b
+          GROQ_FALLBACK_MODEL: openai/gpt-oss-20b
 
       - name: Validate LinkedIn access token
         id: linkedin_token
