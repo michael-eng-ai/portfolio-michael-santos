@@ -1,0 +1,29 @@
+{
+  "slug": "article-delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput",
+  "sourceType": "article",
+  "sourceSlug": "delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput",
+  "status": "draft",
+  "generatedAt": "2026-11-25T11:39:19.305Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput?utm_source=x&utm_medium=social&utm_campaign=delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput&utm_content=en",
+    "pt": "https://michael.business/pt/articles/delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput?utm_source=x&utm_medium=social&utm_campaign=delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "After a sudden spike in storage bills,…\n\nhttps://michael.business/en/articles/delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput?utm_source=x&utm_medium=social&utm_campaign=delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Depois de um aumento inesperado nos cus…\n\nhttps://michael.business/pt/articles/delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput?utm_source=x&utm_medium=social&utm_campaign=delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/aws-databricks-lakehouse"
+      ]
+    }
+  }
+}

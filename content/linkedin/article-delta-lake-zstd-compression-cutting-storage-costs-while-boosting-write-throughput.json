@@ -1,0 +1,27 @@
+{
+  "slug": "article-delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput",
+  "sourceType": "article",
+  "sourceSlug": "delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput",
+  "status": "draft",
+  "generatedAt": "2026-11-25T11:39:18.412Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput?utm_source=linkedin&utm_medium=social&utm_campaign=delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput&utm_content=en",
+    "pt": "https://michael.business/pt/articles/delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput?utm_source=linkedin&utm_medium=social&utm_campaign=delta-lake-zstd-compression-cutting-storage-costs-while-boosting-write-throughput&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/aws-databricks-lakehouse"
+  },
+  "locales": {
+    "en": {
+      "hook": "After a sudden spike in storage bills, we applied ZSTD compression to Delta Lake tables, slashing costs 40% and improving write latency.",
+      "body": "After a sudden spike in storage bills, we applied ZSTD compression to Delta Lake tables, slashing costs 40% and improving write latency. Learn the step‑by‑step fix.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Depois de um aumento inesperado nos custos de armazenamento, aplicamos compressão ZSTD em tabelas Delta Lake, reduzindo custos em 40% e melhorando a latência de escrita.",
+      "body": "Depois de um aumento inesperado nos custos de armazenamento, aplicamos compressão ZSTD em tabelas Delta Lake, reduzindo custos em 40% e melhorando a latência de escrita. Veja o passo a passo.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
