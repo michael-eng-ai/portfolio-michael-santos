@@ -80,7 +80,21 @@ export function buildLinkedinUgcShareContent(input: LinkedinShareMediaInput) {
   };
 }
 
+export function requiresLinkedinEditorialApproval(
+  draft: Pick<LinkedinDraft, "sourceType" | "status">,
+): boolean {
+  return (draft.sourceType === "article" || draft.sourceType === "signal") && draft.status !== "approved";
+}
+
 export async function publishLinkedinDraft(draft: LinkedinDraft, locale: Locale = "en") {
+  if (requiresLinkedinEditorialApproval(draft)) {
+    return {
+      mode: "draft-only",
+      published: false,
+      reason: "Article and signal drafts require editorial approval before LinkedIn publishing.",
+    } as const;
+  }
+
   const accessToken = process.env.LINKEDIN_ACCESS_TOKEN;
   const enabled = process.env.LINKEDIN_PUBLISH_ENABLED === "true";
   const preferImage = process.env.LINKEDIN_PREFER_IMAGE_SHARE !== "false";

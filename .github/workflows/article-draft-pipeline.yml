@@ -9,8 +9,6 @@ permissions:
   contents: write
   pull-requests: write
   statuses: write
-  # Cancel approval-gated CI runs on the bot head branch before auto-merge.
-  actions: write
 
 concurrency:
   group: article-draft-pipeline
@@ -86,31 +84,12 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          set +e
-          output="$(pnpm content:check:covers -- --since=2026-07-01 2>&1)"
-          echo "$output"
-          missing_count="$(printf '%s\n' "$output" | grep -c 'MISSING_COVER' || true)"
+          pnpm content:check:covers -- --since=2026-07-01
+          cover_state=unknown
           if [ -f .article-cover-status ]; then
             cover_state="$(head -n 1 .article-cover-status)"
-          else
-            cover_state="unknown"
           fi
           echo "cover_state=$cover_state" >> "$GITHUB_OUTPUT"
-
-          if [ -z "${{ secrets.GEMINI_API_KEY }}" ]; then
-            echo "Cover check: GEMINI_API_KEY absent — soft warning only."
-            echo "cover_ok=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          # Soft gate: warn loudly when key exists but cover is missing; do not hard-fail the job
-          # so a temporary image API outage cannot brick the pipeline permanently.
-          if [ "$missing_count" -gt 0 ] || [ "$cover_state" = "missing" ]; then
-            echo "::warning title=Missing cover::Raster cover missing while GEMINI_API_KEY is configured. Auto-merge disabled until backfill."
-            echo "cover_ok=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "cover_ok=true" >> "$GITHUB_OUTPUT"
-          fi
 
       - name: Create pull request for generated article
         if: steps.config.outputs.ready == 'true'
@@ -118,19 +97,19 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "chore: generate article and social drafts"
-          title: "chore: generate article and social drafts"
+          title: "Editorial review: article and social drafts"
           body: |
-            Automated article and social draft generation.
+            This PR waits for editorial review. The generator does not merge it or publish to social media.
 
-            ## Editorial checklist
-            - [ ] Raster cover present under `public/images/articles/` (JPG/PNG)
-            - [ ] `og:image` resolves to the cover (not a generic SVG)
-            - [ ] Opening hook creates business tension (incident/cost/SLO)
-            - [ ] Related news is fresh (or evergreen category)
-            - [ ] LinkedIn/X drafts do not reuse the raw SEO title as the hook
+            ## Review before merging to the public site
+            - [ ] Check technical claims and version-specific examples against primary sources or a runnable demonstration.
+            - [ ] Label hypothetical scenarios and demos; cite evidence for production claims and measurements, or remove them.
+            - [ ] Review both locales, the headline, the linked sources, and the cover.
+            - [ ] If LinkedIn should publish too, review its copy and media and change only its draft's status from `draft` to `approved`. Otherwise leave it as `draft`.
 
-            Cover status from pipeline: `${{ steps.covers.outputs.cover_state }}`
-          branch: chore/auto-article-drafts
+            Cover status from pipeline: ${{ steps.covers.outputs.cover_state }}
+          # A subsequent run must not overwrite a PR already being reviewed.
+          branch: chore/auto-article-drafts-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Mark validation status on generated article PR
         if: steps.config.outputs.ready == 'true' && steps.create_article_pr.outputs.pull-request-head-sha != ''
@@ -143,62 +122,6 @@ jobs:
             -f context=validate \
             -f description='Validated automated article draft update' \
             -f target_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-
-      - name: Enable auto-merge on generated article PR
-        if: steps.config.outputs.ready == 'true' && steps.create_article_pr.outputs.pull-request-number != '' && steps.covers.outputs.cover_ok != 'false'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          bash .github/scripts/cancel-pending-ci.sh chore/auto-article-drafts
-          gh pr merge ${{ steps.create_article_pr.outputs.pull-request-number }} \
-            --squash --delete-branch --auto || \
-          gh pr merge ${{ steps.create_article_pr.outputs.pull-request-number }} \
-            --squash --delete-branch
-          bash .github/scripts/dispatch-after-bot-merge.sh \
-            ${{ steps.create_article_pr.outputs.pull-request-number }} --social
-
-      - name: Queue LinkedIn publish after merge
-        if: steps.config.outputs.ready == 'true' && steps.create_article_pr.outputs.pull-request-number != '' && steps.covers.outputs.cover_ok != 'false'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          {
-            echo "## LinkedIn sync"
-            echo ""
-            echo "After this PR lands on \`main\`, workflow **Social Distribution** runs on push"
-            echo "(\`content/articles/**\` + \`content/linkedin/**\`) and publishes at most **one**"
-            echo "unpublished July+ article draft, then commits \`publishedUrl\` / \`publishedAt\`."
-            echo ""
-            echo "Manual catch-up:"
-            echo "\`\`\`bash"
-            echo "gh workflow run social-distribution.yml -f mode=recent-articles -f since=2026-07-01 -f max=1 -f channel=linkedin"
-            echo "\`\`\`"
-          } >> "$GITHUB_STEP_SUMMARY"
-          gh pr comment ${{ steps.create_article_pr.outputs.pull-request-number }} --body "$(cat <<'EOF'
-          ## LinkedIn sync
-
-          When this PR merges to `main`, **Social Distribution** auto-publishes the newest unpublished July+ article LinkedIn draft (max 1 per push) and persists `publishedUrl` / `publishedAt` in `content/linkedin/`.
-
-          Manual: `gh workflow run social-distribution.yml -f mode=recent-articles -f since=2026-07-01 -f max=1 -f channel=linkedin`
-          EOF
-          )" || true
-
-      - name: Skip auto-merge when cover missing
-        if: steps.config.outputs.ready == 'true' && steps.create_article_pr.outputs.pull-request-number != '' && steps.covers.outputs.cover_ok == 'false'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh pr comment ${{ steps.create_article_pr.outputs.pull-request-number }} --body "$(cat <<'EOF'
-          ## Cover gate
-
-          Auto-merge was **not** enabled because a raster cover is missing while `GEMINI_API_KEY` is configured.
-
-          Backfill locally or in CI:
-          ```bash
-          pnpm tsx scripts/backfill-article-covers.ts --since=2026-07-01
-          ```
-          EOF
-          )"
 
       - name: No automation run
         if: steps.config.outputs.ready != 'true'
