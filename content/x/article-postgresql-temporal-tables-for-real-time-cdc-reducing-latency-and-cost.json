@@ -1,0 +1,29 @@
+{
+  "slug": "article-postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost",
+  "sourceType": "article",
+  "sourceSlug": "postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost",
+  "status": "draft",
+  "generatedAt": "2026-11-26T11:35:52.692Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost?utm_source=x&utm_medium=social&utm_campaign=postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost&utm_content=en",
+    "pt": "https://michael.business/pt/articles/postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost?utm_source=x&utm_medium=social&utm_campaign=postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "Learn how PostgreSQL temporal tables cu…\n\nhttps://michael.business/en/articles/postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost?utm_source=x&utm_medium=social&utm_campaign=postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Descubra como tabelas temporais no Post…\n\nhttps://michael.business/pt/articles/postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost?utm_source=x&utm_medium=social&utm_campaign=postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    }
+  }
+}
