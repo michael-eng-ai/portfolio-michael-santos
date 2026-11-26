@@ -1,0 +1,27 @@
+{
+  "slug": "article-postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost",
+  "sourceType": "article",
+  "sourceSlug": "postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost",
+  "status": "draft",
+  "generatedAt": "2026-11-26T11:35:51.755Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost?utm_source=linkedin&utm_medium=social&utm_campaign=postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost&utm_content=en",
+    "pt": "https://michael.business/pt/articles/postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost?utm_source=linkedin&utm_medium=social&utm_campaign=postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "Learn how PostgreSQL temporal tables cut CDC latency and storage spend while keeping SLOs intact – a proven pattern for fast‑moving data pipelines.",
+      "body": "Learn how PostgreSQL temporal tables cut CDC latency and storage spend while keeping SLOs intact – a proven pattern for fast‑moving data pipelines.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Descubra como tabelas temporais no PostgreSQL reduzem a latência e o custo do CDC, mantendo os SLOs – um padrão comprovado para pipelines de dados ágeis.",
+      "body": "Descubra como tabelas temporais no PostgreSQL reduzem a latência e o custo do CDC, mantendo os SLOs – um padrão comprovado para pipelines de dados ágeis.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
