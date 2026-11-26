@@ -2,9 +2,10 @@
   "slug": "article-postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost",
   "sourceType": "article",
   "sourceSlug": "postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost",
-  "status": "draft",
+  "status": "published",
   "generatedAt": "2026-11-26T11:35:51.755Z",
-  "publishedUrl": null,
+  "publishedAt": "2026-11-26T11:36:45.116Z",
+  "publishedUrl": "https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7531682352780083200",
   "mediaPath": "/images/articles/postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost.png",
   "mediaSource": "ai",
   "urls": {
