@@ -2,7 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 
 import { getArticles, linkedinDraftSchema, type LinkedinDraft } from "@/lib/content";
-import { publishLinkedinDraft } from "@/lib/linkedin";
+import { publishLinkedinDraft, requiresLinkedinEditorialApproval } from "@/lib/linkedin";
 import { describeLinkedInTokenFailure, inspectLinkedInAccessToken } from "@/lib/linkedin-token";
 import { toErrorMessage } from "@/lib/runtime";
 import { isLocale, type Locale } from "@/lib/site";
@@ -124,8 +124,7 @@ function isPublishableDraft(draft: LinkedinDraft, options: CliOptions): boolean 
   if (draft.sourceType === "project" && !options.includeProjects && !options.sourceType) {
     return false;
   }
-  // Signals stay draft-only until human approval (playbook HITL gate).
-  if (draft.sourceType === "signal" && draft.status !== "approved") {
+  if (requiresLinkedinEditorialApproval(draft)) {
     return false;
   }
   if (
@@ -143,8 +142,10 @@ async function listCandidateSlugs(options: CliOptions): Promise<string[]> {
   if (options.slug) {
     const draft = await readDraft(options.slug);
     if (!isPublishableDraft(draft, options)) {
-      if (draft.sourceType === "signal" && draft.status !== "approved") {
-        console.log(`SKIPPED: ${options.slug} signal requires status=approved before publish.`);
+      if (draft.status === "published" || draft.publishedUrl) {
+        console.log(`SKIPPED: ${options.slug} already published.`);
+      } else if (requiresLinkedinEditorialApproval(draft)) {
+        console.log(`SKIPPED: ${options.slug} requires status=approved before publish.`);
       }
       return [];
     }
@@ -238,6 +239,11 @@ async function main(): Promise<void> {
 
     if (draft.status === "published" || draft.publishedUrl) {
       console.log(`SKIPPED: ${slug} already published (${draft.publishedUrl ?? "no-url"})`);
+      continue;
+    }
+
+    if (!isPublishableDraft(draft, options)) {
+      console.log(`SKIPPED: ${slug} no longer meets publish requirements.`);
       continue;
     }
 
