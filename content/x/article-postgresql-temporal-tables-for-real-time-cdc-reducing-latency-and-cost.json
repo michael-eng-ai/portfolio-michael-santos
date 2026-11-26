@@ -10,19 +10,17 @@
   "urls": {
     "en": "https://michael.business/en/articles/postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost?utm_source=x&utm_medium=social&utm_campaign=postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost&utm_content=en",
     "pt": "https://michael.business/pt/articles/postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost?utm_source=x&utm_medium=social&utm_campaign=postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost&utm_content=pt",
-    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+    "proof": null
   },
   "locales": {
     "en": {
       "posts": [
-        "Learn how PostgreSQL temporal tables cu…\n\nhttps://michael.business/en/articles/postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost?utm_source=x&utm_medium=social&utm_campaign=postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost&utm_content=en",
-        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+        "PostgreSQL row history and Debezium CDC solve different problems. Skipping the snapshot still streams changes.\n\nhttps://michael.business/en/articles/postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost?utm_source=x&utm_medium=social&utm_campaign=postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost&utm_content=en"
       ]
     },
     "pt": {
       "posts": [
-        "Descubra como tabelas temporais no Post…\n\nhttps://michael.business/pt/articles/postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost?utm_source=x&utm_medium=social&utm_campaign=postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost&utm_content=pt",
-        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+        "Histórico de linhas e CDC resolvem problemas diferentes. Sem snapshot inicial, o Debezium continua transmitindo mudanças.\n\nhttps://michael.business/pt/articles/postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost?utm_source=x&utm_medium=social&utm_campaign=postgresql-temporal-tables-for-real-time-cdc-reducing-latency-and-cost&utm_content=pt"
       ]
     }
   }
