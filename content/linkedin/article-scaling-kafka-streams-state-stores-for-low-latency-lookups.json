@@ -1,0 +1,27 @@
+{
+  "slug": "article-scaling-kafka-streams-state-stores-for-low-latency-lookups",
+  "sourceType": "article",
+  "sourceSlug": "scaling-kafka-streams-state-stores-for-low-latency-lookups",
+  "status": "draft",
+  "generatedAt": "2026-11-27T11:40:34.050Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/scaling-kafka-streams-state-stores-for-low-latency-lookups.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/scaling-kafka-streams-state-stores-for-low-latency-lookups?utm_source=linkedin&utm_medium=social&utm_campaign=scaling-kafka-streams-state-stores-for-low-latency-lookups&utm_content=en",
+    "pt": "https://michael.business/pt/articles/scaling-kafka-streams-state-stores-for-low-latency-lookups?utm_source=linkedin&utm_medium=social&utm_campaign=scaling-kafka-streams-state-stores-for-low-latency-lookups&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "hook": "When a spike in user traffic caused a 30‑second latency breach in our real‑time recommendation service, scaling Kafka Streams state stores cut latency to under 200 ms and saved $120k monthly on infra.",
+      "body": "When a spike in user traffic caused a 30‑second latency breach in our real‑time recommendation service, scaling Kafka Streams state stores cut latency to under 200 ms and saved $120k monthly on infra.\n\nOperational proof is in the GitHub repository referenced in this post.",
+      "cta": "Read the full article on the site, then open GitHub for operational proof."
+    },
+    "pt": {
+      "hook": "Quando um pico de tráfego aumentou a latência para 30 s em nossa recomendação em tempo real, dimensionar os state stores do Kafka Streams reduziu para <200 ms, economizando US$120 k por mês.",
+      "body": "Quando um pico de tráfego aumentou a latência para 30 s em nossa recomendação em tempo real, dimensionar os state stores do Kafka Streams reduziu para <200 ms, economizando US$120 k por mês.\n\nA prova operacional está no repositório GitHub referenciado neste post.",
+      "cta": "Leia o artigo completo no site e abra o GitHub como prova operacional."
+    }
+  }
+}
