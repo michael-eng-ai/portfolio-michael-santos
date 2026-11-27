@@ -1,0 +1,29 @@
+{
+  "slug": "article-scaling-kafka-streams-state-stores-for-low-latency-lookups",
+  "sourceType": "article",
+  "sourceSlug": "scaling-kafka-streams-state-stores-for-low-latency-lookups",
+  "status": "draft",
+  "generatedAt": "2026-11-27T11:40:34.649Z",
+  "publishedUrl": null,
+  "mediaPath": "/images/articles/scaling-kafka-streams-state-stores-for-low-latency-lookups.png",
+  "mediaSource": "ai",
+  "urls": {
+    "en": "https://michael.business/en/articles/scaling-kafka-streams-state-stores-for-low-latency-lookups?utm_source=x&utm_medium=social&utm_campaign=scaling-kafka-streams-state-stores-for-low-latency-lookups&utm_content=en",
+    "pt": "https://michael.business/pt/articles/scaling-kafka-streams-state-stores-for-low-latency-lookups?utm_source=x&utm_medium=social&utm_campaign=scaling-kafka-streams-state-stores-for-low-latency-lookups&utm_content=pt",
+    "proof": "https://github.com/michael-eng-ai/kafka-debezium-dbt"
+  },
+  "locales": {
+    "en": {
+      "posts": [
+        "When a spike in user traffic caused a 30‑second latency breach…\n\nhttps://michael.business/en/articles/scaling-kafka-streams-state-stores-for-low-latency-lookups?utm_source=x&utm_medium=social&utm_campaign=scaling-kafka-streams-state-stores-for-low-latency-lookups&utm_content=en",
+        "Operational proof lives on GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    },
+    "pt": {
+      "posts": [
+        "Quando um pico de tráfego aumentou a latência para 30 s em nos…\n\nhttps://michael.business/pt/articles/scaling-kafka-streams-state-stores-for-low-latency-lookups?utm_source=x&utm_medium=social&utm_campaign=scaling-kafka-streams-state-stores-for-low-latency-lookups&utm_content=pt",
+        "A prova operacional esta no GitHub.\n\nhttps://github.com/michael-eng-ai/kafka-debezium-dbt"
+      ]
+    }
+  }
+}
