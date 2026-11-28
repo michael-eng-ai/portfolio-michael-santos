@@ -75,7 +75,33 @@ jobs:
     timeout-minutes: 45
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Detect newly added articles on push
+        if: github.event_name == 'push'
+        id: new_article
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          # Corrections to existing articles must not publish an unrelated draft.
+          set -euo pipefail
+          if ! git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null; then
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          added_articles="$(git diff --name-only --find-renames --diff-filter=A "$BEFORE_SHA" "$GITHUB_SHA" -- 'content/articles/*.json')"
+          if [ -n "$added_articles" ]; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            echo "No newly added article; skipping automatic LinkedIn publishing."
+          fi
+
       - name: Check LinkedIn credentials
+        if: github.event_name == 'workflow_dispatch' || steps.new_article.outputs.found == 'true'
         id: config
         run: |
           if [ -z "${{ secrets.LINKEDIN_ACCESS_TOKEN }}" ]; then
@@ -96,12 +122,6 @@ jobs:
             exit 0
           fi
           echo "ready=true" >> "$GITHUB_OUTPUT"
-
-      - name: Checkout repository
-        if: steps.config.outputs.ready == 'true'
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         if: steps.config.outputs.ready == 'true'
